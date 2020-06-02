@@ -1,6 +1,10 @@
 package Dominio;
 
-public class Tipo_Movimiento {
+import java.io.Serializable;
+
+public class Tipo_Movimiento implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	
 	//Atributos
 	private int id;

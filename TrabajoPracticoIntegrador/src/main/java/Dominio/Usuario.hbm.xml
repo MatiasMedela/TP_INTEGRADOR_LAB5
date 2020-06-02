@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 02/06/2020 14:45:45 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="Dominio.Usuario" table="USUARIO">
+        <id name="apellido" type="java.lang.String">
+            <column name="APELLIDO" />
+            <generator class="assigned" />
+        </id>
+        <property name="Legajo" type="java.lang.String">
+            <column name="LEGAJO" />
+        </property>
+        <many-to-one name="tipoUsuario" class="Dominio.Tipo_Usuario" fetch="join">
+            <column name="TIPOUSUARIO" />
+        </many-to-one>
+        <many-to-one name="genero" class="Dominio.Genero" fetch="join">
+            <column name="GENERO" />
+        </many-to-one>
+        <many-to-one name="localidad" class="Dominio.Localidad" fetch="join">
+            <column name="LOCALIDAD" />
+        </many-to-one>
+        <property name="estado" type="boolean">
+            <column name="ESTADO" />
+        </property>
+        <property name="nombre" type="java.lang.String">
+            <column name="NOMBRE" />
+        </property>
+        <property name="fechaNacimiento" type="java.lang.String">
+            <column name="FECHANACIMIENTO" />
+        </property>
+        <property name="direccion" type="java.lang.String">
+            <column name="DIRECCION" />
+        </property>
+        <property name="e_mail" type="java.lang.String">
+            <column name="E_MAIL" />
+        </property>
+    </class>
+</hibernate-mapping>

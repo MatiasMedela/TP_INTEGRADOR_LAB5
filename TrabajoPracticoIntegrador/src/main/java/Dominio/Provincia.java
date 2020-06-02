@@ -1,7 +1,11 @@
 package Dominio;
 
-public class Provincia {
+import java.io.Serializable;
 
+public class Provincia implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	//Atributos
 	private int id;
 	private String descripcion;

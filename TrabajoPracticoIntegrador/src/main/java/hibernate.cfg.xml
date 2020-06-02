@@ -16,5 +16,13 @@
         <mapping class ="Dominio.Tipo_Cuenta" resource="Dominio/Tipo_Cuenta.hbm.xml"/>
         <mapping class ="Dominio.Tipo_Usuario" resource="Dominio/Tipo_Usuario.hbm.xml"/>
         <mapping class="Dominio.Tipo_Movimiento" resource="Dominio/Tipo_Movimiento.hbm.xml"/>
+        <mapping class="Dominio.Localidad" resource="Dominio/Localidad.hbm.xml"/>
+        <mapping class="Dominio.Usuario" resource="Dominio/Usuario.hbm.xml"/>
+        <mapping class="Dominio.Logueo" resource="Dominio/Logueo.hbm.xml"/>
+        <mapping class="Dominio.Cuenta" resource="Dominio/Cuenta.hbm.xml"/>
+        <mapping class="Dominio.Movimiento" resource="Dominio/Movimiento.hbm.xml"/>
+        <mapping class="Dominio.Prestamo" resource="Dominio/Prestamo.hbm.xml"/>
+        <mapping class="Dominio.Cuota" resource="Dominio/Cuota.hbm.xml"/>
+        <mapping class="Dominio.Tranferencia" resource="Dominio/Tranferencia.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
