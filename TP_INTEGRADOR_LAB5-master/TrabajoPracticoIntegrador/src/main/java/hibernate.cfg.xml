@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/DB_Banco?createIfNotExist=true&amp;serverTimezone=UTC</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hbm2ddl.auto">create</property>
+        
+        <mapping class="Entidad.Genero" resource="Entidad/Genero.hbm.xml"/>
+        <mapping class="Entidad.Provincia" resource="Entidad/Provincia.hbm.xml"/>
+        <mapping class ="Entidad.Tipo_Cuenta" resource="Entidad/Tipo_Cuenta.hbm.xml"/>
+        <mapping class ="Entidad.Tipo_Usuario" resource="Entidad/Tipo_Usuario.hbm.xml"/>
+        <mapping class="Entidad.Tipo_Movimiento" resource="Entidad/Tipo_Movimiento.hbm.xml"/>
+        <mapping class="Entidad.Localidad" resource="Entidad/Localidad.hbm.xml"/>
+        <mapping class="Entidad.Usuario" resource="Entidad/Usuario.hbm.xml"/>
+        <mapping class="Entidad.Logueo" resource="Entidad/Logueo.hbm.xml"/>
+        <mapping class="Entidad.Cuenta" resource="Entidad/Cuenta.hbm.xml"/>
+        <mapping class="Entidad.Movimiento" resource="Entidad/Movimiento.hbm.xml"/>
+        <mapping class="Entidad.Prestamo" resource="Entidad/Prestamo.hbm.xml"/>
+        <mapping class="Entidad.Cuota" resource="Entidad/Cuota.hbm.xml"/>
+        <mapping class="Entidad.Tranferencia" resource="Entidad/Tranferencia.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>
