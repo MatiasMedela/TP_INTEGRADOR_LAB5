@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 02/06/2020 14:49:58 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="Dominio.Movimiento" table="MOVIMIENTO">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="tipoMovimiento" class="Dominio.Tipo_Movimiento" fetch="join">
+            <column name="TIPOMOVIMIENTO" />
+        </many-to-one>
+        <property name="cbuOrigen" type="java.lang.String">
+            <column name="CBUORIGEN" />
+        </property>
+        <property name="Fecha" type="java.lang.String">
+            <column name="FECHA" />
+        </property>
+        <property name="importe" type="float">
+            <column name="IMPORTE" />
+        </property>
+    </class>
+</hibernate-mapping>
