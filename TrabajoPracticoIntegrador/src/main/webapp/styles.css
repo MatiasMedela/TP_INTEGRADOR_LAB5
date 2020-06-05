@@ -3,20 +3,31 @@
 }
 
 .btn-grid {
-    display: inline-block;
-    font-weight: 400;
-    color: #212529;
-    text-align: center;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-color: transparent;
-    border: 1px solid transparent;
+	display: block;
+	margin: auto;
     padding: .2rem .5rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: .25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.edit-text {
+	cursor: hand;
+	color: dimgray;
+	text-decoration: underline;
+	text-align: center;
+}
+
+.form-detalle {
+    height: calc(1em + .75rem + 2px);
+    margin-top: -3px;
+    margin-left: -6.5px;
+    padding: .375rem .35rem;
+}
+
+#text-ident {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tableMovements th {
+	border-top: 0px;
 }
