@@ -6,6 +6,7 @@
 	display: block;
 	margin: auto;
     padding: .2rem .5rem;
+    border: 1px solid gray;
 }
 
 .edit-text {
