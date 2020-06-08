@@ -18,32 +18,8 @@
 <link rel=StyleSheet href="styles.css" type="text/css" media=screen>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#"> <img
-			src="https://toppng.com/uploads/preview/indian-bank-icon-bank-sign-icon-11553435301aafxlgwngt.png"
-			width="35" height="35" alt="" loading="lazy">
-		</a>
-		<!-- NAVBAR -->
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" href="./index.jsp">Inicio</a></li>
-				<li class="nav-item"><a class="nav-link" href="./transferencias.jsp">Transferencias</a>
-				</li>
-				<li class="nav-item active"><a class="nav-link"
-					href="./prestamos.jsp">Préstamos</a></li>
-			</ul>
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> Cuenta </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">Configuración</a> <a
-							class="dropdown-item" href="#">Salir</a>
-					</div></li>
-			</ul>
-		</div>
-	</nav>
+
+<jsp:include page="NavbarClient.html"></jsp:include>
 	<!-- END NAVBAR -->
 
 	<!-- CONTENT -->
@@ -65,8 +41,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-4 pt-2 mb-3"
-				style="text-align: right;">
+			<div class="col-4 pt-2 mb-3" style="text-align: right;">
 				<p>Importe:</p>
 			</div>
 			<div class="col-8 mb-3">
@@ -75,8 +50,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-4 pt-2 mb-3"
-				style="text-align: right;">
+			<div class="col-4 pt-2 mb-3" style="text-align: right;">
 				<p>Meses:</p>
 			</div>
 			<div class="col-8 mb-3">
@@ -97,48 +71,57 @@
 				<p>$ .-</p>
 			</div>
 		</div>
-		<div style="justify-content: flex-end; display:flex;">
-			<button class="btn mb-3 btn-success" data-toggle="modal" data-target="#ModalPrestamo">Solicitar</button>
+		<div style="justify-content: flex-end; display: flex;">
+			<button class="btn mb-3 btn-success" data-toggle="modal"
+				data-target="#ModalPrestamo">Solicitar</button>
 		</div>
 	</div>
 	<!-- END CONTENT -->
 
-<!-- MODAL DETAILS -->
-<div class="modal fade" id="ModalPrestamo" tabindex="-1" role="dialog" aria-labelledby="ModalDetailsPrestamo" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Confirmar solicitud de préstamo</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      	<div class="row">
-      		<div class="col-6" style="text-align:right;">
-    		  <p>Cuenta:</p>
-	          <p>Importe solicitado:</p>
-	          <p>Cantidad de meses:</p>
-	          <p>Total a pagar:</p>
-      		</div>
-      		<div class="col">
-    		  <p>Cuenta principal</p>
-	          <p>$100.000</p>
-	          <p>3</p>
-	          <p>$125.000</p>
-	          </div>
-          </div>
-      	</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" >Cancelar</button>
-        <button type="button" class="btn btn-success">Solicitar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- END MODAL DETAILS -->
+	<!-- MODAL DETAILS -->
+	<div class="modal fade" id="ModalPrestamo" tabindex="-1" role="dialog"
+		aria-labelledby="ModalDetailsPrestamo" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Confirmar
+						solicitud de préstamo</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-6" style="text-align: right;">
+							<p>Cuenta:</p>
+							<p>Importe solicitado:</p>
+							<p>Cantidad de meses:</p>
+							<p>Total a pagar:</p>
+						</div>
+						<div class="col">
+							<p>Cuenta principal</p>
+							<p>$100.000</p>
+							<p>3</p>
+							<p>$125.000</p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-success">Solicitar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END MODAL DETAILS -->
 
 </body>
+<script type="text/javascript">
+	CurrentItem = document.getElementById("mnPrestamos");
+	CurrentItem.className +=" active";
+</script>
+
 </html>
 
 

@@ -18,32 +18,8 @@
 <link rel=StyleSheet href="styles.css" type="text/css" media=screen>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#"> <img
-			src="https://toppng.com/uploads/preview/indian-bank-icon-bank-sign-icon-11553435301aafxlgwngt.png"
-			width="35" height="35" alt="" loading="lazy">
-		</a>
-		<!-- NAVBAR -->
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" href="./index.jsp">Inicio</a></li>
-				<li class="nav-item"><a class="nav-link" href="./transferencias.jsp">Transferencias</a>
-				</li>
-				<li class="nav-item active"><a class="nav-link"
-					href="./prestamos.jsp">Préstamos</a></li>
-			</ul>
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> Cuenta </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">Configuración</a> <a
-							class="dropdown-item" href="#">Salir</a>
-					</div></li>
-			</ul>
-		</div>
-	</nav>
+
+<jsp:include page="NavbarClient.html"></jsp:include>
 	<!-- END NAVBAR -->
 
 	<!-- CONTENT -->
@@ -54,8 +30,8 @@
 				<h3 style="margin-top: 20px;">Mis préstamos</h3>
 			</div>
 			<div class="col">
-				<a href="./solicitudPrestamo.jsp" class="btn btn-primary" style="float:right;">Solicitar
-					préstamo</a>
+				<a href="./solicitudPrestamo.jsp" class="btn btn-primary"
+					style="float: right;">Solicitar préstamo</a>
 			</div>
 
 		</div>
@@ -95,6 +71,11 @@
 	<!-- END CONTENT -->
 
 </body>
+
+<script type="text/javascript">
+	CurrentItem = document.getElementById("mnPrestamos");
+	CurrentItem.className +=" active";
+</script>
 </html>
 
 
