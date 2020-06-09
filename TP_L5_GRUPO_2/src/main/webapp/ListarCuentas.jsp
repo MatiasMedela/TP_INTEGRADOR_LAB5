@@ -45,24 +45,24 @@
 					<td>Leandro Lescano</td>
 					<td>Pesos</td>
 					<td>$10.000</td>
-					<td><img src="Imagenes/edit.png" style="display:block;"/></td>
-					<td><img src="Imagenes/delete.png" style="display:block;"/></td>
+					<td><img src="Imagenes/edit.png" style="display:block;" id="edit" name ="edit"/></td>
+					<td><img src="Imagenes/delete.png" style="display:block;" id="delete" name="delete"/></td>
 				</tr>
 				<tr>
 					<td>Caja ahorro en dólares</td>
 					<td>Juan Cassano</td>
 					<td>Dólares</td>
 					<td>$200</td>
-					<td><img src="Imagenes/edit.png" style="display:block;"/></td>
-					<td><img src="Imagenes/delete.png" style="display:block;"/></td>
+					<td><img src="Imagenes/edit.png" style="display:block;"  id="edit" name ="edit"/></td>
+					<td><img src="Imagenes/delete.png" style="display:block;" id="delete" name="delete"/></td>
 				</tr>
 				<tr>
 					<td>Cuenta corriente</td>
 					<td>Matias Medela</td>
 					<td>Pesos</td>
 					<td>$350.000</td>
-					<td><img src="Imagenes/edit.png" style="display:block;"/></td>
-					<td><img src="Imagenes/delete.png" style="display:block;"/></td>
+					<td><img src="Imagenes/edit.png" style="display:block;"  id="edit" name ="edit"/></td>
+					<td><img src="Imagenes/delete.png" style="display:block;" id="delete" name="delete"/></td>
 				</tr>
 			</tbody>
 		</table>
@@ -127,22 +127,51 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog"
+		aria-labelledby="ModalDetailsAccount" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Eliminar Cuenta</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<p>Estas seguro que desea eliminar la cuenta</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" disabled>Guardar
+						cambios</button>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Eliminar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 <script type="text/javascript">
 	CurrentItem = document.getElementById("mnInicio");
 	CurrentItem.className +=" active";
 
-	$('#edit-ident').click(function() {
-		if ($('#edit-ident').html() == "Editar") {
-			$('#text-ident').attr('hidden', true);
-			$('#input-ident').attr('hidden', false);
-			$('#edit-ident').html('Aceptar');
-		} else {
-			$('#text-ident').attr('hidden', false);
-			$('#input-ident').attr('hidden', true);
-			$('#edit-ident').html('Editar');
-		}
-	})
+	var editar = document.getElementById("edit");
+	
+	editar.addEventListener("click", function(){
+		$('#ModalDetails').modal('show');
+		
+	}, false);
+	
+	var eliminar = document.getElementById("delete");
+	
+	eliminar.addEventListener("click", function(){
+		$('#ModalDelete').modal('show');
+		
+	}, false);
+	
 </script>
 </html>

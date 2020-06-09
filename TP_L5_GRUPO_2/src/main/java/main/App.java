@@ -546,8 +546,88 @@ SessionFactory sessionFactory;
     	session.save(cuenta8);
     	session.save(cuenta9);
     	session.save(cuenta10);
+    	//----------------------------------------------------------------
+    	/*--CARGO DATOS EN LA TABLA MOVIMIENTOS--*/
+    	Movimiento movimiento1 =new Movimiento();
+    	movimiento1.setIdMovimiento(1);
+    	movimiento1.setTipoMovimiento(tipoMovimient1);
+    	movimiento1.setCbuOrigen(cuenta1.getCbu());
+    	movimiento1.setFecha(cuenta1.getFechaCreacion());
+    	movimiento1.setImporte(cuenta1.getSaldo());
     	
+    	Movimiento movimiento2 =new Movimiento();
+    	movimiento2.setIdMovimiento(2);
+    	movimiento2.setTipoMovimiento(tipoMovimient1);
+    	movimiento2.setCbuOrigen(cuenta2.getCbu());
+    	movimiento2.setFecha(cuenta2.getFechaCreacion());
+    	movimiento2.setImporte(cuenta2.getSaldo());
     	
+    	Movimiento movimiento3 =new Movimiento();
+    	movimiento3.setIdMovimiento(3);
+    	movimiento3.setTipoMovimiento(tipoMovimient1);
+    	movimiento3.setCbuOrigen(cuenta3.getCbu());
+    	movimiento3.setFecha(cuenta3.getFechaCreacion());
+    	movimiento3.setImporte(cuenta3.getSaldo());
+    	
+    	Movimiento movimiento4 =new Movimiento();
+    	movimiento4.setIdMovimiento(4);
+    	movimiento4.setTipoMovimiento(tipoMovimient1);
+    	movimiento4.setCbuOrigen(cuenta4.getCbu());
+    	movimiento4.setFecha(cuenta4.getFechaCreacion());
+    	movimiento4.setImporte(cuenta4.getSaldo());
+    	
+    	Movimiento movimiento5 =new Movimiento();
+    	movimiento5.setIdMovimiento(5);
+    	movimiento5.setTipoMovimiento(tipoMovimient1);
+    	movimiento5.setCbuOrigen(cuenta5.getCbu());
+    	movimiento5.setFecha(cuenta5.getFechaCreacion());
+    	movimiento5.setImporte(cuenta5.getSaldo());
+    	
+    	Movimiento movimiento6 =new Movimiento();
+    	movimiento6.setIdMovimiento(6);
+    	movimiento6.setTipoMovimiento(tipoMovimient1);
+    	movimiento6.setCbuOrigen(cuenta6.getCbu());
+    	movimiento6.setFecha(cuenta6.getFechaCreacion());
+    	movimiento6.setImporte(cuenta6.getSaldo());
+    	
+    	Movimiento movimiento7 =new Movimiento();
+    	movimiento7.setIdMovimiento(7);
+    	movimiento7.setTipoMovimiento(tipoMovimient1);
+    	movimiento7.setCbuOrigen(cuenta7.getCbu());
+    	movimiento7.setFecha(cuenta7.getFechaCreacion());
+    	movimiento7.setImporte(cuenta7.getSaldo());
+    	
+    	Movimiento movimiento8 =new Movimiento();
+    	movimiento8.setIdMovimiento(8);
+    	movimiento8.setTipoMovimiento(tipoMovimient1);
+    	movimiento8.setCbuOrigen(cuenta8.getCbu());
+    	movimiento8.setFecha(cuenta8.getFechaCreacion());
+    	movimiento8.setImporte(cuenta8.getSaldo());
+    	
+    	Movimiento movimiento9 =new Movimiento();
+    	movimiento9.setIdMovimiento(9);
+    	movimiento9.setTipoMovimiento(tipoMovimient1);
+    	movimiento9.setCbuOrigen(cuenta9.getCbu());
+    	movimiento9.setFecha(cuenta9.getFechaCreacion());
+    	movimiento9.setImporte(cuenta9.getSaldo());
+    	
+    	Movimiento movimiento10 =new Movimiento();
+    	movimiento10.setIdMovimiento(10);
+    	movimiento10.setTipoMovimiento(tipoMovimient1);
+    	movimiento10.setCbuOrigen(cuenta10.getCbu());
+    	movimiento10.setFecha(cuenta10.getFechaCreacion());
+    	movimiento10.setImporte(cuenta10.getSaldo());
+  	
+    	session.save(movimiento1);
+    	session.save(movimiento2);
+    	session.save(movimiento3);
+    	session.save(movimiento4);
+    	session.save(movimiento5);
+    	session.save(movimiento6);
+    	session.save(movimiento7);
+    	session.save(movimiento8);
+    	session.save(movimiento9);
+    	session.save(movimiento10);
     	//----------------------------------------------------------------
     	session.getTransaction().commit();
     	session.close();
