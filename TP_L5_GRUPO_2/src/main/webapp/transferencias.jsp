@@ -29,9 +29,15 @@
 			<div class="col">
 				<h3 style="margin-top: 20px;">Mis transferencias</h3>
 			</div>
-			<div class="col">
-				<a href="./nuevaTransferencia.jsp" class="btn btn-primary" style="float:right;">Nueva transferencia</a>
-			</div>
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownTransf" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Nueva transferencia
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownTransf">
+    <a class="dropdown-item" href="./nuevaTransferencia.jsp">A cuenta propia</a>
+    <a class="dropdown-item" href="./nuevaTransferenciaTerceros.jsp">A terceros</a>
+
+  </div>
 
 		</div>
 		<table class="table">
