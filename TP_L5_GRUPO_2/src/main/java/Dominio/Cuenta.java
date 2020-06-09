@@ -13,6 +13,7 @@ public class Cuenta implements Serializable{
 	private Tipo_Cuenta tipoCuenta;
 	private float saldo;
 	private String cbu;
+	private String alias;
 	private boolean estado;
 	
 	//Constructor
@@ -21,7 +22,7 @@ public class Cuenta implements Serializable{
 		
 	}
 	
-	public Cuenta(int id,Usuario usuario,String fechaCreacion,Tipo_Cuenta tipoCuenta,float saldo,String cbu,boolean estado)
+	public Cuenta(int id,Usuario usuario,String fechaCreacion,Tipo_Cuenta tipoCuenta,float saldo,String cbu,String alias,boolean estado)
 	{
 		this.idCuenta = id;
 		this.usuario = usuario;
@@ -29,16 +30,18 @@ public class Cuenta implements Serializable{
 		this.tipoCuenta = tipoCuenta;
 		this.saldo = saldo;
 		this.cbu=cbu;
+		this.alias = alias;
 		this.estado = estado;
 	}
 	
-	public Cuenta(Usuario usuario,String fechaCreacion,Tipo_Cuenta tipoCuenta,float saldo,String cbu,boolean estado)
+	public Cuenta(Usuario usuario,String fechaCreacion,Tipo_Cuenta tipoCuenta,float saldo,String cbu,String alias,boolean estado)
 	{
 		this.usuario = usuario;
 		this.fechaCreacion = fechaCreacion;
 		this.tipoCuenta = tipoCuenta;
 		this.saldo = saldo;
 		this.cbu=cbu;
+		this.alias = alias;
 		this.estado = estado;
 	}
 	
@@ -89,6 +92,16 @@ public class Cuenta implements Serializable{
 
 	public void setCbu(String cbu) {
 		this.cbu = cbu;
+	}
+	
+	public String GetAlias()
+	{
+		return this.alias;
+	}
+	
+	public void SetAlias(String alias)
+	{
+		this.alias = alias;
 	}
 	
 	public boolean GetEstado()

@@ -2,11 +2,14 @@ package Dominio;
 
 import java.io.Serializable;
 
+import javax.persistence.Id;
+
 public class Usuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos
+	@Id
 	private String Legajo;
 	private Tipo_Usuario tipoUsuario;
 	private Genero genero;

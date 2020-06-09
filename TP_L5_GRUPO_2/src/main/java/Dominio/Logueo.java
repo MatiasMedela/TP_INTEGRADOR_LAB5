@@ -6,7 +6,7 @@ public class Logueo implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	//Atributos
-	private String idLogueo;
+	private int idLogueo;
 	private String nUsuario;
 	private String contrasenia;
 	private Usuario usuario;
@@ -17,7 +17,7 @@ public class Logueo implements Serializable{
 		
 	}
 	
-	public Logueo(String id,String nUsuario,String contrasenia,Usuario usuario)
+	public Logueo(int id,String nUsuario,String contrasenia,Usuario usuario)
 	{
 		this.idLogueo = id;
 		this.nUsuario = nUsuario;
@@ -33,12 +33,12 @@ public class Logueo implements Serializable{
 	}
 	
 	//Getters and Setters
-	public String GetIdLogueo()
+	public int GetIdLogueo()
 	{
 		return this.idLogueo;
 	}
 	
-	public void SetIdLogueo(String id)
+	public void SetIdLogueo(int id)
 	{
 		this.idLogueo = id;
 	}
