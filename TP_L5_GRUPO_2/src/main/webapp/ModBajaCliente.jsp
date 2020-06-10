@@ -63,15 +63,11 @@ $(document).ready(function() {
 <title></title>
 </head>
 <body>
-<!-- Image and text -->
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#">
-    <img src="Imagenes/Bancoicon.png" width="100" height="57" class="d-inline-block align-center" alt=""> &nbsp;Menu Principal
-  </a>
-  <a class="navbar-brand" data-toggle="modal" href="#" data-target="#ModalCerrarSession">
-    <img src="Imagenes/UserLog.png" width="80" height="57" class=" align-right" alt="">&nbsp;<strong>Nombre De Usuario</strong>
-  </a>
-</nav>
+
+<!-- END NAVBAR -->
+<jsp:include page="NavbarAdmin.html"></jsp:include>
+
+
 <fieldset class="border p-1">
 <legend  class="w-auto">Modificacion/Baja Cliente</legend>
 	 <div class="container-fluid">
