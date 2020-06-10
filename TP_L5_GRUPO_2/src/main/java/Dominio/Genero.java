@@ -2,6 +2,8 @@ package Dominio;
 
 import java.io.Serializable;
 
+import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
+
 public class Genero implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -48,4 +50,11 @@ public class Genero implements Serializable {
 	}
 	
 	//Métodos
+	public void InitGenero() {
+		
+	}
+	public void DestroyGenero() {
+			
+	}
+		
 }

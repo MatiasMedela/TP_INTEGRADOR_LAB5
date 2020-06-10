@@ -1,5 +1,6 @@
 package main;
 
+import org.apache.catalina.core.ApplicationContext;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -8,6 +9,8 @@ import org.hibernate.service.ServiceRegistryBuilder;
 import Dominio.*;
 
 public class App {
+	//bean
+	static ApplicationContext AppContext;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
