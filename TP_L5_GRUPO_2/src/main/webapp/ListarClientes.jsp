@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -342,5 +342,4 @@ $(document).ready(function() {
 <!-- modal cerrar session  -->
 
 </body>
->>>>>>> 5429566173242f057915593cb9daeaae8ee52881
 </html>
