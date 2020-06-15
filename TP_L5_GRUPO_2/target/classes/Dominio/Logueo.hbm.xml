@@ -4,9 +4,9 @@
 <!-- Generated 02/06/2020 11:58:49 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="Dominio.Logueo" table="LOGUEO">
-        <id name="idLogueo" type="java.lang.String" access="field">
+        <id name="idLogueo" type="int" access="field">
             <column name="ID_LOGUEO" />
-            <generator class="increment" />
+            <generator class="identity" />
         </id>
         <property name="nUsuario" type="java.lang.String" access="field">
             <column name="USUARIO" />
@@ -14,7 +14,9 @@
         <property name="contrasenia" type="java.lang.String" access="field">
             <column name="CONTRASENIA" />
         </property>
-      <one-to-one name="usuario" access="field" class="Dominio.Logueo"></one-to-one>
+       <many-to-one name="usuario" class="Dominio.Usuario" access="field" fetch="join" unique ="true">
+            <column name="ID_Usuario" />
+        </many-to-one>
       
     </class>
 </hibernate-mapping>
