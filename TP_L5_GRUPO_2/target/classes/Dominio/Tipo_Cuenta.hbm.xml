@@ -5,7 +5,7 @@
 <hibernate-mapping>
     <class name="Dominio.Tipo_Cuenta" table="TIPO_CUENTA">
         <id name="idTipoCuenta" type="int" access="field">
-            <column name="ID" />
+            <column name="ID_TIPO_CUENTA" />
             <generator class="assigned" />
         </id>
         <property name="descripcion" type="java.lang.String" access="field">

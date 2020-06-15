@@ -2,7 +2,7 @@ package Dominio;
 
 import java.io.Serializable;
 
-public class Tranferencia implements Serializable {
+public class Transferencia implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -12,19 +12,19 @@ public class Tranferencia implements Serializable {
 	private String cbuDestino;
 	
 	//Constructor
-	public Tranferencia()
+	public Transferencia()
 	{
 		
 	}
 	
-	public Tranferencia(int id,Movimiento movimiento,String cbuDestino)
+	public Transferencia(int id,Movimiento movimiento,String cbuDestino)
 	{
 		this.idTransferencia = id;
 		this.movimiento = movimiento;
 		this.cbuDestino= cbuDestino;
 	}
 	
-	public Tranferencia(Movimiento movimiento,String cbuDestino)
+	public Transferencia(Movimiento movimiento,String cbuDestino)
 	{
 		this.movimiento = movimiento;
 		this.cbuDestino= cbuDestino;

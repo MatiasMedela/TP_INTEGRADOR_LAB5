@@ -4,12 +4,12 @@
 <!-- Generated 02/06/2020 14:45:45 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="Dominio.Usuario" table="USUARIO">
-        <id name="apellido" type="java.lang.String">
-            <column name="APELLIDO" />
+        <id name="Legajo" type="java.lang.String">
+            <column name="LEGAJO" />
             <generator class="assigned" />
         </id>
-        <property name="Legajo" type="java.lang.String">
-            <column name="LEGAJO" />
+        <property name="apellido" type="java.lang.String">
+            <column name="APELLIDO" />
         </property>
         <many-to-one name="tipoUsuario" class="Dominio.Tipo_Usuario" fetch="join">
             <column name="TIPOUSUARIO" />

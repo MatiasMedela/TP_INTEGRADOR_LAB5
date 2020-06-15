@@ -23,6 +23,9 @@
         <property name="cbu" type="java.lang.String">
             <column name="CBU" />
         </property>
+        <property name="alias" type="java.lang.String" access="field" unique="true">
+            <column name="ALIAS" />
+        </property>
         <property name="estado" type="boolean" access="field">
             <column name="ESTADO" />
         </property>

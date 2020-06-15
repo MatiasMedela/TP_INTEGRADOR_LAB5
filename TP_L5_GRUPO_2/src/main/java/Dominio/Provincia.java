@@ -62,5 +62,10 @@ public class Provincia implements Serializable{
 	}
 	
 	//Métodos
+
+	@Override
+	public String toString() {
+		return idProvincia + " - Nombre: " + descripcion + " - Código: " + codigo;
+	}
 	
 }

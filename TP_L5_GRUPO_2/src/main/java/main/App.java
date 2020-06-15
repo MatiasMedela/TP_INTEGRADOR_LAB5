@@ -1,20 +1,27 @@
 package main;
 
+import java.util.List;
+
 import org.apache.catalina.core.ApplicationContext;
+import org.apache.log4j.BasicConfigurator;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import Dominio.*;
+import Negocio.ProvinciaNegocio;
 
 public class App {
 	//bean
 	static ApplicationContext AppContext;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-SessionFactory sessionFactory;
+    	//insertarRegistros(); //Ejecutar solo para crear y llenar la BD.	
+	}
+	
+	public static void insertarRegistros() {
+    	SessionFactory sessionFactory;
     	
     	Configuration configuration = new Configuration();
     	configuration.configure();	
@@ -631,6 +638,7 @@ SessionFactory sessionFactory;
     	session.save(movimiento8);
     	session.save(movimiento9);
     	session.save(movimiento10);
+
     	//----------------------------------------------------------------
     	session.getTransaction().commit();
     	session.close();
