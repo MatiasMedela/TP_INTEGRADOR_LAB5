@@ -10,6 +10,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import Dominio.*;
+import Negocio.CuentaNegocio;
 import Negocio.ProvinciaNegocio;
 
 public class App {
@@ -17,7 +18,7 @@ public class App {
 	static ApplicationContext AppContext;
 
 	public static void main(String[] args) {
-    	//insertarRegistros(); //Ejecutar solo para crear y llenar la BD.	
+    	//insertarRegistros(); //Ejecutar solo para crear y llenar la BD.
 	}
 	
 	public static void insertarRegistros() {
