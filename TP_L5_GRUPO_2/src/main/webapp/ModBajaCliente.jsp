@@ -65,8 +65,7 @@ $(document).ready(function() {
 <body>
 
 <!-- END NAVBAR -->
-<%-- <jsp:include page="NavbarAdmin.html"></jsp:include> --%>
-<%@ include file="NavbarAdmin.html" %>
+<jsp:include page="NavbarAdmin.html"></jsp:include>
 
 
 <fieldset class="border p-1">

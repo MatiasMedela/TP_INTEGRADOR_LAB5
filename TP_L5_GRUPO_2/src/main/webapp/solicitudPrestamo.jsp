@@ -19,8 +19,7 @@
 </head>
 <body>
 
-<%-- <jsp:include page="NavbarClient.html"></jsp:include> --%>
-<%@ include file="NavbarClient.html" %>
+<jsp:include page="NavbarClient.html"></jsp:include>
 	<!-- END NAVBAR -->
 
 	<!-- CONTENT -->

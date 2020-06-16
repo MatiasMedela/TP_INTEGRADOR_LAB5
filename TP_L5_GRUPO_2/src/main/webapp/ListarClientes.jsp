@@ -88,8 +88,7 @@
 </head>
 <body>
 	<!-- NAVBAR -->
-<%-- <jsp:include page="NavbarAdmin.html"></jsp:include> --%>
-<%@ include file="NavbarAdmin.html" %>
+<jsp:include page="NavbarAdmin.html"></jsp:include>
 	<!-- END NAVBAR -->
 	<fieldset class="border p-1">
 		<legend class="w-auto">Listado de clientes</legend>

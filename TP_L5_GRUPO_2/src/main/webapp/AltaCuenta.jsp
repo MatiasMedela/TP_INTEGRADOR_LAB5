@@ -29,8 +29,7 @@
 
 <body>
 	<!-- Image and text -->
-<%-- <jsp:include page="NavbarAdmin.html"></jsp:include> --%>
-<%@ include file="NavbarAdmin.html" %>
+<jsp:include page="NavbarAdmin.html"></jsp:include>
 	<!-- END NAVBAR -->
 	<form style="padding: 20px">
 		<fieldset class="border p-2">
