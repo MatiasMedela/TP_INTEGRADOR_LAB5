@@ -18,7 +18,7 @@
 <link rel=StyleSheet href="styles.css" type="text/css" media=screen>
 </head>
 <body>
-<jsp:include page="NavbarClient.html"></jsp:include>l" %>
+<jsp:include page="NavbarClient.html"></jsp:include>
 	<!-- END NAVBAR -->
 
 	<!-- CONTENT -->
