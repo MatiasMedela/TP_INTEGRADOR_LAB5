@@ -21,7 +21,8 @@
 <body>
 
 <!-- NAVBAR -->
-<jsp:include page="NavbarAdmin.html"></jsp:include>
+<%-- <jsp:include page="NavbarAdmin.html"></jsp:include> --%>
+<%@ include file="NavbarAdmin.html" %>
 <!-- END NAVBAR -->
 
 <form style="padding: 20px"> 

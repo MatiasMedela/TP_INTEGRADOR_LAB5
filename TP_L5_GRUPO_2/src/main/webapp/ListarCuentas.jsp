@@ -23,7 +23,8 @@
 <body>
 
 	<!-- END NAVBAR -->
-<jsp:include page="NavbarAdmin.html"></jsp:include>
+<%-- <jsp:include page="NavbarAdmin.html"></jsp:include> --%>
+<%@ include file="NavbarAdmin.html" %>
 	<!-- CONTENT -->
 
 	<div class="container-md">
