@@ -3,11 +3,34 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:shchemaLocation="http://www.springframework.org/schema/beans 
 http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-	<bean id="Genero" class="Dominio.Genero" init-method="InitGenero" destroy-method="DestroyGenero" scope="prototype">
-	<!--por set-->
-		<property name="idGenero" value="default"></property>
+	
+	<!--BEAN LOCALIDAD-->
+	<bean id="BLocalidad" class="Entidad.Localidad" scope="prototype">
+	
 		<property name="descripcion" value="default"></property>
+		
+	</bean>
+	<!--BEAN GENERO-->
+	<bean id="BGenero" class="Entidad.Genero" scope="prototype">
+		<property name="descripcion" value="default"></property>
+	</bean>
+	<!--BEAN TIPO USUARIO-->
+	<bean id="BTipo_Usuario" class="Entidad.Tipo_Usuario" init-method="InitTipo_Usuario" destroy-method="DestroyTipo_Usuario" scope="prototype">
+		<property name="descripcion" value="Cliente"></property>
+	</bean>
+	<!--BEAN USUARIO-->
+	<bean id="BUsuario" class="Entidad.Usuario" init-method="InitUsuario" destroy-method="DestroyUsuario" scope="prototype">
+		<property name="TipoUsu" ref="BTipo_Usuario"></property>
+		<property name="Dni" value="default"></property>
+		<property name="Nombe" value="default"></property>
+		<property name="Apellido" value="default"></property>
+		<property name="Gen" ref="BGenero"></property>
+		<property name="FechaNac" value="12/12/12"></property>
+		<property name="Loc" ref="BLocalidad"></property>
+		<property name="Direccion" value="default"></property>
+		<property name="E-Mail" value="default"></property>
+		<property name="Tel" value="default"></property>
+		<property name="Estado" value="false"></property>
 	</bean>
 
 </beans>
