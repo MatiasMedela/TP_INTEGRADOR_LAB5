@@ -1,141 +1,87 @@
-package Dominio;
+package Entidad;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Id;
 
 public class Usuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos
-	private String Legajo;
-	private Tipo_Usuario tipoUsuario;
-	private Genero genero;
-	private Localidad localidad;
-	private boolean estado;
-	private String nombre;
-	private String apellido;
-	private String fechaNacimiento;
-	private String direccion;
-	private String e_mail;
+	@Id
+	private String IdUsu;
+	private Tipo_Usuario TipoUsu;
+	private String Dni;
+	private String Nombre;
+	private String Apellido;
+	private Genero Gen;
+	private Date FechaNac;
+	private Localidad Loc;
+	private String Direccion;
+	private String E_Mail;
+	private String Tel;
+	private boolean Estado;
 	
-	//Constructor
+	//Constructor vacio
 	public Usuario()
 	{
 		
 	}
-	
+	//constructor por parametros
 	public Usuario(String Legajo, Tipo_Usuario tipoUsuario,Genero genero,Localidad localidad,boolean estado,String nombre,
-				  String apellido,String fechaNacimiento,String direccion,String e_mail)
+				  String apellido,Date fechaNacimiento,String direccion,String e_mail,String tel )
 	{
-		this.Legajo=Legajo;
-		this.tipoUsuario = tipoUsuario;
-		this.genero = genero;
-		this.localidad = localidad;
-		this.estado = estado;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.fechaNacimiento = fechaNacimiento;
-		this.direccion = direccion;
-		this.e_mail = e_mail;
+		this.IdUsu=Legajo;
+		this.TipoUsu = tipoUsuario;
+		this.Gen = genero;
+		this.Loc = localidad;
+		this.Estado = estado;
+		this.Nombre = nombre;
+		this.Apellido = apellido;
+		this.Dni = nombre;
+		this.FechaNac = fechaNacimiento;
+		this.Direccion = direccion;
+		this.E_Mail = e_mail;
+		this.Tel=tel;
 	}
 	
-	public Usuario(Tipo_Usuario tipoUsuario,Genero genero,Localidad localidad,boolean estado,String nombre,
-			  String apellido,String fechaNacimiento,String direccion,String e_mail)
-	{
+	//----comienzo getters and setters
+	public String getIdUsu() {return IdUsu;}
+	public void setIdUsu(String idUsu) {IdUsu = idUsu;}
+	public Tipo_Usuario getTipoUsu() {return TipoUsu;}
+	public void setTipoUsu(Tipo_Usuario tipoUsu) {TipoUsu = tipoUsu;}
+	public String getDni() {return Dni;}
+	public void setDni(String dni) {Dni = dni;}
+	public String getNombre() {return Nombre;}
+	public void setNombre(String nombre) {Nombre = nombre;}
+	public String getApellido() {return Apellido;}
+	public void setApellido(String apellido) {Apellido = apellido;}
+	public Genero getGen() {return Gen;}
+	public void setGen(Genero genero) {Gen = genero;}
+	public Date getFechaNac() {return FechaNac;}
+	public void setFechaNac(Date fechaNacimiento) {FechaNac = fechaNacimiento;}
+	public Localidad getLocalidad() {return Loc;}
+	public void setLocalidad(Localidad localidad) {Loc = localidad;}
+	public String getDireccion() {return Direccion;}
+	public void setDireccion(String direccion) {Direccion = direccion;}
+	public String getE_Mail() {return E_Mail;}
+	public void setE_Mail(String e_Mail) {E_Mail = e_Mail;}
+	public boolean isEstado() {return Estado;}
+	public void setEstado(boolean estado) {Estado = estado;}
+	public String getTel() {return Tel;}
+	public void setTel(String tel) {Tel = tel;}
+	//----fin getters and setters
 	
-		this.tipoUsuario = tipoUsuario;
+	//identificador de version
+	public static long getSerialversionuid() {return serialVersionUID;}
 	
-		this.genero = genero;
-		this.localidad = localidad;
-		this.estado = estado;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.fechaNacimiento = fechaNacimiento;
-		this.direccion = direccion;
-		this.e_mail = e_mail;
+//Métodos
+	//metodo tostring()
+	public String toString() {
+		return "Usuario [IdUsu=" + IdUsu + ", TipoUsu=" + TipoUsu + ", Dni=" + Dni + ", Nombre=" + Nombre
+				+ ", Apellido=" + Apellido + ", Gen=" + Gen + ", FechaNac=" + FechaNac + ", Localidad=" + Loc
+				+ ", Direccion=" + Direccion + ", E_Mail=" + E_Mail + ", Tel=" + Tel + ", Estado=" + Estado + "]";
 	}
-
-	//Getters and Setters
-	public String getLegajo() {
-		return this.Legajo;
-	}
-
-	public void setLegajo(String Legajo) {
-		this.Legajo = Legajo;
-	}
-
-	public Tipo_Usuario getTipoUsuario() {
-		return tipoUsuario;
-	}
-
-	public void setTipoUsuario(Tipo_Usuario tipoUsuario) {
-		this.tipoUsuario = tipoUsuario;
-	}
-
-	public Genero getGenero() {
-		return genero;
-	}
-
-	public void setGenero(Genero genero) {
-		this.genero = genero;
-	}
-
-	public Localidad getLocalidad() {
-		return localidad;
-	}
-
-	public void setLocalidad(Localidad localidad) {
-		this.localidad = localidad;
-	}
-
-	public boolean isEstado() {
-		return estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public String getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(String fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public String getE_mail() {
-		return e_mail;
-	}
-
-	public void setE_mail(String e_mail) {
-		this.e_mail = e_mail;
-	}
-	
-	//Métodos
-
 }
