@@ -19,12 +19,12 @@ public class CuentaController {
 	private CuentaNegocio cuentaN;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ModelAndView cuentasUsuario(@RequestParam("legusuario") String usuario) {
+	public String cuentasUsuario(@RequestParam("legusuario") String usuario, ModelMap modelo) {
 		cuentaN = new CuentaNegocio();
 		List<Cuenta> listadoCuentas = (List<Cuenta>)cuentaN.listar();
-		ModelAndView modelo = new ModelAndView("index");
-		modelo.addObject("listadoCuentasUsuario", listadoCuentas);
-		return modelo;
+		modelo.addAttribute("testmvc", "Prueba paso de datos");
+		modelo.addAttribute("listadoCuentasUsuario", listadoCuentas);
+		return "TP_L5_GRUPO_2/index";
 	}
 	
 }

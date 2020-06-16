@@ -13,7 +13,7 @@
 	<context:component-scan	base-package="TP_L5_GRUPO_2.src.main.java.Controllers" />
 	<mvc:annotation-driven />
 
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="prefix" value="/TP_L5_GRUPO_2/" />
 		<property name="suffix" value=".jsp" />
 		<property name="viewClass"

@@ -17,14 +17,15 @@
 	crossorigin="anonymous"></script>
 <link rel=StyleSheet href="styles.css" type="text/css" media=screen>
 </head>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 <body>
-
 	<!-- END NAVBAR -->
 <jsp:include page="NavbarClient.html"></jsp:include>
 	<!-- CONTENT -->
 
 	<div class="container-md">
 		<h3 style="margin-top: 20px;">Mis cuentas</h3>
+		<c:out value="${testmvc}"/>
 		<table class="table">
 			<thead>
 				<tr>
@@ -37,6 +38,20 @@
 				</tr>
 			</thead>
 			<tbody>
+			<c:forEach items="${ listadoCuentasUsuario }" var="cuenta">
+					<tr>
+					<td>${cuenta.getTipoCuenta()}</td>
+					<td>${cuenta.GetAlias()}</td>
+					<td>Pesos</td>
+					<td>${cuenta.saldo}</td>
+					<td><button type="button" class="btn btn-grid btn-light"
+							data-toggle="modal" data-target="#ModalDetails">Ver
+							detalles</button></td>
+					<td><button type="button" class="btn btn-grid btn-light"
+							data-toggle="modal" data-target="#ModalMovements">Ver
+							movimientos</button></td>
+				</tr>
+			</c:forEach>
 				<tr>
 					<td>Caja ahorro en pesos</td>
 					<td>Cuenta principal</td>
@@ -192,7 +207,7 @@
 		</div>
 	</div>
 	<!-- END MODAL DETAILS -->
-
+    <input type="hidden" value="38326854" name="legusuario" />
 </body>
 
 <script type="text/javascript">
