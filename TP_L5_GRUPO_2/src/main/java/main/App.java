@@ -1,29 +1,31 @@
 package main;
 
+import java.util.Date;
 import java.util.List;
 
-import org.apache.catalina.core.ApplicationContext;
 import org.apache.log4j.BasicConfigurator;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import Dominio.*;
 import Negocio.CuentaNegocio;
 import Negocio.ProvinciaNegocio;
 
 public class App {
-	//bean
-	static ApplicationContext AppContext;
 
 	public static void main(String[] args) {
     	//insertarRegistros(); //Ejecutar solo para crear y llenar la BD.
 	}
 	
 	public static void insertarRegistros() {
+		ApplicationContext appContext = new ClassPathXmlApplicationContext("src/main/java/Resources/Beans.xml");
     	SessionFactory sessionFactory;
-    	
     	Configuration configuration = new Configuration();
     	configuration.configure();	
     	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
@@ -32,11 +34,11 @@ public class App {
     	
     	session.beginTransaction();
     	/*--CARGO DATOS EN TABLA TIPO USUARIO*/
-    	Tipo_Usuario tipoUsuario1 = new Tipo_Usuario();
+    	Tipo_Usuario tipoUsuario1 = (Tipo_Usuario) appContext.getBean("BTipo_Usuario");
     	tipoUsuario1.SetIdTipoUsuario(1);
     	tipoUsuario1.SetDescripcion("Banco");
     	
-    	Tipo_Usuario tipoUsuario2 = new Tipo_Usuario();
+    	Tipo_Usuario tipoUsuario2 = (Tipo_Usuario) appContext.getBean("BTipo_Usuario");
     	tipoUsuario2.SetIdTipoUsuario(2);
     	tipoUsuario2.SetDescripcion("Cliente");
     	
@@ -90,55 +92,126 @@ public class App {
     	
     	//---------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA PROVINCIA--*/
-    	Provincia prov1 = new Provincia();
-    	prov1.SetIdProvincia(1);
-    	prov1.SetDescripcion("Ciudad Autónoma de Buenos Aires (CABA)");
-    	prov1.SetCodigo("AR-C");
+    	Provincia prov1 = (Provincia) appContext.getBean("BProvincia");
+    	prov1.setIdProvincia(1);
+    	prov1.setProvNombre("Ciudad Autónoma de Buenos Aires (CABA)");
+    	prov1.setCodigo("AR-C");
     	
-    	Provincia prov2 = new Provincia();
-    	prov2.SetIdProvincia(2);
-    	prov2.SetDescripcion("Buenos Aires");
-    	prov2.SetCodigo("AR-B");
+    	Provincia prov2 = (Provincia) appContext.getBean("BProvincia");
+    	prov2.setIdProvincia(2);
+    	prov2.setProvNombre("Buenos Aires");
+    	prov2.setCodigo("AR-B");
     	
-    	Provincia prov3 = new Provincia();
-    	prov3.SetIdProvincia(3);
-    	prov3.SetDescripcion("Catamarca");
-    	prov3.SetCodigo("AR-K");
+    	Provincia prov3 = (Provincia) appContext.getBean("BProvincia");
+    	prov3.setIdProvincia(3);
+    	prov3.setProvNombre("Catamarca");
+    	prov3.setCodigo("AR-K");
     	
-    	Provincia prov4 = new Provincia();
-    	prov4.SetIdProvincia(4);
-    	prov4.SetDescripcion("Cordoba");
-    	prov4.SetCodigo("AR-x");
+    	Provincia prov4 = (Provincia) appContext.getBean("BProvincia");
+    	prov4.setIdProvincia(4);
+    	prov4.setProvNombre("Cordoba");
+    	prov4.setCodigo("AR-x");
     	
-    	Provincia prov5 = new Provincia();
-    	prov5.SetIdProvincia(5);
-    	prov5.SetDescripcion("Corrientes");
-    	prov5.SetCodigo("AR-W");
+    	Provincia prov5 = (Provincia) appContext.getBean("BProvincia");
+    	prov5.setIdProvincia(5);
+    	prov5.setProvNombre("Corrientes");
+    	prov5.setCodigo("AR-W");
     	
-    	Provincia prov6 = new Provincia();
-    	prov6.SetIdProvincia(6);
-    	prov6.SetDescripcion("Entre Ríos");
-    	prov6.SetCodigo("AR-E");
+    	Provincia prov6 = (Provincia) appContext.getBean("BProvincia");
+    	prov6.setIdProvincia(6);
+    	prov6.setProvNombre("Entre Ríos");
+    	prov6.setCodigo("AR-E");
     	
-    	Provincia prov7 = new Provincia();
-    	prov7.SetIdProvincia(7);
-    	prov7.SetDescripcion("Jujuy");
-    	prov7.SetCodigo("AR-Y");
+    	Provincia prov7 = (Provincia) appContext.getBean("BProvincia");
+    	prov7.setIdProvincia(7);
+    	prov7.setProvNombre("Jujuy");
+    	prov7.setCodigo("AR-Y");
     	
-    	Provincia prov8 = new Provincia();
-    	prov8.SetIdProvincia(8);
-    	prov8.SetDescripcion("Mendoza");
-    	prov8.SetCodigo("AR-M");
+    	Provincia prov8 = (Provincia) appContext.getBean("BProvincia");
+    	prov8.setIdProvincia(8);
+    	prov8.setProvNombre("Mendoza");
+    	prov8.setCodigo("AR-M");
     	
-    	Provincia prov9 = new Provincia();
-    	prov9.SetIdProvincia(9);
-    	prov9.SetDescripcion("La Rioja");
-    	prov9.SetCodigo("AR-F");
+    	Provincia prov9 = (Provincia) appContext.getBean("BProvincia");
+    	prov9.setIdProvincia(9);
+    	prov9.setProvNombre("La Rioja");
+    	prov9.setCodigo("AR-F");
     	
-    	Provincia prov10 = new Provincia();
-    	prov10.SetIdProvincia(10);
-    	prov10.SetDescripcion("Salta");
-    	prov10.SetCodigo("AR-A");
+    	Provincia prov10 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(10);
+    	prov10.setProvNombre("Salta");
+    	prov10.setCodigo("AR-A");
+    	
+    	Provincia prov11 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(11);
+    	prov10.setProvNombre("San Juan");
+    	prov10.setCodigo("AR-J");
+    	
+    	Provincia prov12 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(12);
+    	prov10.setProvNombre("San Luis");
+    	prov10.setCodigo("AR-D");
+    	
+    	Provincia prov13 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(13);
+    	prov10.setProvNombre("Santa Fe");
+    	prov10.setCodigo("AR-S");
+    	
+    	Provincia prov14 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(14);
+    	prov10.setProvNombre("Santiago del Estero");
+    	prov10.setCodigo("AR-G");
+    	
+    	Provincia prov15 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(15);
+    	prov10.setProvNombre("Tucumán");
+    	prov10.setCodigo("AR-T");
+    	
+    	Provincia prov16 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(16);
+    	prov10.setProvNombre("Chaco");
+    	prov10.setCodigo("AR-H");
+    	
+    	Provincia prov17 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(17);
+    	prov10.setProvNombre("Chubut");
+    	prov10.setCodigo("AR-N");
+    	
+    	Provincia prov18 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(18);
+    	prov10.setProvNombre("Formosa");
+    	prov10.setCodigo("AR-P");
+    	
+    	Provincia prov19 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(19);
+    	prov10.setProvNombre("Misiones");
+    	prov10.setCodigo("AR-N");
+    	
+    	Provincia prov20 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(20);
+    	prov10.setProvNombre("Neuquén");
+    	prov10.setCodigo("AR-Q");
+    	
+    	Provincia prov21 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(21);
+    	prov10.setProvNombre("La Pampa");
+    	prov10.setCodigo("AR-L");
+    	
+    	Provincia prov22 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(22);
+    	prov10.setProvNombre("Río Negro");
+    	prov10.setCodigo("AR-R");
+    	
+    	Provincia prov23 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(23);
+    	prov10.setProvNombre("Santa Cruz");
+    	prov10.setCodigo("AR-Z");
+    	
+    	
+    	Provincia prov24 = (Provincia) appContext.getBean("BProvincia");
+    	prov10.setIdProvincia(24);
+    	prov10.setProvNombre("Tierra del Fuego");
+    	prov10.setCodigo("AR-V");
     	
     	session.save(prov1);
     	session.save(prov2);
@@ -150,6 +223,20 @@ public class App {
     	session.save(prov8);
     	session.save(prov9);
     	session.save(prov10);
+    	session.save(prov11);
+    	session.save(prov12);
+    	session.save(prov13);
+    	session.save(prov14);
+    	session.save(prov15);
+    	session.save(prov16);
+    	session.save(prov17);
+    	session.save(prov18);
+    	session.save(prov19);
+    	session.save(prov20);
+    	session.save(prov21);
+    	session.save(prov22);
+    	session.save(prov23);
+    	session.save(prov24);
     	//---------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA TIPO MOVIMIENTO--*/
     	Tipo_Movimiento tipoMovimient1 = new Tipo_Movimiento();
@@ -180,64 +267,64 @@ public class App {
     	//---------------------------------------------------------------
     	/*--CARGO DATOS TABLA LOCALIDAD*/
     	Localidad local1 = new Localidad();
-    	local1.SetIdLocalidad(1);
-    	local1.SetProvincia(prov1);
-    	local1.SetDescripcion("C.A.B.A");
-    	local1.SetCodigoPostal("0");
+    	local1.setIdLocalidad(1);
+    	local1.setProvincia(prov1);
+    	local1.setLocNombre("C.A.B.A");
+    	local1.setCodigoPostal("0");
     	
     	Localidad local2 = new Localidad();
-    	local2.SetIdLocalidad(2);
-    	local2.SetProvincia(prov2);
-    	local2.SetDescripcion("AVELLANEDA");
-    	local2.SetCodigoPostal("1870");
+    	local2.setIdLocalidad(2);
+    	local2.setProvincia(prov2);
+    	local2.setLocNombre("AVELLANEDA");
+    	local2.setCodigoPostal("1870");
     	
     	Localidad local3 = new Localidad();
-    	local3.SetIdLocalidad(3);
-    	local3.SetProvincia(prov2);
-    	local3.SetDescripcion("DOCK SUD");
-    	local3.SetCodigoPostal("1871");
+    	local3.setIdLocalidad(3);
+    	local3.setProvincia(prov2);
+    	local3.setLocNombre("DOCK SUD");
+    	local3.setCodigoPostal("1871");
     	
     	Localidad local4 = new Localidad();
-    	local4.SetIdLocalidad(4);
-    	local4.SetProvincia(prov2);
-    	local4.SetDescripcion("SAN JOSE");
-    	local4.SetCodigoPostal("6665");
+    	local4.setIdLocalidad(4);
+    	local4.setProvincia(prov2);
+    	local4.setLocNombre("SAN JOSE");
+    	local4.setCodigoPostal("6665");
     	
     	Localidad local5 = new Localidad();
-    	local5.SetIdLocalidad(5);
-    	local5.SetProvincia(prov2);
-    	local5.SetDescripcion("LOS PATOS");
-    	local5.SetCodigoPostal("7603");
+    	local5.setIdLocalidad(5);
+    	local5.setProvincia(prov2);
+    	local5.setLocNombre("LOS PATOS");
+    	local5.setCodigoPostal("7603");
     	
     	Localidad local6 = new Localidad();
-    	local6.SetIdLocalidad(6);
-    	local6.SetProvincia(prov2);
-    	local6.SetDescripcion("MIRAMAR");
-    	local6.SetCodigoPostal("7607");
+    	local6.setIdLocalidad(6);
+    	local6.setProvincia(prov2);
+    	local6.setLocNombre("MIRAMAR");
+    	local6.setCodigoPostal("7607");
     	
     	Localidad local7 = new Localidad();
-    	local7.SetIdLocalidad(7);
-    	local7.SetProvincia(prov2);
-    	local7.SetDescripcion("GENERAL ALVEAR");
-    	local7.SetCodigoPostal("7263");
+    	local7.setIdLocalidad(7);
+    	local7.setProvincia(prov2);
+    	local7.setLocNombre("GENERAL ALVEAR");
+    	local7.setCodigoPostal("7263");
     	
     	Localidad local8 = new Localidad();
-    	local8.SetIdLocalidad(8);
-    	local8.SetProvincia(prov2);
-    	local8.SetDescripcion("VILLA CERRITO");
-    	local8.SetCodigoPostal("8000");
+    	local8.setIdLocalidad(8);
+    	local8.setProvincia(prov2);
+    	local8.setLocNombre("VILLA CERRITO");
+    	local8.setCodigoPostal("8000");
     	
     	Localidad local9 = new Localidad();
-    	local9.SetIdLocalidad(9);
-    	local9.SetProvincia(prov2);
-    	local9.SetDescripcion("ALSINA");
-    	local9.SetCodigoPostal("2938");
+    	local9.setIdLocalidad(9);
+    	local9.setProvincia(prov2);
+    	local9.setLocNombre("ALSINA");
+    	local9.setCodigoPostal("2938");
     	
     	Localidad local10 = new Localidad();
-    	local10.SetIdLocalidad(10);
-    	local10.SetProvincia(prov2);
-    	local10.SetDescripcion("MONTE CRESPO");
-    	local10.SetCodigoPostal("7020");
+    	local10.setIdLocalidad(10);
+    	local10.setProvincia(prov2);
+    	local10.setLocNombre("MONTE CRESPO");
+    	local10.setCodigoPostal("7020");
     	
     	session.save(local1);
     	session.save(local2);
@@ -252,124 +339,114 @@ public class App {
     	//---------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA USUARIO--*/
     	Usuario usuario1 = new Usuario();
-    	usuario1.setLegajo("38456789");
-    	usuario1.setTipoUsuario(tipoUsuario1);
-    	usuario1.setGenero(gen1);
+    	usuario1.setTipoUsu(tipoUsuario1);
+    	usuario1.setGen(gen1);
     	usuario1.setLocalidad(local5);
     	usuario1.setNombre("Daniela");
     	usuario1.setApellido("Alessio");
-    	usuario1.setFechaNacimiento("24/04/1995");
+    	usuario1.setFechaNac(new Date());
     	usuario1.setEstado(false);
     	usuario1.setDireccion("Mosconi 556");
-    	usuario1.setE_mail("dalessio@gmail.com");
+    	usuario1.setE_Mail("dalessio@gmail.com");
     	
     	Usuario usuario2 = new Usuario();
-    	usuario2.setLegajo("38325465");
-    	usuario2.setTipoUsuario(tipoUsuario2);
-    	usuario2.setGenero(gen2);
+    	usuario2.setTipoUsu(tipoUsuario2);
+    	usuario2.setGen(gen2);
     	usuario2.setLocalidad(local3);
     	usuario2.setNombre("Juan");
     	usuario2.setApellido("Cassano");
-    	usuario2.setFechaNacimiento("03/01/1995");
+    	usuario2.setFechaNac(new Date());
     	usuario2.setEstado(false);
     	usuario2.setDireccion("Riobamba 126");
-    	usuario2.setE_mail("jcasano@gmail.com");
+    	usuario2.setE_Mail("jcasano@gmail.com");
     	
     	Usuario usuario3 = new Usuario();
-    	usuario3.setLegajo("38568454");
-    	usuario3.setTipoUsuario(tipoUsuario2);
-    	usuario3.setGenero(gen2);
+    	usuario3.setTipoUsu(tipoUsuario2);
+    	usuario3.setGen(gen2);
     	usuario3.setLocalidad(local1);
     	usuario3.setNombre("Leandro");
     	usuario3.setApellido("Lescano");
-    	usuario3.setFechaNacimiento("02/02/1995");
+    	usuario3.setFechaNac(new Date());
     	usuario3.setEstado(false);
     	usuario3.setDireccion("Alsina 236");
-    	usuario3.setE_mail("llescano@gmail.com");
+    	usuario3.setE_Mail("llescano@gmail.com");
     	
     	Usuario usuario4 = new Usuario();
-    	usuario4.setLegajo("38326854");
-    	usuario4.setTipoUsuario(tipoUsuario2);
-    	usuario4.setGenero(gen2);
+    	usuario4.setTipoUsu(tipoUsuario2);
+    	usuario4.setGen(gen2);
     	usuario4.setLocalidad(local2);
     	usuario4.setNombre("Sebastian");
     	usuario4.setApellido("Font");
-    	usuario4.setFechaNacimiento("06/06/1995");
+    	usuario4.setFechaNac(new Date());
     	usuario4.setEstado(false);
     	usuario4.setDireccion("General Paz 546");
-    	usuario4.setE_mail("sfont@gmail.com");
+    	usuario4.setE_Mail("sfont@gmail.com");
     	
     	Usuario usuario5 = new Usuario();
-    	usuario5.setLegajo("38785326");
-    	usuario5.setTipoUsuario(tipoUsuario2);
-    	usuario5.setGenero(gen2);
+    	usuario5.setTipoUsu(tipoUsuario2);
+    	usuario5.setGen(gen2);
     	usuario5.setLocalidad(local4);
     	usuario5.setNombre("Matias");
     	usuario5.setApellido("Medela");
-    	usuario5.setFechaNacimiento("25/02/1995");
+    	usuario5.setFechaNac(new Date());
     	usuario5.setEstado(false);
     	usuario5.setDireccion("Mosconi 546");
-    	usuario5.setE_mail("mmedela@gmail.com");
+    	usuario5.setE_Mail("mmedela@gmail.com");
     	
     	Usuario usuario6 = new Usuario();
-    	usuario6.setLegajo("4236552");
-    	usuario6.setTipoUsuario(tipoUsuario2);
-    	usuario6.setGenero(gen2);
+    	usuario6.setTipoUsu(tipoUsuario2);
+    	usuario6.setGen(gen2);
     	usuario6.setLocalidad(local3);
     	usuario6.setNombre("Juan");
     	usuario6.setApellido("de Lage");
-    	usuario6.setFechaNacimiento("08/09/1940");
+    	usuario6.setFechaNac(new Date());
     	usuario6.setEstado(false);
     	usuario6.setDireccion("Haedo 652");
-    	usuario6.setE_mail("jjlage@gmail.com");
+    	usuario6.setE_Mail("jjlage@gmail.com");
     	
     	Usuario usuario7 = new Usuario();
-    	usuario7.setLegajo("6235645");
-    	usuario7.setTipoUsuario(tipoUsuario2);
-    	usuario7.setGenero(gen2);
+    	usuario7.setTipoUsu(tipoUsuario2);
+    	usuario7.setGen(gen2);
     	usuario7.setLocalidad(local3);
     	usuario7.setNombre("Horacio");
     	usuario7.setApellido("Suarez");
-    	usuario7.setFechaNacimiento("05/01/1960");
+    	usuario7.setFechaNac(new Date());
     	usuario7.setEstado(false);
     	usuario7.setDireccion("Av. Centenario 1256");
-    	usuario7.setE_mail("hsuarez@gmail.com");
+    	usuario7.setE_Mail("hsuarez@gmail.com");
     	
     	Usuario usuario8 = new Usuario();
-    	usuario8.setLegajo("4237365");
-    	usuario8.setTipoUsuario(tipoUsuario2);
-    	usuario8.setGenero(gen1);
+    	usuario8.setTipoUsu(tipoUsuario2);
+    	usuario8.setGen(gen1);
     	usuario8.setLocalidad(local3);
     	usuario8.setNombre("Olga");
     	usuario8.setApellido("Capotosti");
-    	usuario8.setFechaNacimiento("26/04/1942");
+    	usuario8.setFechaNac(new Date());
     	usuario8.setEstado(false);
     	usuario8.setDireccion("Haedo 568");
-    	usuario8.setE_mail("ocapotosti@gmail.com");
+    	usuario8.setE_Mail("ocapotosti@gmail.com");
     	
     	Usuario usuario9 = new Usuario();
-    	usuario9.setLegajo("37234456");
-    	usuario9.setTipoUsuario(tipoUsuario2);
-    	usuario9.setGenero(gen1);
+    	usuario9.setTipoUsu(tipoUsuario2);
+    	usuario9.setGen(gen1);
     	usuario9.setLocalidad(local4);
     	usuario9.setNombre("Marisa");
     	usuario9.setApellido("Vasquez");
-    	usuario9.setFechaNacimiento("27/04/1960");
+    	usuario9.setFechaNac(new Date());
     	usuario9.setEstado(false);
     	usuario9.setDireccion("Alsina 326");
-    	usuario9.setE_mail("mvasquez@gmail.com");
+    	usuario9.setE_Mail("mvasquez@gmail.com");
     	
     	Usuario usuario10 = new Usuario();
-    	usuario10.setLegajo("36798546");
-    	usuario10.setTipoUsuario(tipoUsuario2);
-    	usuario10.setGenero(gen2);
+    	usuario10.setTipoUsu(tipoUsuario2);
+    	usuario10.setGen(gen2);
     	usuario10.setLocalidad(local4);
     	usuario10.setNombre("Mariano");
     	usuario10.setApellido("Vivas");
-    	usuario10.setFechaNacimiento("06/07/1995");
+    	usuario10.setFechaNac(new Date());
     	usuario10.setEstado(false);
     	usuario10.setDireccion("Julian Navarro 135");
-    	usuario10.setE_mail("mvivas@gmail.com");
+    	usuario10.setE_Mail("mvivas@gmail.com");
     	
     	session.save(usuario1);
     	session.save(usuario2);
@@ -385,53 +462,53 @@ public class App {
     	//---------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA LOGUEO*/
     	Logueo log1 = new Logueo();
-    	log1.SetNUsuario(usuario1.getE_mail());
-    	log1.SetContrasenia(usuario1.getLegajo());
+    	log1.SetNUsuario(usuario1.getE_Mail());
+    	log1.SetContrasenia(usuario1.getIdUsu());
     	log1.SetUsuario(usuario1);
     	
     	Logueo log2 = new Logueo();
-    	log2.SetNUsuario(usuario2.getE_mail());
-    	log2.SetContrasenia(usuario2.getLegajo());
+    	log2.SetNUsuario(usuario2.getE_Mail());
+    	log2.SetContrasenia(usuario2.getIdUsu());
     	log2.SetUsuario(usuario2);
     	
     	Logueo log3 = new Logueo();
-    	log3.SetNUsuario(usuario3.getE_mail());
-    	log3.SetContrasenia(usuario3.getLegajo());
+    	log3.SetNUsuario(usuario3.getE_Mail());
+    	log3.SetContrasenia(usuario3.getIdUsu());
     	log3.SetUsuario(usuario3);
     	
     	Logueo log4 = new Logueo();
-    	log4.SetNUsuario(usuario4.getE_mail());
-    	log4.SetContrasenia(usuario4.getLegajo());
+    	log4.SetNUsuario(usuario4.getE_Mail());
+    	log4.SetContrasenia(usuario4.getIdUsu());
     	log4.SetUsuario(usuario4);
     	
     	Logueo log5 = new Logueo();
-    	log5.SetNUsuario(usuario5.getE_mail());
-    	log5.SetContrasenia(usuario5.getLegajo());
+    	log5.SetNUsuario(usuario5.getE_Mail());
+    	log5.SetContrasenia(usuario5.getIdUsu());
     	log5.SetUsuario(usuario5);
     	
     	Logueo log6 = new Logueo();
-    	log6.SetNUsuario(usuario6.getE_mail());
-    	log6.SetContrasenia(usuario6.getLegajo());
+    	log6.SetNUsuario(usuario6.getE_Mail());
+    	log6.SetContrasenia(usuario6.getIdUsu());
     	log6.SetUsuario(usuario6);
     	
     	Logueo log7 = new Logueo();
-    	log7.SetNUsuario(usuario7.getE_mail());
-    	log7.SetContrasenia(usuario7.getLegajo());
+    	log7.SetNUsuario(usuario7.getE_Mail());
+    	log7.SetContrasenia(usuario7.getIdUsu());
     	log7.SetUsuario(usuario7);
     	
     	Logueo log8 = new Logueo();
-    	log8.SetNUsuario(usuario8.getE_mail());
-    	log8.SetContrasenia(usuario8.getLegajo());
+    	log8.SetNUsuario(usuario8.getE_Mail());
+    	log8.SetContrasenia(usuario8.getIdUsu());
     	log8.SetUsuario(usuario8);
     	
     	Logueo log9 = new Logueo();
-    	log9.SetNUsuario(usuario9.getE_mail());
-    	log9.SetContrasenia(usuario9.getLegajo());
+    	log9.SetNUsuario(usuario9.getE_Mail());
+    	log9.SetContrasenia(usuario9.getIdUsu());
     	log9.SetUsuario(usuario9);
     	
     	Logueo log10 = new Logueo();
-    	log10.SetNUsuario(usuario10.getE_mail());
-    	log10.SetContrasenia(usuario10.getLegajo());
+    	log10.SetNUsuario(usuario10.getE_Mail());
+    	log10.SetContrasenia(usuario10.getIdUsu());
     	log10.SetUsuario(usuario10);
     	
     	
@@ -643,6 +720,7 @@ public class App {
     	//----------------------------------------------------------------
     	session.getTransaction().commit();
     	session.close();
+    	((ConfigurableApplicationContext)(appContext)).close();
     	sessionFactory.close();
 	}
 

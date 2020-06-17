@@ -5,7 +5,7 @@ xsi:shchemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!--BEAN PROVINCIA-->
 	<bean id="BProvincia" class="Dominio.Provincia" scope="prototype">
-		<property name="IdProvincia" value=-1></property>
+		<property name="IdProvincia" value="-1"></property>
 		<property name="ProvNombre" value="default"></property>
 	</bean>
 	<!--BEAN LOCALIDAD-->
@@ -20,7 +20,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	</bean>
 	<!--BEAN TIPO USUARIO-->
 	<bean id="BTipo_Usuario" class="Dominio.Tipo_Usuario" init-method="InitTipo_Usuario" destroy-method="DestroyTipo_Usuario" scope="prototype">
-		<property name="idTipoUsuario" value=-1></property>
+		<property name="idTipoUsuario" value="-1"></property>
 		<property name="descripcion" value="Default"></property>
 	</bean>
 	<!--BEAN USUARIO-->
