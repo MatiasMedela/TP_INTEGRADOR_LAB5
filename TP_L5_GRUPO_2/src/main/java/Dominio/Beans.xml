@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans "
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:shchemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!--BEAN PROVINCIA-->
+	<bean id="BProvincia" class="Dominio.Provincia" scope="prototype">
+		<property name="IdProvincia" value=-1></property>
+		<property name="ProvNombre" value="default"></property>
+	</bean>
+	<!--BEAN LOCALIDAD-->
+	<bean id="BLocalidad" class="Dominio.Localidad" scope="prototype" autoire="byName">
+		<property name="LocNombre" value="default"></property>
+		<property name="CodigoPostal" value="0000"></property>
+		<property name="ProvLoc" ref="BProvincia"></property>
+	</bean>
+	<!--BEAN GENERO-->
+	<bean id="BGenero" class="Dominio.Genero" scope="prototype">
+		<property name="descripcion" value="default"></property>
+	</bean>
+	<!--BEAN TIPO USUARIO-->
+	<bean id="BTipo_Usuario" class="Dominio.Tipo_Usuario" init-method="InitTipo_Usuario" destroy-method="DestroyTipo_Usuario" scope="prototype">
+		<property name="idTipoUsuario" value=-1></property>
+		<property name="descripcion" value="Default"></property>
+	</bean>
+	<!--BEAN USUARIO-->
+	<bean id="BUsuario" class="Dominio.Usuario" init-method="InitUsuario" destroy-method="DestroyUsuario" scope="prototype">
+		<property name="TipoUsu" ref="BTipo_Usuario"></property>
+		<property name="Dni" value="default"></property>
+		<property name="Nombe" value="default"></property>
+		<property name="Apellido" value="default"></property>
+		<property name="Gen" ref="BGenero"></property>
+		<property name="FechaNac" value="12/12/12"></property>
+		<property name="Loc" ref="BLocalidad"></property>
+		<property name="Direccion" value="default"></property>
+		<property name="E-Mail" value="default"></property>
+		<property name="Tel" value="default"></property>
+		<property name="Estado" value="false"></property>
+	</bean>
+
+</beans>

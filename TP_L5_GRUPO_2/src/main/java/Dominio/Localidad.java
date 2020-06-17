@@ -7,72 +7,39 @@ public class Localidad implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos
-	private int idLocalidad;
-	private Provincia provincia;
-	private String descripcion;
-	private String codigoPostal;
+	private int IdLocalidad;
+	private String LocNombre;
+	private String CodigoPostal;
+	private Provincia ProvLoc;
 	
-	//Constructor
+	//Constructor vacio
 	public Localidad()
 	{
 		
 	}
-	
+	//constructor por parametros
 	public Localidad(int id,Provincia provincia,String descripcion,String codigoPostal)
 	{
-		this.idLocalidad = id;
-		this.provincia = provincia;
-		this.descripcion = descripcion;
-		this.codigoPostal = codigoPostal;
+		this.IdLocalidad = id;
+		this.ProvLoc = provincia;
+		this.LocNombre = descripcion;
+		this.CodigoPostal = codigoPostal;
 	}
-	
-	public Localidad(Provincia provincia,String descripcion,String codigoPostal)
-	{
-		this.provincia = provincia;
-		this.descripcion = descripcion;
-		this.codigoPostal = codigoPostal;
-	}
-	
 	//Getters and Setters
-	public int GetIdLocalidad()
-	{
-		return this.idLocalidad;
-	}
-	
-	public void SetIdLocalidad(int id)
-	{
-		this.idLocalidad = id;
-	}
-	
-	public Provincia GetProvincia()
-	{
-		return this.provincia;
-	}
-	
-	public void SetProvincia(Provincia provincia)
-	{
-		this.provincia = provincia;
-	}
-	
-	public String GetDescripcion()
-	{
-		return this.descripcion;
-	}
-	
-	public void SetDescripcion(String descripcion)
-	{
-		this.descripcion = descripcion;
-	}
-	
-	public String GetCodigoPostal()
-	{
-		return this.codigoPostal;
-	}
-	
-	public void SetCodigoPostal(String codigoPostal)
-	{
-		this.codigoPostal = codigoPostal;
-	}
-	
+	public int getIdLocalidad() {return IdLocalidad;}
+	public void setIdLocalidad(int idLocalidad) {IdLocalidad = idLocalidad;}
+	public String getLocNombre() {return LocNombre;}
+	public void setLocNombre(String locNombre) {LocNombre = locNombre;}
+	public String getCodigoPostal() {return CodigoPostal;}
+	public void setCodigoPostal(String codigoPostal) {this.CodigoPostal = codigoPostal;}
+	public Provincia getProvincia() {return ProvLoc;}
+	public void setProvincia(Provincia provincia) {this.ProvLoc = provincia;}
+	public static long getSerialversionuid() {return serialVersionUID;}
 	//Métodos
+	@Override
+	public String toString() {
+		return "Localidad [IdLocalidad=" + IdLocalidad + ", LocNombre=" + LocNombre + ", codigoPostal=" + CodigoPostal
+				+ ", provincia=" + ProvLoc + "]";
+	}
+	
 }

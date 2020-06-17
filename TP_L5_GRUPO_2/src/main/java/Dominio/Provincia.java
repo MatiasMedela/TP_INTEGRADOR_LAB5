@@ -7,65 +7,32 @@ public class Provincia implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos
-	private int idProvincia;
-	private String descripcion;
-	private String codigo;
+	private int IdProvincia;
+	private String ProvNombre;
+	private String Codigo;
 	
 	//Constructores
 	public Provincia()
 	{
+	}
+	
+	public Provincia(int id, String descripcion)
+	{
+		this.IdProvincia = id;
+		this.ProvNombre = descripcion;
 		
 	}
-	
-	public Provincia(int id, String descripcion, String codigo)
-	{
-		this.idProvincia = id;
-		this.descripcion = descripcion;
-		this.codigo = codigo;
-	}
-	
-	public Provincia(String descripcion, String codigo)
-	{
-		this.descripcion = descripcion;
-		this.codigo = codigo;
-	}
-	
 	//Getters and Setters
-	public int GetidProvincia()
-	{
-		return this.idProvincia;
-	}
-	
-	public void SetIdProvincia(int id)
-	{
-		this.idProvincia = id;
-	}
-	
-	public String GetDescripcion()
-	{
-		return this.descripcion;
-	}
-	
-	public void SetDescripcion(String descripcion)
-	{
-		this.descripcion = descripcion;
-	}
-	
-	public String GetCodigo()
-	{
-		return this.codigo;
-	}
-	
-	public void SetCodigo(String codigo)
-	{
-		this.codigo = codigo;
-	}
-	
+	public int getIdProvincia() {return IdProvincia;}
+	public void setIdProvincia(int idProvincia) {this.IdProvincia = idProvincia;}
+	public String getProvNombre() {return ProvNombre;}
+	public void setProvNombre(String provNombre) {ProvNombre = provNombre;}
+	public static long getSerialversionuid() {return serialVersionUID;}
+	public void setCodigo(String codigo) {Codigo = codigo;}
+	public String getCodigo() {return Codigo;}
 	//Métodos
-
 	@Override
 	public String toString() {
-		return idProvincia + " - Nombre: " + descripcion + " - Código: " + codigo;
+		return "Provincia [idProvincia=" + IdProvincia + ", ProvNombre=" + ProvNombre + "]";
 	}
-	
 }
