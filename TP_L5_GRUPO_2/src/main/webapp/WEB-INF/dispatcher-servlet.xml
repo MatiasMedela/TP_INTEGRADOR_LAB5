@@ -6,18 +6,18 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/context/spring-context-3.2.xsd
        http://www.springframework.org/schema/mvc
-       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
-	<context:component-scan	base-package="TP_L5_GRUPO_2.src.main.java.Controllers" />
+	<context:component-scan	base-package="src.main.java.Controllers" ></context:component-scan>
+	
 	<mvc:annotation-driven />
-
+	
     <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<property name="prefix" value="/TP_L5_GRUPO_2/" />
-		<property name="suffix" value=".jsp" />
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.JstlView" />
+    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+		<property name="prefix" value="WEB-INF/Vistas"></property>
+		<property name="suffix" value=".jsp"></property>
 	</bean>
 
 
