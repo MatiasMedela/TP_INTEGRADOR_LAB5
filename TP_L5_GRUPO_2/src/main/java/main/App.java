@@ -16,11 +16,11 @@ import Dominio.*;
 public class App {
 
 	public static void main(String[] args) {
-    	//insertarRegistros(); //Ejecutar solo para crear y llenar la BD.
+    	insertarRegistros(); //Ejecutar solo para crear y llenar la BD.
 	}
 	
 	public static void insertarRegistros() {
-		ApplicationContext appContext = new ClassPathXmlApplicationContext("src/main/java/Resources/Beans.xml");
+		ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
     	SessionFactory sessionFactory;
     	Configuration configuration = new Configuration();
     	configuration.configure();	
@@ -31,12 +31,12 @@ public class App {
     	session.beginTransaction();
     	/*--CARGO DATOS EN TABLA TIPO USUARIO*/
     	Tipo_Usuario tipoUsuario1 = (Tipo_Usuario) appContext.getBean("BTipo_Usuario");
-    	tipoUsuario1.SetIdTipoUsuario(1);
-    	tipoUsuario1.SetDescripcion("Banco");
+    	tipoUsuario1.setIdTipoUsuario(1);
+    	tipoUsuario1.setDescripcion("Banco");
     	
     	Tipo_Usuario tipoUsuario2 = (Tipo_Usuario) appContext.getBean("BTipo_Usuario");
-    	tipoUsuario2.SetIdTipoUsuario(2);
-    	tipoUsuario2.SetDescripcion("Cliente");
+    	tipoUsuario2.setIdTipoUsuario(2);
+    	tipoUsuario2.setDescripcion("Cliente");
     	
     	session.save(tipoUsuario1);
     	session.save(tipoUsuario2);
@@ -139,75 +139,75 @@ public class App {
     	prov10.setCodigo("AR-A");
     	
     	Provincia prov11 = (Provincia) appContext.getBean("BProvincia");
-    	prov10.setIdProvincia(11);
-    	prov10.setProvNombre("San Juan");
-    	prov10.setCodigo("AR-J");
+    	prov11.setIdProvincia(11);
+    	prov11.setProvNombre("San Juan");
+    	prov11.setCodigo("AR-J");
     	
     	Provincia prov12 = (Provincia) appContext.getBean("BProvincia");
-    	prov10.setIdProvincia(12);
-    	prov10.setProvNombre("San Luis");
-    	prov10.setCodigo("AR-D");
+    	prov12.setIdProvincia(12);
+    	prov12.setProvNombre("San Luis");
+    	prov12.setCodigo("AR-D");
     	
     	Provincia prov13 = (Provincia) appContext.getBean("BProvincia");
-    	prov10.setIdProvincia(13);
-    	prov10.setProvNombre("Santa Fe");
-    	prov10.setCodigo("AR-S");
+    	prov13.setIdProvincia(13);
+    	prov13.setProvNombre("Santa Fe");
+    	prov13.setCodigo("AR-S");
     	
     	Provincia prov14 = (Provincia) appContext.getBean("BProvincia");
-    	prov10.setIdProvincia(14);
-    	prov10.setProvNombre("Santiago del Estero");
-    	prov10.setCodigo("AR-G");
+    	prov14.setIdProvincia(14);
+    	prov14.setProvNombre("Santiago del Estero");
+    	prov14.setCodigo("AR-G");
     	
     	Provincia prov15 = (Provincia) appContext.getBean("BProvincia");
-    	prov10.setIdProvincia(15);
-    	prov10.setProvNombre("Tucumán");
-    	prov10.setCodigo("AR-T");
+    	prov15.setIdProvincia(15);
+    	prov15.setProvNombre("Tucumán");
+    	prov15.setCodigo("AR-T");
     	
     	Provincia prov16 = (Provincia) appContext.getBean("BProvincia");
-    	prov10.setIdProvincia(16);
-    	prov10.setProvNombre("Chaco");
-    	prov10.setCodigo("AR-H");
+    	prov16.setIdProvincia(16);
+    	prov16.setProvNombre("Chaco");
+    	prov16.setCodigo("AR-H");
     	
     	Provincia prov17 = (Provincia) appContext.getBean("BProvincia");
-    	prov10.setIdProvincia(17);
-    	prov10.setProvNombre("Chubut");
-    	prov10.setCodigo("AR-N");
+    	prov17.setIdProvincia(17);
+    	prov17.setProvNombre("Chubut");
+    	prov17.setCodigo("AR-N");
     	
     	Provincia prov18 = (Provincia) appContext.getBean("BProvincia");
-    	prov10.setIdProvincia(18);
-    	prov10.setProvNombre("Formosa");
-    	prov10.setCodigo("AR-P");
+    	prov18.setIdProvincia(18);
+    	prov18.setProvNombre("Formosa");
+    	prov18.setCodigo("AR-P");
     	
     	Provincia prov19 = (Provincia) appContext.getBean("BProvincia");
-    	prov10.setIdProvincia(19);
-    	prov10.setProvNombre("Misiones");
-    	prov10.setCodigo("AR-N");
+    	prov19.setIdProvincia(19);
+    	prov19.setProvNombre("Misiones");
+    	prov19.setCodigo("AR-N");
     	
     	Provincia prov20 = (Provincia) appContext.getBean("BProvincia");
-    	prov10.setIdProvincia(20);
-    	prov10.setProvNombre("Neuquén");
-    	prov10.setCodigo("AR-Q");
+    	prov20.setIdProvincia(20);
+    	prov20.setProvNombre("Neuquén");
+    	prov20.setCodigo("AR-Q");
     	
     	Provincia prov21 = (Provincia) appContext.getBean("BProvincia");
-    	prov10.setIdProvincia(21);
-    	prov10.setProvNombre("La Pampa");
-    	prov10.setCodigo("AR-L");
+    	prov21.setIdProvincia(21);
+    	prov21.setProvNombre("La Pampa");
+    	prov21.setCodigo("AR-L");
     	
     	Provincia prov22 = (Provincia) appContext.getBean("BProvincia");
-    	prov10.setIdProvincia(22);
-    	prov10.setProvNombre("Río Negro");
-    	prov10.setCodigo("AR-R");
+    	prov22.setIdProvincia(22);
+    	prov22.setProvNombre("Río Negro");
+    	prov22.setCodigo("AR-R");
     	
     	Provincia prov23 = (Provincia) appContext.getBean("BProvincia");
-    	prov10.setIdProvincia(23);
-    	prov10.setProvNombre("Santa Cruz");
-    	prov10.setCodigo("AR-Z");
+    	prov23.setIdProvincia(23);
+    	prov23.setProvNombre("Santa Cruz");
+    	prov23.setCodigo("AR-Z");
     	
     	
     	Provincia prov24 = (Provincia) appContext.getBean("BProvincia");
-    	prov10.setIdProvincia(24);
-    	prov10.setProvNombre("Tierra del Fuego");
-    	prov10.setCodigo("AR-V");
+    	prov24.setIdProvincia(24);
+    	prov24.setProvNombre("Tierra del Fuego");
+    	prov24.setCodigo("AR-V");
     	
     	session.save(prov1);
     	session.save(prov2);
@@ -335,6 +335,7 @@ public class App {
     	//---------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA USUARIO--*/
     	Usuario usuario1 = new Usuario();
+    	usuario1.setIdUsu("38456789");
     	usuario1.setTipoUsu(tipoUsuario1);
     	usuario1.setGen(gen1);
     	usuario1.setLocalidad(local5);
@@ -346,6 +347,7 @@ public class App {
     	usuario1.setE_Mail("dalessio@gmail.com");
     	
     	Usuario usuario2 = new Usuario();
+    	usuario2.setIdUsu("38325465");
     	usuario2.setTipoUsu(tipoUsuario2);
     	usuario2.setGen(gen2);
     	usuario2.setLocalidad(local3);
@@ -357,6 +359,7 @@ public class App {
     	usuario2.setE_Mail("jcasano@gmail.com");
     	
     	Usuario usuario3 = new Usuario();
+    	usuario3.setIdUsu("38568454");
     	usuario3.setTipoUsu(tipoUsuario2);
     	usuario3.setGen(gen2);
     	usuario3.setLocalidad(local1);
@@ -368,6 +371,7 @@ public class App {
     	usuario3.setE_Mail("llescano@gmail.com");
     	
     	Usuario usuario4 = new Usuario();
+    	usuario4.setIdUsu("38326854");
     	usuario4.setTipoUsu(tipoUsuario2);
     	usuario4.setGen(gen2);
     	usuario4.setLocalidad(local2);
@@ -379,6 +383,7 @@ public class App {
     	usuario4.setE_Mail("sfont@gmail.com");
     	
     	Usuario usuario5 = new Usuario();
+    	usuario5.setIdUsu("38785326");
     	usuario5.setTipoUsu(tipoUsuario2);
     	usuario5.setGen(gen2);
     	usuario5.setLocalidad(local4);
@@ -390,6 +395,7 @@ public class App {
     	usuario5.setE_Mail("mmedela@gmail.com");
     	
     	Usuario usuario6 = new Usuario();
+    	usuario6.setIdUsu("4236552");
     	usuario6.setTipoUsu(tipoUsuario2);
     	usuario6.setGen(gen2);
     	usuario6.setLocalidad(local3);
@@ -401,6 +407,7 @@ public class App {
     	usuario6.setE_Mail("jjlage@gmail.com");
     	
     	Usuario usuario7 = new Usuario();
+    	usuario7.setIdUsu("6235645");
     	usuario7.setTipoUsu(tipoUsuario2);
     	usuario7.setGen(gen2);
     	usuario7.setLocalidad(local3);
@@ -412,6 +419,7 @@ public class App {
     	usuario7.setE_Mail("hsuarez@gmail.com");
     	
     	Usuario usuario8 = new Usuario();
+    	usuario8.setIdUsu("4237365");
     	usuario8.setTipoUsu(tipoUsuario2);
     	usuario8.setGen(gen1);
     	usuario8.setLocalidad(local3);
@@ -423,6 +431,7 @@ public class App {
     	usuario8.setE_Mail("ocapotosti@gmail.com");
     	
     	Usuario usuario9 = new Usuario();
+    	usuario9.setIdUsu("37234456");
     	usuario9.setTipoUsu(tipoUsuario2);
     	usuario9.setGen(gen1);
     	usuario9.setLocalidad(local4);
@@ -434,6 +443,7 @@ public class App {
     	usuario9.setE_Mail("mvasquez@gmail.com");
     	
     	Usuario usuario10 = new Usuario();
+    	usuario10.setIdUsu("36798546");
     	usuario10.setTipoUsu(tipoUsuario2);
     	usuario10.setGen(gen2);
     	usuario10.setLocalidad(local4);

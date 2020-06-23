@@ -3,14 +3,12 @@ package Dominio;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Id;
 
 public class Usuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos
-	@Id
 	private String IdUsu;
 	private Tipo_Usuario TipoUsu;
 	private String Dni;
@@ -76,12 +74,13 @@ public class Usuario implements Serializable {
 	
 	//identificador de version
 	public static long getSerialversionuid() {return serialVersionUID;}
-	
-//Métodos
-	//metodo tostring()
+	@Override
 	public String toString() {
 		return "Usuario [IdUsu=" + IdUsu + ", TipoUsu=" + TipoUsu + ", Dni=" + Dni + ", Nombre=" + Nombre
-				+ ", Apellido=" + Apellido + ", Gen=" + Gen + ", FechaNac=" + FechaNac + ", Localidad=" + Loc
-				+ ", Direccion=" + Direccion + ", E_Mail=" + E_Mail + ", Tel=" + Tel + ", Estado=" + Estado + "]";
+				+ ", Apellido=" + Apellido + ", Gen=" + Gen + ", FechaNac=" + FechaNac + ", Loc=" + Loc + ", Direccion="
+				+ Direccion + ", E_Mail=" + E_Mail + ", Tel=" + Tel + ", Estado=" + Estado + "]";
 	}
+	
+//Métodos
+
 }
