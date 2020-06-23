@@ -1,9 +1,7 @@
 package main;
 
 import java.util.Date;
-import java.util.List;
 
-import org.apache.log4j.BasicConfigurator;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -14,8 +12,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import Dominio.*;
-import Negocio.CuentaNegocio;
-import Negocio.ProvinciaNegocio;
 
 public class App {
 

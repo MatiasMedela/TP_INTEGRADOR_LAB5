@@ -6,7 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class InicioController {
-	@RequestMapping("RedireccionarLogin")
+	@RequestMapping("redireccLogin.html")
 	public ModelAndView RedireccionarLogin() {
 		ModelAndView MV = new ModelAndView();
 		MV.setViewName("Login");

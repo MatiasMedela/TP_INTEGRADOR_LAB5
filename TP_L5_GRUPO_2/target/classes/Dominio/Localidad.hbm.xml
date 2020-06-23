@@ -4,18 +4,18 @@
 <!-- Generated 02/06/2020 14:45:45 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="Dominio.Localidad" table="LOCALIDAD">
-        <id name="idLocalidad" type="int" access="field">
+        <id name="IdLocalidad" type="int" access="field">
             <column name="ID" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="provincia" class="Dominio.Provincia" access="field" fetch="join">
+         <property name="LocNombre" type="java.lang.String" access="field">
+            <column name="NOMBRE" />
+        </property>
+        <property name="CodigoPostal" type="java.lang.String" access="field">
+            <column name="CODIGO_POSTAL" />
+        </property>
+         <many-to-one name="ProvLoc" class="Dominio.Provincia" access="field" fetch="join">
             <column name="PROVINCIA" />
         </many-to-one>
-        <property name="descripcion" type="java.lang.String" access="field">
-            <column name="DESCRIPCION" />
-        </property>
-        <property name="codigoPostal" type="java.lang.String" access="field">
-            <column name="CODIGOPOSTAL" />
-        </property>
     </class>
 </hibernate-mapping>

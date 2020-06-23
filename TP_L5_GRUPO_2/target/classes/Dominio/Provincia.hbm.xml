@@ -4,14 +4,14 @@
 <!-- Generated 02/06/2020 14:45:45 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="Dominio.Provincia" table="PROVINCIA">
-        <id name="idProvincia" type="int" access="field">
+        <id name="IdProvincia" type="int" access="field">
             <column name="ID_PROVINCIA" />
             <generator class="assigned" />
         </id>
-        <property name="descripcion" type="java.lang.String" access="field">
-            <column name="DESCRIPCION" />
+        <property name="ProvNombre" type="java.lang.String" access="field">
+            <column name="NOMBRE" />
         </property>
-        <property name="codigo" type="java.lang.String" access="field">
+        <property name="Codigo" type="java.lang.String" access="field">
             <column name="CODIGO" />
         </property>
     </class>

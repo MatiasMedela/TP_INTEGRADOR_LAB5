@@ -3,37 +3,43 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 02/06/2020 14:45:45 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="Dominio.Usuario" table="USUARIO">
-        <id name="Legajo" type="java.lang.String">
-            <column name="LEGAJO" />
-            <generator class="assigned" />
+    <class name="Entidad.Usuario" table="USUARIO">
+        <id name="IdUsu" type="java.lang.String">
+            <column name="ID_USUARIO" />
+            <generator class="identity" />
         </id>
-        <property name="apellido" type="java.lang.String">
-            <column name="APELLIDO" />
+           <many-to-one name="TipUsu" class="Entidad.Tipo_Usuario" fetch="join">
+            <column name="TIPO_USUARIO" />
+        </many-to-one>
+        <property name="Dni" type="java.lang.String">
+            <column name="D.N.I" />
         </property>
-        <many-to-one name="tipoUsuario" class="Dominio.Tipo_Usuario" fetch="join">
-            <column name="TIPOUSUARIO" />
-        </many-to-one>
-        <many-to-one name="genero" class="Dominio.Genero" fetch="join">
-            <column name="GENERO" />
-        </many-to-one>
-        <many-to-one name="localidad" class="Dominio.Localidad" fetch="join">
-            <column name="LOCALIDAD" />
-        </many-to-one>
-        <property name="estado" type="boolean">
-            <column name="ESTADO" />
-        </property>
-        <property name="nombre" type="java.lang.String">
+         <property name="Nombre" type="java.lang.String">
             <column name="NOMBRE" />
         </property>
-        <property name="fechaNacimiento" type="java.lang.String">
+        <property name="Apellido" type="java.lang.String">
+            <column name="APELLIDO" />
+        </property>
+        <many-to-one name="Gen" class="Entidad.Genero" fetch="join">
+            <column name="GENERO" />
+        </many-to-one>
+         <property name="FechaNac" type="java.util.Date">
             <column name="FECHANACIMIENTO" />
         </property>
-        <property name="direccion" type="java.lang.String">
+        <property name="Direccion" type="java.lang.String">
             <column name="DIRECCION" />
         </property>
-        <property name="e_mail" type="java.lang.String">
+        <many-to-one name="localidad" class="Entidad.Localidad" fetch="join">
+            <column name="LOCALIDAD" />
+        </many-to-one>
+         <property name="E_Mail" type="java.lang.String">
             <column name="E_MAIL" />
+        </property>
+        <property name="Tel" type="java.lang.String">
+            <column name="TELEFONO" />
+        </property>
+        <property name="Estado" type="boolean">
+            <column name="ESTADO" />
         </property>
     </class>
 </hibernate-mapping>

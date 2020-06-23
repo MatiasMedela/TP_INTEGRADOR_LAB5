@@ -10,13 +10,13 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
-	<context:component-scan	base-package="src.main.java.Controllers" ></context:component-scan>
+	<context:component-scan	base-package="Controllers" ></context:component-scan>
 	
 	<mvc:annotation-driven />
 	
     <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
     <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
-		<property name="prefix" value="WEB-INF/Vistas"></property>
+		<property name="prefix" value="WEB-INF/Vistas/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 
