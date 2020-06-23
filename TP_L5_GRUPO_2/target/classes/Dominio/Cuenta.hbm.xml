@@ -2,19 +2,21 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 02/06/2020 13:10:17 by Hibernate Tools 3.5.0.Final -->
-<hibernate-mapping>
+<hibernate-mapping >
     <class name="Dominio.Cuenta" table="CUENTA">
         <id name="idCuenta" type="int">
             <column name="ID_CUENTA" />
             <generator class="increment" />
         </id>
-        <many-to-one name="usuario" class="Dominio.Usuario" fetch="join">
+        <many-to-one name="usuario" class="Dominio.Usuario" fetch="select" unique="true" not-null="true"
+            cascade="all">
             <column name="USUARIO" />
         </many-to-one>
         <property name="fechaCreacion" type="java.lang.String">
             <column name="FECHA_CREACION" />
         </property>
-        <many-to-one name="tipoCuenta" class="Dominio.Tipo_Cuenta" fetch="join">
+        <many-to-one name="tipoCuenta" class="Dominio.Tipo_Cuenta" fetch="join" unique="true" not-null="true"
+            cascade="all">
             <column name="TIPOCUENTA" />
         </many-to-one>
         <property name="saldo" type="float">

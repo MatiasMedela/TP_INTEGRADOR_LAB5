@@ -3,10 +3,10 @@
 }
 
 .btn-grid {
-	display: block;
-	margin: auto;
-    padding: .2rem .5rem;
-    border: 1px solid gray;
+	display: block!important;
+	margin: auto!important;
+    padding: .2rem .5rem!important;
+    border: 1px solid gray!important;
 }
 
 .edit-text {

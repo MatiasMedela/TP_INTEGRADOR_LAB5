@@ -1,5 +1,7 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 <html>
 <head>
+<link rel=stylesheet href="<c:url value="resources/Estilos/styles.css"/>" type="text/css" media=screen>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
@@ -15,12 +17,10 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 	crossorigin="anonymous"></script>
-<link rel=StyleSheet href="styles.css" type="text/css" media=screen>
 </head>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 <body>
 	<!-- END NAVBAR -->
-<jsp:include page="NavbarClient.html"></jsp:include>
+<%@ include file="NavbarClient.html" %>
 	<!-- CONTENT -->
 
 	<div class="container-md">
@@ -38,13 +38,14 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${ listadoCuentasUsuario }" var="cuenta">
+			<c:forEach items="${ listadoCuentasUsuario }" var="cuenta" varStatus="loop">
 					<tr>
-					<td>${cuenta.getTipoCuenta()}</td>
-					<td>${cuenta.GetAlias()}</td>
-					<td>Pesos</td>
-					<td>${cuenta.saldo}</td>
-					<td><button type="button" class="btn btn-grid btn-light"
+					<input type="hidden" value="${cuenta[4].toString()}" id="Cbu${loop.index}" />
+					<td id="Tipo${loop.index}">${cuenta[3].toString()}</td>
+					<td id="Ident${loop.index}">${cuenta[1].toString()}</td>
+					<td id="Moneda${loop.index}">${cuenta[2].toString()}</td>
+					<td id="Saldo${loop.index}">${cuenta[0].toString()}</td>
+					<td><button onClick="mostrarModalDetalles(${loop.index})" type="button" class="btn btn-grid btn-light"
 							data-toggle="modal" data-target="#ModalDetails">Ver
 							detalles</button></td>
 					<td><button type="button" class="btn btn-grid btn-light"
@@ -52,42 +53,6 @@
 							movimientos</button></td>
 				</tr>
 			</c:forEach>
-				<tr>
-					<td>Caja ahorro en pesos</td>
-					<td>Cuenta principal</td>
-					<td>Pesos</td>
-					<td>$10.000</td>
-					<td><button type="button" class="btn btn-grid btn-light"
-							data-toggle="modal" data-target="#ModalDetails">Ver
-							detalles</button></td>
-					<td><button type="button" class="btn btn-grid btn-light"
-							data-toggle="modal" data-target="#ModalMovements">Ver
-							movimientos</button></td>
-				</tr>
-				<tr>
-					<td>Caja ahorro en dólares</td>
-					<td>Cuenta principal usd</td>
-					<td>Dólares</td>
-					<td>$200</td>
-					<td><button type="button" class="btn btn-grid btn-light"
-							data-toggle="modal" data-target="#ModalDetails">Ver
-							detalles</button></td>
-					<td><button type="button" class="btn btn-grid btn-light"
-							data-toggle="modal" data-target="#ModalMovements">Ver
-							movimientos</button></td>
-				</tr>
-				<tr>
-					<td>Cuenta corriente</td>
-					<td>Cuenta secundaria</td>
-					<td>Pesos</td>
-					<td>$350.000</td>
-					<td><button type="button" class="btn btn-grid btn-light"
-							data-toggle="modal" data-target="#ModalDetails">Ver
-							detalles</button></td>
-					<td><button type="button" class="btn btn-grid btn-light"
-							data-toggle="modal" data-target="#ModalMovements">Ver
-							movimientos</button></td>
-				</tr>
 			</tbody>
 		</table>
 
@@ -119,7 +84,7 @@
 							<p>Saldo:</p>
 						</div>
 						<div class="col-8">
-							<p>Caja ahorro en pesos</p>
+							<p id="Tipo">Caja ahorro en pesos</p>
 							<div class="row">
 								<div class="col-8">
 									<p id="text-ident">Cuenta principal</p>
@@ -131,17 +96,17 @@
 									<p class="edit-text" id="edit-ident">Editar</p>
 								</div>
 							</div>
-							<p>Pesos</p>
+							<p id="Moneda">Pesos</p>
 							<div class="row">
 								<div class="col-8">
-									<p>0000000000000000000000</p>
+									<p id="Cbu">0000000000000000000000</p>
 								</div>
 								<div class="col-4">
 									<p class="edit-text" id="edit-ident">Copiar</p>
 								</div>
 							</div>
-							<p>WORD.WORD.WORD</p>
-							<p>$10.000</p>
+							<p id="Alias">WORD.WORD.WORD</p>
+							<p id="Saldo">$10.000</p>
 						</div>
 					</div>
 				</div>
@@ -225,6 +190,14 @@
 			$('#edit-ident').html('Editar');
 		}
 	})
+	
+	function mostrarModalDetalles(index){
+		$("#Saldo").html($("#Saldo" + index).html())
+		$("#Tipo").html($("#Tipo" + index).html())
+		$("#Moneda").html($("#Moneda" + index).html())
+		$("#text-ident").html($("#Ident" + index).html())
+		$("#Cbu").html($("#Cbu" + index).val())
+	}
 </script>
 </html>
 

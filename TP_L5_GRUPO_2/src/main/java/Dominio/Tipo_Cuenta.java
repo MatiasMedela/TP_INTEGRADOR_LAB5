@@ -9,7 +9,9 @@ public class Tipo_Cuenta implements Serializable {
 	//Atributos
 	private int idTipoCuenta;
 	private String descripcion;
-	
+	private String moneda;
+
+
 	//Constructor
 	public Tipo_Cuenta()
 	{
@@ -47,7 +49,19 @@ public class Tipo_Cuenta implements Serializable {
 	{
 		this.descripcion = descripcion;
 	}
+
+	public String getMoneda() {
+		return moneda;
+	}
+
+	public void setMoneda(String moneda) {
+		this.moneda = moneda;
+	}
 	
 	//Métodos
+//	@Override
+//	public String toString() {
+//		return "Tipo_Cuenta [idTipoCuenta=" + idTipoCuenta + ", descripcion=" + descripcion + "]";
+//	}
 
 }

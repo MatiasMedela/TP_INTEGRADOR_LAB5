@@ -19,6 +19,7 @@
 		<property name="prefix" value="WEB-INF/Vistas/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+	
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 
-
-</beans> 
+</beans>

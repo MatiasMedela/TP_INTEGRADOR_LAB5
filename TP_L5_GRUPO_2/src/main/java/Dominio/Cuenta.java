@@ -3,7 +3,6 @@ package Dominio;
 import java.io.Serializable;
 
 public class Cuenta implements Serializable{
-	
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos
@@ -114,5 +113,13 @@ public class Cuenta implements Serializable{
 		this.estado = estado;
 	}
 
+	@Override
+	public String toString() {
+		return "Cuenta [idCuenta=" + idCuenta + ", usuario=" + usuario + ", fechaCreacion=" + fechaCreacion
+				+ ", tipoCuenta=" + tipoCuenta + ", saldo=" + saldo + ", cbu=" + cbu + ", alias=" + alias + ", estado="
+				+ estado + "]";
+	}
+
 	//Métodos
+	
 }

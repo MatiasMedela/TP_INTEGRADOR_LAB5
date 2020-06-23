@@ -62,22 +62,27 @@ public class App {
     	/*--CARGO DATOS EN TABLA TIPO CUENTA--*/
     	Tipo_Cuenta tipoCuenta1 = new Tipo_Cuenta();
     	tipoCuenta1.SetIdTipoCuenta(1);
+    	tipoCuenta1.setMoneda("Pesos");
     	tipoCuenta1.SetDescripcion("Caja de ahorro en pesos");
     	
     	Tipo_Cuenta tipoCuenta2 = new Tipo_Cuenta();
     	tipoCuenta2.SetIdTipoCuenta(2);
+    	tipoCuenta2.setMoneda("Dólares");
     	tipoCuenta2.SetDescripcion("Caja de ahorro en dolares");
     	
     	Tipo_Cuenta tipoCuenta3 = new Tipo_Cuenta();
     	tipoCuenta3.SetIdTipoCuenta(3);
+    	tipoCuenta3.setMoneda("Pesos");
     	tipoCuenta3.SetDescripcion("Cuenta corriente");
     	
     	Tipo_Cuenta tipoCuenta4 = new Tipo_Cuenta();
     	tipoCuenta4.SetIdTipoCuenta(4);
+    	tipoCuenta4.setMoneda("Pesos");
     	tipoCuenta4.SetDescripcion("Cuenta corriente especial en pesos");
     	
     	Tipo_Cuenta tipoCuenta5 = new Tipo_Cuenta();
     	tipoCuenta5.SetIdTipoCuenta(5);
+    	tipoCuenta5.setMoneda("Dólares");
     	tipoCuenta5.SetDescripcion("Cuenta corriente especial en dolares");
     	
     	session.save(tipoCuenta1);

@@ -3,27 +3,24 @@ package Controllers;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import Negocio.CuentaNegocio;
 import Dominio.Cuenta;
 
 @Controller
-@RequestMapping("/")
 public class CuentaController {
 
 	private CuentaNegocio cuentaN;
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public String cuentasUsuario(@RequestParam("legusuario") String usuario, ModelMap modelo) {
+	@RequestMapping("paginaCuentas.html")
+	public ModelAndView cuentasUsuario() {
+		ModelAndView MV = new ModelAndView();
 		cuentaN = new CuentaNegocio();
-		List<Cuenta> listadoCuentas = (List<Cuenta>)cuentaN.listar();
-		modelo.addAttribute("testmvc", "Prueba paso de datos");
-		modelo.addAttribute("listadoCuentasUsuario", listadoCuentas);
-		return "TP_L5_GRUPO_2/index";
+		MV.addObject("listadoCuentasUsuario", cuentaN.datosCuentaBasic());
+		MV.setViewName("index");
+		return MV;
 	}
 	
 }
