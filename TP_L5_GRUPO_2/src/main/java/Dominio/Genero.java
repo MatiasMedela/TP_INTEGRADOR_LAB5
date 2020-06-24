@@ -27,22 +27,22 @@ public class Genero implements Serializable {
 	}
 	
 	//Getters and Setters
-	public int GetIdGenero() 
+	public int getIdGenero() 
 	{
 		return this.idGenero;	
 	}
 	
-	public void SetIdGenero(int id)
+	public void setIdGenero(int id)
 	{
 		this.idGenero = id;
 	}
 	
-	public String GetDescripcion()
+	public String getDescripcion()
 	{
 		return this.descripcion;
 	}
 	
-	public void SetDescripcion(String descripcion)
+	public void setDescripcion(String descripcion)
 	{
 		this.descripcion = descripcion;
 	}
@@ -53,6 +53,11 @@ public class Genero implements Serializable {
 	}
 	public void DestroyGenero() {
 			
+	}
+
+	@Override
+	public String toString() {
+		return "Genero [idGenero=" + idGenero + ", descripcion=" + descripcion + "]";
 	}
 		
 }

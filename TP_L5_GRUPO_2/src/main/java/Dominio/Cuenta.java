@@ -93,22 +93,22 @@ public class Cuenta implements Serializable{
 		this.cbu = cbu;
 	}
 	
-	public String GetAlias()
+	public String getAlias()
 	{
 		return this.alias;
 	}
 	
-	public void SetAlias(String alias)
+	public void setAlias(String alias)
 	{
 		this.alias = alias;
 	}
 	
-	public boolean GetEstado()
+	public boolean getEstado()
 	{
 		return this.estado;
 	}
 	
-	public void SetEstado(boolean estado)
+	public void setEstado(boolean estado)
 	{
 		this.estado = estado;
 	}

@@ -33,42 +33,42 @@ public class Logueo implements Serializable{
 	}
 	
 	//Getters and Setters
-	public int GetIdLogueo()
+	public int getIdLogueo()
 	{
 		return this.idLogueo;
 	}
 	
-	public void SetIdLogueo(int id)
+	public void setIdLogueo(int id)
 	{
 		this.idLogueo = id;
 	}
 	
-	public String GetNUsuario()
+	public String getNUsuario()
 	{
 		return this.nUsuario;
 	}
 	
-	public void SetNUsuario(String nUsuario)
+	public void setNUsuario(String nUsuario)
 	{
 		this.nUsuario = nUsuario;
 	}
 	
-	public String GetContrasenia()
+	public String getContrasenia()
 	{
 		return this.contrasenia;
 	}
 	
-	public void SetContrasenia(String contrasenia)
+	public void setContrasenia(String contrasenia)
 	{
 		this.contrasenia = contrasenia;
 	}
 	
-	public Usuario GetUsuario()
+	public Usuario getUsuario()
 	{
 		return this.usuario;
 	}
 	
-	public void SetUsuario(Usuario usuario)
+	public void setUsuario(Usuario usuario)
 	{
 		this.usuario = usuario;
 	}

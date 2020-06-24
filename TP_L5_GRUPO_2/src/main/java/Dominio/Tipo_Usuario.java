@@ -29,26 +29,29 @@ public class Tipo_Usuario implements Serializable {
 	}
 	
 	//Getters and Setters
-	public int GetIdTipoUsuario()
-	{
-		return this.idTipoUsuario;
+	public int getIdTipoUsuario() {
+		return idTipoUsuario;
 	}
-	
-	public void SetIdTipoUsuario(int id)
-	{
-		this.idTipoUsuario = id;
+
+	public void setIdTipoUsuario(int idTipoUsuario) {
+		this.idTipoUsuario = idTipoUsuario;
 	}
-	
-	public String GetDescripcion()
-	{
-		return this.descripcion;
+
+	public String getDescripcion() {
+		return descripcion;
 	}
-	
-	public void SetDescripcion(String descripcion)
-	{
+
+	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
 	
 	//Métodos
+	@Override
+	public String toString() {
+		return "Tipo_Usuario [idTipoUsuario=" + idTipoUsuario + ", descripcion=" + descripcion + "]";
+	}
+
+
 
 }

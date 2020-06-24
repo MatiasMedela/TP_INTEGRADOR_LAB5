@@ -28,22 +28,22 @@ public class Tipo_Movimiento implements Serializable {
 	}
 	
 	//Gettesr and Setters
-	public int GetIdTipoMovimiento()
+	public int getIdTipoMovimiento()
 	{
 		return this.idTipoMovimiento;
 	}
 	
-	public void SetIdTipoMovimiento(int id)
+	public void setIdTipoMovimiento(int id)
 	{
 		this.idTipoMovimiento = id;
 	}
 	
-	public String GetDescripcion()
+	public String getDescripcion()
 	{
 		return this.descripcion;
 	}
 	
-	public void SetDescripcion(String descripcion)
+	public void setDescripcion(String descripcion)
 	{
 		this.descripcion = descripcion;
 	}

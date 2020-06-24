@@ -39,7 +39,7 @@ public class Localidad implements Serializable{
 	@Override
 	public String toString() {
 		return "Localidad [IdLocalidad=" + IdLocalidad + ", LocNombre=" + LocNombre + ", codigoPostal=" + CodigoPostal
-				+ ", provincia=" + ProvLoc + "]";
+				+ ", provincia=" + ProvLoc.toString() + "]";
 	}
 	
 }

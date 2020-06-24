@@ -44,16 +44,16 @@ public class App {
        	//---------------------------------------------------
     	/*--CARGO DATOS TABLA GENEROS--*/
     	Genero gen1 = new Genero();
-    	gen1.SetIdGenero(1);
-    	gen1.SetDescripcion("Femenino");
+    	gen1.setIdGenero(1);
+    	gen1.setDescripcion("Femenino");
     	
     	Genero gen2 = new Genero();
-    	gen2.SetIdGenero(2);
-    	gen2.SetDescripcion("Masculino");
+    	gen2.setIdGenero(2);
+    	gen2.setDescripcion("Masculino");
     	
     	Genero gen3 = new Genero();
-    	gen3.SetIdGenero(3);
-    	gen3.SetDescripcion("Otros");
+    	gen3.setIdGenero(3);
+    	gen3.setDescripcion("Otros");
     	
     	session.save(gen1);
     	session.save(gen2);
@@ -61,29 +61,29 @@ public class App {
     	//-----------------------------------------------------------
     	/*--CARGO DATOS EN TABLA TIPO CUENTA--*/
     	Tipo_Cuenta tipoCuenta1 = new Tipo_Cuenta();
-    	tipoCuenta1.SetIdTipoCuenta(1);
+    	tipoCuenta1.getIdTipoCuenta(1);
     	tipoCuenta1.setMoneda("Pesos");
-    	tipoCuenta1.SetDescripcion("Caja de ahorro en pesos");
+    	tipoCuenta1.getDescripcion("Caja de ahorro en pesos");
     	
     	Tipo_Cuenta tipoCuenta2 = new Tipo_Cuenta();
-    	tipoCuenta2.SetIdTipoCuenta(2);
+    	tipoCuenta2.getIdTipoCuenta(2);
     	tipoCuenta2.setMoneda("Dólares");
-    	tipoCuenta2.SetDescripcion("Caja de ahorro en dolares");
+    	tipoCuenta2.getDescripcion("Caja de ahorro en dolares");
     	
     	Tipo_Cuenta tipoCuenta3 = new Tipo_Cuenta();
-    	tipoCuenta3.SetIdTipoCuenta(3);
+    	tipoCuenta3.getIdTipoCuenta(3);
     	tipoCuenta3.setMoneda("Pesos");
-    	tipoCuenta3.SetDescripcion("Cuenta corriente");
+    	tipoCuenta3.getDescripcion("Cuenta corriente");
     	
     	Tipo_Cuenta tipoCuenta4 = new Tipo_Cuenta();
-    	tipoCuenta4.SetIdTipoCuenta(4);
+    	tipoCuenta4.getIdTipoCuenta(4);
     	tipoCuenta4.setMoneda("Pesos");
-    	tipoCuenta4.SetDescripcion("Cuenta corriente especial en pesos");
+    	tipoCuenta4.getDescripcion("Cuenta corriente especial en pesos");
     	
     	Tipo_Cuenta tipoCuenta5 = new Tipo_Cuenta();
-    	tipoCuenta5.SetIdTipoCuenta(5);
+    	tipoCuenta5.getIdTipoCuenta(5);
     	tipoCuenta5.setMoneda("Dólares");
-    	tipoCuenta5.SetDescripcion("Cuenta corriente especial en dolares");
+    	tipoCuenta5.getDescripcion("Cuenta corriente especial en dolares");
     	
     	session.save(tipoCuenta1);
     	session.save(tipoCuenta2);
@@ -241,24 +241,24 @@ public class App {
     	//---------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA TIPO MOVIMIENTO--*/
     	Tipo_Movimiento tipoMovimient1 = new Tipo_Movimiento();
-    	tipoMovimient1.SetIdTipoMovimiento(1);
-    	tipoMovimient1.SetDescripcion("Alta de cuenta");
+    	tipoMovimient1.setIdTipoMovimiento(1);
+    	tipoMovimient1.setDescripcion("Alta de cuenta");
     	
     	Tipo_Movimiento tipoMovimient2 = new Tipo_Movimiento();
-    	tipoMovimient2.SetIdTipoMovimiento(2);
-    	tipoMovimient2.SetDescripcion("Alta de un prestamo");
+    	tipoMovimient2.setIdTipoMovimiento(2);
+    	tipoMovimient2.setDescripcion("Alta de un prestamo");
     	
     	Tipo_Movimiento tipoMovimient3 = new Tipo_Movimiento();
-    	tipoMovimient3.SetIdTipoMovimiento(3);
-    	tipoMovimient3.SetDescripcion("Pago de un prestamo");
+    	tipoMovimient3.setIdTipoMovimiento(3);
+    	tipoMovimient3.setDescripcion("Pago de un prestamo");
     	
     	Tipo_Movimiento tipoMovimient4 = new Tipo_Movimiento();
-    	tipoMovimient4.SetIdTipoMovimiento(4);
-    	tipoMovimient4.SetDescripcion("Acreditar transferencia");
+    	tipoMovimient4.setIdTipoMovimiento(4);
+    	tipoMovimient4.setDescripcion("Acreditar transferencia");
     	
     	Tipo_Movimiento tipoMovimient5 = new Tipo_Movimiento();
-    	tipoMovimient5.SetIdTipoMovimiento(5);
-    	tipoMovimient5.SetDescripcion("Debitar transferencia");
+    	tipoMovimient5.setIdTipoMovimiento(5);
+    	tipoMovimient5.setDescripcion("Debitar transferencia");
     	
     	session.save(tipoMovimient1);
     	session.save(tipoMovimient2);
@@ -473,54 +473,54 @@ public class App {
     	//---------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA LOGUEO*/
     	Logueo log1 = new Logueo();
-    	log1.SetNUsuario(usuario1.getE_Mail());
-    	log1.SetContrasenia(usuario1.getIdUsu());
-    	log1.SetUsuario(usuario1);
+    	log1.setNUsuario(usuario1.getE_Mail());
+    	log1.setContrasenia(usuario1.getIdUsu());
+    	log1.setUsuario(usuario1);
     	
     	Logueo log2 = new Logueo();
-    	log2.SetNUsuario(usuario2.getE_Mail());
-    	log2.SetContrasenia(usuario2.getIdUsu());
-    	log2.SetUsuario(usuario2);
+    	log2.setNUsuario(usuario2.getE_Mail());
+    	log2.setContrasenia(usuario2.getIdUsu());
+    	log2.setUsuario(usuario2);
     	
     	Logueo log3 = new Logueo();
-    	log3.SetNUsuario(usuario3.getE_Mail());
-    	log3.SetContrasenia(usuario3.getIdUsu());
-    	log3.SetUsuario(usuario3);
+    	log3.setNUsuario(usuario3.getE_Mail());
+    	log3.setContrasenia(usuario3.getIdUsu());
+    	log3.setUsuario(usuario3);
     	
     	Logueo log4 = new Logueo();
-    	log4.SetNUsuario(usuario4.getE_Mail());
-    	log4.SetContrasenia(usuario4.getIdUsu());
-    	log4.SetUsuario(usuario4);
+    	log4.setNUsuario(usuario4.getE_Mail());
+    	log4.setContrasenia(usuario4.getIdUsu());
+    	log4.setUsuario(usuario4);
     	
     	Logueo log5 = new Logueo();
-    	log5.SetNUsuario(usuario5.getE_Mail());
-    	log5.SetContrasenia(usuario5.getIdUsu());
-    	log5.SetUsuario(usuario5);
+    	log5.setNUsuario(usuario5.getE_Mail());
+    	log5.setContrasenia(usuario5.getIdUsu());
+    	log5.setUsuario(usuario5);
     	
     	Logueo log6 = new Logueo();
-    	log6.SetNUsuario(usuario6.getE_Mail());
-    	log6.SetContrasenia(usuario6.getIdUsu());
-    	log6.SetUsuario(usuario6);
+    	log6.setNUsuario(usuario6.getE_Mail());
+    	log6.setContrasenia(usuario6.getIdUsu());
+    	log6.setUsuario(usuario6);
     	
     	Logueo log7 = new Logueo();
-    	log7.SetNUsuario(usuario7.getE_Mail());
-    	log7.SetContrasenia(usuario7.getIdUsu());
-    	log7.SetUsuario(usuario7);
+    	log7.setNUsuario(usuario7.getE_Mail());
+    	log7.setContrasenia(usuario7.getIdUsu());
+    	log7.setUsuario(usuario7);
     	
     	Logueo log8 = new Logueo();
-    	log8.SetNUsuario(usuario8.getE_Mail());
-    	log8.SetContrasenia(usuario8.getIdUsu());
-    	log8.SetUsuario(usuario8);
+    	log8.setNUsuario(usuario8.getE_Mail());
+    	log8.setContrasenia(usuario8.getIdUsu());
+    	log8.setUsuario(usuario8);
     	
     	Logueo log9 = new Logueo();
-    	log9.SetNUsuario(usuario9.getE_Mail());
-    	log9.SetContrasenia(usuario9.getIdUsu());
-    	log9.SetUsuario(usuario9);
+    	log9.setNUsuario(usuario9.getE_Mail());
+    	log9.setContrasenia(usuario9.getIdUsu());
+    	log9.setUsuario(usuario9);
     	
     	Logueo log10 = new Logueo();
-    	log10.SetNUsuario(usuario10.getE_Mail());
-    	log10.SetContrasenia(usuario10.getIdUsu());
-    	log10.SetUsuario(usuario10);
+    	log10.setNUsuario(usuario10.getE_Mail());
+    	log10.setContrasenia(usuario10.getIdUsu());
+    	log10.setUsuario(usuario10);
     	
     	
     	session.save(log1);
@@ -540,80 +540,80 @@ public class App {
     	cuenta1.setTipoCuenta(tipoCuenta2);
     	cuenta1.setFechaCreacion("09/06/2020");
     	cuenta1.setCbu("0000.0000.0001");
-    	cuenta1.SetAlias("GeneralPacheco2020");
+    	cuenta1.setAlias("GeneralPacheco2020");
     	cuenta1.setUsuario(usuario4);
     	cuenta1.setSaldo(10000);
-    	cuenta1.SetEstado(false);
+    	cuenta1.setEstado(false);
     	
     	Cuenta cuenta2 = new Cuenta();
     	cuenta2.setIdCuenta(2);
     	cuenta2.setTipoCuenta(tipoCuenta3);
     	cuenta2.setFechaCreacion("09/06/2020");
     	cuenta2.setCbu("0000.0000.0002");
-    	cuenta2.SetAlias("GeneralPacheco202");
+    	cuenta2.setAlias("GeneralPacheco202");
     	cuenta2.setUsuario(usuario4);
     	cuenta2.setSaldo(10000);
-    	cuenta2.SetEstado(false);
+    	cuenta2.setEstado(false);
     	
     	Cuenta cuenta3 = new Cuenta();
     	cuenta3.setIdCuenta(3);
     	cuenta3.setTipoCuenta(tipoCuenta2);
     	cuenta3.setFechaCreacion("09/06/2020");
     	cuenta3.setCbu("0000.0000.0003");
-    	cuenta3.SetAlias("WinterGarden2012");
+    	cuenta3.setAlias("WinterGarden2012");
     	cuenta3.setUsuario(usuario5);
     	cuenta3.setSaldo(10000);
-    	cuenta3.SetEstado(false);
+    	cuenta3.setEstado(false);
     	
     	Cuenta cuenta4 = new Cuenta();
     	cuenta4.setIdCuenta(4);
     	cuenta4.setTipoCuenta(tipoCuenta3);
     	cuenta4.setFechaCreacion("09/06/2020");
     	cuenta4.setCbu("0000.0000.0004");
-    	cuenta4.SetAlias("WinterGarden2013");
+    	cuenta4.setAlias("WinterGarden2013");
     	cuenta4.setUsuario(usuario5);
     	cuenta4.setSaldo(10000);
-    	cuenta4.SetEstado(false);
+    	cuenta4.setEstado(false);
     	
     	Cuenta cuenta5 = new Cuenta();
     	cuenta5.setIdCuenta(5);
     	cuenta5.setTipoCuenta(tipoCuenta2);
     	cuenta5.setFechaCreacion("09/06/2020");
     	cuenta5.setCbu("0000.0000.0005");
-    	cuenta5.SetAlias("LaRalde3256");
+    	cuenta5.setAlias("LaRalde3256");
     	cuenta5.setUsuario(usuario6);
     	cuenta5.setSaldo(10000);
-    	cuenta5.SetEstado(false);
+    	cuenta5.setEstado(false);
     	
     	Cuenta cuenta6 = new Cuenta();
     	cuenta6.setIdCuenta(6);
     	cuenta6.setTipoCuenta(tipoCuenta3);
     	cuenta6.setFechaCreacion("09/06/2020");
     	cuenta6.setCbu("0000.0000.0006");
-    	cuenta6.SetAlias("LaRalde3245");
+    	cuenta6.setAlias("LaRalde3245");
     	cuenta6.setUsuario(usuario6);
     	cuenta6.setSaldo(10000);
-    	cuenta6.SetEstado(false);
+    	cuenta6.setEstado(false);
     	
     	Cuenta cuenta7 = new Cuenta();
     	cuenta7.setIdCuenta(7);
     	cuenta7.setTipoCuenta(tipoCuenta2);
     	cuenta7.setFechaCreacion("09/06/2020");
     	cuenta7.setCbu("0000.0000.0007");
-    	cuenta7.SetAlias("River2014");;
+    	cuenta7.setAlias("River2014");;
     	cuenta7.setUsuario(usuario7);
     	cuenta7.setSaldo(10000);
-    	cuenta7.SetEstado(false);
+    	cuenta7.setEstado(false);
     	
     	Cuenta cuenta8 = new Cuenta();
     	cuenta8.setIdCuenta(8);
     	cuenta8.setTipoCuenta(tipoCuenta3);
     	cuenta8.setFechaCreacion("09/06/2020");
     	cuenta8.setCbu("0000.0000.0008");
-    	cuenta8.SetAlias("River2015");
+    	cuenta8.setAlias("River2015");
     	cuenta8.setUsuario(usuario7);
     	cuenta8.setSaldo(10000);
-    	cuenta8.SetEstado(false);
+    	cuenta8.setEstado(false);
     	
     	Cuenta cuenta9 = new Cuenta();
     	cuenta9.setIdCuenta(9);
@@ -621,19 +621,19 @@ public class App {
     	cuenta9.setFechaCreacion("09/06/2020");
     	cuenta9.setCbu("0000.0000.0009");
     	cuenta9.setUsuario(usuario8);
-    	cuenta9.SetAlias("Boca2007");
+    	cuenta9.setAlias("Boca2007");
     	cuenta9.setSaldo(10000);
-    	cuenta9.SetEstado(false);
+    	cuenta9.setEstado(false);
     	
     	Cuenta cuenta10 = new Cuenta();
     	cuenta10.setIdCuenta(10);
     	cuenta10.setTipoCuenta(tipoCuenta3);
     	cuenta10.setFechaCreacion("09/06/2020");
     	cuenta10.setCbu("0000.0000.0010");
-    	cuenta10.SetAlias("Boca2006");
+    	cuenta10.setAlias("Boca2006");
     	cuenta10.setUsuario(usuario8);
     	cuenta10.setSaldo(10000);
-    	cuenta10.SetEstado(false);
+    	cuenta10.setEstado(false);
     	
     	session.save(cuenta1);
     	session.save(cuenta2);

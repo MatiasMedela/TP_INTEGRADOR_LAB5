@@ -3,16 +3,17 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 02/06/2020 14:45:45 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="Entidad.Usuario" table="USUARIO">
+    <class name="Dominio.Usuario" table="USUARIO">
         <id name="IdUsu" type="java.lang.String">
             <column name="ID_USUARIO" />
-            <generator class="identity" />
+            <generator class="assigned" />
         </id>
-           <many-to-one name="TipUsu" class="Entidad.Tipo_Usuario" fetch="join">
+           <many-to-one name="TipoUsu" class="Dominio.Tipo_Usuario" fetch="join" unique="true" not-null="true"
+            cascade="all">
             <column name="TIPO_USUARIO" />
         </many-to-one>
         <property name="Dni" type="java.lang.String">
-            <column name="D.N.I" />
+            <column name="DNI" />
         </property>
          <property name="Nombre" type="java.lang.String">
             <column name="NOMBRE" />
@@ -20,7 +21,8 @@
         <property name="Apellido" type="java.lang.String">
             <column name="APELLIDO" />
         </property>
-        <many-to-one name="Gen" class="Entidad.Genero" fetch="join">
+        <many-to-one name="Gen" class="Dominio.Genero" fetch="join" unique="true" not-null="true"
+            cascade="all">
             <column name="GENERO" />
         </many-to-one>
          <property name="FechaNac" type="java.util.Date">
@@ -29,7 +31,8 @@
         <property name="Direccion" type="java.lang.String">
             <column name="DIRECCION" />
         </property>
-        <many-to-one name="localidad" class="Entidad.Localidad" fetch="join">
+        <many-to-one name="localidad" class="Dominio.Localidad" fetch="join" unique="true" not-null="true"
+            cascade="all">
             <column name="LOCALIDAD" />
         </many-to-one>
          <property name="E_Mail" type="java.lang.String">

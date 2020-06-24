@@ -2,7 +2,6 @@ package Negocio;
 
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import AccesoDatos.ConfigHibernate;
@@ -20,12 +19,12 @@ public class CuentaNegocio {
 	    return listado;		
 	}
 	
-	public List<Object[]> datosCuentaBasic() {
+	public List<Cuenta> datosCuentaBasic(String legajo) {
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 
-		List<Object[]> listado = (List<Object[]>) session.createQuery("SELECT c.saldo, c.alias, tc.moneda, tc.descripcion, c.cbu FROM Cuenta as c inner join c.tipoCuenta as tc").list();
-		
+//		List<Object[]> listado = (List<Object[]>) session.createQuery("SELECT c.saldo, c.alias, tc.moneda, tc.descripcion, c.cbu, c.idCuenta FROM Cuenta as c inner join c.tipoCuenta as tc WHERE c.usuario = " + legajo).list();
+		List<Cuenta> listado = (List<Cuenta>) session.createQuery("SELECT c FROM Cuenta as c inner join c.tipoCuenta as tc WHERE c.usuario = " + legajo).list();
     	ch.cerrarSession();
 	    return listado;		
 	}

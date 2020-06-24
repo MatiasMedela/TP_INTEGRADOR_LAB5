@@ -74,12 +74,12 @@ public class Usuario implements Serializable {
 	
 	//identificador de version
 	public static long getSerialversionuid() {return serialVersionUID;}
-	@Override
-	public String toString() {
-		return "Usuario [IdUsu=" + IdUsu + ", TipoUsu=" + TipoUsu + ", Dni=" + Dni + ", Nombre=" + Nombre
-				+ ", Apellido=" + Apellido + ", Gen=" + Gen + ", FechaNac=" + FechaNac + ", Loc=" + Loc + ", Direccion="
-				+ Direccion + ", E_Mail=" + E_Mail + ", Tel=" + Tel + ", Estado=" + Estado + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Usuario [IdUsu=" + IdUsu + ", TipoUsu=" + TipoUsu + ", Dni=" + Dni + ", Nombre=" + Nombre
+//				+ ", Apellido=" + Apellido + ", Gen=" + Gen + ", FechaNac=" + FechaNac + ", Loc=" + Loc + ", Direccion="
+//				+ Direccion + ", E_Mail=" + E_Mail + ", Tel=" + Tel + ", Estado=" + Estado + "]";
+//	}
 	
 //Métodos
 

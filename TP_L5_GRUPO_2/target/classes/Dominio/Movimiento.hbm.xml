@@ -8,7 +8,7 @@
             <column name="ID" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="tipoMovimiento" class="Dominio.Tipo_Movimiento" fetch="join">
+        <many-to-one name="tipoMovimiento" class="Dominio.Tipo_Movimiento" lazy="false">
             <column name="TIPOMOVIMIENTO" />
         </many-to-one>
         <property name="cbuOrigen" type="java.lang.String">

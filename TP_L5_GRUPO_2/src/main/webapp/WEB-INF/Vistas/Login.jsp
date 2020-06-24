@@ -21,16 +21,16 @@ crossorigin="anonymous">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
 <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 <!-- Hoja de estilos-->
-<link rel="stylesheet" type="text/css" href="../../Estilos/Login.css">
+ <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Estilos/Login.css">
 </head>
 <body>
 <div class="modal-dialog text-center">
 	<div class="col-sm-8 main-section">
 		<div class="modal-content">
 			<div class="col-12 user-img">
-			<img src="../../Imagenes/login_user.jpg">
+			<img src="${pageContext.request.contextPath}/Imagenes/login_user.jpg">
 			</div>
-			<form class="col-12" action="ServletLogin" method="post" accept-charset=utf-8>
+			<form class="col-12" action="paginaCuentas.html" method="get">
 				<div class="form-group" id="user-group">
 				<input type="text" class="form-control" placeholder="Nombre De Usuario" name="LoginUser" autocomplete="off" required/>
 				</div>

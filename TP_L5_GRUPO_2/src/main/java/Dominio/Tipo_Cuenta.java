@@ -30,22 +30,22 @@ public class Tipo_Cuenta implements Serializable {
 	}
 	
 	//Getters and Setters
-	public int GetIdTipoCuenta()
+	public int getIdTipoCuenta()
 	{
 		return this.idTipoCuenta;
 	}
 	
-	public void SetIdTipoCuenta(int id)
+	public void getIdTipoCuenta(int id)
 	{
 		this.idTipoCuenta = id;
 	}
 	
-	public String GetDescripcion()
+	public String getDescripcion()
 	{
 		return this.descripcion;
 	}
 	
-	public void SetDescripcion(String descripcion)
+	public void getDescripcion(String descripcion)
 	{
 		this.descripcion = descripcion;
 	}

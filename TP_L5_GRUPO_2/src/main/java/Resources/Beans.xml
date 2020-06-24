@@ -1,25 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans "
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:shchemaLocation="http://www.springframework.org/schema/beans 
-http://www.springframework.org/schema/beans/spring-beans.xsd">
-	
-	<!--BEAN LOCALIDAD-->
-	<bean id="BLocalidad" class="Entidad.Localidad" scope="prototype">
-	
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!--BEAN PROVINCIA -->
+	<bean id="BProvincia" class="Dominio.Provincia" scope="prototype">
+		<property name="IdProvincia" value="-1"></property>
+		<property name="ProvNombre" value="default"></property>
+	</bean>
+	<!--BEAN LOCALIDAD -->
+	<bean id="BLocalidad" class="Dominio.Localidad" scope="prototype"
+		autowire="byName">
+		<property name="LocNombre" value="default"></property>
+		<property name="CodigoPostal" value="0000"></property>
+		<property name="ProvLoc" ref="BProvincia"></property>
+	</bean>
+	<!--BEAN GENERO -->
+	<bean id="BGenero" class="Dominio.Genero" scope="prototype">
 		<property name="descripcion" value="default"></property>
-		
 	</bean>
-	<!--BEAN GENERO-->
-	<bean id="BGenero" class="Entidad.Genero" scope="prototype">
-		<property name="descripcion" value="default"></property>
+	<!--BEAN TIPO USUARIO -->
+	<bean id="BTipo_Usuario" class="Dominio.Tipo_Usuario"
+		scope="prototype">
+		<property name="idTipoUsuario" value="-1"></property>
+		<property name="descripcion" value="Default"></property>
 	</bean>
-	<!--BEAN TIPO USUARIO-->
-	<bean id="BTipo_Usuario" class="Entidad.Tipo_Usuario" init-method="InitTipo_Usuario" destroy-method="DestroyTipo_Usuario" scope="prototype">
-		<property name="descripcion" value="Cliente"></property>
+	<!--BEAN TIPO MOVIMIENTO -->
+	<bean id="BTipo_Movimiento" class="Dominio.Tipo_Movimiento"
+		scope="prototype">
+		<property name="idTipoMovimiento" value="-1"></property>
+		<property name="descripcion" value="Default"></property>
 	</bean>
-	<!--BEAN USUARIO-->
-	<bean id="BUsuario" class="Entidad.Usuario" init-method="InitUsuario" destroy-method="DestroyUsuario" scope="prototype">
+	<!--BEAN TIPO CUENTA -->
+	<bean id="BTipo_Cuenta" class="Dominio.Tipo_Cuenta"
+		scope="prototype">
+		<property name="idTipoCuenta" value="-1"></property>
+		<property name="descripcion" value="Default"></property>
+		<property name="moneda" value="Default"></property>
+	</bean>
+	<!--BEAN USUARIO -->
+	<bean id="BUsuario" class="Dominio.Usuario" scope="prototype">
 		<property name="TipoUsu" ref="BTipo_Usuario"></property>
 		<property name="Dni" value="default"></property>
 		<property name="Nombe" value="default"></property>

@@ -2,11 +2,12 @@
 <html>
 <head>
 <link rel=stylesheet href="<c:url value="resources/Estilos/styles.css"/>" type="text/css" media=screen>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 	crossorigin="anonymous"></script>
 <script
@@ -38,7 +39,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${ listadoCuentasUsuario }" var="cuenta" varStatus="loop">
+<%-- 			<c:forEach items="${ listadoCuentasUsuario }" var="cuenta" varStatus="loop">
 					<tr>
 					<input type="hidden" value="${cuenta[4].toString()}" id="Cbu${loop.index}" />
 					<td id="Tipo${loop.index}">${cuenta[3].toString()}</td>
@@ -48,9 +49,22 @@
 					<td><button onClick="mostrarModalDetalles(${loop.index})" type="button" class="btn btn-grid btn-light"
 							data-toggle="modal" data-target="#ModalDetails">Ver
 							detalles</button></td>
-					<td><button type="button" class="btn btn-grid btn-light"
-							data-toggle="modal" data-target="#ModalMovements">Ver
-							movimientos</button></td>
+					<td><button onClick="mostrarModalMovimientos('${cuenta[4].toString()}')" type="button" class="btn btn-grid btn-light"
+							data-toggle="modal" data-target="#ModalMovements">Ver movimientos</button></td>
+				</tr>
+			</c:forEach> --%>
+						<c:forEach items="${ listadoCuentasUsuario }" var="cuenta" varStatus="loop">
+					<tr>
+					<input type="hidden" value="${cuenta.cbu}" id="Cbu${loop.index}" />
+					<td id="Tipo${loop.index}">${cuenta.tipoCuenta.descripcion}</td>
+					<td id="Ident${loop.index}">${cuenta.alias}</td>
+					<td id="Moneda${loop.index}">${cuenta.tipoCuenta.moneda}</td>
+					<td id="Saldo${loop.index}">${cuenta.saldo}</td>
+					<td><button onClick="mostrarModalDetalles(${loop.index})" type="button" class="btn btn-grid btn-light"
+							data-toggle="modal" data-target="#ModalDetails">Ver
+							detalles</button></td>
+					<td><button onClick="mostrarModalMovimientos('${cuenta.cbu}')" type="button" class="btn btn-grid btn-light"
+							data-toggle="modal" data-target="#ModalMovements">Ver movimientos</button></td>
 				</tr>
 			</c:forEach>
 			</tbody>
@@ -121,7 +135,7 @@
 	</div>
 	<!-- END MODAL DETAILS -->
 
-	<!-- MODAL DETAILS -->
+	<!-- MODAL MOVEMENTS -->
 	<div class="modal fade" id="ModalMovements" tabindex="-1" role="dialog"
 		aria-labelledby="ModalMovementsAccount" aria-hidden="true">
 		<div
@@ -147,6 +161,15 @@
 							</tr>
 						</thead>
 						<tbody>
+						
+						<c:forEach items="${ listadoMovimientos }" var="movimiento" varStatus="loop">
+						<tr>
+								<td>movimiento[1].toString();</td>
+								<td>Crédito</td>
+								<td>CBU Origen: 0000000000000000000001</td>
+								<td>${movimiento[2].toString()}</td>
+						</tr>
+						</c:forEach>
 							<tr>
 								<td>4/6/2020</td>
 								<td>Crédito</td>
@@ -171,7 +194,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- END MODAL DETAILS -->
+	<!-- END MODAL MOVEMENTS -->
     <input type="hidden" value="38326854" name="legusuario" />
 </body>
 
@@ -198,6 +221,7 @@
 		$("#text-ident").html($("#Ident" + index).html())
 		$("#Cbu").html($("#Cbu" + index).val())
 	}
+	
 </script>
 </html>
 
