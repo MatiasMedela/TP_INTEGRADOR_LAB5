@@ -12,10 +12,7 @@ public class Logueo implements Serializable{
 	private Usuario usuario;
 	
 	//Constructor
-	public Logueo()
-	{
-		
-	}
+	public Logueo(){}
 	
 	public Logueo(int id,String nUsuario,String contrasenia,Usuario usuario)
 	{
@@ -72,6 +69,13 @@ public class Logueo implements Serializable{
 	{
 		this.usuario = usuario;
 	}
+
+	@Override
+	public String toString() {
+		return "Logueo [idLogueo=" + idLogueo + ", nUsuario=" + nUsuario + ", contrasenia=" + contrasenia + ", usuario="
+				+ usuario.toString() + "]";
+	}
 	
 	//Métodos
+	
 }

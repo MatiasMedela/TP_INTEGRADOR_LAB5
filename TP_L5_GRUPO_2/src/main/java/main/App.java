@@ -269,61 +269,61 @@ public class App {
     	/*--CARGO DATOS TABLA LOCALIDAD*/
     	Localidad local1 = new Localidad();
     	local1.setIdLocalidad(1);
-    	local1.setProvincia(prov1);
+    	local1.setProvLoc(prov1);
     	local1.setLocNombre("C.A.B.A");
     	local1.setCodigoPostal("0");
     	
     	Localidad local2 = new Localidad();
     	local2.setIdLocalidad(2);
-    	local2.setProvincia(prov2);
+    	local2.setProvLoc(prov2);
     	local2.setLocNombre("AVELLANEDA");
     	local2.setCodigoPostal("1870");
     	
     	Localidad local3 = new Localidad();
     	local3.setIdLocalidad(3);
-    	local3.setProvincia(prov2);
+    	local3.setProvLoc(prov2);
     	local3.setLocNombre("DOCK SUD");
     	local3.setCodigoPostal("1871");
     	
     	Localidad local4 = new Localidad();
     	local4.setIdLocalidad(4);
-    	local4.setProvincia(prov2);
+    	local4.setProvLoc(prov2);
     	local4.setLocNombre("SAN JOSE");
     	local4.setCodigoPostal("6665");
     	
     	Localidad local5 = new Localidad();
     	local5.setIdLocalidad(5);
-    	local5.setProvincia(prov2);
+    	local5.setProvLoc(prov2);
     	local5.setLocNombre("LOS PATOS");
     	local5.setCodigoPostal("7603");
     	
     	Localidad local6 = new Localidad();
     	local6.setIdLocalidad(6);
-    	local6.setProvincia(prov2);
+    	local6.setProvLoc(prov2);
     	local6.setLocNombre("MIRAMAR");
     	local6.setCodigoPostal("7607");
     	
     	Localidad local7 = new Localidad();
     	local7.setIdLocalidad(7);
-    	local7.setProvincia(prov2);
+    	local7.setProvLoc(prov2);
     	local7.setLocNombre("GENERAL ALVEAR");
     	local7.setCodigoPostal("7263");
     	
     	Localidad local8 = new Localidad();
     	local8.setIdLocalidad(8);
-    	local8.setProvincia(prov2);
+    	local8.setProvLoc(prov2);
     	local8.setLocNombre("VILLA CERRITO");
     	local8.setCodigoPostal("8000");
     	
     	Localidad local9 = new Localidad();
     	local9.setIdLocalidad(9);
-    	local9.setProvincia(prov2);
+    	local9.setProvLoc(prov2);
     	local9.setLocNombre("ALSINA");
     	local9.setCodigoPostal("2938");
     	
     	Localidad local10 = new Localidad();
     	local10.setIdLocalidad(10);
-    	local10.setProvincia(prov2);
+    	local10.setProvLoc(prov2);
     	local10.setLocNombre("MONTE CRESPO");
     	local10.setCodigoPostal("7020");
     	
@@ -340,124 +340,124 @@ public class App {
     	//---------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA USUARIO--*/
     	Usuario usuario1 = new Usuario();
-    	usuario1.setIdUsu("38456789");
+    	usuario1.setDni("38456789");
     	usuario1.setTipoUsu(tipoUsuario1);
     	usuario1.setGen(gen1);
-    	usuario1.setLocalidad(local5);
+    	usuario1.setLoc(local5);
     	usuario1.setNombre("Daniela");
     	usuario1.setApellido("Alessio");
     	usuario1.setFechaNac(new Date());
     	usuario1.setEstado(false);
     	usuario1.setDireccion("Mosconi 556");
-    	usuario1.setE_Mail("dalessio@gmail.com");
+    	usuario1.setEmail("dalessio@gmail.com");
     	
     	Usuario usuario2 = new Usuario();
-    	usuario2.setIdUsu("38325465");
+    	usuario1.setDni("38456789");
     	usuario2.setTipoUsu(tipoUsuario2);
     	usuario2.setGen(gen2);
-    	usuario2.setLocalidad(local3);
+    	usuario2.setLoc(local3);
     	usuario2.setNombre("Juan");
     	usuario2.setApellido("Cassano");
     	usuario2.setFechaNac(new Date());
     	usuario2.setEstado(false);
     	usuario2.setDireccion("Riobamba 126");
-    	usuario2.setE_Mail("jcasano@gmail.com");
+    	usuario2.setEmail("jcasano@gmail.com");
     	
     	Usuario usuario3 = new Usuario();
-    	usuario3.setIdUsu("38568454");
+    	usuario1.setDni("38456789");
     	usuario3.setTipoUsu(tipoUsuario2);
     	usuario3.setGen(gen2);
-    	usuario3.setLocalidad(local1);
+    	usuario3.setLoc(local1);
     	usuario3.setNombre("Leandro");
     	usuario3.setApellido("Lescano");
     	usuario3.setFechaNac(new Date());
     	usuario3.setEstado(false);
     	usuario3.setDireccion("Alsina 236");
-    	usuario3.setE_Mail("llescano@gmail.com");
+    	usuario3.setEmail("llescano@gmail.com");
     	
     	Usuario usuario4 = new Usuario();
-    	usuario4.setIdUsu("38326854");
+    	usuario1.setDni("38456789");
     	usuario4.setTipoUsu(tipoUsuario2);
     	usuario4.setGen(gen2);
-    	usuario4.setLocalidad(local2);
+    	usuario4.setLoc(local2);
     	usuario4.setNombre("Sebastian");
     	usuario4.setApellido("Font");
     	usuario4.setFechaNac(new Date());
     	usuario4.setEstado(false);
     	usuario4.setDireccion("General Paz 546");
-    	usuario4.setE_Mail("sfont@gmail.com");
+    	usuario4.setEmail("sfont@gmail.com");
     	
     	Usuario usuario5 = new Usuario();
-    	usuario5.setIdUsu("38785326");
+    	usuario1.setDni("38456789");
     	usuario5.setTipoUsu(tipoUsuario2);
     	usuario5.setGen(gen2);
-    	usuario5.setLocalidad(local4);
+    	usuario5.setLoc(local4);
     	usuario5.setNombre("Matias");
     	usuario5.setApellido("Medela");
     	usuario5.setFechaNac(new Date());
     	usuario5.setEstado(false);
     	usuario5.setDireccion("Mosconi 546");
-    	usuario5.setE_Mail("mmedela@gmail.com");
+    	usuario5.setEmail("mmedela@gmail.com");
     	
     	Usuario usuario6 = new Usuario();
-    	usuario6.setIdUsu("4236552");
+    	usuario1.setDni("38456789");
     	usuario6.setTipoUsu(tipoUsuario2);
     	usuario6.setGen(gen2);
-    	usuario6.setLocalidad(local3);
+    	usuario6.setLoc(local3);
     	usuario6.setNombre("Juan");
     	usuario6.setApellido("de Lage");
     	usuario6.setFechaNac(new Date());
     	usuario6.setEstado(false);
     	usuario6.setDireccion("Haedo 652");
-    	usuario6.setE_Mail("jjlage@gmail.com");
+    	usuario6.setEmail("jjlage@gmail.com");
     	
     	Usuario usuario7 = new Usuario();
-    	usuario7.setIdUsu("6235645");
+    	usuario1.setDni("38456789");
     	usuario7.setTipoUsu(tipoUsuario2);
     	usuario7.setGen(gen2);
-    	usuario7.setLocalidad(local3);
+    	usuario7.setLoc(local3);
     	usuario7.setNombre("Horacio");
     	usuario7.setApellido("Suarez");
     	usuario7.setFechaNac(new Date());
     	usuario7.setEstado(false);
     	usuario7.setDireccion("Av. Centenario 1256");
-    	usuario7.setE_Mail("hsuarez@gmail.com");
+    	usuario7.setEmail("hsuarez@gmail.com");
     	
     	Usuario usuario8 = new Usuario();
-    	usuario8.setIdUsu("4237365");
+    	usuario1.setDni("38456789");
     	usuario8.setTipoUsu(tipoUsuario2);
     	usuario8.setGen(gen1);
-    	usuario8.setLocalidad(local3);
+    	usuario8.setLoc(local3);
     	usuario8.setNombre("Olga");
     	usuario8.setApellido("Capotosti");
     	usuario8.setFechaNac(new Date());
     	usuario8.setEstado(false);
     	usuario8.setDireccion("Haedo 568");
-    	usuario8.setE_Mail("ocapotosti@gmail.com");
+    	usuario8.setEmail("ocapotosti@gmail.com");
     	
     	Usuario usuario9 = new Usuario();
-    	usuario9.setIdUsu("37234456");
+    	usuario1.setDni("38456789");
     	usuario9.setTipoUsu(tipoUsuario2);
     	usuario9.setGen(gen1);
-    	usuario9.setLocalidad(local4);
+    	usuario9.setLoc(local4);
     	usuario9.setNombre("Marisa");
     	usuario9.setApellido("Vasquez");
     	usuario9.setFechaNac(new Date());
     	usuario9.setEstado(false);
     	usuario9.setDireccion("Alsina 326");
-    	usuario9.setE_Mail("mvasquez@gmail.com");
+    	usuario9.setEmail("mvasquez@gmail.com");
     	
     	Usuario usuario10 = new Usuario();
-    	usuario10.setIdUsu("36798546");
+    	usuario1.setDni("38456789");
     	usuario10.setTipoUsu(tipoUsuario2);
     	usuario10.setGen(gen2);
-    	usuario10.setLocalidad(local4);
+    	usuario10.setLoc(local4);
     	usuario10.setNombre("Mariano");
     	usuario10.setApellido("Vivas");
     	usuario10.setFechaNac(new Date());
     	usuario10.setEstado(false);
     	usuario10.setDireccion("Julian Navarro 135");
-    	usuario10.setE_Mail("mvivas@gmail.com");
+    	usuario10.setEmail("mvivas@gmail.com");
     	
     	session.save(usuario1);
     	session.save(usuario2);
@@ -473,53 +473,53 @@ public class App {
     	//---------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA LOGUEO*/
     	Logueo log1 = new Logueo();
-    	log1.setNUsuario(usuario1.getE_Mail());
-    	log1.setContrasenia(usuario1.getIdUsu());
+    	log1.setNUsuario(usuario1.getEmail());
+    	log1.setContrasenia("pppp");
     	log1.setUsuario(usuario1);
     	
     	Logueo log2 = new Logueo();
-    	log2.setNUsuario(usuario2.getE_Mail());
-    	log2.setContrasenia(usuario2.getIdUsu());
+    	log2.setNUsuario(usuario2.getEmail());
+    	log2.setContrasenia("pppp");
     	log2.setUsuario(usuario2);
     	
     	Logueo log3 = new Logueo();
-    	log3.setNUsuario(usuario3.getE_Mail());
-    	log3.setContrasenia(usuario3.getIdUsu());
+    	log3.setNUsuario(usuario3.getEmail());
+    	log3.setContrasenia("pppp");
     	log3.setUsuario(usuario3);
     	
     	Logueo log4 = new Logueo();
-    	log4.setNUsuario(usuario4.getE_Mail());
-    	log4.setContrasenia(usuario4.getIdUsu());
+    	log4.setNUsuario(usuario4.getEmail());
+    	log4.setContrasenia("pppp");
     	log4.setUsuario(usuario4);
     	
     	Logueo log5 = new Logueo();
-    	log5.setNUsuario(usuario5.getE_Mail());
-    	log5.setContrasenia(usuario5.getIdUsu());
+    	log5.setNUsuario(usuario5.getEmail());
+    	log5.setContrasenia("pppp");
     	log5.setUsuario(usuario5);
     	
     	Logueo log6 = new Logueo();
-    	log6.setNUsuario(usuario6.getE_Mail());
-    	log6.setContrasenia(usuario6.getIdUsu());
+    	log6.setNUsuario(usuario6.getEmail());
+    	log6.setContrasenia("pppp");
     	log6.setUsuario(usuario6);
     	
     	Logueo log7 = new Logueo();
-    	log7.setNUsuario(usuario7.getE_Mail());
-    	log7.setContrasenia(usuario7.getIdUsu());
+    	log7.setNUsuario(usuario7.getEmail());
+    	log7.setContrasenia("pppp");
     	log7.setUsuario(usuario7);
     	
     	Logueo log8 = new Logueo();
-    	log8.setNUsuario(usuario8.getE_Mail());
-    	log8.setContrasenia(usuario8.getIdUsu());
+    	log8.setNUsuario(usuario8.getEmail());
+    	log8.setContrasenia("pppp");
     	log8.setUsuario(usuario8);
     	
     	Logueo log9 = new Logueo();
-    	log9.setNUsuario(usuario9.getE_Mail());
-    	log9.setContrasenia(usuario9.getIdUsu());
+    	log9.setNUsuario(usuario9.getEmail());
+    	log9.setContrasenia("pppp");
     	log9.setUsuario(usuario9);
     	
     	Logueo log10 = new Logueo();
-    	log10.setNUsuario(usuario10.getE_Mail());
-    	log10.setContrasenia(usuario10.getIdUsu());
+    	log10.setNUsuario(usuario10.getEmail());
+    	log10.setContrasenia("pppp");
     	log10.setUsuario(usuario10);
     	
     	

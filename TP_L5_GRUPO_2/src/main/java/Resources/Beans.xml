@@ -11,10 +11,12 @@
 	<bean id="BProvincia" class="Dominio.Provincia" scope="prototype">
 		<property name="IdProvincia" value="-1"></property>
 		<property name="ProvNombre" value="default"></property>
+		<property name="Codigo" value="-1111"></property>
 	</bean>
 	<!--BEAN LOCALIDAD -->
 	<bean id="BLocalidad" class="Dominio.Localidad" scope="prototype"
 		autowire="byName">
+		<property name="IdLocalidad" value="-1"></property>
 		<property name="LocNombre" value="default"></property>
 		<property name="CodigoPostal" value="0000"></property>
 		<property name="ProvLoc" ref="BProvincia"></property>
@@ -44,17 +46,25 @@
 	</bean>
 	<!--BEAN USUARIO -->
 	<bean id="BUsuario" class="Dominio.Usuario" scope="prototype">
+	    <property name="IdUsu" value="-1"></property>
 		<property name="TipoUsu" ref="BTipo_Usuario"></property>
 		<property name="Dni" value="default"></property>
-		<property name="Nombe" value="default"></property>
+		<property name="Nombre" value="default"></property>
 		<property name="Apellido" value="default"></property>
 		<property name="Gen" ref="BGenero"></property>
 		<property name="FechaNac" value="12/12/12"></property>
 		<property name="Loc" ref="BLocalidad"></property>
 		<property name="Direccion" value="default"></property>
-		<property name="E-Mail" value="default"></property>
+		<property name="Email" value="default"></property>
 		<property name="Tel" value="default"></property>
 		<property name="Estado" value="false"></property>
 	</bean>
-
+	<!-- BEAN LOGUEO -->
+	<bean id="BLogueo" class="Dominio.Logueo"
+		scope="prototype">
+		<property name="idLogueo" value="-1"></property>
+		<property name="nUsuario" value="Default"></property>
+		<property name="contrasenia" value="Default"></property>
+		<property name="usuario" ref="BUsuario"></property>
+	</bean>
 </beans>
