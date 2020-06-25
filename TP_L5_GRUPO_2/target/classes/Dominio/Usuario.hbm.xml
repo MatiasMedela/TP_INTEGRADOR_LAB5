@@ -3,12 +3,12 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 02/06/2020 14:45:45 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="Dominio.Usuario" table="USUARIO">
-        <id name="IdUsu" type="java.lang.String">
+    <class name="Dominio.Usuario" table="USUARIO" lazy="false">
+        <id name="IdUsu" type="int">
             <column name="ID_USUARIO" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
-           <many-to-one name="TipoUsu" class="Dominio.Tipo_Usuario" fetch="join" unique="true" not-null="true"
+        <many-to-one name="TipoUsu" class="Dominio.Tipo_Usuario" fetch="join" unique="true" not-null="true"
             cascade="all">
             <column name="TIPO_USUARIO" />
         </many-to-one>
@@ -28,14 +28,14 @@
          <property name="FechaNac" type="java.util.Date">
             <column name="FECHANACIMIENTO" />
         </property>
-        <property name="Direccion" type="java.lang.String">
-            <column name="DIRECCION" />
-        </property>
-        <many-to-one name="localidad" class="Dominio.Localidad" fetch="join" unique="true" not-null="true"
+        <many-to-one name="Loc" class="Dominio.Localidad" fetch="join" unique="true" not-null="true"
             cascade="all">
             <column name="LOCALIDAD" />
         </many-to-one>
-         <property name="E_Mail" type="java.lang.String">
+        <property name="Direccion" type="java.lang.String">
+            <column name="DIRECCION" />
+        </property>
+         <property name="Email" type="java.lang.String">
             <column name="E_MAIL" />
         </property>
         <property name="Tel" type="java.lang.String">

@@ -52,16 +52,41 @@
 					varStatus="loop">
 					<tr>
 						<td>${movimiento[0].getFecha()}</td>
-						<td>${movimiento[0].getTipoMovimiento().getDescripcion()}</td>
-						<c:if test="${movimiento[0].getTipoMovimiento().getIdTipoMovimiento() == '1'}" >
+						<c:if test="${movimiento[0].getTipoMovimiento().getIdTipoMovimiento() == '1'}" > <!-- ALTA CUENTA -->
+							<td>${movimiento[0].getTipoMovimiento().getDescripcion()}</td>
 							<td>CBU Nro. ${movimiento[0].getCbuOrigen()} dado de alta. </td>
 							<td class="ImporteCredito">$ ${movimiento[0].getImporte()}</td>						
 						</c:if>
-						<c:if test="${ movimiento[1] != null }">				
-							<c:if test="${movimiento[0].getTipoMovimiento().getIdTipoMovimiento() == '5'}">
+						<c:if test="${movimiento[0].getTipoMovimiento().getIdTipoMovimiento() == '2'}"> <!-- ALTA PRESTAMO -->
+								<td>${movimiento[0].getTipoMovimiento().getDescripcion()}</td>
+								<td>Prestamo N°${movimiento[0].getCbuOrigen()} dado de alta.</td>						
+								<td class="ImporteCredito">$ ${movimiento[0].getImporte()}</td>
+						</c:if>
+						<c:if test="${movimiento[0].getTipoMovimiento().getIdTipoMovimiento() == '3'}"> <!-- PAGO PRESTAMO-->
+								<td>${movimiento[0].getTipoMovimiento().getDescripcion()}</td>
+								<td>Cuota ${movimiento[0].getCbuOrigen()} paga</td>						
+								<td class="ImporteDebito">$ ${movimiento[0].getImporte()}</td>
+						</c:if>		
+						<c:if test="${movimiento[0].getTipoMovimiento().getIdTipoMovimiento() == '4' && movimiento[0].getCbuOrigen() == CBU}">
+								<td>Acreditación</td>
 								<td>CBU Origen: ${movimiento[0].getCbuOrigen()}</td>						
-							<td class="ImporteCredito">$ ${movimiento[0].getImporte()}</td>
-							</c:if>
+								<td class="ImporteCredito">$ ${movimiento[0].getImporte()}</td>
+
+						</c:if>
+						<c:if test="${movimiento[0].getTipoMovimiento().getIdTipoMovimiento() == '4' && movimiento[0].getCbuOrigen() != CBU}">
+								<td>Debitación</td>
+								<td>CBU Destino: ${movimiento[1]}</td>						
+								<td class="ImporteDebito">$ ${movimiento[0].getImporte()}</td>
+						</c:if>
+						<c:if test="${movimiento[0].getTipoMovimiento().getIdTipoMovimiento() == '5' && movimiento[0].getCbuOrigen() == CBU}">
+								<td>Debitación</td>
+								<td>CBU Destino: ${movimiento[1]}</td>						
+								<td class="ImporteDebito">$ ${movimiento[0].getImporte()}</td>
+						</c:if>
+						<c:if test="${movimiento[0].getTipoMovimiento().getIdTipoMovimiento() == '5' && movimiento[0].getCbuOrigen() != CBU}">
+								<td>Acreditación</td>
+								<td>CBU Origen: ${movimiento[0].getCbuOrigen()}</td>						
+								<td class="ImporteCredito">$ ${movimiento[0].getImporte()}</td>
 						</c:if>
 					</tr>
 				</c:forEach>

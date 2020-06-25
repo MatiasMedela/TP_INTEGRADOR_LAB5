@@ -3,9 +3,9 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 02/06/2020 14:45:45 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="Dominio.Tipo_Usuario" table="TIPO_USUARIO">
+    <class name="Dominio.Tipo_Usuario" table="TIPO_USUARIO" lazy="false">
         <id name="idTipoUsuario" type="int" access="field">
-            <column name="ID_TIPÖ_USUARIO" />
+            <column name="ID_TIPO_USUARIO" />
             <generator class="assigned" />
         </id>
         <property name="descripcion" type="java.lang.String" access="field">

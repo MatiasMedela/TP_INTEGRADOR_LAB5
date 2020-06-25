@@ -6,9 +6,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import AccesoDatos.ClienteDao;
 import AccesoDatos.LogueoDao;
+import Dominio.Logueo;
 import Negocio.LogueoNegocio;
-
-
 
 @Controller
 public class LoginController {
@@ -22,10 +21,12 @@ public class LoginController {
 			if (LN.validarLogin(LoginUser, LoginKey)==true) {
 				ClienteDao CLDao=new ClienteDao();
 				LogueoDao LogDao=new LogueoDao();
-				if (CLDao.BuscarUsuarioXId(LogDao.BuscarLog(LoginUser, LoginKey).getUsuario().getIdUsu()).getTipoUsu().getIdTipoUsuario()== 1){
-						MV.setViewName("ListarClientes");
+				Logueo User =  LogDao.BuscarLog(LoginUser, LoginKey);
+				MV.addObject("IDUsuario", User.getUsuario().getIdUsu());
+				if (CLDao.BuscarUsuarioXId(LogDao.BuscarLog(LoginUser, LoginKey).getUsuario().getIdUsu()).getTipoUsu().getIdTipoUsuario()== 1){	
+					MV.setViewName("ListarClientes");
 				} else {
-					MV.setViewName("index");
+					MV.setViewName("redirect:/paginaCuentas.html");
 				}
 			} else {
 				MV.setViewName("Login");

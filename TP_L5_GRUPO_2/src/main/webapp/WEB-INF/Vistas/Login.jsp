@@ -30,7 +30,7 @@ crossorigin="anonymous">
 			<div class="col-12 user-img">
 			<img src="${pageContext.request.contextPath}/Imagenes/login_user.jpg">
 			</div>
-			<form class="col-12" action="paginaCuentas.html" method="get">
+			<form class="col-12" action="VerificarLog.html" method="post">
 				<div class="form-group" id="user-group">
 				<input type="text" class="form-control" placeholder="Nombre De Usuario" name="LoginUser" autocomplete="off" required/>
 				</div>

@@ -51,6 +51,10 @@
     font-weight: 500;
 }
 
+.div.dataTables_wrapper div.dataTables_filter{
+	text-align: left;
+}
+
 .container-prestamo {
 	width: 35%;	
 /* 	-webkit-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.69);
