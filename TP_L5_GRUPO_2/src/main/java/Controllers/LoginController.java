@@ -1,5 +1,8 @@
 package Controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,23 +13,22 @@ import Dominio.Logueo;
 import Negocio.LogueoNegocio;
 
 @Controller
+@Scope("session")
 public class LoginController {
 	@RequestMapping("VerificarLog.html")
-	public ModelAndView RedireccionarLog(String LoginUser,String LoginKey) {
+	public ModelAndView RedireccionarLog(String LoginUser,String LoginKey, HttpServletRequest request) {
 		try {
 			ModelAndView MV = new ModelAndView();
 			LogueoNegocio LN =new LogueoNegocio();
-			MV.addObject("UserName", LoginUser);
-			MV.addObject("Key", LoginKey);
 			if (LN.validarLogin(LoginUser, LoginKey)==true) {
 				ClienteDao CLDao=new ClienteDao();
 				LogueoDao LogDao=new LogueoDao();
 				Logueo User =  LogDao.BuscarLog(LoginUser, LoginKey);
-				MV.addObject("IDUsuario", User.getUsuario().getIdUsu());
+				request.getSession().setAttribute("IDUsuario", User.getUsuario().getIdUsu());
 				if (CLDao.BuscarUsuarioXId(LogDao.BuscarLog(LoginUser, LoginKey).getUsuario().getIdUsu()).getTipoUsu().getIdTipoUsuario()== 1){	
 					MV.setViewName("ListarClientes");
 				} else {
-					MV.setViewName("redirect:/paginaCuentas.html");
+					MV.setViewName("redirect:/redirecNavBar.html?inicio");
 				}
 			} else {
 				MV.setViewName("Login");

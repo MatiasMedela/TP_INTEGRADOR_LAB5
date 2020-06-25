@@ -1,5 +1,7 @@
 package Controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,10 +13,11 @@ public class CuentaController {
 
 	private CuentaNegocio cuentaN;
 
-	@RequestMapping("paginaCuentas.html")
-	public ModelAndView cuentasUsuario(String IDUsuario) {
+	@RequestMapping(value="redirecNavBar.html", params = { "inicio" })
+	public ModelAndView cuentasUsuario(HttpServletRequest request) {
 		ModelAndView MV = new ModelAndView();
 		cuentaN = new CuentaNegocio();
+		String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 		MV.addObject("listadoCuentasUsuario", cuentaN.datosCuentaBasic(IDUsuario));		
 		MV.setViewName("index");
 		return MV;
