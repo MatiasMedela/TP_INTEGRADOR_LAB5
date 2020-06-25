@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -22,14 +23,17 @@
 	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 	crossorigin="anonymous"></script>
 <!-- Hoja de estilos-->
-<link rel="stylesheet" type="text/css" href="Estilos/AltaCliente.css">
+<link rel=stylesheet
+	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
+	media=screen>
 <meta charset="ISO-8859-1">
 <title>Alta Cliente</title>
+
 </head>
 
 <body>
-	<!-- Image and text -->
-<jsp:include page="NavbarAdmin.html"></jsp:include>
+		<!-- NAVBAR -->
+<%@ include file="NavbarAdmin.html"%>
 	<!-- END NAVBAR -->
 	<form style="padding: 20px">
 		<fieldset class="border p-2">

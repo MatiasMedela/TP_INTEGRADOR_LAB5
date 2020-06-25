@@ -25,9 +25,9 @@
 </head>
 <body>
 
+		<!-- NAVBAR -->
+<%@ include file="NavbarAdmin.html"%>
 	<!-- END NAVBAR -->
-<jsp:include page="NavbarAdmin.html"></jsp:include>
-	<!-- CONTENT -->
 
 	<div class="container-md">
 		<h3 style="margin-top: 20px;">Cuentas</h3>
@@ -35,7 +35,7 @@
 			<thead>
 				<tr>
 					<th scope="col">Tipo de cuenta</th>
-					<th scope="col">Nombre Cliente</th>
+					<th scope="col">Nombre cliente</th>
 					<th scope="col">Moneda</th>
 					<th scope="col">Saldo</th>
 					<th scope="col" style="text-align: center;"></th>
@@ -43,30 +43,25 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>Caja ahorro en pesos</td>
-					<td>Leandro Lescano</td>
-					<td>Pesos</td>
-					<td>$10.000</td>
-					<td><img src="Imagenes/edit.png" style="display:block;" id="edit" name ="edit"/></td>
-					<td><img src="Imagenes/delete.png" style="display:block;" id="delete" name="delete"/></td>
-				</tr>
-				<tr>
-					<td>Caja ahorro en dólares</td>
-					<td>Juan Cassano</td>
-					<td>Dólares</td>
-					<td>$200</td>
-					<td><img src="Imagenes/edit.png" style="display:block;"  id="edit" name ="edit"/></td>
-					<td><img src="Imagenes/delete.png" style="display:block;" id="delete" name="delete"/></td>
-				</tr>
-				<tr>
-					<td>Cuenta corriente</td>
-					<td>Matias Medela</td>
-					<td>Pesos</td>
-					<td>$350.000</td>
-					<td><img src="Imagenes/edit.png" style="display:block;"  id="edit" name ="edit"/></td>
-					<td><img src="Imagenes/delete.png" style="display:block;" id="delete" name="delete"/></td>
-				</tr>
+			
+					<c:forEach items="${ listadoCuentas }" var="cuenta" varStatus="loop">
+					
+					<tr>
+
+						<td id="Tipo${loop.index}">${cuenta.tipoCuenta.descripcion}</td>
+						<td id="Nombre${loop.index}">${cuenta.getUsuario().getNombre()} ${cuenta.getUsuario().getApellido()}</td>
+						<td id="Moneda${loop.index}">${cuenta.tipoCuenta.moneda}</td>
+						<td id="Saldo${loop.index}">${cuenta.saldo}</td>
+						<td><img src="<c:url value="resources/Imagenes/edit.png"/>" style="display:block;" id="edit" name ="edit"/></td>
+					    <td><button type="button" class="btn btn-danger btn-sm" value ="${cuenta.getIdCuenta()}" id="btnAbrirModalE" data-toggle="modal" data-target="#ModalDelete">x</button></td>
+					    
+						
+					</tr>
+						
+				</c:forEach>
+			
+			
+				
 			</tbody>
 		</table>
 
@@ -144,14 +139,14 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<p>Estas seguro que desea eliminar la cuenta</p>
+						<h4>¿Estás seguro que desea eliminar la cuenta?</h4>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" disabled>Guardar
-						cambios</button>
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Eliminar</button>
+				<form method=get action=borrarCuenta.html>
+					<button type="button" class="btn btn-secondary data-dismiss="modal"" >Cancelar</button>
+					<button type="submit" name="idCuenta" class="btn btn-danger" id="btnModalEliminar" value="">Eliminar</button>
+						</form>
 				</div>
 			</div>
 		</div>
@@ -160,7 +155,7 @@
 
 <script type="text/javascript">
 	CurrentItem = document.getElementById("mnInicio");
-	CurrentItem.className +=" active";
+	//CurrentItem.className +=" active";
 
 	var editar = document.getElementById("edit");
 	
@@ -171,10 +166,19 @@
 	
 	var eliminar = document.getElementById("delete");
 	
-	eliminar.addEventListener("click", function(){
-		$('#ModalDelete').modal('show');
+	//eliminar.addEventListener("click", function(){
+		//$('#ModalDelete').modal('show');
 		
-	}, false);
+	//}, false);
+
+
+		$('#btnAbrirModalE').click(function() {
+			$('#btnModalEliminar').val($(this).val());
+			
+	})
+	
+	
+	
 	
 </script>
 </html>

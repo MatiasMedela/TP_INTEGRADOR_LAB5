@@ -6,12 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import AccesoDatos.CuentaDao;
 import Negocio.CuentaNegocio;
 
 @Controller
 public class CuentaController {
 
 	private CuentaNegocio cuentaN;
+	private CuentaDao cuentaD;
 
 	@RequestMapping(value="redirecNavBar.html", params = { "inicio" })
 	public ModelAndView cuentasUsuario(HttpServletRequest request) {
@@ -22,5 +24,31 @@ public class CuentaController {
 		MV.setViewName("index");
 		return MV;
 	}
+	
+	@RequestMapping(value="redirecNavBarAdmin.html", params = {"CuentaNueva"})
+	public ModelAndView redirecCuentaNuevaAdmin() {
+		ModelAndView MV = new ModelAndView();
+		MV.setViewName("AltaCuenta");
+		return MV;
+	}
+	
+	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ListarCuentas"})
+	public ModelAndView redirecListarCuentasAdmin() {
+		ModelAndView MV = new ModelAndView();
+		cuentaD = new CuentaDao();
+		MV.addObject("listadoCuentas", cuentaD.listarCuentas());
+		MV.setViewName("ListarCuentas");
+		return MV;
+	}
+	
+	@RequestMapping(value="borrarCuenta.html")
+	public ModelAndView BorrarCuenta(String idCuenta) {
+		ModelAndView MV = new ModelAndView();
+		cuentaD = new CuentaDao();
+		cuentaD.cerrarCuenta(idCuenta);
+		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarCuentas");
+		return MV;
+	}
+	
 
 }

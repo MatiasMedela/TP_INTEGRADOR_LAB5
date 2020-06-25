@@ -543,7 +543,7 @@ public class App {
     	cuenta1.setAlias("GeneralPacheco2020");
     	cuenta1.setUsuario(usuario4);
     	cuenta1.setSaldo(10000);
-    	cuenta1.setEstado(false);
+    	cuenta1.setEstado(true);
     	
     	Cuenta cuenta2 = new Cuenta();
     	cuenta2.setIdCuenta(2);
@@ -553,7 +553,7 @@ public class App {
     	cuenta2.setAlias("GeneralPacheco202");
     	cuenta2.setUsuario(usuario4);
     	cuenta2.setSaldo(10000);
-    	cuenta2.setEstado(false);
+    	cuenta2.setEstado(true);
     	
     	Cuenta cuenta3 = new Cuenta();
     	cuenta3.setIdCuenta(3);
@@ -563,7 +563,7 @@ public class App {
     	cuenta3.setAlias("WinterGarden2012");
     	cuenta3.setUsuario(usuario5);
     	cuenta3.setSaldo(10000);
-    	cuenta3.setEstado(false);
+    	cuenta3.setEstado(true);
     	
     	Cuenta cuenta4 = new Cuenta();
     	cuenta4.setIdCuenta(4);
@@ -573,7 +573,7 @@ public class App {
     	cuenta4.setAlias("WinterGarden2013");
     	cuenta4.setUsuario(usuario5);
     	cuenta4.setSaldo(10000);
-    	cuenta4.setEstado(false);
+    	cuenta4.setEstado(true);
     	
     	Cuenta cuenta5 = new Cuenta();
     	cuenta5.setIdCuenta(5);
@@ -583,7 +583,7 @@ public class App {
     	cuenta5.setAlias("LaRalde3256");
     	cuenta5.setUsuario(usuario6);
     	cuenta5.setSaldo(10000);
-    	cuenta5.setEstado(false);
+    	cuenta5.setEstado(true);
     	
     	Cuenta cuenta6 = new Cuenta();
     	cuenta6.setIdCuenta(6);
@@ -593,7 +593,7 @@ public class App {
     	cuenta6.setAlias("LaRalde3245");
     	cuenta6.setUsuario(usuario6);
     	cuenta6.setSaldo(10000);
-    	cuenta6.setEstado(false);
+    	cuenta6.setEstado(true);
     	
     	Cuenta cuenta7 = new Cuenta();
     	cuenta7.setIdCuenta(7);
@@ -603,7 +603,7 @@ public class App {
     	cuenta7.setAlias("River2014");;
     	cuenta7.setUsuario(usuario7);
     	cuenta7.setSaldo(10000);
-    	cuenta7.setEstado(false);
+    	cuenta7.setEstado(true);
     	
     	Cuenta cuenta8 = new Cuenta();
     	cuenta8.setIdCuenta(8);
@@ -613,7 +613,7 @@ public class App {
     	cuenta8.setAlias("River2015");
     	cuenta8.setUsuario(usuario7);
     	cuenta8.setSaldo(10000);
-    	cuenta8.setEstado(false);
+    	cuenta8.setEstado(true);
     	
     	Cuenta cuenta9 = new Cuenta();
     	cuenta9.setIdCuenta(9);
@@ -623,7 +623,7 @@ public class App {
     	cuenta9.setUsuario(usuario8);
     	cuenta9.setAlias("Boca2007");
     	cuenta9.setSaldo(10000);
-    	cuenta9.setEstado(false);
+    	cuenta9.setEstado(true);
     	
     	Cuenta cuenta10 = new Cuenta();
     	cuenta10.setIdCuenta(10);
@@ -633,7 +633,7 @@ public class App {
     	cuenta10.setAlias("Boca2006");
     	cuenta10.setUsuario(usuario8);
     	cuenta10.setSaldo(10000);
-    	cuenta10.setEstado(false);
+    	cuenta10.setEstado(true);
     	
     	session.save(cuenta1);
     	session.save(cuenta2);
