@@ -120,7 +120,7 @@
 		"bInfo" : false,
 		"lengthChange" : false,
 		"pageLength" : cantPags,
-		"dom" : 'frtip',
+		"dom" : '<"pull-left"f>rtip',
 		"oLanguage" : {
 			"sSearch" : "Busqueda:",
 		},

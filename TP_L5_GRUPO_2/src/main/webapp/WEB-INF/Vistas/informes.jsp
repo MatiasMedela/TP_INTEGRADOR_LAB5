@@ -19,6 +19,20 @@
 <link rel=stylesheet
 	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
 	media=screen>
+		<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+	
+	
+	<!--  INCLUDES FOR GRAPHIC-->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+ <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+ <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 </head>
 <body>
 
@@ -29,15 +43,21 @@
 	<!-- CONTENT -->
 
 	<div class="container-md">
-		<h3 style="margin-top: 20px;">Informe - Transferencias</h3>
-		<form class="form-inline">
+		<h3 style="margin-top: 20px;">Informes</h3>
+		<h4 style="margin-top: 20px;">Prestamos aprobados/rechazados</h4>
+		
+		<div id="PrestamosChart" style="height: 250px;"></div>
+
+
+		
+		<form class="form-inline pull-left">
 		<span class="mr-2">Transferencias entre </span>
 			<input class="form-control form-control-sm mr-2" type="date"	id="example-date-input"> 
 			<span class="mr-2">y</span>
 			<input	class="form-control form-control-sm mr-2" type="date" id="example-date-input"> 
 			<button class="btn btn-primary" style="padding: .2rem .5rem;">Filtrar</button>
 		</form>
-		<table class="table">
+		<table id="TableInforme" class="table">
 			<thead>
 				<tr>
 					<th scope="col">Fecha</th>
@@ -72,8 +92,60 @@
 	<!-- END CONTENT -->
 
 </body>
-<script>
-CurrentItem = document.getElementById("mnInformes");
-CurrentItem.className +=" active";
+<script type="text/javascript">
+	CurrentItem = document.getElementById("mnInformes");
+	CurrentItem.className +=" active";
+	var screenH = window.innerHeight;
+	var cantPags;
+	if(screenH < 615){
+		cantPags = 4;
+	}
+	else if(screenH < 680){
+		cantPags = 5;
+	}
+	else if(screenH < 740){
+		cantPags = 6;
+	}
+	else{
+		cantPags = 7;
+	}
+	$('#TableInforme').DataTable({
+		"ordering" : false,
+		"bInfo" : false,
+		"lengthChange" : false,
+		"pageLength" : cantPags,
+		"dom" : '<"pull-right"f>rtip',
+		"oLanguage" : {
+			"sSearch" : "Busqueda:",
+		},
+		"language" : {
+			"zeroRecords" : "No se encontraron registros coincidentes",
+			"paginate" : {
+				"next" : "Siguiente",
+				"previous" : "Previo"
+			},
+		}
+	});
+	
+	
+	
+	new Morris.Donut({
+		  // ID of the element in which to draw the chart.
+		  element: 'PrestamosChart',
+		  // Chart data records -- each entry in this array corresponds to a point on
+		  // the chart.
+		  data: [
+		    { Tipo: 'Aprobados', value: 200 },
+		    { Tipo: 'Rechazados', value: 50 }
+		  ],
+		  // The name of the data record attribute that contains x-values.
+		  xkey: 'Tipo',
+		  // A list of names of data record attributes that contain y-values.
+		  ykeys: ['value'],
+		  // Labels for the ykeys -- will be displayed when you hover over the
+		  // chart.
+		  labels: ['Value']
+		});
+	
 </script>
 </html>
