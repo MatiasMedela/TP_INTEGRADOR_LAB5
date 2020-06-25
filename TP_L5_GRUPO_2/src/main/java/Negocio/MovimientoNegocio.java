@@ -26,7 +26,8 @@ public class MovimientoNegocio {
 		Session session = ch.abrirConexion();
 		List<Object[]> listado = (List<Object[]>) session.createQuery("SELECT m, t.cbuDestino FROM Transferencia as t "
 																	+ "RIGHT JOIN t.movimiento as m "
-																	+ "WHERE m.cbuOrigen = '"+Cbu+"' OR t.cbuDestino = '"+Cbu+"'").list();
+																	+ "WHERE m.cbuOrigen = '"+Cbu+"' OR t.cbuDestino = '"+Cbu+"' "
+																	+ "order by m.Fecha desc").list();
 		
     	ch.cerrarSession();
 	    return listado;		
