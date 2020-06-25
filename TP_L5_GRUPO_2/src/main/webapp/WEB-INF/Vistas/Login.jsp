@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,14 +22,15 @@ crossorigin="anonymous">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
 <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 <!-- Hoja de estilos-->
- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Estilos/Login.css">
+<link rel=stylesheet
+	href="<c:url value="resources/Estilos/Login.css"/>" type="text/css" media=screen>
 </head>
 <body>
 <div class="modal-dialog text-center">
 	<div class="col-sm-8 main-section">
 		<div class="modal-content">
 			<div class="col-12 user-img">
-			<img src="${pageContext.request.contextPath}/Imagenes/login_user.jpg">
+			<img src="<c:url value="resources/Imagenes/login_user.jpg"/>" alt="">
 			</div>
 			<form class="col-12" action="VerificarLog.html" method="post">
 				<div class="form-group" id="user-group">

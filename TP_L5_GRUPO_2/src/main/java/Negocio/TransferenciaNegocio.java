@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import AccesoDatos.ConfigHibernate;
 import Dominio.Transferencia;
 
+@SuppressWarnings("unchecked")
 public class TransferenciaNegocio {
 
 	public void add(Transferencia trans) {

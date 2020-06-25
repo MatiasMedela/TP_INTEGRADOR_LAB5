@@ -46,6 +46,7 @@
 					<form action="listarMovimientosCuenta.html" method="get">
 					<tr>
 						<input type="hidden" name="CbuCuenta" value="${cuenta.cbu}" id="Cbu${loop.index}" />
+						<input type="hidden" name="AliasCuenta" value="${cuenta.alias}">
 						<td id="Tipo${loop.index}">${cuenta.tipoCuenta.descripcion}</td>
 						<td id="Ident${loop.index}">${cuenta.alias}</td>
 						<td id="Moneda${loop.index}">${cuenta.tipoCuenta.moneda}</td>

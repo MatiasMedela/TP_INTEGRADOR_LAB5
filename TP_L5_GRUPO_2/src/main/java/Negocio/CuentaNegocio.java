@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import AccesoDatos.ConfigHibernate;
 import Dominio.Cuenta;
 
+@SuppressWarnings("unchecked")
 public class CuentaNegocio {
 
 	public List<Cuenta> listar() {

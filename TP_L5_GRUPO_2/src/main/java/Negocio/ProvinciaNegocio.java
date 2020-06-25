@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import AccesoDatos.ConfigHibernate;
 import Dominio.Provincia;
 
+@SuppressWarnings("unchecked")
 public class ProvinciaNegocio {
 
 	public List<Provincia> listar() {
