@@ -1,25 +1,20 @@
 package Negocio;
 
-import java.util.List;
-
-import org.hibernate.Session;
-
-import AccesoDatos.ConfigHibernate;
+import AccesoDatos.LogueoDao;
 
 public class LogueoNegocio {
 
-	public String validarLogin(String user, String pass) {
-		ConfigHibernate ch = new ConfigHibernate();
-		Session session = ch.abrirConexion();
-
-		String IDUsuario = (String) session.createQuery("SELECT l.usuario.IdUsu FROM Logueo as l WHERE l.nUsuario = '" + user + "' AND l.contrasenia = '" + pass + "'").uniqueResult();
-		if (IDUsuario != "") {
-			session.close();
-			return IDUsuario;
-		} else {
-			session.close();
-			return "-1";
+	public boolean validarLogin(String user, String pass) {
+		try {
+			LogueoDao LogDao=new LogueoDao();
+			if (LogDao.BuscarLog(user,pass).getNUsuario().equals("Default")) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
-
 }
