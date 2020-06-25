@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <link rel="stylesheet"
@@ -15,12 +16,14 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 	crossorigin="anonymous"></script>
-<link rel=StyleSheet href="styles.css" type="text/css" media=screen>
+<link rel=stylesheet
+	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
+	media=screen>
 </head>
 <body>
 
 		<!-- NAVBAR -->
-<jsp:include page="NavbarAdmin.html"></jsp:include>
+<%@ include file="NavbarAdmin.html"%>
 	<!-- END NAVBAR -->
 
 	<!-- CONTENT -->
@@ -85,9 +88,11 @@
 			</tbody>
 		</table>
 		
-<a href=./autorizarPrestamos.jsp class="btn btn-primary">Pendientes</a>
-<a href=./prestamosAprobados.jsp class="btn btn-primary">Aprobados</a>
-<a href=./prestamosRechazados.jsp class="btn btn-primary">Rechazados</a>
+<form action="redirecPrestamos.html" method="get">
+	<input type="submit" name="pendientes" class="btn btn-primary" value="Pendientes"/>
+	<input type="submit" name="aprobados" class="btn btn-primary"  value="Aprobados"/>
+	<input type="submit" name="rechazados" class="btn btn-primary"  value="Rechazados"/>
+</form>
 
 		
 		

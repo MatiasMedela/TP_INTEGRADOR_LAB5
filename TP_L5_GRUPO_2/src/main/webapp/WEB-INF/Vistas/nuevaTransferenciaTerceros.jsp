@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <link rel="stylesheet"
@@ -15,11 +16,11 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 	crossorigin="anonymous"></script>
-<link rel=StyleSheet href="styles.css" type="text/css" media=screen>
+<link rel=stylesheet href="<c:url value="resources/Estilos/styles.css"/>" type="text/css" media=screen>
 </head>
 <body>
 
-<jsp:include page="NavbarClient.html"></jsp:include>
+<%@ include file="NavbarClient.html"%>
 	<!-- END NAVBAR -->
 
 	<!-- CONTENT -->

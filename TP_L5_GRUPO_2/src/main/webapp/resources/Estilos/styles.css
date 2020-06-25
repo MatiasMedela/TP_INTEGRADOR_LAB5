@@ -55,6 +55,19 @@
 	text-align: left;
 }
 
+.navBarRedirec {
+	border: 0px!important;
+    background-color: transparent!important;
+}
+
+.navBarRedirec:focus {
+	outline: 0px!important;
+}
+
+form {
+	margin-block-end: 0px!important;
+}
+
 .container-prestamo {
 	width: 35%;	
 /* 	-webkit-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.69);

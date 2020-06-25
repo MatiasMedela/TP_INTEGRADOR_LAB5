@@ -9,14 +9,14 @@
     </button>
 	<!-- NAVBAR -->
 	<div class="collapse navbar-collapse" id="navbarCollapse">
+	<form action="redirecNavBar.html" method="get">
 		<ul class="navbar-nav mr-auto">
 			<li id="mnInicio" class="nav-item"><a class="nav-link"
 				href="./index.jsp">Inicio</a></li>
-			<li id="mnTransferencias" class="nav-item"><a class="nav-link"
-				href="./transferencias.jsp">Transferencias</a></li>
-			<li id="mnPrestamos" class="nav-item"><a class="nav-link" href="./prestamos.jsp">Préstamos</a>
-			</li>
+			<li id="mnTransferencias" class="nav-item"><input class="nav-link navBarRedirec" name="transferencias" type="submit" value="Transferencias"/></li>
+			<li id="mnPrestamos" class="nav-item"><input class="nav-link navBarRedirec" name="prestamos" type="submit" value="Préstamos"/></li>
 		</ul>
+	</form>
 		<ul class="navbar-nav ml-auto">
 			<li><img src="<c:url value="resources/Imagenes/UserLog.png"/>" width="40" height="40"
 				class=" align-right" alt=""></li>

@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <link rel="stylesheet"
@@ -15,11 +16,13 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 	crossorigin="anonymous"></script>
-<link rel=StyleSheet href="styles.css" type="text/css" media=screen>
+<link rel=stylesheet
+	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
+	media=screen>
 </head>
 <body>
 
-<jsp:include page="NavbarClient.html"></jsp:include>
+<%@ include file="NavbarClient.html"%>
 	<!-- END NAVBAR -->
 
 	<!-- CONTENT -->
@@ -29,17 +32,17 @@
 			<div class="col">
 				<h3 style="margin-top: 20px;">Mis transferencias</h3>
 			</div>
-<div class="dropdown">
-  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownTransf" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Nueva transferencia
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownTransf">
-    <a class="dropdown-item" href="./nuevaTransferencia.jsp">A cuenta propia</a>
-    <a class="dropdown-item" href="./nuevaTransferenciaTerceros.jsp">A terceros</a>
-
-  </div>
-
-		</div>
+<form action="redirecNuevaTransferencia.html" method="get">
+	<div class="dropdown">
+	  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownTransf" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    Nueva transferencia
+	  </button>
+	  <div class="dropdown-menu" aria-labelledby="dropdownTransf">
+	    <input type="submit" name="normal" class="dropdown-item" value="A cuenta propia"/>
+	    <input type="submit" name="terceros" class="dropdown-item" value="A terceros"/>
+	  </div>
+	 </div>
+</form>
 		<table class="table">
 			<thead>
 				<tr>
