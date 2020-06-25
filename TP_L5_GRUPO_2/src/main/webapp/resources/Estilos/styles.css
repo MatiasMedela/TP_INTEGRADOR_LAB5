@@ -41,6 +41,16 @@
 	width: 20%;	
 }
 
+.ImporteCredito {
+	color: darkgreen;
+    font-weight: 500;
+}
+
+.ImporteDebito {
+	color: red;
+    font-weight: 500;
+}
+
 .container-prestamo {
 	width: 35%;	
 /* 	-webkit-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.69);

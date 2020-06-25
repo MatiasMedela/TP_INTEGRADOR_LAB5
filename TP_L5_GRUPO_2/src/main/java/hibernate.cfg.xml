@@ -10,6 +10,7 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hbm2ddl.auto">update</property>
+        <property name="show_sql">true</property>
         
         <mapping class="Dominio.Genero" resource="Dominio/Genero.hbm.xml"/>
         <mapping class="Dominio.Provincia" resource="Dominio/Provincia.hbm.xml"/>

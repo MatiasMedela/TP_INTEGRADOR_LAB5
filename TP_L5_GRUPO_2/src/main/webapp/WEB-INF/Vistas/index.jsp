@@ -1,13 +1,17 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
-<link rel=stylesheet href="<c:url value="resources/Estilos/styles.css"/>" type="text/css" media=screen>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel=stylesheet
+	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
+	media=screen>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 	crossorigin="anonymous"></script>
 <script
@@ -21,12 +25,11 @@
 </head>
 <body>
 	<!-- END NAVBAR -->
-<%@ include file="NavbarClient.html" %>
+	<%@ include file="NavbarClient.html"%>
 	<!-- CONTENT -->
 
 	<div class="container-md">
 		<h3 style="margin-top: 20px;">Mis cuentas</h3>
-		<c:out value="${testmvc}"/>
 		<table class="table">
 			<thead>
 				<tr>
@@ -39,34 +42,21 @@
 				</tr>
 			</thead>
 			<tbody>
-<%-- 			<c:forEach items="${ listadoCuentasUsuario }" var="cuenta" varStatus="loop">
+				<c:forEach items="${ listadoCuentasUsuario }" var="cuenta" varStatus="loop">
+					<form action="listarMovimientosCuenta.html" method="get">
 					<tr>
-					<input type="hidden" value="${cuenta[4].toString()}" id="Cbu${loop.index}" />
-					<td id="Tipo${loop.index}">${cuenta[3].toString()}</td>
-					<td id="Ident${loop.index}">${cuenta[1].toString()}</td>
-					<td id="Moneda${loop.index}">${cuenta[2].toString()}</td>
-					<td id="Saldo${loop.index}">${cuenta[0].toString()}</td>
-					<td><button onClick="mostrarModalDetalles(${loop.index})" type="button" class="btn btn-grid btn-light"
-							data-toggle="modal" data-target="#ModalDetails">Ver
-							detalles</button></td>
-					<td><button onClick="mostrarModalMovimientos('${cuenta[4].toString()}')" type="button" class="btn btn-grid btn-light"
-							data-toggle="modal" data-target="#ModalMovements">Ver movimientos</button></td>
-				</tr>
-			</c:forEach> --%>
-						<c:forEach items="${ listadoCuentasUsuario }" var="cuenta" varStatus="loop">
-					<tr>
-					<input type="hidden" value="${cuenta.cbu}" id="Cbu${loop.index}" />
-					<td id="Tipo${loop.index}">${cuenta.tipoCuenta.descripcion}</td>
-					<td id="Ident${loop.index}">${cuenta.alias}</td>
-					<td id="Moneda${loop.index}">${cuenta.tipoCuenta.moneda}</td>
-					<td id="Saldo${loop.index}">${cuenta.saldo}</td>
-					<td><button onClick="mostrarModalDetalles(${loop.index})" type="button" class="btn btn-grid btn-light"
-							data-toggle="modal" data-target="#ModalDetails">Ver
-							detalles</button></td>
-					<td><button onClick="mostrarModalMovimientos('${cuenta.cbu}')" type="button" class="btn btn-grid btn-light"
-							data-toggle="modal" data-target="#ModalMovements">Ver movimientos</button></td>
-				</tr>
-			</c:forEach>
+						<input type="hidden" name="CbuCuenta" value="${cuenta.cbu}" id="Cbu${loop.index}" />
+						<td id="Tipo${loop.index}">${cuenta.tipoCuenta.descripcion}</td>
+						<td id="Ident${loop.index}">${cuenta.alias}</td>
+						<td id="Moneda${loop.index}">${cuenta.tipoCuenta.moneda}</td>
+						<td id="Saldo${loop.index}">${cuenta.saldo}</td>
+						<td><button onClick="mostrarModalDetalles(${loop.index})"
+								type="button" class="btn btn-grid btn-light" data-toggle="modal"
+								data-target="#ModalDetails">Ver detalles</button></td>
+						<td><button	type="submit" class="btn btn-grid btn-light" >Ver movimientos</button></td>
+					</tr>
+						</form>
+				</c:forEach>
 			</tbody>
 		</table>
 
@@ -134,71 +124,10 @@
 		</div>
 	</div>
 	<!-- END MODAL DETAILS -->
-
-	<!-- MODAL MOVEMENTS -->
-	<div class="modal fade" id="ModalMovements" tabindex="-1" role="dialog"
-		aria-labelledby="ModalMovementsAccount" aria-hidden="true">
-		<div
-			class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
-			role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">Movimientos
-						- Cuenta principal</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<table class="table tableMovements">
-						<thead>
-							<tr>
-								<th scope="col">Fecha</th>
-								<th scope="col">Tipo</th>
-								<th scope="col">Descripción</th>
-								<th scope="col">Importe</th>
-							</tr>
-						</thead>
-						<tbody>
-						
-						<c:forEach items="${ listadoMovimientos }" var="movimiento" varStatus="loop">
-						<tr>
-								<td>movimiento[1].toString();</td>
-								<td>Crédito</td>
-								<td>CBU Origen: 0000000000000000000001</td>
-								<td>${movimiento[2].toString()}</td>
-						</tr>
-						</c:forEach>
-							<tr>
-								<td>4/6/2020</td>
-								<td>Crédito</td>
-								<td>CBU Origen: 0000000000000000000001</td>
-								<td>$35.000</td>
-							</tr>
-							<tr>
-								<td>2/6/2020</td>
-								<td>Débito</td>
-								<td>CBU Destino: 0000000000000000000002</td>
-								<td>$12.000</td>
-							</tr>
-							<tr>
-								<td>30/5/2020</td>
-								<td>Débito</td>
-								<td>CBU Destino: 0000000000000000000002</td>
-								<td>$2.500</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- END MODAL MOVEMENTS -->
-    <input type="hidden" value="38326854" name="legusuario" />
+	<input type="hidden" value="38326854" name="legusuario" />
 </body>
 
-<script type="text/javascript">
+<script type="text/javascript">	
 	CurrentItem = document.getElementById("mnInicio");
 	CurrentItem.className +=" active";
 
