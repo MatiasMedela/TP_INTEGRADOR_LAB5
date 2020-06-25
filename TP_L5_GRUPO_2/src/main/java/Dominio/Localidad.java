@@ -32,8 +32,8 @@ public class Localidad implements Serializable{
 	public void setLocNombre(String locNombre) {LocNombre = locNombre;}
 	public String getCodigoPostal() {return CodigoPostal;}
 	public void setCodigoPostal(String codigoPostal) {this.CodigoPostal = codigoPostal;}
-	public Provincia getProvincia() {return ProvLoc;}
-	public void setProvincia(Provincia provincia) {this.ProvLoc = provincia;}
+	public Provincia getProvLoc() {return ProvLoc;}
+	public void setProvLoc(Provincia provincia) {this.ProvLoc = provincia;}
 	public static long getSerialversionuid() {return serialVersionUID;}
 	//Métodos
 	@Override

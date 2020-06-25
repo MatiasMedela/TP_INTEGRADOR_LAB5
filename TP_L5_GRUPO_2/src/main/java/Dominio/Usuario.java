@@ -9,7 +9,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos
-	private String IdUsu;
+	private int IdUsu;
 	private Tipo_Usuario TipoUsu;
 	private String Dni;
 	private String Nombre;
@@ -18,7 +18,7 @@ public class Usuario implements Serializable {
 	private Date FechaNac;
 	private Localidad Loc;
 	private String Direccion;
-	private String E_Mail;
+	private String Email;
 	private String Tel;
 	private boolean Estado;
 	
@@ -28,7 +28,7 @@ public class Usuario implements Serializable {
 		
 	}
 	//constructor por parametros
-	public Usuario(String Legajo, Tipo_Usuario tipoUsuario,Genero genero,Localidad localidad,boolean estado,String nombre,
+	public Usuario(int Legajo, Tipo_Usuario tipoUsuario,Genero genero,Localidad localidad,boolean estado,String nombre,
 				  String apellido,Date fechaNacimiento,String direccion,String e_mail,String tel )
 	{
 		this.IdUsu=Legajo;
@@ -41,13 +41,13 @@ public class Usuario implements Serializable {
 		this.Dni = nombre;
 		this.FechaNac = fechaNacimiento;
 		this.Direccion = direccion;
-		this.E_Mail = e_mail;
+		this.Email = e_mail;
 		this.Tel=tel;
 	}
 	
 	//----comienzo getters and setters
-	public String getIdUsu() {return IdUsu;}
-	public void setIdUsu(String idUsu) {IdUsu = idUsu;}
+	public int getIdUsu() {return IdUsu;}
+	public void setIdUsu(int idUsu) {IdUsu = idUsu;}
 	public Tipo_Usuario getTipoUsu() {return TipoUsu;}
 	public void setTipoUsu(Tipo_Usuario tipoUsu) {TipoUsu = tipoUsu;}
 	public String getDni() {return Dni;}
@@ -60,12 +60,12 @@ public class Usuario implements Serializable {
 	public void setGen(Genero genero) {Gen = genero;}
 	public Date getFechaNac() {return FechaNac;}
 	public void setFechaNac(Date fechaNacimiento) {FechaNac = fechaNacimiento;}
-	public Localidad getLocalidad() {return Loc;}
-	public void setLocalidad(Localidad localidad) {Loc = localidad;}
+	public Localidad getLoc() {return Loc;}
+	public void setLoc(Localidad localidad) {Loc = localidad;}
 	public String getDireccion() {return Direccion;}
 	public void setDireccion(String direccion) {Direccion = direccion;}
-	public String getE_Mail() {return E_Mail;}
-	public void setE_Mail(String e_Mail) {E_Mail = e_Mail;}
+	public String getEmail() {return Email;}
+	public void setEmail(String e_Mail) {Email = e_Mail;}
 	public boolean isEstado() {return Estado;}
 	public void setEstado(boolean estado) {Estado = estado;}
 	public String getTel() {return Tel;}
@@ -74,12 +74,12 @@ public class Usuario implements Serializable {
 	
 	//identificador de version
 	public static long getSerialversionuid() {return serialVersionUID;}
-//	@Override
-//	public String toString() {
-//		return "Usuario [IdUsu=" + IdUsu + ", TipoUsu=" + TipoUsu + ", Dni=" + Dni + ", Nombre=" + Nombre
-//				+ ", Apellido=" + Apellido + ", Gen=" + Gen + ", FechaNac=" + FechaNac + ", Loc=" + Loc + ", Direccion="
-//				+ Direccion + ", E_Mail=" + E_Mail + ", Tel=" + Tel + ", Estado=" + Estado + "]";
-//	}
+	@Override
+	public String toString() {
+		return "Usuario [IdUsu=" + IdUsu + ", TipoUsu=" + TipoUsu + ", Dni=" + Dni + ", Nombre=" + Nombre
+				+ ", Apellido=" + Apellido + ", Gen=" + Gen + ", FechaNac=" + FechaNac + ", Loc=" + Loc + ", Direccion="
+				+ Direccion + ", Email=" + Email + ", Tel=" + Tel + ", Estado=" + Estado + "]";
+	}
 	
 //Métodos
 
