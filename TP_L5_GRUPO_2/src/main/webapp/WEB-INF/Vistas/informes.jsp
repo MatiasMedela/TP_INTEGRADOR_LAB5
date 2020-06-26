@@ -43,51 +43,22 @@
 	<!-- CONTENT -->
 
 	<div class="container-md">
-		<h3 style="margin-top: 20px;">Informes</h3>
 		<h4 style="margin-top: 20px;">Prestamos aprobados/rechazados</h4>
-		
-		<div id="PrestamosChart" style="height: 250px;"></div>
-
-
-		
-		<form class="form-inline pull-left">
+		<form class="form-inline pull-left" action="filtrarFechas.html" mehotd="get">
 		<span class="mr-2">Transferencias entre </span>
-			<input class="form-control form-control-sm mr-2" type="date"	id="example-date-input"> 
+			<input class="form-control form-control-sm mr-2" type="date" name="startDate" id="example-date-input" value="${stDate }"> 
 			<span class="mr-2">y</span>
-			<input	class="form-control form-control-sm mr-2" type="date" id="example-date-input"> 
+			<input	class="form-control form-control-sm mr-2" type="date" name="endDate" id="example-date-input" value="${edDate}"> 
 			<button class="btn btn-primary" style="padding: .2rem .5rem;">Filtrar</button>
 		</form>
-		<table id="TableInforme" class="table">
-			<thead>
-				<tr>
-					<th scope="col">Fecha</th>
-					<th scope="col">Cliente Origen</th>
-					<th scope="col">CBU Origen</th>
-					<th scope="col">Cliente Destino</th>
-					<th scope="col">CBU Destino</th>
-					<th scope="col">Importe</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>9/6/2020</td>
-					<td>Gomez Juan</td>
-					<td>000000000001</td>
-					<td>Herrera Gonzalo</td>
-					<td>000000000002</td>
-					<td>$75.000</td>
-				</tr>
+		<input type="hidden" id="PresAutorizados" value="${InformePrestamos[0]}" />
+		<input type="hidden" id="PresNoAutorizados" value="${InformePrestamos[1]}" />
+		<div id="PrestamosChart" style="height: 250px;"></div>
+		
+		<h4 style="margin-top: 20px;">Cantidad de transferencias</h4>
 
-				<tr>
-					<td>5/5/2020</td>
-					<td>Herrera Gonzalo</td>
-					<td>000000000002</td>
-					<td>Gomez Juan</td>
-					<td>000000000001</td>
-					<td>$900.000</td>
-				</tr>
-			</tbody>
-		</table>
+		<div id="TransferenciasChart" style="height: 250px;"></div>
+		
 	</div>
 	<!-- END CONTENT -->
 
@@ -95,57 +66,47 @@
 <script type="text/javascript">
 	CurrentItem = document.getElementById("mnInformes");
 	CurrentItem.className +=" active";
-	var screenH = window.innerHeight;
-	var cantPags;
-	if(screenH < 615){
-		cantPags = 4;
-	}
-	else if(screenH < 680){
-		cantPags = 5;
-	}
-	else if(screenH < 740){
-		cantPags = 6;
+	
+	var PresAutorizados = $("#PresAutorizados").val();
+	var PresNoAutorizados = $("#PresNoAutorizados").val();
+	
+	if(PresAutorizados == 0 && PresNoAutorizados == 0){
+		var data = [{label: "Sin datos", value: 100}]
 	}
 	else{
-		cantPags = 7;
+		var data = [
+		    { label: 'Aprobados', value: PresAutorizados },
+		    { label: 'Rechazados', value: PresNoAutorizados }] 
 	}
-	$('#TableInforme').DataTable({
-		"ordering" : false,
-		"bInfo" : false,
-		"lengthChange" : false,
-		"pageLength" : cantPags,
-		"dom" : '<"pull-right"f>rtip',
-		"oLanguage" : {
-			"sSearch" : "Busqueda:",
-		},
-		"language" : {
-			"zeroRecords" : "No se encontraron registros coincidentes",
-			"paginate" : {
-				"next" : "Siguiente",
-				"previous" : "Previo"
-			},
-		}
-	});
-	
 	
 	
 	new Morris.Donut({
-		  // ID of the element in which to draw the chart.
 		  element: 'PrestamosChart',
-		  // Chart data records -- each entry in this array corresponds to a point on
-		  // the chart.
-		  data: [
-		    { Tipo: 'Aprobados', value: 200 },
-		    { Tipo: 'Rechazados', value: 50 }
-		  ],
-		  // The name of the data record attribute that contains x-values.
-		  xkey: 'Tipo',
-		  // A list of names of data record attributes that contain y-values.
-		  ykeys: ['value'],
-		  // Labels for the ykeys -- will be displayed when you hover over the
-		  // chart.
-		  labels: ['Value']
+		  data: data,
+		  colors: ["green", "red"],
 		});
+	
+	new Morris.Line({
+		  element: 'TransferenciasChart',
+		  data: [
+			    { month: '2020-01', value: 5 },
+			    { month: '2020-02', value: 6 },
+			    { month: '2020-03', value: 2 },
+			    { month: '2020-04', value: 30 },
+			    { month: '2020-05', value: 1 },
+			    { month: '2020-06', value: 10 },
+			    { month: '2020-07', value: 0 },
+			    { month: '2020-08', value: 43 },
+			    { month: '2020-09', value: 0 },
+			    { month: '2020-10', value: 65 },
+			    { month: '2020-11', value: 23 },
+			    { month: '2020-12', value: 12 }
+			  ],
+		  xkey: 'month',
+		  ykeys: ['value'],
+		  labels: ['Transferencias']
+		});
+
 	
 </script>
 </html>
