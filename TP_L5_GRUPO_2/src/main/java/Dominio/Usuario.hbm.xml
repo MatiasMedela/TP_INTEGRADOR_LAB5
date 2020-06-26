@@ -35,6 +35,9 @@
         <property name="Direccion" type="java.lang.String">
             <column name="DIRECCION" />
         </property>
+        <property name="Nacionalidad" type="java.lang.String">
+            <column name="NACIONALIDAD" />
+        </property>
          <property name="Email" type="java.lang.String">
             <column name="E_MAIL" />
         </property>

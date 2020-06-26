@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -16,10 +20,24 @@ public class ClienteDao {
 	ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 	//ABML
 		public boolean AltaCliente(Usuario Usu ) {
-			ConfigHibernate ch = new ConfigHibernate();
-			Session session = ch.abrirConexion();
-			Usuario Cliente = (Usuario) appContext.getBean("BUsuario");
-			 return true;
+			SessionFactory sessionFactory = null;
+			try {
+		    	Configuration configuration = new Configuration();
+		    	configuration.configure();	
+		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+		    	sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+		    	Session session = sessionFactory.openSession();
+				session.save(Usu);
+				session.getTransaction().commit();
+				session.close();
+				 return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+			finally {
+		    	sessionFactory.close();
+			}
 		}
 		 
 		public boolean BajaCliente() {

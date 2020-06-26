@@ -16,6 +16,7 @@ public class Usuario implements Serializable {
 	private String Apellido;
 	private Genero Gen;
 	private Date FechaNac;
+	private String Nacionalidad;
 	private Localidad Loc;
 	private String Direccion;
 	private String Email;
@@ -79,6 +80,12 @@ public class Usuario implements Serializable {
 		return "Usuario [IdUsu=" + IdUsu + ", TipoUsu=" + TipoUsu + ", Dni=" + Dni + ", Nombre=" + Nombre
 				+ ", Apellido=" + Apellido + ", Gen=" + Gen + ", FechaNac=" + FechaNac + ", Loc=" + Loc + ", Direccion="
 				+ Direccion + ", Email=" + Email + ", Tel=" + Tel + ", Estado=" + Estado + "]";
+	}
+	public String getNacionalidad() {
+		return Nacionalidad;
+	}
+	public void setNacionalidad(String nacionalidad) {
+		Nacionalidad = nacionalidad;
 	}
 	
 //Métodos
