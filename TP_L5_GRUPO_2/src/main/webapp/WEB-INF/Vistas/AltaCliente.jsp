@@ -84,16 +84,16 @@ function ValFormatoTelFijo(){
 		    </div> 
 		    <div class="form-group"> <!-- Nacionalidad -->
 		        <label for="full_name_id" class="control-label">Nacionalidad</label>
-		        <input type="text" class="form-control form-control-sm" id="full_name_id" name="full_name" placeholder="NACIONALIDAD" 
+		        <input type="text" class="form-control form-control-sm" id="full_name_id" name="NacName" placeholder="NACIONALIDAD" 
 		        autocomplete="off" pattern="^[a-zA-Z ]*$" required>
 		    </div> 
 		    
 		    <div class="form-group"> <!-- Sexo -->
 		        <label for="state_id" class="control-label">Sexo</label>
-		        <select class="form-control form-control-sm" id="state_id">
-		            <option value="MAS">Masculino</option>
-		            <option value="FEM">Femenino</option>
-		            <option value="OTR">Otro</option>
+		        <select class="form-control form-control-sm" id="state_id" name="CmbGen">
+		            <option value="1">Masculino</option>
+		            <option value="2">Femenino</option>
+		            <option value="3">Otro</option>
 		        </select>                    
 		    </div>
 		    
@@ -101,16 +101,47 @@ function ValFormatoTelFijo(){
 		<div class="col">
 		    <div class="form-group "><!-- Fecha De Nacimiento -->
 		     <label for="full_name_id" class="control-label">Fecha De Nacimiento</label>
-			    <input class="form-control form-control-sm" type="date"  id="example-date-input" required>
+			    <input class="form-control form-control-sm" type="date"  id="example-date-input" name="FechaNac" required>
 			</div>
 		   <div class="form-group"> <!-- Direccion -->
 		        <label for="full_name_id" class="control-label">Direccion</label>
-		        <input type="text" class="form-control form-control-sm" id="full_name_id" name="full_name" 
+		        <input type="text" class="form-control form-control-sm" id="full_name_id" name="DirName" 
 		        placeholder="DIRECCION" required>
 		    </div>
+		    
 		     <div class="form-group"> <!-- Provincia -->
 		        <label for="state_id" class="control-label">Provincia</label>
-		        <select class="form-control form-control-sm" id="state_id">
+		        <select class="form-control form-control-sm" id="state_id" name="CmbProv">
+		            <option value="2">Buenos Aires</option>
+		            <option value="1">Ciudad Autonoma De Buenos Aires</option>
+		            <option value="15">Tucuman</option>
+		            <option value="6">Entre Rios</option>
+		            <option value="19">Misiones</option>
+		            <option value="18">Formosa</option>
+		            <option value="5">Corrientes</option>
+		            <option value="13">Santa Fe</option>
+		            <option value="4">Cordoba</option>
+		            <option value="7">Jujuy</option>
+		            <option value="17">Chubut</option>
+		            <option value="24">Tierra Del Fuego</option>
+		            <option value="20">Neuquen</option>
+		            <option value="16">Chaco</option>
+		            <option value="11">San Juan</option>
+		            <option value="12">San Luis</option>
+		            <option value="21">La Pampa</option>
+		            <option value="23">Santa Cruz</option>
+		            <option value="22">Rio Negro</option>
+		            <option value="10">Salta</option>
+		            <option value="3">Catamarca</option>
+		            <option value="9">La Rioja</option>
+		            <option value="14">Santiago Del Estero</option>
+		            <option value="8">Mendoza</option>
+		        </select>                    
+		    </div>   
+		        
+		       <div class="form-group"> <!-- Localidad -->
+		        <label for="state_id" class="control-label">Localidad</label>
+		        <select class="form-control form-control-sm" id="state_id" name="LocName">
 		            <option value="BSAS">Buenos Aires</option>
 		            <option value="CABA">Ciudad Autonoma De Buenos Aires</option>
 		            <option value="TUC">Tucuman</option>
@@ -135,17 +166,12 @@ function ValFormatoTelFijo(){
 		            <option value="MA">Santiago Del Estero</option>
 		            <option value="MI">Mendoza</option>
 		        </select>                    
-		    </div>       
-		    <div class="form-group"> <!-- Localidad -->
-		        <label for="full_name_id" class="control-label">Localidad</label>
-		        <input type="text" class="form-control form-control-sm" id="full_name_id" name="full_name" placeholder="LOCALIDAD" 
-		        required>
 		    </div>                
 		    
 		     <div class="form-group"> <!-- Correo electronico -->
 		        <label for="full_name_id" class="control-label">Correo Electronico</label>
-		        <input type="email" class="form-control form-control-sm" id="full_name_id" name="full_name" placeholder="e-mail" 
-		        required>
+		        <input type="email" class="form-control form-control-sm" id="full_name_id" name="EmailName" 
+		        placeholder="e-mail" required>
 		    </div> 
 		    
 		    <div class="form-group"> <!-- Telefono -->
@@ -167,7 +193,7 @@ function ValFormatoTelFijo(){
 		</div>   
 		</div>  
 		<div class="form-group text-center" > <!-- Submit Button -->
-	        <button type="submit" class="btn-sm btn-success">Grabar</button>
+	        <button type="submit" class="btn-sm btn-success" name="BtnGrabar">Grabar</button>
 	    </div>     
 	</div>
 	</fieldset>  
