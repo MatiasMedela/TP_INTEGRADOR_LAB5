@@ -1,10 +1,13 @@
 package AccesoDatos;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import Dominio.Cuenta;
 import Dominio.Localidad;
 
 public class LocalidadDao {
@@ -24,5 +27,14 @@ public class LocalidadDao {
 			((ConfigurableApplicationContext)(appContext)).close();
 		}
 	}
+
+	public List<Localidad> ListLocalidades() {
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		List<Localidad> listado = (List<Localidad>) session.createQuery("FROM Localidad").list();
+    	ch.cerrarSession();
+	    return listado;		
+	}
+	
 
 }
