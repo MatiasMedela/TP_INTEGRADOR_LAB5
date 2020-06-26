@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +62,7 @@ function ValFormatoTelFijo(){
 	<jsp:include page="NavbarAdmin.html"></jsp:include>
 	<!-- END NAVBAR -->
 <!-- Formulario alta -->
-<form style="padding: 20px"> 
+<form action="altaCliente.html" method="get" style="padding: 20px" > 
 	<fieldset class="border p-2">
 	  <legend  class="w-auto">Alta Cliente</legend>
 	   <div class="container-fluid">
@@ -138,34 +139,17 @@ function ValFormatoTelFijo(){
 		            <option value="8">Mendoza</option>
 		        </select>                    
 		    </div>   
-		        
-		       <div class="form-group"> <!-- Localidad -->
-		        <label for="state_id" class="control-label">Localidad</label>
-		        <select class="form-control form-control-sm" id="state_id" name="LocName">
-		            <option value="BSAS">Buenos Aires</option>
-		            <option value="CABA">Ciudad Autonoma De Buenos Aires</option>
-		            <option value="TUC">Tucuman</option>
-		            <option value="ER">Entre Rios</option>
-		            <option value="MIS">Misiones</option>
-		            <option value="FOR">Formosa</option>
-		            <option value="COR">Corrientes</option>
-		            <option value="SF">Santa Fe</option>
-		            <option value="COR">Cordoba</option>
-		            <option value="JUJ">Jujuy</option>
-		            <option value="CHU">Chubut</option>
-		            <option value="TDF">Tierra Del Fuego</option>
-		            <option value="NEU">Neuquen</option>
-		            <option value="IL">Chaco</option>
-		            <option value="IN">San Juan</option>
-		            <option value="IA">San Luis</option>
-		            <option value="KS">La Pampa</option>
-		            <option value="KY">Santa Cruz</option>
-		            <option value="LA">Salta</option>
-		            <option value="ME">Catamarca</option>
-		            <option value="MD">La Rioja</option>
-		            <option value="MA">Santiago Del Estero</option>
-		            <option value="MI">Mendoza</option>
-		        </select>                    
+		    
+		    <div class="form-group"> <!-- Localidad -->
+		      <label for="state_id" class="control-label">Localidad</label>
+		      <select class="form-control form-control-sm" id="state_id" name="LocName">  
+		      
+		      <form:select path = "LocName">
+				   <form:option value = "NONE" label = "Select"/>
+				   <form:options items = "${LocalidadesList}" />
+			  </form:select> 
+
+			  </select>                     
 		    </div>                
 		    
 		     <div class="form-group"> <!-- Correo electronico -->
