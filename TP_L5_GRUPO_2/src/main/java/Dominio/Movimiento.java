@@ -1,6 +1,7 @@
 package Dominio;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Movimiento implements Serializable{
 
@@ -9,7 +10,7 @@ public class Movimiento implements Serializable{
 	private int idMovimiento;
 	private Tipo_Movimiento tipoMovimiento;
 	private String cbuOrigen;
-	private String Fecha;
+	private Date Fecha;
 	private float importe;
 	
 	//Constructor
@@ -18,7 +19,7 @@ public class Movimiento implements Serializable{
 		
 	}
 	
-	public Movimiento(int id,Tipo_Movimiento tipoMovimiento,String cbuOrigen,String fecha,float importe)
+	public Movimiento(int id,Tipo_Movimiento tipoMovimiento,String cbuOrigen,Date fecha,float importe)
 	{
 		this.idMovimiento = id;
 		this.tipoMovimiento = tipoMovimiento;
@@ -28,7 +29,7 @@ public class Movimiento implements Serializable{
 		
 	}
 	
-	public Movimiento(Tipo_Movimiento tipoMovimiento,String cbuOrigen,String fecha,float importe)
+	public Movimiento(Tipo_Movimiento tipoMovimiento,String cbuOrigen,Date fecha,float importe)
 	{
 
 		this.tipoMovimiento = tipoMovimiento;
@@ -62,11 +63,11 @@ public class Movimiento implements Serializable{
 		this.cbuOrigen = cbuOrigen;
 	}
 
-	public String getFecha() {
+	public Date getFecha() {
 		return Fecha;
 	}
 
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		Fecha = fecha;
 	}
 

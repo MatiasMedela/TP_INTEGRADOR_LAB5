@@ -1,5 +1,6 @@
 package main;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import org.hibernate.Session;
@@ -16,10 +17,15 @@ import Dominio.*;
 public class App {
 
 	public static void main(String[] args) {
-    	insertarRegistros(); //Ejecutar solo para crear y llenar la BD.
+    	try {
+			insertarRegistros();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //Ejecutar solo para crear y llenar la BD.
 	}
 	
-	public static void insertarRegistros() {
+	public static void insertarRegistros() throws ParseException {
 		ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
     	SessionFactory sessionFactory;
     	Configuration configuration = new Configuration();
@@ -546,10 +552,11 @@ public class App {
     	session.save(log10);
     	//----------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA CUENTA*/
+    	
     	Cuenta cuenta1 = new Cuenta();
     	cuenta1.setIdCuenta(1);
     	cuenta1.setTipoCuenta(tipoCuenta2);
-    	cuenta1.setFechaCreacion("09/06/2020");
+    	cuenta1.setFechaCreacion(new Date());
     	cuenta1.setCbu("0000.0000.0001");
     	cuenta1.setAlias("GeneralPacheco2020");
     	cuenta1.setUsuario(usuario4);
@@ -559,7 +566,7 @@ public class App {
     	Cuenta cuenta2 = new Cuenta();
     	cuenta2.setIdCuenta(2);
     	cuenta2.setTipoCuenta(tipoCuenta3);
-    	cuenta2.setFechaCreacion("09/06/2020");
+    	cuenta2.setFechaCreacion(new Date());
     	cuenta2.setCbu("0000.0000.0002");
     	cuenta2.setAlias("GeneralPacheco202");
     	cuenta2.setUsuario(usuario4);
@@ -569,7 +576,7 @@ public class App {
     	Cuenta cuenta3 = new Cuenta();
     	cuenta3.setIdCuenta(3);
     	cuenta3.setTipoCuenta(tipoCuenta2);
-    	cuenta3.setFechaCreacion("09/06/2020");
+    	cuenta3.setFechaCreacion(new Date());
     	cuenta3.setCbu("0000.0000.0003");
     	cuenta3.setAlias("WinterGarden2012");
     	cuenta3.setUsuario(usuario5);
@@ -579,7 +586,7 @@ public class App {
     	Cuenta cuenta4 = new Cuenta();
     	cuenta4.setIdCuenta(4);
     	cuenta4.setTipoCuenta(tipoCuenta3);
-    	cuenta4.setFechaCreacion("09/06/2020");
+    	cuenta4.setFechaCreacion(new Date());
     	cuenta4.setCbu("0000.0000.0004");
     	cuenta4.setAlias("WinterGarden2013");
     	cuenta4.setUsuario(usuario5);
@@ -589,7 +596,7 @@ public class App {
     	Cuenta cuenta5 = new Cuenta();
     	cuenta5.setIdCuenta(5);
     	cuenta5.setTipoCuenta(tipoCuenta2);
-    	cuenta5.setFechaCreacion("09/06/2020");
+    	cuenta5.setFechaCreacion(new Date());
     	cuenta5.setCbu("0000.0000.0005");
     	cuenta5.setAlias("LaRalde3256");
     	cuenta5.setUsuario(usuario6);
@@ -599,7 +606,7 @@ public class App {
     	Cuenta cuenta6 = new Cuenta();
     	cuenta6.setIdCuenta(6);
     	cuenta6.setTipoCuenta(tipoCuenta3);
-    	cuenta6.setFechaCreacion("09/06/2020");
+    	cuenta6.setFechaCreacion(new Date());
     	cuenta6.setCbu("0000.0000.0006");
     	cuenta6.setAlias("LaRalde3245");
     	cuenta6.setUsuario(usuario6);
@@ -609,7 +616,7 @@ public class App {
     	Cuenta cuenta7 = new Cuenta();
     	cuenta7.setIdCuenta(7);
     	cuenta7.setTipoCuenta(tipoCuenta2);
-    	cuenta7.setFechaCreacion("09/06/2020");
+    	cuenta7.setFechaCreacion(new Date());
     	cuenta7.setCbu("0000.0000.0007");
     	cuenta7.setAlias("River2014");;
     	cuenta7.setUsuario(usuario7);
@@ -619,7 +626,7 @@ public class App {
     	Cuenta cuenta8 = new Cuenta();
     	cuenta8.setIdCuenta(8);
     	cuenta8.setTipoCuenta(tipoCuenta3);
-    	cuenta8.setFechaCreacion("09/06/2020");
+    	cuenta8.setFechaCreacion(new Date());
     	cuenta8.setCbu("0000.0000.0008");
     	cuenta8.setAlias("River2015");
     	cuenta8.setUsuario(usuario7);
@@ -629,7 +636,7 @@ public class App {
     	Cuenta cuenta9 = new Cuenta();
     	cuenta9.setIdCuenta(9);
     	cuenta9.setTipoCuenta(tipoCuenta2);
-    	cuenta9.setFechaCreacion("09/06/2020");
+    	cuenta9.setFechaCreacion(new Date());
     	cuenta9.setCbu("0000.0000.0009");
     	cuenta9.setUsuario(usuario8);
     	cuenta9.setAlias("Boca2007");
@@ -639,7 +646,7 @@ public class App {
     	Cuenta cuenta10 = new Cuenta();
     	cuenta10.setIdCuenta(10);
     	cuenta10.setTipoCuenta(tipoCuenta3);
-    	cuenta10.setFechaCreacion("09/06/2020");
+    	cuenta10.setFechaCreacion(new Date());
     	cuenta10.setCbu("0000.0000.0010");
     	cuenta10.setAlias("Boca2006");
     	cuenta10.setUsuario(usuario8);

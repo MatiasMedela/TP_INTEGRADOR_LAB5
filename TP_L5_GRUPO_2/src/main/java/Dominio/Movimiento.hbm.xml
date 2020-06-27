@@ -3,18 +3,18 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 02/06/2020 14:49:58 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="Dominio.Movimiento" table="MOVIMIENTO">
+    <class name="Dominio.Movimiento" table="MOVIMIENTOS">
         <id name="idMovimiento" type="int">
             <column name="ID" />
             <generator class="assigned" />
         </id>
         <many-to-one name="tipoMovimiento" class="Dominio.Tipo_Movimiento" lazy="false">
-            <column name="TIPOMOVIMIENTO" />
+            <column name="ID_TIPOMOVIMIENTO" />
         </many-to-one>
         <property name="cbuOrigen" type="java.lang.String">
-            <column name="CBUORIGEN" />
+            <column name="CBU_ORIGEN" />
         </property>
-        <property name="Fecha" type="java.lang.String">
+        <property name="Fecha" type="java.util.Date">
             <column name="FECHA" />
         </property>
         <property name="importe" type="float">

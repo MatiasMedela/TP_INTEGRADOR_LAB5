@@ -3,9 +3,9 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 02/06/2020 13:10:17 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-	<class name="Dominio.Tipo_Cuenta" table="TIPO_CUENTA">
+	<class name="Dominio.Tipo_Cuenta" table="TIPOS_CUENTA">
 		<id name="idTipoCuenta" type="int" access="field">
-			<column name="ID_TIPO_CUENTA" />
+			<column name="ID" />
 			<generator class="assigned" />
 		</id>
 		<property name="descripcion" type="java.lang.String"

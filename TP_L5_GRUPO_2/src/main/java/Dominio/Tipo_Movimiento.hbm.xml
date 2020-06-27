@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 02/06/2020 14:49:58 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="Dominio.Tipo_Movimiento" table="TIPO_MOVIMIENTO">
+    <class name="Dominio.Tipo_Movimiento" table="TIPOS_MOVIMIENTO">
         <id name="idTipoMovimiento" type="int" access="field">
             <column name="ID" />
             <generator class="assigned" />

@@ -3,19 +3,19 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 02/06/2020 13:10:17 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping >
-    <class name="Dominio.Cuenta" table="CUENTA">
+    <class name="Dominio.Cuenta" table="CUENTAS">
         <id name="idCuenta" type="int">
             <column name="ID_CUENTA" />
             <generator class="increment" />
         </id>
         <many-to-one name="usuario" class="Dominio.Usuario" lazy="false">
-            <column name="USUARIO" />
+            <column name="ID_USUARIO" />
         </many-to-one>
-        <property name="fechaCreacion" type="java.lang.String">
+        <property name="fechaCreacion" type="java.util.Date">
             <column name="FECHA_CREACION" />
         </property>
         <many-to-one name="tipoCuenta" class="Dominio.Tipo_Cuenta" lazy="false">
-            <column name="TIPOCUENTA" />
+            <column name="ID_TIPOCUENTA" />
         </many-to-one>
         <property name="saldo" type="float">
             <column name="SALDO" />

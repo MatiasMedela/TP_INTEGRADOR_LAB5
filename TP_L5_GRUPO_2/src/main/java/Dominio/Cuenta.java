@@ -1,6 +1,7 @@
 package Dominio;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Cuenta implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -8,7 +9,7 @@ public class Cuenta implements Serializable{
 	//Atributos
 	private int idCuenta;
 	private Usuario usuario;
-	private String fechaCreacion;
+	private Date fechaCreacion;
 	private Tipo_Cuenta tipoCuenta;
 	private float saldo;
 	private String cbu;
@@ -21,7 +22,7 @@ public class Cuenta implements Serializable{
 		
 	}
 	
-	public Cuenta(int id,Usuario usuario,String fechaCreacion,Tipo_Cuenta tipoCuenta,float saldo,String cbu,String alias,boolean estado)
+	public Cuenta(int id,Usuario usuario,Date fechaCreacion,Tipo_Cuenta tipoCuenta,float saldo,String cbu,String alias,boolean estado)
 	{
 		this.idCuenta = id;
 		this.usuario = usuario;
@@ -33,7 +34,7 @@ public class Cuenta implements Serializable{
 		this.estado = estado;
 	}
 	
-	public Cuenta(Usuario usuario,String fechaCreacion,Tipo_Cuenta tipoCuenta,float saldo,String cbu,String alias,boolean estado)
+	public Cuenta(Usuario usuario,Date fechaCreacion,Tipo_Cuenta tipoCuenta,float saldo,String cbu,String alias,boolean estado)
 	{
 		this.usuario = usuario;
 		this.fechaCreacion = fechaCreacion;
@@ -61,11 +62,11 @@ public class Cuenta implements Serializable{
 		this.usuario = usuario;
 	}
 
-	public String getFechaCreacion() {
+	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
 
-	public void setFechaCreacion(String fechaCreacion) {
+	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
 

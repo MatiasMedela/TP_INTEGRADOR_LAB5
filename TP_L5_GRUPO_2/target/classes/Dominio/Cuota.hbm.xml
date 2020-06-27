@@ -3,9 +3,9 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 02/06/2020 14:45:45 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="Dominio.Cuota" table="CUOTA">
+    <class name="Dominio.Cuota" table="CUOTAS">
         <id name="numeroCuota" type="int">
-            <column name="NUMEROCUOTA" />
+            <column name="ID" />
             <generator class="assigned" />
         </id>
         

@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 02/06/2020 14:45:45 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="Dominio.Localidad" table="LOCALIDAD">
+    <class name="Dominio.Localidad" table="LOCALIDADES">
         <id name="IdLocalidad" type="int" access="field">
             <column name="ID" />
             <generator class="assigned" />
@@ -15,7 +15,7 @@
             <column name="CODIGO_POSTAL" />
         </property>
          <many-to-one name="ProvLoc" class="Dominio.Provincia" access="field" fetch="join">
-            <column name="PROVINCIA" />
+            <column name="ID_PROVINCIA" />
         </many-to-one>
     </class>
 </hibernate-mapping>

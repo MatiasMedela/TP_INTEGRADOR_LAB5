@@ -3,16 +3,16 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 02/06/2020 14:45:45 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="Dominio.Prestamo" table="PRESTAMO">
+    <class name="Dominio.Prestamo" table="PRESTAMOS">
         <id name="idPrestamo" type="int">
             <column name="ID" />
             <generator class="assigned" />
         </id>
         <many-to-one name="usuario" class="Dominio.Usuario" fetch="join">
-            <column name="USUARIO" />
+            <column name="ID_USUARIO" />
         </many-to-one>
         <many-to-one name="movimiento" class="Dominio.Movimiento" fetch="join">
-            <column name="MOVIMIENTO" />
+            <column name="ID_MOVIMIENTO" />
         </many-to-one>
         <property name="cantidadMeses" type="int">
             <column name="CANTIDADMESES" />

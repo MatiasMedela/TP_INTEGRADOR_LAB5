@@ -3,9 +3,9 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 02/06/2020 14:49:58 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="Dominio.Transferencia" table="TRANSFERENCIA">
+    <class name="Dominio.Transferencia" table="TRANSFERENCIAS">
         <id name="idTransferencia" type="int">
-            <column name="ID_TRANSFERENCIA" />
+            <column name="ID" />
             <generator class="increment" />
         </id>
         <many-to-one name="movimiento" class="Dominio.Movimiento" fetch="join">

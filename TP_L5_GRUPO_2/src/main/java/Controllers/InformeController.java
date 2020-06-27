@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import org.springframework.stereotype.Controller;
@@ -22,16 +21,15 @@ public class InformeController {
 	public ModelAndView redirecInformes() throws ParseException {
 		ModelAndView MV = new ModelAndView();
 		InformeDao infDao = new InformeDao();
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		String StartDate = "01/01/" + Year.now().getValue();
-		String EndDate = "31/12/" + Year.now().getValue();
-		ArrayList<String> informe = (ArrayList<String>) infDao.informePrestamos(StartDate, EndDate);
+		DateFormat formatUS = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String StartDate = Year.now().getValue() + "-01-01 00:00:00"; 
+		String EndDate = Year.now().getValue() + "-12-31 23:59:59";
+		Date sDateMethod = formatUS.parse(StartDate);
+		Date eDateMethod = formatUS.parse(EndDate);
+		ArrayList<String> informe = (ArrayList<String>) infDao.informePrestamos(sDateMethod, eDateMethod);
 		
-		Date sDate = format.parse(StartDate);
-		Date eDate = format.parse(EndDate);
-		
-		MV.addObject("stDate", new SimpleDateFormat("yyyy-MM-dd").format(sDate));
-		MV.addObject("edDate", new SimpleDateFormat("yyyy-MM-dd").format(eDate));
+		MV.addObject("stDate", new SimpleDateFormat("yyyy-MM-dd").format(sDateMethod));
+		MV.addObject("edDate", new SimpleDateFormat("yyyy-MM-dd").format(eDateMethod));
 		MV.addObject("InformePrestamos", informe);
 		MV.setViewName("informes");
 		return MV;
@@ -44,14 +42,13 @@ public class InformeController {
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 		Date sDate = format.parse(startDate);
 		Date eDate = format.parse(endDate);
-		String FechaInicio = new SimpleDateFormat("dd/MM/yyyy").format(sDate).toString();
-		String FechaFinal = new SimpleDateFormat("dd/MM/yyyy").format(eDate).toString();
-		ArrayList<String> informe = (ArrayList<String>) infDao.informePrestamos(FechaInicio, FechaFinal);
+		ArrayList<String> informe = (ArrayList<String>) infDao.informePrestamos(sDate, eDate);
 		MV.addObject("stDate", new SimpleDateFormat("yyyy-MM-dd").format(sDate));
 		MV.addObject("edDate", new SimpleDateFormat("yyyy-MM-dd").format(eDate));
 		MV.addObject("InformePrestamos", informe);
 		MV.setViewName("informes");
 		return MV;
 	}
+
 
 }

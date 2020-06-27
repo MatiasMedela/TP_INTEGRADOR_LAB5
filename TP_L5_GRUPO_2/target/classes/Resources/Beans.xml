@@ -55,6 +55,7 @@
 		<property name="FechaNac" value="12/12/12"></property>
 		<property name="Loc" ref="BLocalidad"></property>
 		<property name="Direccion" value="default"></property>
+		<property name="Nacionalidad" value="default"></property>
 		<property name="Email" value="default"></property>
 		<property name="Tel" value="default"></property>
 		<property name="Estado" value="false"></property>
