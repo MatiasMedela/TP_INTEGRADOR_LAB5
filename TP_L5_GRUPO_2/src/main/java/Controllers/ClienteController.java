@@ -23,37 +23,18 @@ import AccesoDatos.TipoUsuarioDao;
 import Dominio.Localidad;
 import Dominio.Usuario;
 
+
 @Controller
 public class ClienteController {
 	
-
-	
-	@RequestMapping(value="altaCliente.html" ,method = RequestMethod.GET)
-	public String LocalidadesList(ModelMap modelMap) {
-	    modelMap.addAttribute("Localidades", new LocalidadDao().ListLocalidades());
-
-	    return "AltaCliente";
-	}
-	
-	@RequestMapping(value="prueba.html")
-	public ModelAndView RedireccionarAltaCliente() {
+	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ClienteNuevo"})
+	public ModelAndView RedireccionarLogin() {
 		ModelAndView MV = new ModelAndView();
-		
-		
-		MV.addObject("ListLoc", new LocalidadDao().ListLocalidades());
+		LocalidadDao locdao= new LocalidadDao();
+		MV.addObject("LocalidadesList", locdao.ListLocalidades());
 		MV.setViewName("AltaCliente");
 		return MV;
 	}
-
-	@ModelAttribute("LocalidadesList")
-	   public Map<String, String> getCountryList() {
-	      Map<String, String> LocList = (Map<String, String>) new HashMap<String, String>();
-	      
-	      for ( Localidad z : new LocalidadDao().ListLocalidades()) {
-			((HashMap<String, Object>) LocList).put(Integer.toString(z.getIdLocalidad()),z.getLocNombre());
-		}
-	      return LocList;
-	   }
 	
 	@RequestMapping(value="FormCagarCliente")
 	public ModelAndView CargarCliente(String DniName,String NombreName,String ApeName,String NacName,
