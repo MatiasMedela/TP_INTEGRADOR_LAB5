@@ -2,6 +2,7 @@ package AccesoDatos;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -29,11 +30,27 @@ public class LocalidadDao {
 	}
 
 	public List<Localidad> ListLocalidades() {
-		ConfigHibernate ch = new ConfigHibernate();
-		Session session = ch.abrirConexion();
-		List<Localidad> listado = (List<Localidad>) session.createQuery("FROM Localidad").list();
-    	ch.cerrarSession();
-	    return listado;		
+		List<Localidad> ListLoc = null;
+		try {
+			ConfigHibernate ch = new ConfigHibernate();
+			Session session = ch.abrirConexion();
+			Query query=session.createQuery("SELECT L FROM Localidad L");
+			ListLoc = query.list();
+			
+			if (ListLoc.isEmpty()) {
+				System.out.println("ListaVacia");
+			}else {
+				for (Localidad loc : ListLoc) {
+					System.out.println(loc.toString());
+				}
+			}
+			
+	    	ch.cerrarSession();
+		    return ListLoc;	
+		} catch (Exception e) {
+			return ListLoc;
+		}
+			
 	}
 	
 
