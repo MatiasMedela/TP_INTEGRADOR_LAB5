@@ -44,29 +44,43 @@
 
 	<div class="container-md">
 		<h4 style="margin-top: 20px;">Prestamos aprobados/rechazados</h4>
-		<form class="form-inline pull-left" action="filtrarFechas.html" mehotd="get">
-		<span class="mr-2">Transferencias entre </span>
+		<form action="filtrarInforme.html" mehotd="post">
+		<div class="form-inline pull-left">
+		<span class="mr-2">Prestamos entre </span>
 			<input class="form-control form-control-sm mr-2" type="date" name="startDate" id="example-date-input" value="${stDate }"> 
 			<span class="mr-2">y</span>
 			<input	class="form-control form-control-sm mr-2" type="date" name="endDate" id="example-date-input" value="${edDate}"> 
 			<button class="btn btn-primary" style="padding: .2rem .5rem;">Filtrar</button>
-		</form>
+		</div>
 		<input type="hidden" id="PresAutorizados" value="${InformePrestamos[0]}" />
 		<input type="hidden" id="PresNoAutorizados" value="${InformePrestamos[1]}" />
 		<div id="PrestamosChart" style="height: 250px;"></div>
 		
+		<!-- INFORME TRANSFERENCIAS -->
 		<h4 style="margin-top: 20px;">Cantidad de transferencias</h4>
-
+		<div class="form-inline">
+		<span class="mr-2">Transferencias en el año: </span>
+		<select id="cmbAnio" name="anioSelect" class="custom-select mr-2">
+			<option value="2020">2020</option>
+			<option value="2019">2019</option>
+		</select>
+			<button class="btn btn-primary" style="padding: .2rem .5rem;">Filtrar</button>
+		</div>
+		
 		<div id="TransferenciasChart" style="height: 250px;"></div>
+		</form>
 		
 	</div>
 	<!-- END CONTENT -->
-
+	<input type="hidden" id="anioSelected" value="<c:out value="${anio}"/>"/>
+	<c:forEach items="${informeTransferencia}" var="transfer" varStatus="loop">
+		<input type="hidden" id="informeTransferencias${loop.count}" value="${transfer[1]}" />
+	</c:forEach>
 </body>
 <script type="text/javascript">
 	CurrentItem = document.getElementById("mnInformes");
 	CurrentItem.className +=" active";
-	
+	$("#cmbAnio").val($("#anioSelected").val());
 	var PresAutorizados = $("#PresAutorizados").val();
 	var PresNoAutorizados = $("#PresNoAutorizados").val();
 	
@@ -86,23 +100,25 @@
 		  colors: ["green", "red"],
 		});
 	
+	console.log($("#informeTransferencias").val())
+	var anioActual = $("#anioSelected").val()
 	new Morris.Line({
 		  element: 'TransferenciasChart',
-		  data: [
-			    { month: '2020-01', value: 5 },
-			    { month: '2020-02', value: 6 },
-			    { month: '2020-03', value: 2 },
-			    { month: '2020-04', value: 30 },
-			    { month: '2020-05', value: 1 },
-			    { month: '2020-06', value: 10 },
-			    { month: '2020-07', value: 0 },
-			    { month: '2020-08', value: 43 },
-			    { month: '2020-09', value: 0 },
-			    { month: '2020-10', value: 65 },
-			    { month: '2020-11', value: 23 },
-			    { month: '2020-12', value: 12 }
-			  ],
+		  data: [{
+			      month: 'Enero', value: $("#informeTransferencias1").val() },
+			    { month: 'Febrero', value: $("#informeTransferencias2").val() },
+			    { month: 'Marzo', value: $("#informeTransferencias3").val() },
+			    { month: 'Abril', value: $("#informeTransferencias4").val() },
+			    { month: 'Mayo', value: $("#informeTransferencias5").val() },
+			    { month: 'Junio', value: $("#informeTransferencias6").val() },
+			    { month: 'Julio', value: $("#informeTransferencias7").val() },
+			    { month: 'Agosto', value: $("#informeTransferencias8").val() },
+			    { month: 'Septiembre', value: $("#informeTransferencias9").val() },
+			    { month: 'Octubre', value: $("#informeTransferencias10").val() },
+			    { month: 'Noviembre', value: $("#informeTransferencias11").val() },
+			    { month: 'Diciembre', value: $("#informeTransferencias12").val() }],
 		  xkey: 'month',
+		  parseTime: false,
 		  ykeys: ['value'],
 		  labels: ['Transferencias']
 		});

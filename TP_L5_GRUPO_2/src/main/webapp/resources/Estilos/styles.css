@@ -17,6 +17,10 @@
     border: 1px solid gray!important;
 }
 
+.btn-delete-account{
+	padding: 0px 8px!important;
+}
+
 .btn-grid-action {
 	height: 26px;
     padding: 0px 11px!important;

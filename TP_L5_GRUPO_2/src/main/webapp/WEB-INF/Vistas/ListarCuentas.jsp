@@ -22,8 +22,17 @@
 <link rel=stylesheet
 	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
 	media=screen>
+<script type="text/javascript" src="<c:url value="resources/Funciones/funciones.js"/>"></script>
+		<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 </head>
-<body>
+<body onload="cantidadPaginas()" onresize="cantidadPaginas()">
 
 		<!-- NAVBAR -->
 <%@ include file="NavbarAdmin.html"%>
@@ -31,7 +40,7 @@
 
 	<div class="container-md">
 		<h3 style="margin-top: 20px;">Cuentas</h3>
-		<table class="table">
+		<table id="TableCuentasAll" class="table">
 			<thead>
 				<tr>
 					<th scope="col">Tipo de cuenta</th>
@@ -42,26 +51,17 @@
 					<th scope="col" style="text-align: center;"></th>
 				</tr>
 			</thead>
-			<tbody>
-			
-					<c:forEach items="${ listadoCuentas }" var="cuenta" varStatus="loop">
-					
+			<tbody>	
+					<c:forEach items="${ listadoCuentas }" var="cuenta" varStatus="loop">			
 					<tr>
-
 						<td id="Tipo${loop.index}">${cuenta.tipoCuenta.descripcion}</td>
 						<td id="Nombre${loop.index}">${cuenta.getUsuario().getNombre()} ${cuenta.getUsuario().getApellido()}</td>
 						<td id="Moneda${loop.index}">${cuenta.tipoCuenta.moneda}</td>
 						<td id="Saldo${loop.index}">${cuenta.saldo}</td>
 						<td><img src="<c:url value="resources/Imagenes/edit.png"/>" style="display:block;" id="edit" name ="edit"/></td>
-					    <td><button type="button" class="btn btn-danger btn-sm" value ="${cuenta.getIdCuenta()}" id="btnAbrirModalE" data-toggle="modal" data-target="#ModalDelete">x</button></td>
-					    
-						
-					</tr>
-						
-				</c:forEach>
-			
-			
-				
+					    <td><button type="button" class="btn btn-danger btn-sm btn-delete-account" value ="${cuenta.getIdCuenta()}" id="btnAbrirModalE" data-toggle="modal" data-target="#ModalDelete">X</button></td>	
+					</tr>						
+				</c:forEach>			
 			</tbody>
 		</table>
 
@@ -165,18 +165,42 @@
 	}, false);
 	
 	var eliminar = document.getElementById("delete");
-	
-	//eliminar.addEventListener("click", function(){
-		//$('#ModalDelete').modal('show');
-		
-	//}, false);
-
 
 		$('#btnAbrirModalE').click(function() {
 			$('#btnModalEliminar').val($(this).val());
 			
 	})
-	
+/* 	function cantidadPaginas(){		
+		screenH = window.innerHeight;
+		if(screenH < 615){
+			$('#TableCuentasAll').DataTable().page.len(5).draw();
+		}
+		else if(screenH < 680){
+			$('#TableCuentasAll').DataTable().page.len(6).draw();
+		}
+		else if(screenH < 740){
+			$('#TableCuentasAll').DataTable().page.len(7).draw();
+		}
+		else{
+			$('#TableCuentasAll').DataTable().page.len(8).draw();
+		}
+	} */
+	$('#TableCuentasAll').DataTable({
+		"ordering" : false,
+		"bInfo" : false,
+		"lengthChange" : false,
+		"dom" : '<"pull-left"f>rtip',
+		"oLanguage" : {
+			"sSearch" : "Busqueda:",
+		},
+		"language" : {
+			"zeroRecords" : "No se encontraron registros coincidentes",
+			"paginate" : {
+				"next" : "Siguiente",
+				"previous" : "Previo"
+			},
+		}
+	});
 	
 	
 	
