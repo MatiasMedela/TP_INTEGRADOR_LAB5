@@ -49,15 +49,15 @@ public class App {
     	  	
        	//---------------------------------------------------
     	/*--CARGO DATOS TABLA GENEROS--*/
-    	Genero gen1 = new Genero();
+    	Genero gen1 = (Genero) appContext.getBean("BGenero");
     	gen1.setIdGenero(1);
     	gen1.setDescripcion("Femenino");
     	
-    	Genero gen2 = new Genero();
+    	Genero gen2 = (Genero) appContext.getBean("BGenero");
     	gen2.setIdGenero(2);
     	gen2.setDescripcion("Masculino");
     	
-    	Genero gen3 = new Genero();
+    	Genero gen3 = (Genero) appContext.getBean("BGenero");
     	gen3.setIdGenero(3);
     	gen3.setDescripcion("Otros");
     	
@@ -66,30 +66,30 @@ public class App {
     	session.save(gen3);
     	//-----------------------------------------------------------
     	/*--CARGO DATOS EN TABLA TIPO CUENTA--*/
-    	Tipo_Cuenta tipoCuenta1 = new Tipo_Cuenta();
-    	tipoCuenta1.getIdTipoCuenta(1);
+    	Tipo_Cuenta tipoCuenta1 = (Tipo_Cuenta) appContext.getBean("BTipo_Cuenta");
+    	tipoCuenta1.setIdTipoCuenta(1);
     	tipoCuenta1.setMoneda("Pesos");
-    	tipoCuenta1.getDescripcion("Caja de ahorro en pesos");
+    	tipoCuenta1.setDescripcion("Caja de ahorro en pesos");
     	
-    	Tipo_Cuenta tipoCuenta2 = new Tipo_Cuenta();
-    	tipoCuenta2.getIdTipoCuenta(2);
+    	Tipo_Cuenta tipoCuenta2 = (Tipo_Cuenta) appContext.getBean("BTipo_Cuenta");
+    	tipoCuenta2.setIdTipoCuenta(2);
     	tipoCuenta2.setMoneda("Dólares");
-    	tipoCuenta2.getDescripcion("Caja de ahorro en dolares");
+    	tipoCuenta2.setDescripcion("Caja de ahorro en dolares");
     	
-    	Tipo_Cuenta tipoCuenta3 = new Tipo_Cuenta();
-    	tipoCuenta3.getIdTipoCuenta(3);
+    	Tipo_Cuenta tipoCuenta3 = (Tipo_Cuenta) appContext.getBean("BTipo_Cuenta");
+    	tipoCuenta3.setIdTipoCuenta(3);
     	tipoCuenta3.setMoneda("Pesos");
-    	tipoCuenta3.getDescripcion("Cuenta corriente");
+    	tipoCuenta3.setDescripcion("Cuenta corriente");
     	
-    	Tipo_Cuenta tipoCuenta4 = new Tipo_Cuenta();
-    	tipoCuenta4.getIdTipoCuenta(4);
+    	Tipo_Cuenta tipoCuenta4 = (Tipo_Cuenta) appContext.getBean("BTipo_Cuenta");
+    	tipoCuenta4.setIdTipoCuenta(4);
     	tipoCuenta4.setMoneda("Pesos");
-    	tipoCuenta4.getDescripcion("Cuenta corriente especial en pesos");
+    	tipoCuenta4.setDescripcion("Cuenta corriente especial en pesos");
     	
-    	Tipo_Cuenta tipoCuenta5 = new Tipo_Cuenta();
-    	tipoCuenta5.getIdTipoCuenta(5);
+    	Tipo_Cuenta tipoCuenta5 = (Tipo_Cuenta) appContext.getBean("BTipo_Cuenta");
+    	tipoCuenta5.setIdTipoCuenta(5);
     	tipoCuenta5.setMoneda("Dólares");
-    	tipoCuenta5.getDescripcion("Cuenta corriente especial en dolares");
+    	tipoCuenta5.setDescripcion("Cuenta corriente especial en dolares");
     	
     	session.save(tipoCuenta1);
     	session.save(tipoCuenta2);
@@ -246,23 +246,23 @@ public class App {
     	session.save(prov24);
     	//---------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA TIPO MOVIMIENTO--*/
-    	Tipo_Movimiento tipoMovimient1 = new Tipo_Movimiento();
+    	Tipo_Movimiento tipoMovimient1 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
     	tipoMovimient1.setIdTipoMovimiento(1);
     	tipoMovimient1.setDescripcion("Alta de cuenta");
     	
-    	Tipo_Movimiento tipoMovimient2 = new Tipo_Movimiento();
+    	Tipo_Movimiento tipoMovimient2 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
     	tipoMovimient2.setIdTipoMovimiento(2);
     	tipoMovimient2.setDescripcion("Alta de un prestamo");
     	
-    	Tipo_Movimiento tipoMovimient3 = new Tipo_Movimiento();
+    	Tipo_Movimiento tipoMovimient3 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
     	tipoMovimient3.setIdTipoMovimiento(3);
     	tipoMovimient3.setDescripcion("Pago de un prestamo");
     	
-    	Tipo_Movimiento tipoMovimient4 = new Tipo_Movimiento();
+    	Tipo_Movimiento tipoMovimient4 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
     	tipoMovimient4.setIdTipoMovimiento(4);
     	tipoMovimient4.setDescripcion("Acreditar transferencia");
     	
-    	Tipo_Movimiento tipoMovimient5 = new Tipo_Movimiento();
+    	Tipo_Movimiento tipoMovimient5 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
     	tipoMovimient5.setIdTipoMovimiento(5);
     	tipoMovimient5.setDescripcion("Debitar transferencia");
     	
@@ -273,61 +273,61 @@ public class App {
     	session.save(tipoMovimient5); 
     	//---------------------------------------------------------------
     	/*--CARGO DATOS TABLA LOCALIDAD*/
-    	Localidad local1 = new Localidad();
+    	Localidad local1 = (Localidad) appContext.getBean("BLocalidad");
     	local1.setIdLocalidad(1);
     	local1.setProvLoc(prov1);
     	local1.setLocNombre("C.A.B.A");
     	local1.setCodigoPostal("0");
     	
-    	Localidad local2 = new Localidad();
+    	Localidad local2 = (Localidad) appContext.getBean("BLocalidad");
     	local2.setIdLocalidad(2);
     	local2.setProvLoc(prov2);
     	local2.setLocNombre("AVELLANEDA");
     	local2.setCodigoPostal("1870");
     	
-    	Localidad local3 = new Localidad();
+    	Localidad local3 = (Localidad) appContext.getBean("BLocalidad");
     	local3.setIdLocalidad(3);
     	local3.setProvLoc(prov2);
     	local3.setLocNombre("DOCK SUD");
     	local3.setCodigoPostal("1871");
     	
-    	Localidad local4 = new Localidad();
+    	Localidad local4 = (Localidad) appContext.getBean("BLocalidad");
     	local4.setIdLocalidad(4);
     	local4.setProvLoc(prov2);
     	local4.setLocNombre("SAN JOSE");
     	local4.setCodigoPostal("6665");
     	
-    	Localidad local5 = new Localidad();
+    	Localidad local5 = (Localidad) appContext.getBean("BLocalidad");
     	local5.setIdLocalidad(5);
     	local5.setProvLoc(prov2);
     	local5.setLocNombre("LOS PATOS");
     	local5.setCodigoPostal("7603");
     	
-    	Localidad local6 = new Localidad();
+    	Localidad local6 = (Localidad) appContext.getBean("BLocalidad");
     	local6.setIdLocalidad(6);
     	local6.setProvLoc(prov2);
     	local6.setLocNombre("MIRAMAR");
     	local6.setCodigoPostal("7607");
     	
-    	Localidad local7 = new Localidad();
+    	Localidad local7 = (Localidad) appContext.getBean("BLocalidad");
     	local7.setIdLocalidad(7);
     	local7.setProvLoc(prov2);
     	local7.setLocNombre("GENERAL ALVEAR");
     	local7.setCodigoPostal("7263");
     	
-    	Localidad local8 = new Localidad();
+    	Localidad local8 = (Localidad) appContext.getBean("BLocalidad");
     	local8.setIdLocalidad(8);
     	local8.setProvLoc(prov2);
     	local8.setLocNombre("VILLA CERRITO");
     	local8.setCodigoPostal("8000");
     	
-    	Localidad local9 = new Localidad();
+    	Localidad local9 = (Localidad) appContext.getBean("BLocalidad");
     	local9.setIdLocalidad(9);
     	local9.setProvLoc(prov2);
     	local9.setLocNombre("ALSINA");
     	local9.setCodigoPostal("2938");
     	
-    	Localidad local10 = new Localidad();
+    	Localidad local10 = (Localidad) appContext.getBean("BLocalidad");
     	local10.setIdLocalidad(10);
     	local10.setProvLoc(prov2);
     	local10.setLocNombre("MONTE CRESPO");
@@ -345,7 +345,7 @@ public class App {
     	session.save(local10);
     	//---------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA USUARIO--*/
-    	Usuario usuario1 = new Usuario();
+    	Usuario usuario1 = (Usuario) appContext.getBean("BUsuario");
     	usuario1.setDni("38456789");
     	usuario1.setTipoUsu(tipoUsuario1);
     	usuario1.setGen(gen1);
@@ -358,7 +358,7 @@ public class App {
     	usuario1.setDireccion("Mosconi 556");
     	usuario1.setEmail("dalessio@gmail.com");
     	
-    	Usuario usuario2 = new Usuario();
+    	Usuario usuario2 = (Usuario) appContext.getBean("BUsuario");
     	usuario2.setDni("38456789");
     	usuario2.setTipoUsu(tipoUsuario2);
     	usuario2.setGen(gen2);
@@ -371,7 +371,7 @@ public class App {
     	usuario2.setDireccion("Riobamba 126");
     	usuario2.setEmail("jcasano@gmail.com");
     	
-    	Usuario usuario3 = new Usuario();
+    	Usuario usuario3 = (Usuario) appContext.getBean("BUsuario");
     	usuario3.setDni("38456789");
     	usuario3.setTipoUsu(tipoUsuario2);
     	usuario3.setGen(gen2);
@@ -384,7 +384,7 @@ public class App {
     	usuario3.setDireccion("Alsina 236");
     	usuario3.setEmail("llescano@gmail.com");
     	
-    	Usuario usuario4 = new Usuario();
+    	Usuario usuario4 = (Usuario) appContext.getBean("BUsuario");
     	usuario4.setDni("38456789");
     	usuario4.setTipoUsu(tipoUsuario2);
     	usuario4.setGen(gen2);
@@ -397,7 +397,7 @@ public class App {
     	usuario4.setDireccion("General Paz 546");
     	usuario4.setEmail("sfont@gmail.com");
     	
-    	Usuario usuario5 = new Usuario();
+    	Usuario usuario5 = (Usuario) appContext.getBean("BUsuario");
     	usuario5.setDni("38456789");
     	usuario5.setTipoUsu(tipoUsuario2);
     	usuario5.setGen(gen2);
@@ -410,7 +410,7 @@ public class App {
     	usuario5.setDireccion("Mosconi 546");
     	usuario5.setEmail("mmedela@gmail.com");
     	
-    	Usuario usuario6 = new Usuario();
+    	Usuario usuario6 = (Usuario) appContext.getBean("BUsuario");
     	usuario6.setDni("38456789");
     	usuario6.setTipoUsu(tipoUsuario2);
     	usuario6.setGen(gen2);
@@ -423,7 +423,7 @@ public class App {
     	usuario6.setDireccion("Haedo 652");
     	usuario6.setEmail("jjlage@gmail.com");
     	
-    	Usuario usuario7 = new Usuario();
+    	Usuario usuario7 = (Usuario) appContext.getBean("BUsuario");
     	usuario7.setDni("38456789");
     	usuario7.setTipoUsu(tipoUsuario2);
     	usuario7.setGen(gen2);
@@ -437,7 +437,7 @@ public class App {
     	usuario7.setDireccion("Av. Centenario 1256");
     	usuario7.setEmail("hsuarez@gmail.com");
     	
-    	Usuario usuario8 = new Usuario();
+    	Usuario usuario8 = (Usuario) appContext.getBean("BUsuario");
     	usuario8.setDni("38456789");
     	usuario8.setTipoUsu(tipoUsuario2);
     	usuario8.setGen(gen1);
@@ -450,7 +450,7 @@ public class App {
     	usuario8.setDireccion("Haedo 568");
     	usuario8.setEmail("ocapotosti@gmail.com");
     	
-    	Usuario usuario9 = new Usuario();
+    	Usuario usuario9 = (Usuario) appContext.getBean("BUsuario");
     	usuario9.setDni("38456789");
     	usuario9.setTipoUsu(tipoUsuario2);
     	usuario9.setGen(gen1);
@@ -463,7 +463,7 @@ public class App {
     	usuario9.setDireccion("Alsina 326");
     	usuario9.setEmail("mvasquez@gmail.com");
     	
-    	Usuario usuario10 = new Usuario();
+    	Usuario usuario10 = (Usuario) appContext.getBean("BUsuario");
     	usuario10.setDni("38456789");
     	usuario10.setTipoUsu(tipoUsuario2);
     	usuario10.setGen(gen2);
@@ -489,52 +489,52 @@ public class App {
     	
     	//---------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA LOGUEO*/
-    	Logueo log1 = new Logueo();
+    	Logueo log1 = (Logueo) appContext.getBean("BLogueo");
     	log1.setNUsuario(usuario1.getEmail());
     	log1.setContrasenia("pppp");
     	log1.setUsuario(usuario1);
     	
-    	Logueo log2 = new Logueo();
+    	Logueo log2 = (Logueo) appContext.getBean("BLogueo");
     	log2.setNUsuario(usuario2.getEmail());
     	log2.setContrasenia("pppp");
     	log2.setUsuario(usuario2);
     	
-    	Logueo log3 = new Logueo();
+    	Logueo log3 = (Logueo) appContext.getBean("BLogueo");
     	log3.setNUsuario(usuario3.getEmail());
     	log3.setContrasenia("pppp");
     	log3.setUsuario(usuario3);
     	
-    	Logueo log4 = new Logueo();
+    	Logueo log4 = (Logueo) appContext.getBean("BLogueo");
     	log4.setNUsuario(usuario4.getEmail());
     	log4.setContrasenia("pppp");
     	log4.setUsuario(usuario4);
     	
-    	Logueo log5 = new Logueo();
+    	Logueo log5 = (Logueo) appContext.getBean("BLogueo");
     	log5.setNUsuario(usuario5.getEmail());
     	log5.setContrasenia("pppp");
     	log5.setUsuario(usuario5);
     	
-    	Logueo log6 = new Logueo();
+    	Logueo log6 = (Logueo) appContext.getBean("BLogueo");
     	log6.setNUsuario(usuario6.getEmail());
     	log6.setContrasenia("pppp");
     	log6.setUsuario(usuario6);
     	
-    	Logueo log7 = new Logueo();
+    	Logueo log7 = (Logueo) appContext.getBean("BLogueo");
     	log7.setNUsuario(usuario7.getEmail());
     	log7.setContrasenia("pppp");
     	log7.setUsuario(usuario7);
     	
-    	Logueo log8 = new Logueo();
+    	Logueo log8 = (Logueo) appContext.getBean("BLogueo");
     	log8.setNUsuario(usuario8.getEmail());
     	log8.setContrasenia("pppp");
     	log8.setUsuario(usuario8);
     	
-    	Logueo log9 = new Logueo();
+    	Logueo log9 = (Logueo) appContext.getBean("BLogueo");
     	log9.setNUsuario(usuario9.getEmail());
     	log9.setContrasenia("pppp");
     	log9.setUsuario(usuario9);
     	
-    	Logueo log10 = new Logueo();
+    	Logueo log10 = (Logueo) appContext.getBean("BLogueo");
     	log10.setNUsuario(usuario10.getEmail());
     	log10.setContrasenia("pppp");
     	log10.setUsuario(usuario10);
@@ -553,100 +553,100 @@ public class App {
     	//----------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA CUENTA*/
     	
-    	Cuenta cuenta1 = new Cuenta();
+    	Cuenta cuenta1 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta1.setIdCuenta(1);
     	cuenta1.setTipoCuenta(tipoCuenta2);
-    	cuenta1.setFechaCreacion(new Date());
+    	cuenta1.setfechaCreacion(new Date());
     	cuenta1.setCbu("0000.0000.0001");
     	cuenta1.setAlias("GeneralPacheco2020");
     	cuenta1.setUsuario(usuario4);
     	cuenta1.setSaldo(10000);
     	cuenta1.setEstado(true);
     	
-    	Cuenta cuenta2 = new Cuenta();
+    	Cuenta cuenta2 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta2.setIdCuenta(2);
     	cuenta2.setTipoCuenta(tipoCuenta3);
-    	cuenta2.setFechaCreacion(new Date());
+    	cuenta2.setfechaCreacion(new Date());
     	cuenta2.setCbu("0000.0000.0002");
     	cuenta2.setAlias("GeneralPacheco202");
     	cuenta2.setUsuario(usuario4);
     	cuenta2.setSaldo(10000);
     	cuenta2.setEstado(true);
     	
-    	Cuenta cuenta3 = new Cuenta();
+    	Cuenta cuenta3 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta3.setIdCuenta(3);
     	cuenta3.setTipoCuenta(tipoCuenta2);
-    	cuenta3.setFechaCreacion(new Date());
+    	cuenta3.setfechaCreacion(new Date());
     	cuenta3.setCbu("0000.0000.0003");
     	cuenta3.setAlias("WinterGarden2012");
     	cuenta3.setUsuario(usuario5);
     	cuenta3.setSaldo(10000);
     	cuenta3.setEstado(true);
     	
-    	Cuenta cuenta4 = new Cuenta();
+    	Cuenta cuenta4 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta4.setIdCuenta(4);
     	cuenta4.setTipoCuenta(tipoCuenta3);
-    	cuenta4.setFechaCreacion(new Date());
+    	cuenta4.setfechaCreacion(new Date());
     	cuenta4.setCbu("0000.0000.0004");
     	cuenta4.setAlias("WinterGarden2013");
     	cuenta4.setUsuario(usuario5);
     	cuenta4.setSaldo(10000);
     	cuenta4.setEstado(true);
     	
-    	Cuenta cuenta5 = new Cuenta();
+    	Cuenta cuenta5 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta5.setIdCuenta(5);
     	cuenta5.setTipoCuenta(tipoCuenta2);
-    	cuenta5.setFechaCreacion(new Date());
+    	cuenta5.setfechaCreacion(new Date());
     	cuenta5.setCbu("0000.0000.0005");
     	cuenta5.setAlias("LaRalde3256");
     	cuenta5.setUsuario(usuario6);
     	cuenta5.setSaldo(10000);
     	cuenta5.setEstado(true);
     	
-    	Cuenta cuenta6 = new Cuenta();
+    	Cuenta cuenta6 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta6.setIdCuenta(6);
     	cuenta6.setTipoCuenta(tipoCuenta3);
-    	cuenta6.setFechaCreacion(new Date());
+    	cuenta6.setfechaCreacion(new Date());
     	cuenta6.setCbu("0000.0000.0006");
     	cuenta6.setAlias("LaRalde3245");
     	cuenta6.setUsuario(usuario6);
     	cuenta6.setSaldo(10000);
     	cuenta6.setEstado(true);
     	
-    	Cuenta cuenta7 = new Cuenta();
+    	Cuenta cuenta7 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta7.setIdCuenta(7);
     	cuenta7.setTipoCuenta(tipoCuenta2);
-    	cuenta7.setFechaCreacion(new Date());
+    	cuenta7.setfechaCreacion(new Date());
     	cuenta7.setCbu("0000.0000.0007");
     	cuenta7.setAlias("River2014");;
     	cuenta7.setUsuario(usuario7);
     	cuenta7.setSaldo(10000);
     	cuenta7.setEstado(true);
     	
-    	Cuenta cuenta8 = new Cuenta();
+    	Cuenta cuenta8 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta8.setIdCuenta(8);
     	cuenta8.setTipoCuenta(tipoCuenta3);
-    	cuenta8.setFechaCreacion(new Date());
+    	cuenta8.setfechaCreacion(new Date());
     	cuenta8.setCbu("0000.0000.0008");
     	cuenta8.setAlias("River2015");
     	cuenta8.setUsuario(usuario7);
     	cuenta8.setSaldo(10000);
     	cuenta8.setEstado(true);
     	
-    	Cuenta cuenta9 = new Cuenta();
+    	Cuenta cuenta9 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta9.setIdCuenta(9);
     	cuenta9.setTipoCuenta(tipoCuenta2);
-    	cuenta9.setFechaCreacion(new Date());
+    	cuenta9.setfechaCreacion(new Date());
     	cuenta9.setCbu("0000.0000.0009");
     	cuenta9.setUsuario(usuario8);
     	cuenta9.setAlias("Boca2007");
     	cuenta9.setSaldo(10000);
     	cuenta9.setEstado(true);
     	
-    	Cuenta cuenta10 = new Cuenta();
+    	Cuenta cuenta10 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta10.setIdCuenta(10);
     	cuenta10.setTipoCuenta(tipoCuenta3);
-    	cuenta10.setFechaCreacion(new Date());
+    	cuenta10.setfechaCreacion(new Date());
     	cuenta10.setCbu("0000.0000.0010");
     	cuenta10.setAlias("Boca2006");
     	cuenta10.setUsuario(usuario8);
@@ -665,74 +665,74 @@ public class App {
     	session.save(cuenta10);
     	//----------------------------------------------------------------
     	/*--CARGO DATOS EN LA TABLA MOVIMIENTOS--*/
-    	Movimiento movimiento1 =new Movimiento();
+    	Movimiento movimiento1 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento1.setIdMovimiento(1);
     	movimiento1.setTipoMovimiento(tipoMovimient1);
     	movimiento1.setCbuOrigen(cuenta1.getCbu());
-    	movimiento1.setFecha(cuenta1.getFechaCreacion());
+    	movimiento1.setFecha(cuenta1.getfechaCreacion());
     	movimiento1.setImporte(cuenta1.getSaldo());
     	
-    	Movimiento movimiento2 =new Movimiento();
+    	Movimiento movimiento2 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento2.setIdMovimiento(2);
     	movimiento2.setTipoMovimiento(tipoMovimient1);
     	movimiento2.setCbuOrigen(cuenta2.getCbu());
-    	movimiento2.setFecha(cuenta2.getFechaCreacion());
+    	movimiento2.setFecha(cuenta2.getfechaCreacion());
     	movimiento2.setImporte(cuenta2.getSaldo());
     	
-    	Movimiento movimiento3 =new Movimiento();
+    	Movimiento movimiento3 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento3.setIdMovimiento(3);
     	movimiento3.setTipoMovimiento(tipoMovimient1);
     	movimiento3.setCbuOrigen(cuenta3.getCbu());
-    	movimiento3.setFecha(cuenta3.getFechaCreacion());
+    	movimiento3.setFecha(cuenta3.getfechaCreacion());
     	movimiento3.setImporte(cuenta3.getSaldo());
     	
-    	Movimiento movimiento4 =new Movimiento();
+    	Movimiento movimiento4 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento4.setIdMovimiento(4);
     	movimiento4.setTipoMovimiento(tipoMovimient1);
     	movimiento4.setCbuOrigen(cuenta4.getCbu());
-    	movimiento4.setFecha(cuenta4.getFechaCreacion());
+    	movimiento4.setFecha(cuenta4.getfechaCreacion());
     	movimiento4.setImporte(cuenta4.getSaldo());
     	
-    	Movimiento movimiento5 =new Movimiento();
+    	Movimiento movimiento5 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento5.setIdMovimiento(5);
     	movimiento5.setTipoMovimiento(tipoMovimient1);
     	movimiento5.setCbuOrigen(cuenta5.getCbu());
-    	movimiento5.setFecha(cuenta5.getFechaCreacion());
+    	movimiento5.setFecha(cuenta5.getfechaCreacion());
     	movimiento5.setImporte(cuenta5.getSaldo());
     	
-    	Movimiento movimiento6 =new Movimiento();
+    	Movimiento movimiento6 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento6.setIdMovimiento(6);
     	movimiento6.setTipoMovimiento(tipoMovimient1);
     	movimiento6.setCbuOrigen(cuenta6.getCbu());
-    	movimiento6.setFecha(cuenta6.getFechaCreacion());
+    	movimiento6.setFecha(cuenta6.getfechaCreacion());
     	movimiento6.setImporte(cuenta6.getSaldo());
     	
-    	Movimiento movimiento7 =new Movimiento();
+    	Movimiento movimiento7 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento7.setIdMovimiento(7);
     	movimiento7.setTipoMovimiento(tipoMovimient1);
     	movimiento7.setCbuOrigen(cuenta7.getCbu());
-    	movimiento7.setFecha(cuenta7.getFechaCreacion());
+    	movimiento7.setFecha(cuenta7.getfechaCreacion());
     	movimiento7.setImporte(cuenta7.getSaldo());
     	
-    	Movimiento movimiento8 =new Movimiento();
+    	Movimiento movimiento8 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento8.setIdMovimiento(8);
     	movimiento8.setTipoMovimiento(tipoMovimient1);
     	movimiento8.setCbuOrigen(cuenta8.getCbu());
-    	movimiento8.setFecha(cuenta8.getFechaCreacion());
+    	movimiento8.setFecha(cuenta8.getfechaCreacion());
     	movimiento8.setImporte(cuenta8.getSaldo());
     	
-    	Movimiento movimiento9 =new Movimiento();
+    	Movimiento movimiento9 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento9.setIdMovimiento(9);
     	movimiento9.setTipoMovimiento(tipoMovimient1);
     	movimiento9.setCbuOrigen(cuenta9.getCbu());
-    	movimiento9.setFecha(cuenta9.getFechaCreacion());
+    	movimiento9.setFecha(cuenta9.getfechaCreacion());
     	movimiento9.setImporte(cuenta9.getSaldo());
     	
-    	Movimiento movimiento10 =new Movimiento();
+    	Movimiento movimiento10 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento10.setIdMovimiento(10);
     	movimiento10.setTipoMovimiento(tipoMovimient1);
     	movimiento10.setCbuOrigen(cuenta10.getCbu());
-    	movimiento10.setFecha(cuenta10.getFechaCreacion());
+    	movimiento10.setFecha(cuenta10.getfechaCreacion());
     	movimiento10.setImporte(cuenta10.getSaldo());
   	
     	session.save(movimiento1);
