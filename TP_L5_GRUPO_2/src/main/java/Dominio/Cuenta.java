@@ -1,9 +1,14 @@
 package Dominio;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Cuenta implements Serializable{
+import org.springframework.beans.PropertyEditorRegistrar;
+import org.springframework.beans.PropertyEditorRegistry;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+
+public class Cuenta implements Serializable, PropertyEditorRegistrar{
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos
@@ -26,7 +31,7 @@ public class Cuenta implements Serializable{
 	{
 		this.idCuenta = id;
 		this.usuario = usuario;
-		this.fechaCreacion = fechaCreacion;
+		this.setfechaCreacion(fechaCreacion);
 		this.tipoCuenta = tipoCuenta;
 		this.saldo = saldo;
 		this.cbu=cbu;
@@ -37,7 +42,7 @@ public class Cuenta implements Serializable{
 	public Cuenta(Usuario usuario,Date fechaCreacion,Tipo_Cuenta tipoCuenta,float saldo,String cbu,String alias,boolean estado)
 	{
 		this.usuario = usuario;
-		this.fechaCreacion = fechaCreacion;
+		this.setfechaCreacion(fechaCreacion);
 		this.tipoCuenta = tipoCuenta;
 		this.saldo = saldo;
 		this.cbu=cbu;
@@ -60,14 +65,6 @@ public class Cuenta implements Serializable{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public Date getFechaCreacion() {
-		return fechaCreacion;
-	}
-
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
 	}
 
 	public Tipo_Cuenta getTipoCuenta() {
@@ -114,12 +111,19 @@ public class Cuenta implements Serializable{
 		this.estado = estado;
 	}
 
-	@Override
-	public String toString() {
-		return "Cuenta [idCuenta=" + idCuenta + ", usuario=" + usuario + ", fechaCreacion=" + fechaCreacion
-				+ ", tipoCuenta=" + tipoCuenta + ", saldo=" + saldo + ", cbu=" + cbu + ", alias=" + alias + ", estado="
-				+ estado + "]";
+	public Date getfechaCreacion() {
+		return fechaCreacion;
 	}
+
+	public void setfechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public void registerCustomEditors(PropertyEditorRegistry registry) {
+		registry.registerCustomEditor(Date.class, 
+                new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), false));	
+	}
+
 
 	//Métodos
 	

@@ -1,9 +1,14 @@
 package Dominio;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Movimiento implements Serializable{
+import org.springframework.beans.PropertyEditorRegistrar;
+import org.springframework.beans.PropertyEditorRegistry;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+
+public class Movimiento implements Serializable,PropertyEditorRegistrar{
 
 	private static final long serialVersionUID = 1L;
 	//Atributos
@@ -78,7 +83,10 @@ public class Movimiento implements Serializable{
 	public void setImporte(float importe) {
 		this.importe = importe;
 	}
-	
 
+	public void registerCustomEditors(PropertyEditorRegistry registry) {
+		registry.registerCustomEditor(Date.class, 
+                new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), false));
+	}
 	//Métodos
 }
