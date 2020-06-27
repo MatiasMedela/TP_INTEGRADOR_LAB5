@@ -143,12 +143,9 @@ function ValFormatoTelFijo(){
 		    <div class="form-group"> <!-- Localidad -->
 		      <label for="state_id" class="control-label">Localidad</label>
 		      <select class="form-control form-control-sm" id="state_id" name="LocName">  
-		      
-		      <form:select path = "LocName">
-				   <form:option value = "NONE" label = "Select"/>
-				   <form:options items = "${LocalidadesList}" />
-			  </form:select> 
-
+		      <c:forEach items="${LocalidadesList}" var="loc" varStatus="loop">
+		      		<option value="${loop.index}">${loc.getLocNombre()}</option>
+		      </c:forEach>
 			  </select>                     
 		    </div>                
 		    
