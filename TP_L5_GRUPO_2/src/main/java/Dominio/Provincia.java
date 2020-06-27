@@ -31,8 +31,10 @@ public class Provincia implements Serializable{
 	public void setCodigo(String codigo) {Codigo = codigo;}
 	public String getCodigo() {return Codigo;}
 	//Métodos
+
 	@Override
 	public String toString() {
-		return "Provincia [idProvincia=" + IdProvincia + ", ProvNombre=" + ProvNombre + "]";
+		return "Provincia [IdProvincia=" + IdProvincia + ", ProvNombre=" + ProvNombre + ", Codigo=" + Codigo + "]";
 	}
+	
 }
