@@ -13,14 +13,14 @@ import Dominio.Localidad;
 
 public class LocalidadDao {
 
-	public Localidad BuscarLocalidad(String id) {
+	public Localidad BuscarLocalidad(Integer locName) {
 		ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 		try {
 			ConfigHibernate ch = new ConfigHibernate();
 			Session session = ch.abrirConexion();
 			Localidad Loc = (Localidad) appContext.getBean("BLocalidad");
-			if ((Localidad) session.createQuery(" FROM Localidad u WHERE u.IdLocalidad = "+id).uniqueResult()!=null) {
-				Loc =(Localidad) session.createQuery(" FROM Localidad u WHERE u.IdLocalidad = "+id).uniqueResult();
+			if ((Localidad) session.createQuery(" FROM Localidad u WHERE u.IdLocalidad = "+locName).uniqueResult()!=null) {
+				Loc =(Localidad) session.createQuery(" FROM Localidad u WHERE u.IdLocalidad = "+locName).uniqueResult();
 			} 
 		    session.close();
 		    return Loc;

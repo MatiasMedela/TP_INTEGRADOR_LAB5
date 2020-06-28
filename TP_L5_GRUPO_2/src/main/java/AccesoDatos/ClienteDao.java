@@ -11,6 +11,7 @@ import org.hibernate.service.ServiceRegistryBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
 import Dominio.Usuario;
 
@@ -20,23 +21,21 @@ public class ClienteDao {
 	ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 	//ABML
 		public boolean AltaCliente(Usuario Usu ) {
-			SessionFactory sessionFactory = null;
 			try {
 		    	Configuration configuration = new Configuration();
 		    	configuration.configure();	
 		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
-		    	sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 		    	Session session = sessionFactory.openSession();
+		    	session.beginTransaction();
 				session.save(Usu);
 				session.getTransaction().commit();
 				session.close();
+				sessionFactory.close();
 				 return true;
 			} catch (Exception e) {
 				e.printStackTrace();
 				return false;
-			}
-			finally {
-		    	sessionFactory.close();
 			}
 		}
 		 
