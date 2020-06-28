@@ -1,5 +1,7 @@
 package Controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -36,41 +38,53 @@ public class ClienteController {
 		return MV;
 	}
 	
-	@RequestMapping(value="FormCagarCliente")
+	@RequestMapping("CargarCliente.html")
 	public ModelAndView CargarCliente(String DniName,String NombreName,String ApeName,String NacName,
-	String EmailName,String CmbProv,String DirName,Date FechaNac,Integer CmbGen,String LocName,String CliTel) {
-		
-		ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
-		
+	String EmailName,String CmbProv,String DirName,String FechaNac,Integer CmbGen,Integer LocName,String CliTel) {
 		ModelAndView MV=new ModelAndView();
-		ClienteDao cldao= new ClienteDao();
-		Usuario Clie = (Usuario) appContext.getBean("BUsuario");
-		GeneroDao Gdao= new GeneroDao();
-		LocalidadDao LocDao= new LocalidadDao();
-		TipoUsuarioDao TusuDao= new TipoUsuarioDao();
-	
+		try {
+			ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
+			
+			ClienteDao cldao= new ClienteDao();
+			Usuario Clie = (Usuario) appContext.getBean("BUsuario");
+			GeneroDao Gdao= new GeneroDao();
+			LocalidadDao LocDao= new LocalidadDao();
+			TipoUsuarioDao TusuDao= new TipoUsuarioDao();
+		
 		//Validaciones
-		//if(true) {
+			//if(true) {
+			Clie.setDni(DniName);
+			Clie.setNombre(NombreName);
+			Clie.setApellido(ApeName);
+			Clie.setEmail(EmailName);
+			Clie.setDireccion(DirName);
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date dateStr = null;
+			try {dateStr = formatter.parse(FechaNac);} 
+			catch (ParseException e) {e.printStackTrace();}
+			java.sql.Date dateDB = new java.sql.Date(dateStr.getTime());
+			Clie.setFechaNac(dateDB);
+			Clie.setNacionalidad(NacName);
+			Clie.setGen(Gdao.BuscarGeneroXId(CmbGen));
+			Clie.setLoc(LocDao.BuscarLocalidad(LocName));
+			Clie.setTel(CliTel);
+			Clie.setTipoUsu(TusuDao.UserCliente());
+			Clie.setEstado(true);
 			if(cldao.AltaCliente(Clie)==true) {
-				Clie.setDni(DniName);
-				Clie.setNombre(NombreName);
-				Clie.setApellido(ApeName);
-				Clie.setEmail(EmailName);
-				Clie.setDireccion(DirName);
-				Clie.setFechaNac(FechaNac);
-				Clie.setNacionalidad(NacName);
-				Clie.setGen(Gdao.BuscarGeneroXId(CmbGen));
-				Clie.setLoc(LocDao.BuscarLocalidad(LocName));
-				Clie.setTel(CliTel);
-				Clie.setTipoUsu(TusuDao.UserCliente());
-				Clie.setEstado(true);
+				MV.setViewName("AltaCliente");
 			}
 			else {
-				//Error al dar de alta
-				System.out.println("error al dar de alta cliente");
+					//Error al dar de alta
+					MV.setViewName("AltaCliente");
+					System.out.println("error al dar de alta cliente");
 			}
-		//}
-		MV.setViewName("Login");
-		return MV;
+			//}
+			
+			return MV;
+		} catch (Exception e) {
+			e.printStackTrace();
+			MV.setViewName("ListarClientes");
+			return MV;
+		}
 	}
 }
