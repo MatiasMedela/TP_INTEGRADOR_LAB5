@@ -41,7 +41,7 @@ function ValFormatoTelCel(){
 
 	TelTxt.disabled = false;
 	TelTxt.setAttribute("placeholder", "ej: 1126208736");
-	TelTxt.setAttribute("pattern", "\([1-1]{2}\)[0-9]{8}");
+	TelTxt.setAttribute("pattern", "/ ^ (?: (?: 0 0 ) ? 5 4 9 ? ) ? 0 ? (?: 1 1 | [ 2 3 6 8 ] \ d ) (?: (? = \ D {0,2} 1 5 ");
 	
 }
 
@@ -62,7 +62,7 @@ function ValFormatoTelFijo(){
 	<jsp:include page="NavbarAdmin.html"></jsp:include>
 	<!-- END NAVBAR -->
 <!-- Formulario alta -->
-<form action="altaCliente.html" method="get" style="padding: 20px" > 
+<form action="CargarCliente.html" method="get" style="padding: 20px" > 
 	<fieldset class="border p-2">
 	  <legend  class="w-auto">Alta Cliente</legend>
 	   <div class="container-fluid">
@@ -71,7 +71,7 @@ function ValFormatoTelFijo(){
 			 <div class="form-group"> <!-- DNI -->
 		        <label for="full_name_id" class="control-label">Numero De Documento</label>
 		        <input type="number" class="form-control form-control-sm" id="DniID" name="DniName" placeholder="D.N.I" 
-		         min="8" max="8" pattern="^[0-9]*$" autocomplete="off" required>
+		         minlength="8" maxlength="8" pattern="^[0-9]*$" autocomplete="off" required>
 		    </div>  
 		    <div class="form-group"> <!-- Nombre -->
 		        <label for="full_name_id" class="control-label">Nombre</label>
@@ -140,14 +140,21 @@ function ValFormatoTelFijo(){
 		        </select>                    
 		    </div>   
 		    
-		    <div class="form-group"> <!-- Localidad -->
+		<!-- Localidad -->   <!--  <div class="form-group"> 
 		      <label for="state_id" class="control-label">Localidad</label>
 		      <select class="form-control form-control-sm" id="state_id" name="LocName">  
 		      <c:forEach items="${LocalidadesList}" var="loc" varStatus="loop">
 		      		<option value="${loop.index}">${loc.getLocNombre()}</option>
 		      </c:forEach>
 			  </select>                     
-		    </div>                
+		    </div>    --> 
+		     
+		    <div class="form-group"> <!-- Provincia -->
+		        <label for="state_id" class="control-label">Provincia</label>
+		        <select class="form-control form-control-sm" id="state_id" name="LocName">
+		            <option value="5">Los Patos</option>
+		        </select>                    
+		    </div>             
 		    
 		     <div class="form-group"> <!-- Correo electronico -->
 		        <label for="full_name_id" class="control-label">Correo Electronico</label>
