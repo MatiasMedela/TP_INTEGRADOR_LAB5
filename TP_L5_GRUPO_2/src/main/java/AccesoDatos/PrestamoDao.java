@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import Dominio.EstadoPrestamo;
-import Dominio.Movimiento;
 import Dominio.Prestamo;
 import Dominio.Usuario;
 

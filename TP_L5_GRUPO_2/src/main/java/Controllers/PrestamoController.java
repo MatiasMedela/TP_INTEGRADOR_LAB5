@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import AccesoDatos.CuentaDao;
 import AccesoDatos.PrestamoDao;
+import Dominio.Cuenta;
 
 @Controller
 public class PrestamoController {
@@ -35,10 +36,12 @@ public class PrestamoController {
 		try {
 			presDao.cargarPrestamo(Float.parseFloat(importe), Integer.parseInt(meses), Float.parseFloat(importeAPagar), Integer.parseInt(idCuenta));
 			MV.addObject("prestamo", "Exito");
+			MV.setViewName("prestamos");
 		} catch (Exception e) {
 			e.printStackTrace();
+			MV.addObject("prestamo", "Error");
+			MV.setViewName("solicitudPrestamo");
 		}
-		MV.setViewName("solicitudPrestamo");
 		return MV;
 	}
 	
@@ -48,6 +51,8 @@ public class PrestamoController {
 		CuentaDao cuentaDao = new CuentaDao();
 		if(request.getSession().getAttribute("IDUsuario") != null) {
 			String IDUsuario = (String) request.getSession().getAttribute("IDUsuario").toString();
+			ArrayList<Cuenta> listadoCuentas = (ArrayList<Cuenta>) cuentaDao.CuentaUsuario(IDUsuario);
+			MV.addObject("listadoCuentas", listadoCuentas);
 			MV.setViewName("solicitudPrestamo");
 		}
 		else {			

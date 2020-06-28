@@ -38,8 +38,9 @@
 			</div>
 			<div class="col-8 mb-3">
 				<select id="cuentaSelect" class="custom-select form-prestamo" id="inputGroupSelect01">
-					<option value="1">Cuenta principal</option>
-					<option value="2">Cuenta secundaria</option>
+					<c:forEach items="${listadoCuentas }" var="cuenta">
+						<option value="${cuenta.idCuenta}">${cuenta.alias}</option>
+					</c:forEach>
 				</select>
 			</div>
 		</div>
@@ -79,7 +80,7 @@
 		</div>
 		<div style="justify-content: flex-end; display: flex;">
 			<button id="solicitarModal" class="btn mb-3 btn-success" data-toggle="modal"
-				data-target="#ModalPrestamo">Solicitar</button>
+				data-target="#ModalPrestamo" disabled>Solicitar</button>
 		</div>
 	</div>
 	<!-- END CONTENT -->
@@ -130,12 +131,13 @@
 	
 	<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; bottom: 0; right: 0;">
   <div class="toast-header">
-    <strong class="mr-auto">Solicitud de prestamo</strong>
+    <strong class="mr-auto">Solicitud de préstamo</strong>
     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="toast-body">
+  	<p>Ha ocurrido un error en la solicitud del préstamo.</p>
   </div>
 </div>
 <input type="hidden" id="resultadoSolicitud" value="${prestamo}"/>
@@ -148,15 +150,15 @@ $(document).ready(function(){
 	
 	$(".toast").toast({delay: 2000});
 	
-	if($("#resultadoSolicitud").val() == "Exito"){
+	if($("#resultadoSolicitud").val() == "Error"){
 		$(".toast").toast('show');
 	}
-	
+		
 	$("#solicitarModal").click(function(){
 		$("#cuentaModal").html($("#cuentaSelect option:selected").text());
-		$("#importeSolicitadoModal").html("$" + $("#importeSolicitado").val());
+		$("#importeSolicitadoModal").html("$" + parseFloat($("#importeSolicitado").val()).toLocaleString());
 		$("#mesesModal").html($("#mesesSelect option:selected").text());
-		$("#importePagarModal").html($("#totalAPagar").html());
+		$("#importePagarModal").html("$" + $("#totalAPagar").html());
 		
 		$("#idCuenta").val($("#cuentaSelect").val());
 		$("#importe").val($("#importeSolicitado").val());
@@ -167,10 +169,12 @@ $(document).ready(function(){
 	$("#importeSolicitado").keyup(function(){
 		var Total = parseFloat($(this).val()) * 1.25;
 		if(Total > 0 ){
-			$("#totalAPagar").html(Total);			
+			$("#totalAPagar").html(Total.toLocaleString());			
+			$("#solicitarModal").prop('disabled', false);
 		}
 		else{
 			$("#totalAPagar").html(" .-");
+			$("#solicitarModal").prop('disabled', true);
 		}
 	});
 });

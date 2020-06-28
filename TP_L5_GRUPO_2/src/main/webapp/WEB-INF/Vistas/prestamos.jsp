@@ -82,12 +82,30 @@
 		</table>
 	</div>
 	<!-- END CONTENT -->
+		<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; bottom: 0; right: 5px;">
+  <div class="toast-header">
+    <strong class="mr-auto">Solicitud de préstamo</strong>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+  	<p>El préstamo ha sido solicitado exitosamente.</p>
+  </div>
+</div>
+<input type="hidden" id="resultadoSolicitud" value="${prestamo}"/>
 
 </body>
 
 <script type="text/javascript">
 	CurrentItem = document.getElementById("mnPrestamos");
 	CurrentItem.className +=" active";
+	
+	$(".toast").toast({delay: 2000});
+	
+	if($("#resultadoSolicitud").val() == "Exito"){
+		$(".toast").toast('show');
+	}
 	
 	$('#TableMisPrestamos').DataTable({
 		"ordering" : false,
