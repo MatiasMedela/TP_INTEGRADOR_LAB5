@@ -9,7 +9,7 @@ public class Transferencia implements Serializable {
 	//Atributos
 	private int idTransferencia;
 	private Movimiento movimiento;
-	private String cbuDestino;
+	private double cbuDestino;
 	
 	//Constructor
 	public Transferencia()
@@ -17,14 +17,14 @@ public class Transferencia implements Serializable {
 		
 	}
 	
-	public Transferencia(int id,Movimiento movimiento,String cbuDestino)
+	public Transferencia(int id,Movimiento movimiento,double cbuDestino)
 	{
 		this.idTransferencia = id;
 		this.movimiento = movimiento;
 		this.cbuDestino= cbuDestino;
 	}
 	
-	public Transferencia(Movimiento movimiento,String cbuDestino)
+	public Transferencia(Movimiento movimiento,double cbuDestino)
 	{
 		this.movimiento = movimiento;
 		this.cbuDestino= cbuDestino;
@@ -47,11 +47,11 @@ public class Transferencia implements Serializable {
 		this.movimiento = movimiento;
 	}
 
-	public String getCbuDestino() {
+	public double getCbuDestino() {
 		return cbuDestino;
 	}
 
-	public void setCbuDestino(String cbuDestino) {
+	public void setCbuDestino(double cbuDestino) {
 		this.cbuDestino = cbuDestino;
 	}
 	

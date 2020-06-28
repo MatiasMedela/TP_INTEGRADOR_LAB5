@@ -27,7 +27,7 @@ public class CuentaDao {
 	}	
 	
 	
-	public void crearCuenta(int idTipoCN, int idUsuarioN, float saldoN, String CBUN)
+	public void crearCuenta(int idTipoCN, int idUsuarioN, float saldoN, double CBUN)
 	{
 		
 		ConfigHibernate ch = new ConfigHibernate();

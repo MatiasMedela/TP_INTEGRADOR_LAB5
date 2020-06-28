@@ -9,7 +9,7 @@ import org.springframework.beans.PropertyEditorRegistry;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 
 public class Cuenta implements Serializable, PropertyEditorRegistrar{
-	private static final long serialVersionUID = 1L;
+	private static final double serialVersionUID = 1L;
 	
 	//Atributos
 	private int idCuenta;
@@ -17,7 +17,7 @@ public class Cuenta implements Serializable, PropertyEditorRegistrar{
 	private Date fechaCreacion;
 	private Tipo_Cuenta tipoCuenta;
 	private float saldo;
-	private String cbu;
+	private double cbu;
 	private String alias;
 	private boolean estado;
 	
@@ -27,7 +27,7 @@ public class Cuenta implements Serializable, PropertyEditorRegistrar{
 		
 	}
 	
-	public Cuenta(int id,Usuario usuario,Date fechaCreacion,Tipo_Cuenta tipoCuenta,float saldo,String cbu,String alias,boolean estado)
+	public Cuenta(int id,Usuario usuario,Date fechaCreacion,Tipo_Cuenta tipoCuenta,float saldo,double cbu,String alias,boolean estado)
 	{
 		this.idCuenta = id;
 		this.usuario = usuario;
@@ -39,7 +39,7 @@ public class Cuenta implements Serializable, PropertyEditorRegistrar{
 		this.estado = estado;
 	}
 	
-	public Cuenta(Usuario usuario,Date fechaCreacion,Tipo_Cuenta tipoCuenta,float saldo,String cbu,String alias,boolean estado)
+	public Cuenta(Usuario usuario,Date fechaCreacion,Tipo_Cuenta tipoCuenta,float saldo,double cbu,String alias,boolean estado)
 	{
 		this.usuario = usuario;
 		this.setfechaCreacion(fechaCreacion);
@@ -83,11 +83,11 @@ public class Cuenta implements Serializable, PropertyEditorRegistrar{
 		this.saldo = saldo;
 	}
 
-	public String getCbu() {
+	public double getCbu() {
 		return cbu;
 	}
 
-	public void setCbu(String cbu) {
+	public void setCbu(double cbu) {
 		this.cbu = cbu;
 	}
 	

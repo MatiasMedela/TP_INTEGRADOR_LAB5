@@ -14,7 +14,7 @@ public class Movimiento implements Serializable,PropertyEditorRegistrar{
 	//Atributos
 	private int idMovimiento;
 	private Tipo_Movimiento tipoMovimiento;
-	private String cbuOrigen;
+	private double cbuOrigen;
 	private Date Fecha;
 	private float importe;
 	
@@ -24,7 +24,7 @@ public class Movimiento implements Serializable,PropertyEditorRegistrar{
 		
 	}
 	
-	public Movimiento(int id,Tipo_Movimiento tipoMovimiento,String cbuOrigen,Date fecha,float importe)
+	public Movimiento(int id,Tipo_Movimiento tipoMovimiento,double cbuOrigen,Date fecha,float importe)
 	{
 		this.idMovimiento = id;
 		this.tipoMovimiento = tipoMovimiento;
@@ -34,7 +34,7 @@ public class Movimiento implements Serializable,PropertyEditorRegistrar{
 		
 	}
 	
-	public Movimiento(Tipo_Movimiento tipoMovimiento,String cbuOrigen,Date fecha,float importe)
+	public Movimiento(Tipo_Movimiento tipoMovimiento,double cbuOrigen,Date fecha,float importe)
 	{
 
 		this.tipoMovimiento = tipoMovimiento;
@@ -60,11 +60,11 @@ public class Movimiento implements Serializable,PropertyEditorRegistrar{
 		this.tipoMovimiento = tipoMovimiento;
 	}
 
-	public String getCbuOrigen() {
+	public double getCbuOrigen() {
 		return cbuOrigen;
 	}
 
-	public void setCbuOrigen(String cbuOrigen) {
+	public void setCbuOrigen(double cbuOrigen) {
 		this.cbuOrigen = cbuOrigen;
 	}
 
