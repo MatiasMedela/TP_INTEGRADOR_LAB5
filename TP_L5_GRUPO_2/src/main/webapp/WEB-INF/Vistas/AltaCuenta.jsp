@@ -118,8 +118,8 @@
 </body>
 
 <script type="text/javascript">
-	CurrentItem = document.getElementById("mnClientes");
-	CurrentItem.className +=" active";
+CurrentItem = document.getElementById("mnCuentas");
+CurrentItem.className +=" active";
 </script>
 
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,10 +27,6 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
 	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-	crossorigin="anonymous"></script>
 
 <!-- Data Tables -->
 <script type="text/javascript"
@@ -40,55 +37,58 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" />
+<link rel=stylesheet href="<c:url value="resources/Estilos/styles.css"/>" type="text/css" media=screen>
 
-
-<script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						$('#TLClientes').DataTable(
-										{
-											"searching": false,
-											"scrollX" : true,
-											"scrollY" : 350,
-											sDom : '<"top"fli>t<"bottom"p><"clear">r',
-											sPaginationType : "full_numbers",
-											bProcessing : true,
-											bAutoWidth : true,
-											"sScrollX" : "100%",
-											"sScrollXInner" : "100%",
-											language : {
-												decimal : "",
-												emptyTable : "No se han encontrado registros",
-												info : "Mostrando desde el _START_ al _END_ del total de _TOTAL_ registros",
-												infoEmpty : "Mostrando desde el 0 al 0 del total de  0 registros",
-												infoFiltered : "(Filtrados del total de _MAX_ registros)",
-												infoPostFix : "",
-												thousands : ",",
-												lengthMenu : "Mostrar _MENU_ registros por página",
-												loadingRecords : "Cargando...",
-												processing : "Procesando...",
-												search : "Buscar registro:",
-												zeroRecords : "No se han encontrado registros",
-												paginate : {
-													first : "Primera",
-													last : "Última",
-													next : "Siguiente",
-													previous : "Anterior"
-												},
-												aria : {
-													sortAscending : ": activate to sort column ascending",
-													sortDescending : ": activate to sort column descending"
-												}
-											}
-										});
-								 });
-</script>
 <title></title>
 </head>
+<script type="text/javascript">
+$(document).ready(function(){
+	CurrentItem = document.getElementById("mnClientes");
+	CurrentItem.className += " active";	
+})
+	$(document).ready(
+		function() {
+			$('#TLClientes').DataTable(
+							{
+								"searching": false,
+								"scrollX" : true,
+								"scrollY" : 350,
+								sDom : '<"top"fli>t<"bottom"p><"clear">r',
+								sPaginationType : "full_numbers",
+								bProcessing : true,
+								bAutoWidth : true,
+								"sScrollX" : "100%",
+								"sScrollXInner" : "100%",
+								language : {
+									decimal : "",
+									emptyTable : "No se han encontrado registros",
+									info : "Mostrando desde el _START_ al _END_ del total de _TOTAL_ registros",
+									infoEmpty : "Mostrando desde el 0 al 0 del total de  0 registros",
+									infoFiltered : "(Filtrados del total de _MAX_ registros)",
+									infoPostFix : "",
+									thousands : ",",
+									lengthMenu : "Mostrar _MENU_ registros por página",
+									loadingRecords : "Cargando...",
+									processing : "Procesando...",
+									search : "Buscar registro:",
+									zeroRecords : "No se han encontrado registros",
+									paginate : {
+										first : "Primera",
+										last : "Última",
+										next : "Siguiente",
+										previous : "Anterior"
+									},
+									aria : {
+										sortAscending : ": activate to sort column ascending",
+										sortDescending : ": activate to sort column descending"
+									}
+								}
+							});
+					 });
+</script>
 <body>
 	<!-- NAVBAR -->
-	<jsp:include page="NavbarAdmin.html"></jsp:include>
+	<%@ include file="NavbarAdmin.html"%>
 	<!-- END NAVBAR -->
 	<fieldset class="border p-1">
 		<legend class="w-auto">Listado de clientes</legend>

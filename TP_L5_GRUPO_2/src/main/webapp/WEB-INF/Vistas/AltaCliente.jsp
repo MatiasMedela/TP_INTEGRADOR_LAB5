@@ -24,17 +24,15 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
 	crossorigin="anonymous">
-	<script 
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" 
-	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" 
-	crossorigin="anonymous"></script>
-<!-- CSS only -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
-	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
-	crossorigin="anonymous">
+	<link rel=stylesheet
+	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
+	media=screen>
 
 <script type="text/javascript">
-
+$(document).ready(function(){
+	CurrentItem = document.getElementById("mnClientes");
+	CurrentItem.className += " active";	
+})
 
 function ValFormatoTelCel(){
 	var TelTxt = document.querySelector('#TelId');
@@ -59,7 +57,7 @@ function ValFormatoTelFijo(){
 </head>
 <body>
 	<!-- NAVBAR -->
-	<jsp:include page="NavbarAdmin.html"></jsp:include>
+	<%@ include file="NavbarAdmin.html"%>
 	<!-- END NAVBAR -->
 <!-- Formulario alta -->
 <form action="CargarCliente.html" method="get" style="padding: 20px" > 

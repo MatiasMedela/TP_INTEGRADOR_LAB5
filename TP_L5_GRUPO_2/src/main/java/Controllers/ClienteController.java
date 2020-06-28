@@ -30,11 +30,18 @@ import Dominio.Usuario;
 public class ClienteController {
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ClienteNuevo"})
-	public ModelAndView RedireccionarLogin() {
+	public ModelAndView redirecAltaCliente() {
 		ModelAndView MV = new ModelAndView();
 		LocalidadDao locdao= new LocalidadDao();
 		MV.addObject("LocalidadesList", locdao.ListLocalidades());
 		MV.setViewName("AltaCliente");
+		return MV;
+	}
+	
+	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ListarClientes"})
+	public ModelAndView redirecListarClientes() {
+		ModelAndView MV = new ModelAndView();
+		MV.setViewName("ListarClientes");
 		return MV;
 	}
 	

@@ -154,8 +154,8 @@
 </body>
 
 <script type="text/javascript">
-	CurrentItem = document.getElementById("mnInicio");
-	//CurrentItem.className +=" active";
+	CurrentItem = document.getElementById("mnCuentas");
+	CurrentItem.className +=" active";
 
 	var editar = document.getElementById("edit");
 	
