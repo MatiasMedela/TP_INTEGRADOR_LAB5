@@ -1,8 +1,15 @@
 package Controllers;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import AccesoDatos.CuentaDao;
+import AccesoDatos.PrestamoDao;
 
 @Controller
 public class PrestamoController {
@@ -21,10 +28,32 @@ public class PrestamoController {
 		return MV;
 	}
 	
-	@RequestMapping(value="solicitarPrestamo.html")
-	public ModelAndView redirecNuevaTrans() {
+	@RequestMapping(value="cargarPrestamo.html")
+	public ModelAndView cargarPrestamo(String idCuenta, String importe, String meses, String importeAPagar) {
 		ModelAndView MV = new ModelAndView();
+		PrestamoDao presDao = new PrestamoDao();
+		try {
+			presDao.cargarPrestamo(Float.parseFloat(importe), Integer.parseInt(meses), Float.parseFloat(importeAPagar), Integer.parseInt(idCuenta));
+			MV.addObject("prestamo", "Exito");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		MV.setViewName("solicitudPrestamo");
+		return MV;
+	}
+	
+	@RequestMapping(value="solicitarPrestamo.html")
+	public ModelAndView redirecNuevaTrans(HttpServletRequest request) {
+		ModelAndView MV = new ModelAndView();
+		CuentaDao cuentaDao = new CuentaDao();
+		if(request.getSession().getAttribute("IDUsuario") != null) {
+			String IDUsuario = (String) request.getSession().getAttribute("IDUsuario").toString();
+			MV.setViewName("solicitudPrestamo");
+		}
+		else {			
+			MV.setViewName("Login");
+		}
+		//GET CUENTAS X USUARIO
 		return MV;
 	}
 

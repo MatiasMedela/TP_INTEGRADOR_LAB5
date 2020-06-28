@@ -19,8 +19,17 @@
 <link rel=stylesheet
 	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
 	media=screen>
+<script type="text/javascript" src="<c:url value="resources/Funciones/funciones.js"/>"></script>
+		<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 </head>
-<body>
+<body onload="cantidadPaginas()" onresize="cantidadPaginas()">
 
 	<%@ include file="NavbarClient.html"%>
 	<!-- END NAVBAR -->
@@ -32,13 +41,14 @@
 			<div class="col">
 				<h3 style="margin-top: 20px;">Mis préstamos</h3>
 			</div>
+			<form method="post" action="solicitarPrestamo.html">
 			<div class="col">
-				<a href="./solicitudPrestamo.jsp" class="btn btn-primary"
-					style="float: right;">Solicitar préstamo</a>
+				<input type="submit" class="btn btn-primary pull-right" value="Solicitar préstamo"/>
 			</div>
+			</form>
 
 		</div>
-		<table class="table">
+		<table id="TableMisPrestamos" class="table">
 			<thead>
 				<tr>
 					<th scope="col">Cuenta</th>
@@ -56,7 +66,7 @@
 					<td>$125.000</td>
 					<td>0/3</td>
 					<td>$125.000</td>
-					<td><button type="button" class="btn btn-grid btn-light">Pagar
+					<td class="btn-pagar-cuota"><button type="button" class="btn btn-grid btn-light">Pagar
 							cuota</button></td>
 				</tr>
 				<tr>
@@ -65,7 +75,7 @@
 					<td>$62.500</td>
 					<td>11/12</td>
 					<td>$5.208,33</td>
-					<td><button type="button" class="btn btn-grid btn-light">Pagar
+					<td class="btn-pagar-cuota"><button type="button" class="btn btn-grid btn-light">Pagar
 							cuota</button></td>
 				</tr>
 			</tbody>
@@ -78,6 +88,23 @@
 <script type="text/javascript">
 	CurrentItem = document.getElementById("mnPrestamos");
 	CurrentItem.className +=" active";
+	
+	$('#TableMisPrestamos').DataTable({
+		"ordering" : false,
+		"bInfo" : false,
+		"lengthChange" : false,
+		"dom" : '<"pull-left"f>rtip',
+		"oLanguage" : {
+			"sSearch" : "Busqueda:",
+		},
+		"language" : {
+			"zeroRecords" : "No se encontraron registros coincidentes",
+			"paginate" : {
+				"next" : "Siguiente",
+				"previous" : "Previo"
+			},
+		}
+	});
 </script>
 </html>
 

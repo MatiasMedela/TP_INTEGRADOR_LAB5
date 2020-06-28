@@ -17,9 +17,9 @@ import Negocio.LogueoNegocio;
 public class LoginController {
 	@RequestMapping("VerificarLog.html")
 	public ModelAndView RedireccionarLog(String LoginUser,String LoginKey, HttpServletRequest request) {
+		ModelAndView MV = new ModelAndView();
+		LogueoNegocio LN =new LogueoNegocio();
 		try {
-			ModelAndView MV = new ModelAndView();
-			LogueoNegocio LN =new LogueoNegocio();
 			if (LN.validarLogin(LoginUser, LoginKey)==true) {
 				ClienteDao CLDao=new ClienteDao();
 				LogueoDao LogDao=new LogueoDao();
@@ -36,9 +36,8 @@ public class LoginController {
 			return MV;
 		} catch (Exception e) {
 			e.printStackTrace();
-			ModelAndView MV = new ModelAndView();
 			MV.setViewName("ErrorCompilacion");
-			return MV;
 		}
+		return MV;
 	}
 }

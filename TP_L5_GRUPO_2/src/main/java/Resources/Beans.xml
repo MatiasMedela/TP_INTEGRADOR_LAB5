@@ -81,7 +81,6 @@
 	
 	<!--BEAN MOVIMIENTO -->
 	<bean id="BMovimiento" class="Dominio.Movimiento" scope="prototype">
-		<property name="idMovimiento" value="-1"></property>
 		<property name="tipoMovimiento" ref="BTipo_Movimiento"></property>
 		<property name="cbuOrigen" value="-1"></property>
 		<property name="Fecha" value="1975-04-10"></property>
@@ -106,7 +105,7 @@
 		<property name="usuario" ref="BUsuario"></property>
 		<property name="movimiento" ref="BMovimiento"></property>
 		<property name="cantidadMeses" value="-1"></property>
-		<property name="importeTotal" ref="-1"></property>
+		<property name="importeTotal" value="-1"></property>
 		<property name="autorizado" value="1"></property>
 		<property name="montoPagar" value="-1"></property>
 	</bean>

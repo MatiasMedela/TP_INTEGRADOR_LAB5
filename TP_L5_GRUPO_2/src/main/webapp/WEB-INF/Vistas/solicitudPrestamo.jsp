@@ -37,7 +37,7 @@
 				<p>Cuenta:</p>
 			</div>
 			<div class="col-8 mb-3">
-				<select class="custom-select form-prestamo" id="inputGroupSelect01">
+				<select id="cuentaSelect" class="custom-select form-prestamo" id="inputGroupSelect01">
 					<option value="1">Cuenta principal</option>
 					<option value="2">Cuenta secundaria</option>
 				</select>
@@ -47,9 +47,12 @@
 			<div class="col-4 pt-2 mb-3" style="text-align: right;">
 				<p>Importe:</p>
 			</div>
-			<div class="col-8 mb-3">
-				<input type="text" class="form-control form-prestamo"
-					placeholder="$100.000">
+			<div class="col-8 mb-3 input-group">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text" style="height:38px;">$</span>
+			  </div>
+				<input id="importeSolicitado" type="text" class="form-control form-prestamo"
+					placeholder="100.000">
 			</div>
 		</div>
 		<div class="row">
@@ -58,11 +61,11 @@
 			</div>
 			<div class="col-8 mb-3">
 				<select class="custom-select form-prestamo-mes"
-					id="inputGroupSelect01">
-					<option value="1">3</option>
-					<option value="2">6</option>
-					<option value="3">12</option>
-					<option value="4">24</option>
+					id="mesesSelect">
+					<option value="3">3</option>
+					<option value="6">6</option>
+					<option value="12">12</option>
+					<option value="24">24</option>
 				</select>
 			</div>
 		</div>
@@ -70,12 +73,12 @@
 			<div class="col-4 mb-3" style="text-align: right;">
 				<p>Total a pagar:</p>
 			</div>
-			<div class="col-8 mb-3">
-				<p>$ .-</p>
+			<div class="col-8 mb-3 form-inline">
+				<p>$ </p><p id="totalAPagar"></p>
 			</div>
 		</div>
 		<div style="justify-content: flex-end; display: flex;">
-			<button class="btn mb-3 btn-success" data-toggle="modal"
+			<button id="solicitarModal" class="btn mb-3 btn-success" data-toggle="modal"
 				data-target="#ModalPrestamo">Solicitar</button>
 		</div>
 	</div>
@@ -103,26 +106,74 @@
 							<p>Total a pagar:</p>
 						</div>
 						<div class="col">
-							<p>Cuenta principal</p>
-							<p>$100.000</p>
-							<p>3</p>
-							<p>$125.000</p>
+							<p id="cuentaModal">Cuenta principal</p>
+							<p id="importeSolicitadoModal">$100.000</p>
+							<p id="mesesModal">3</p>
+							<p id="importePagarModal">$125.000</p>
 						</div>
 					</div>
 				</div>
+				<form action="cargarPrestamo.html" method="post">
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-					<button type="button" class="btn btn-success">Solicitar</button>
+					<button type="submit" class="btn btn-success">Solicitar</button>
+					<input id="idCuenta" type="hidden" name="idCuenta" value="" />		
+					<input id="importe" type="hidden" name="importe" value="" />	
+					<input id="meses" type="hidden" name="meses" value="" />	
+					<input id="importeAPagar" type="hidden" name="importeAPagar" value="" />									
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>
 	<!-- END MODAL DETAILS -->
-
+	
+	<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; bottom: 0; right: 0;">
+  <div class="toast-header">
+    <strong class="mr-auto">Solicitud de prestamo</strong>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+  </div>
+</div>
+<input type="hidden" id="resultadoSolicitud" value="${prestamo}"/>
 </body>
 <script type="text/javascript">
+$(document).ready(function(){
+	
 	CurrentItem = document.getElementById("mnPrestamos");
 	CurrentItem.className +=" active";
+	
+	$(".toast").toast({delay: 2000});
+	
+	if($("#resultadoSolicitud").val() == "Exito"){
+		$(".toast").toast('show');
+	}
+	
+	$("#solicitarModal").click(function(){
+		$("#cuentaModal").html($("#cuentaSelect option:selected").text());
+		$("#importeSolicitadoModal").html("$" + $("#importeSolicitado").val());
+		$("#mesesModal").html($("#mesesSelect option:selected").text());
+		$("#importePagarModal").html($("#totalAPagar").html());
+		
+		$("#idCuenta").val($("#cuentaSelect").val());
+		$("#importe").val($("#importeSolicitado").val());
+		$("#meses").val($("#mesesSelect option:selected").text());
+		$("#importeAPagar").val($("#totalAPagar").html());
+	});
+	
+	$("#importeSolicitado").keyup(function(){
+		var Total = parseFloat($(this).val()) * 1.25;
+		if(Total > 0 ){
+			$("#totalAPagar").html(Total);			
+		}
+		else{
+			$("#totalAPagar").html(" .-");
+		}
+	});
+});
 </script>
 
 </html>

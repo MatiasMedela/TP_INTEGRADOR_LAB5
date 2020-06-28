@@ -11,7 +11,7 @@
         <many-to-one name="movimiento" class="Dominio.Movimiento" fetch="join">
             <column name="ID_MOVIMIENTO" />
         </many-to-one>
-        <property name="cbuDestino" type="java.lang.String">
+        <property name="cbuDestino" type="java.lang.Double">
             <column name="CBU_DESTINO" />
         </property>
     </class>

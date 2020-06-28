@@ -10,6 +10,10 @@
 	float: right!important;	
 }
 
+.btn-pagar-cuota{
+	padding: 6px 0px!important;
+}
+
 .btn-grid {
 	display: block!important;
 	margin: auto!important;

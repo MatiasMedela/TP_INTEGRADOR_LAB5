@@ -6,12 +6,12 @@
     <class name="Dominio.Prestamo" table="PRESTAMOS">
         <id name="idPrestamo" type="int">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="usuario" class="Dominio.Usuario" fetch="join">
             <column name="ID_USUARIO" />
         </many-to-one>
-        <many-to-one name="movimiento" class="Dominio.Movimiento" fetch="join">
+        <many-to-one name="movimiento" class="Dominio.Movimiento" fetch="join" cascade="all">
             <column name="ID_MOVIMIENTO" />
         </many-to-one>
         <property name="cantidadMeses" type="int">

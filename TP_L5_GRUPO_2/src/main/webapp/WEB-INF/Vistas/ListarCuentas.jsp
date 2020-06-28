@@ -170,21 +170,7 @@
 			$('#btnModalEliminar').val($(this).val());
 			
 	})
-/* 	function cantidadPaginas(){		
-		screenH = window.innerHeight;
-		if(screenH < 615){
-			$('#TableCuentasAll').DataTable().page.len(5).draw();
-		}
-		else if(screenH < 680){
-			$('#TableCuentasAll').DataTable().page.len(6).draw();
-		}
-		else if(screenH < 740){
-			$('#TableCuentasAll').DataTable().page.len(7).draw();
-		}
-		else{
-			$('#TableCuentasAll').DataTable().page.len(8).draw();
-		}
-	} */
+
 	$('#TableCuentasAll').DataTable({
 		"ordering" : false,
 		"bInfo" : false,

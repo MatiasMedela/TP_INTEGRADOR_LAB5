@@ -6,7 +6,18 @@
          http://www.springframework.org/schema/beans/spring-beans.xsd
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context.xsd">
-
+         
+	<!--BEAN CUSTOM EDITOR -->
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+	    <property name="propertyEditorRegistrars">
+	        <list>
+	            <bean class="Dominio.Cuenta" />
+	            <bean class="Dominio.Usuario" />
+	            <bean class="Dominio.Movimiento" />
+	        </list>
+	    </property>
+	</bean>
+	
 	<!--BEAN PROVINCIA -->
 	<bean id="BProvincia" class="Dominio.Provincia" scope="prototype">
 		<property name="IdProvincia" value="-1"></property>
@@ -52,7 +63,7 @@
 		<property name="Nombre" value="default"></property>
 		<property name="Apellido" value="default"></property>
 		<property name="Gen" ref="BGenero"></property>
-		<property name="FechaNac" value="12/12/12"></property>
+		<property name="FechaNac" value="1975-04-10"></property>
 		<property name="Loc" ref="BLocalidad"></property>
 		<property name="Direccion" value="default"></property>
 		<property name="Nacionalidad" value="default"></property>
@@ -61,11 +72,56 @@
 		<property name="Estado" value="false"></property>
 	</bean>
 	<!-- BEAN LOGUEO -->
-	<bean id="BLogueo" class="Dominio.Logueo"
-		scope="prototype">
+	<bean id="BLogueo" class="Dominio.Logueo" scope="prototype">
 		<property name="idLogueo" value="-1"></property>
 		<property name="nUsuario" value="Default"></property>
 		<property name="contrasenia" value="Default"></property>
 		<property name="usuario" ref="BUsuario"></property>
 	</bean>
+	
+	<!--BEAN MOVIMIENTO -->
+	<bean id="BMovimiento" class="Dominio.Movimiento" scope="prototype">
+		<property name="tipoMovimiento" ref="BTipo_Movimiento"></property>
+		<property name="cbuOrigen" value="-1"></property>
+		<property name="Fecha" value="1975-04-10"></property>
+		<property name="importe" value="-1"></property>
+	</bean>
+	
+	<!--BEAN CUENTA -->
+	<bean id="BCuenta" class="Dominio.Cuenta" scope="prototype">
+		<property name="idCuenta" value="-1"></property>
+		<property name="usuario" ref="BUsuario"></property>
+		<property name="fechaCreacion" value="1975-04-10"></property>
+		<property name="tipoCuenta" ref="BTipo_Cuenta"></property>
+		<property name="saldo" value="-1"></property>
+		<property name="cbu" value="-1"></property>
+		<property name="alias" value="Default"></property>
+		<property name="estado" value="1"></property>
+	</bean>
+	
+	<!--BEAN PRESTAMO -->
+	<bean id="BPrestamo" class="Dominio.Prestamo" scope="prototype">
+		<property name="idPrestamo" value="-1"></property>
+		<property name="usuario" ref="BUsuario"></property>
+		<property name="movimiento" ref="BMovimiento"></property>
+		<property name="cantidadMeses" value="-1"></property>
+		<property name="importeTotal" value="-1"></property>
+		<property name="autorizado" value="1"></property>
+		<property name="montoPagar" value="-1"></property>
+	</bean>
+	
+	<!--BEAN CUOTA -->
+	<bean id="BCuota" class="Dominio.Cuota" scope="prototype">
+		<property name="numeroCuota" value="-1"></property>
+		<property name="prestamo" ref="BPrestamo"></property>
+		<property name="movimiento" ref="BMovimiento"></property>
+	</bean>
+	
+	<!--BEAN TRANSFERENCIA -->
+	<bean id="BTransferencia" class="Dominio.Transferencia" scope="prototype">
+		<property name="idTransferencia" value="-1"></property>
+		<property name="movimiento" ref="BMovimiento"></property>
+	    <property name="cbuDestino" value="-1"></property>
+	</bean>
+	
 </beans>
