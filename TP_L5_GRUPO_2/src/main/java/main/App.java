@@ -770,23 +770,16 @@ public class App {
     	Movimiento movimiento15 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento15.setIdMovimiento(15);
     	movimiento15.setTipoMovimiento(tipoMovimient2);
-    	movimiento15.setCbuOrigen(cuenta10.getCbu());
-    	movimiento15.setFecha(format.parse("2020-02-01 00:00:00"));
-    	movimiento15.setImporte(45000);
+    	movimiento15.setCbuOrigen(cuenta5.getCbu());
+    	movimiento15.setFecha(format.parse("2020-03-15 00:00:00"));
+    	movimiento15.setImporte(75000);
     	
     	Movimiento movimiento16 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento16.setIdMovimiento(16);
-    	movimiento16.setTipoMovimiento(tipoMovimient2);
-    	movimiento16.setCbuOrigen(cuenta5.getCbu());
-    	movimiento16.setFecha(format.parse("2020-03-15 00:00:00"));
-    	movimiento16.setImporte(75000);
-    	
-    	Movimiento movimiento17 =(Movimiento) appContext.getBean("BMovimiento");
-    	movimiento17.setIdMovimiento(17);
-    	movimiento17.setTipoMovimiento(tipoMovimient5);
-    	movimiento17.setCbuOrigen(cuenta4.getCbu());
-    	movimiento17.setFecha(format.parse("2020-04-25 00:00:00"));
-    	movimiento17.setImporte(25600);
+    	movimiento16.setTipoMovimiento(tipoMovimient5);
+    	movimiento16.setCbuOrigen(cuenta4.getCbu());
+    	movimiento16.setFecha(format.parse("2020-04-25 00:00:00"));
+    	movimiento16.setImporte(25600);
   	
     	session.save(movimiento1);
     	session.save(movimiento2);
@@ -804,7 +797,6 @@ public class App {
     	session.save(movimiento14);
     	session.save(movimiento15);
     	session.save(movimiento16);
-    	session.save(movimiento17);
 
     	//----------------------------------------------------------------
     	/*--CARGO DATOS EN LA TABLA TRANSFERENCIAS--*/
@@ -818,11 +810,29 @@ public class App {
     	
     	Transferencia transferencia3 = (Transferencia) appContext.getBean("BTransferencia");
     	transferencia3.setCbuDestino(5);
-    	transferencia3.setMovimiento(movimiento17);
+    	transferencia3.setMovimiento(movimiento16);
     	
     	session.save(transferencia1);
     	session.save(transferencia2);
     	session.save(transferencia3);
+    	
+    	//----------------------------------------------------------------
+    	/*--CARGO DATOS EN LA TABLA ESTADOSPRESTAMO--*/
+    	EstadoPrestamo estado1 = (EstadoPrestamo) appContext.getBean("BEstadoPrestamo");
+    	estado1.setId(0);
+    	estado1.setDescripcion("Pendiente");
+    	
+    	EstadoPrestamo estado2 = (EstadoPrestamo) appContext.getBean("BEstadoPrestamo");
+    	estado2.setId(1);
+    	estado2.setDescripcion("Autorizado");
+    	
+    	EstadoPrestamo estado3 = (EstadoPrestamo) appContext.getBean("BEstadoPrestamo");
+    	estado3.setId(2);
+    	estado3.setDescripcion("No autorizado");
+    	
+    	session.save(estado1);
+    	session.save(estado2);
+    	session.save(estado3);
     	
     	//----------------------------------------------------------------
     	/*--CARGO DATOS EN LA TABLA PRESTAMOS--*/
@@ -831,34 +841,35 @@ public class App {
     	prestamo1.setMovimiento(movimiento13);
     	prestamo1.setCantidadMeses(3);
     	prestamo1.setImporteTotal(60000);
-    	prestamo1.setAutorizado(true);
-    	prestamo1.setMontoPagar(75000);
-    	
-    	
+    	prestamo1.setEstado(estado2);
+    	prestamo1.setMontoPagar(75000);    	
+    	prestamo1.setCbu(1);
     	
     	Prestamo prestamo2 = (Prestamo) appContext.getBean("BPrestamo");
-    	prestamo2.setUsuario(usuario4);
+    	prestamo2.setUsuario(usuario5);
     	prestamo2.setMovimiento(movimiento14);
     	prestamo2.setCantidadMeses(3);
     	prestamo2.setImporteTotal(35000);
-    	prestamo2.setAutorizado(true);
+    	prestamo2.setEstado(estado2);
     	prestamo2.setMontoPagar(43750);
+    	prestamo2.setCbu(3);
     	
     	Prestamo prestamo3 = (Prestamo) appContext.getBean("BPrestamo");
-    	prestamo3.setUsuario(usuario4);
-    	prestamo3.setMovimiento(movimiento15);
+    	prestamo3.setUsuario(usuario5);
     	prestamo3.setCantidadMeses(6);
     	prestamo3.setImporteTotal(45000);
-    	prestamo3.setAutorizado(false);
-    	prestamo1.setMontoPagar(56250);
+    	prestamo3.setEstado(estado3);
+    	prestamo3.setMontoPagar(56250);
+    	prestamo3.setCbu(4);
     	 	
     	Prestamo prestamo4 = (Prestamo) appContext.getBean("BPrestamo");
-    	prestamo4.setUsuario(usuario4);
+    	prestamo4.setUsuario(usuario6);
     	prestamo4.setMovimiento(movimiento16);
     	prestamo4.setCantidadMeses(12);
     	prestamo4.setImporteTotal(75000);
-    	prestamo4.setAutorizado(true);
+    	prestamo4.setEstado(estado2);
     	prestamo4.setMontoPagar(93750);
+    	prestamo4.setCbu(5);
     	
     	session.save(prestamo1);
     	session.save(prestamo2);

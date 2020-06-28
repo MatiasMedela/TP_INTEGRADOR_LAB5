@@ -13,6 +13,7 @@
         <property name="show_sql">true</property>
         
         <mapping class="Dominio.Genero" resource="Dominio/Genero.hbm.xml"/>
+        <mapping class="Dominio.EstadoPrestamo" resource="Dominio/EstadoPrestamo.hbm.xml"/>
         <mapping class="Dominio.Provincia" resource="Dominio/Provincia.hbm.xml"/>
         <mapping class ="Dominio.Tipo_Cuenta" resource="Dominio/Tipo_Cuenta.hbm.xml"/>
         <mapping class ="Dominio.Tipo_Usuario" resource="Dominio/Tipo_Usuario.hbm.xml"/>

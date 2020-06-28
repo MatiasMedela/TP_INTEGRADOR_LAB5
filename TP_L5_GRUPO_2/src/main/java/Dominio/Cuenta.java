@@ -9,7 +9,10 @@ import org.springframework.beans.PropertyEditorRegistry;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 
 public class Cuenta implements Serializable, PropertyEditorRegistrar{
-	private static final double serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	//Atributos
 	private int idCuenta;

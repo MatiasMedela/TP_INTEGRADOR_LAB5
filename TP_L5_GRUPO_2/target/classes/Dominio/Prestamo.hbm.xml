@@ -20,11 +20,14 @@
         <property name="importeTotal" type="float">
             <column name="IMPORTETOTAL" />
         </property>
-        <property name="autorizado" type="boolean">
-            <column name="AUTORIZADO" />
-        </property>
+        <many-to-one name="estado" class="Dominio.EstadoPrestamo" fetch="join">
+            <column name="ESTADO" />
+        </many-to-one>
         <property name="montoPagar" type="float">
             <column name="MONTOPAGAR" />
+        </property>
+        <property name="cbu" type="double">
+            <column name="CBU" />
         </property>
     </class>
 </hibernate-mapping>

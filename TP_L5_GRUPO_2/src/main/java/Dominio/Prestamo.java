@@ -9,10 +9,11 @@ public class Prestamo implements Serializable {
 	//Atributos
 	private int idPrestamo;
 	private Usuario usuario;
+	private double cbu;
 	private Movimiento movimiento;
 	private int cantidadMeses;
 	private float importeTotal;
-	private boolean autorizado;
+	private EstadoPrestamo estado;
 	private float montoPagar;
 	
 	//Constructor
@@ -21,25 +22,36 @@ public class Prestamo implements Serializable {
 		
 	}
 	
-	public Prestamo(int id,Usuario usuario,Movimiento movimiento,int cantidadMeses,float importeTotal,boolean autorizado,float montoPagar)
+	public Prestamo(int id,Usuario usuario,Movimiento movimiento,int cantidadMeses,float importeTotal,EstadoPrestamo estado,float montoPagar, double cbu)
 	{
 		this.idPrestamo = id;
 		this.usuario =usuario;
 		this.movimiento = movimiento;
 		this.cantidadMeses = cantidadMeses;
 		this.importeTotal = importeTotal;
-		this.autorizado = autorizado;
+		this.estado = estado;
 		this.montoPagar = montoPagar;
+		this.cbu = cbu;
 	}
 	
-	public Prestamo(Usuario usuario,Movimiento movimiento,int cantidadMeses,float importeTotal,boolean autorizado,float montoPagar)
+	public Prestamo(Usuario usuario,Movimiento movimiento,int cantidadMeses,float importeTotal,EstadoPrestamo estado,float montoPagar, double cbu)
 	{
 		this.usuario =usuario;
 		this.movimiento = movimiento;
 		this.cantidadMeses = cantidadMeses;
 		this.importeTotal = importeTotal;
-		this.autorizado = autorizado;
+		this.estado = estado;
 		this.montoPagar = montoPagar;
+		this.cbu = cbu;
+	}
+	
+
+	public double getCbu() {
+		return cbu;
+	}
+
+	public void setCbu(double cbu) {
+		this.cbu = cbu;
 	}
 
 	//Getters and Setters
@@ -83,12 +95,12 @@ public class Prestamo implements Serializable {
 		this.importeTotal = importeTotal;
 	}
 
-	public boolean isAutorizado() {
-		return autorizado;
+	public EstadoPrestamo getEstado() {
+		return estado;
 	}
 
-	public void setAutorizado(boolean autorizado) {
-		this.autorizado = autorizado;
+	public void setEstado(EstadoPrestamo estado) {
+		this.estado = estado;
 	}
 
 	public float getMontoPagar() {
@@ -98,7 +110,6 @@ public class Prestamo implements Serializable {
 	public void setMontoPagar(float montoPagar) {
 		this.montoPagar = montoPagar;
 	}
-	
 	
 	
 	//Métodos

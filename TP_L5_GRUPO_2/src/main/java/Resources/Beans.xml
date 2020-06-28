@@ -98,16 +98,21 @@
 		<property name="alias" value="Default"></property>
 		<property name="estado" value="1"></property>
 	</bean>
-	
+		<!-- BEAN EstadoPrestamo -->
+	<bean id="BEstadoPrestamo" class="Dominio.EstadoPrestamo" scope="prototype">
+		<property name="id" value="-1"></property>
+		<property name="descripcion" value="Default"></property>
+	</bean>
 	<!--BEAN PRESTAMO -->
 	<bean id="BPrestamo" class="Dominio.Prestamo" scope="prototype">
 		<property name="idPrestamo" value="-1"></property>
 		<property name="usuario" ref="BUsuario"></property>
-		<property name="movimiento" ref="BMovimiento"></property>
+		<property name="movimiento" value="#{ null }"></property>
 		<property name="cantidadMeses" value="-1"></property>
 		<property name="importeTotal" value="-1"></property>
-		<property name="autorizado" value="1"></property>
+		<property name="estado" ref="BEstadoPrestamo"></property>
 		<property name="montoPagar" value="-1"></property>
+		<property name="cbu" value="-1"></property>
 	</bean>
 	
 	<!--BEAN CUOTA -->
