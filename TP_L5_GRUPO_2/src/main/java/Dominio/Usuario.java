@@ -83,7 +83,7 @@ public class Usuario implements Serializable,PropertyEditorRegistrar {
 	@Override
 	public String toString() {
 		return "Usuario [IdUsu=" + IdUsu + ", TipoUsu=" + TipoUsu + ", Dni=" + Dni + ", Nombre=" + Nombre
-				+ ", Apellido=" + Apellido + ", Gen=" + Gen + ", FechaNac=" + FechaNac + ", Loc=" + Loc + ", Direccion="
+				+ ", Apellido=" + Apellido + ", Gen=" + Gen + ", FechaNac=" + FechaNac + ", Loc=" + Loc.getLocNombre() + ", Direccion="
 				+ Direccion + ", Email=" + Email + ", Tel=" + Tel + ", Estado=" + Estado + "]";
 	}
 	public String getNacionalidad() {
