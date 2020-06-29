@@ -2,6 +2,8 @@ package Controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,11 +11,14 @@ import org.springframework.web.servlet.ModelAndView;
 import AccesoDatos.CuentaDao;
 import AccesoDatos.TipoCuentaDao;
 import AccesoDatos.UsuarioDao;
+import Dominio.Cuenta;
+import Dominio.Usuario;
 import Negocio.CuentaNegocio;
 
 @Controller
 public class CuentaController {
 
+	ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 	private CuentaNegocio cuentaN;
 	private CuentaDao cuentaD;
 
@@ -59,4 +64,13 @@ public class CuentaController {
 	}
 	
 
+	@RequestMapping(value="cargarCuenta.html")
+	public ModelAndView cargarCuenta(int cbxTipo, int clienteSeleccionado) {
+		ModelAndView MV = new ModelAndView();
+		//Cuenta cu = (Cuenta) appContext.getBean("BUsuario");
+		cuentaD = new CuentaDao();
+		cuentaD.crearCuenta(cbxTipo, clienteSeleccionado);
+		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarCuentas");
+		return MV;
+	}
 }

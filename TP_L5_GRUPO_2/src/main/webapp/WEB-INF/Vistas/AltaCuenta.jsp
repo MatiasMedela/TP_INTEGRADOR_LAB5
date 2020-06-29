@@ -45,7 +45,7 @@
 		<!-- NAVBAR -->
 <%@ include file="NavbarAdmin.html"%>
 	<!-- END NAVBAR -->
-	<form style="padding: 20px">
+	<form method=get action=cargarCuenta.html style="padding: 20px">
 		<fieldset class="border p-2">
 			<legend class="w-auto">Alta cuenta</legend>
 			<div class="container-fluid">
@@ -55,7 +55,7 @@
 							<!-- Tipo de cuenta -->
 							
 							<label for="state_id" class="control-label">Tipo de Cuenta</label> <select
-								class="form-control" id="state_id">
+								class="form-control" id="state_id" name="cbxTipo">
 								
 								<c:forEach items="${ listadoTipos }" var="tipos" varStatus="loop">							
 								<option value="${tipos.idTipoCuenta}">${tipos.descripcion}</option>					
@@ -113,8 +113,8 @@
 				</div>
 			</div>
 		</fieldset>
-	</form>
-	<!-- modal cerrar session  -->
+		</form>
+		<!-- modal cerrar session  -->
 	<div class="modal fade" id="ModalCerrarSession" tabindex="-1"
 		role="dialog">
 		<div class="modal-dialog" role="document">

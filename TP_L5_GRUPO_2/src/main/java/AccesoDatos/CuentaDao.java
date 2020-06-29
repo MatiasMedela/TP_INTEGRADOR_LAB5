@@ -28,7 +28,7 @@ public class CuentaDao {
 	}	
 	
 	
-	public void crearCuenta(int idTipoCN, int idUsuarioN, double CBUN)
+	public void crearCuenta(int idTipoCN, int DNIUser)
 	{
 		
 		ConfigHibernate ch = new ConfigHibernate();
@@ -38,10 +38,10 @@ public class CuentaDao {
 		session.beginTransaction();
 		Cuenta c = (Cuenta) appContext.getBean("BCuenta");
 		Tipo_Cuenta tpc = tc.buscarTipoCuenta(idTipoCN);
-		Usuario user = ud.buscarUsuario(idUsuarioN);
+		Usuario user = ud.buscarUsuario(DNIUser);
 		c.setTipoCuenta(tpc);
 		c.setfechaCreacion(new Date());
-		c.setCbu(CBUN); //cambiarlo a big int!
+		c.setCbu(proximoCBUDouble()); //cambiarlo a big int!
 		c.setAlias("Prueba");
 		c.setUsuario(user);
 		c.setSaldo(10000);	
@@ -115,6 +115,22 @@ public class CuentaDao {
     	ch.cerrarSession();
     	return fn;
 	}
+	
+	public double proximoCBUDouble()
+	{
+
+		double res = 0;
+		String traer = "";
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		session.beginTransaction();
+		traer = (String) session.createQuery("Select MAX(c.cbu) FROM Cuenta as c").uniqueResult().toString();
+		traer = traer.substring(0,traer.length()-2);
+		res = Double.parseDouble(traer) +1;
+    	ch.cerrarSession();
+    	return res;
+	}
+	
 //	public List<Cuenta> datosCuentaBasic(String legajo) {
 //		ConfigHibernate ch = new ConfigHibernate();
 //		Session session = ch.abrirConexion();

@@ -10,10 +10,10 @@ import Dominio.Usuario;
 public class UsuarioDao {
 
 	
-	public Usuario buscarUsuario(int idUsuario) {
+	public Usuario buscarUsuario(int DNIUser) {
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
-		Usuario user = (Usuario) session.createQuery("FROM Usuario as us WHERE us.IdUsu = '"+idUsuario+"'").uniqueResult();
+		Usuario user = (Usuario) session.createQuery("FROM Usuario as us WHERE us.Dni = '"+DNIUser+"'").uniqueResult();
 		ch.cerrarSession();
 	    return user;	
 	}
