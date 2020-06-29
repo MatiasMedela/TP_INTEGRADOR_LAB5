@@ -14,12 +14,12 @@ public class TipoUsuarioDao {
 		try {
 			ConfigHibernate ch = new ConfigHibernate();
 			Session session = ch.abrirConexion();
-			Tipo_Usuario Loc = (Tipo_Usuario) appContext.getBean("BLocalidad");
+			Tipo_Usuario tipo = (Tipo_Usuario) appContext.getBean("BTipo_Usuario");
 			if ((Tipo_Usuario) session.createQuery(" FROM Tipo_Usuario u WHERE u.idTipoUsuario = 2").uniqueResult()!=null) {
-				Loc =(Tipo_Usuario) session.createQuery(" FROM Tipo_Usuario u WHERE u.idTipoUsuario = 2 ").uniqueResult();
+				tipo =(Tipo_Usuario) session.createQuery(" FROM Tipo_Usuario u WHERE u.idTipoUsuario = 2 ").uniqueResult();
 			} 
 		    session.close();
-		    return Loc;
+		    return tipo;
 		} finally {
 			((ConfigurableApplicationContext)(appContext)).close();
 		}

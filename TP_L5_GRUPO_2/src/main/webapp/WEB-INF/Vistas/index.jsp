@@ -125,13 +125,15 @@
 		</div>
 	</div>
 	<!-- END MODAL DETAILS -->
-	<input type="hidden" value="38326854" name="legusuario" />
+	<input type="hidden" value="${NombreDelUsuario}" id="userName" />
 </body>
 
 <script type="text/javascript">	
 	CurrentItem = document.getElementById("mnInicio");
 	CurrentItem.className +=" active";
 
+	$("#nombreUsuario").html($("#userName").val());
+	
 	$('#edit-ident').click(function() {
 		if ($('#edit-ident').html() == "Editar") {
 			$('#text-ident').attr('hidden', true);

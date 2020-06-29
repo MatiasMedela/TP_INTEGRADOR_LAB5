@@ -62,18 +62,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>25/5/20</td>
-					<td>0000000000000000000000</td>
-					<td>0000000000000000000005</td>
-					<td>$2.500</td>
-				</tr>
-				<tr>
-					<td>26/5/20</td>
-					<td>0000000000000000000001</td>
-					<td>0000000000000000000003</td>
-					<td>$5.000</td>
-				</tr>
+			    <c:forEach items="${listadoTransferencias}" var="transfer" varStatus="loop">
+					<tr>
+						<td>${transfer[0]}</td>
+						<td>${transfer[1]}</td>
+						<td>${transfer[2]}</td>
+						<td>${transfer[3]}</td>
+					</tr>
+			    </c:forEach>
 			</tbody>
 		</table>
 	</div>

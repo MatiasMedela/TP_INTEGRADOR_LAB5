@@ -63,10 +63,10 @@
 			<c:forEach items="${listadoPrestamos}" var="prestamo" varStatus="loop">
 				<tr>
 					<td>${prestamo[0]}</td>
- 					<td>${prestamo[1]}</td>
-					<td>${prestamo[2]}</td>
+ 					<td class="txt-dinero">${prestamo[1]}</td>
+					<td class="txt-dinero">${prestamo[2]}</td>
 					<td>${prestamo[3]}</td>
-					<td>${prestamo[4]}</td>
+					<td class="txt-dinero">${prestamo[4]}</td>
 					<td class="btn-pagar-cuota"><button type="button" class="btn btn-grid btn-light">Pagar
 							cuota</button></td>
 				</tr>			
@@ -99,6 +99,12 @@
 	if($("#resultadoSolicitud").val() == "Exito"){
 		$(".toast").toast('show');
 	}
+	
+	$(document).ready(function(){
+		$(".txt-dinero").each(function(){
+			$(this).html("$ " + parseFloat($(this).html()).toLocaleString());
+		})
+	});
 	
 	$('#TableMisPrestamos').DataTable({
 		"ordering" : false,

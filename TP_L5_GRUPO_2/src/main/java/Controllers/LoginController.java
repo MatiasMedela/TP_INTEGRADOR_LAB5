@@ -30,6 +30,7 @@ public class LoginController {
 					MV.addObject("ClientesList", Clidao.ListarClientes());
 					MV.setViewName("ListarClientes");
 				} else {
+					MV.addObject("NombreDelUsuario", User.getUsuario().getApellido());
 					MV.setViewName("redirect:/redirecNavBar.html?inicio");
 				}
 			} else {

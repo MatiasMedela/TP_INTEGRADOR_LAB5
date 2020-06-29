@@ -36,7 +36,7 @@
 	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 	
 <meta charset="ISO-8859-1">
-<title>Alta Cliente</title>	
+<title>Alta cuenta</title>	
 	
 </head>
 <body onload="cantidadPaginas()" onresize="cantidadPaginas()">

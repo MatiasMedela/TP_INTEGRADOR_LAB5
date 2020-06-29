@@ -19,9 +19,9 @@
 <link rel=stylesheet
 	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
 	media=screen>
+<title>Solicitar préstamo</title>
 </head>
 <body>
-
 <%@ include file="NavbarClient.html"%>
 	<!-- END NAVBAR -->
 
