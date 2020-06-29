@@ -3,6 +3,7 @@ package AccesoDatos;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -13,7 +14,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
-import Dominio.Cuenta;
+import Dominio.Localidad;
 import Dominio.Usuario;
 
 
@@ -58,15 +59,27 @@ public class ClienteDao {
 			 return true;
 		}
 		
-		public List ListarClientesXDni() {
-			ConfigHibernate ch = new ConfigHibernate();
-			Session session = ch.abrirConexion();
-			List<Usuario> LUsuarios = new ArrayList<Usuario>();
-			Usuario Cliente = (Usuario) appContext.getBean("BUsuario");
-			//for
-			((ConfigurableApplicationContext)(appContext)).close();
-			return LUsuarios;
-			 
+		public List<Usuario> ListarClientes() {
+			
+			List<Usuario> ListLoc = null;
+			try {
+				ConfigHibernate ch = new ConfigHibernate();
+				Session session = ch.abrirConexion();
+				Query query=session.createQuery("SELECT L FROM Usuario L");
+				ListLoc = query.list();
+				
+				if (ListLoc.isEmpty()) {
+					System.out.println("ListaVacia");
+				}else {
+					for (Usuario loc : ListLoc) {
+						System.out.println(loc.toString());
+					}
+				}
+		    	ch.cerrarSession();
+			    return ListLoc;	
+			} catch (Exception e) {
+				return ListLoc;
+			}	 
 		}
 		public List ListarClientesXNombreApellido() {
 			ConfigHibernate ch = new ConfigHibernate();
@@ -92,7 +105,5 @@ public class ClienteDao {
 			} finally {
 				((ConfigurableApplicationContext)(appContext)).close();
 			}
-				
-			
 		}	
 }

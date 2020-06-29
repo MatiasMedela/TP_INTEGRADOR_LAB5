@@ -44,14 +44,10 @@ public class LocalidadDao {
 					System.out.println(loc.toString());
 				}
 			}
-			
 	    	ch.cerrarSession();
 		    return ListLoc;	
 		} catch (Exception e) {
 			return ListLoc;
-		}
-			
+		}	
 	}
-	
-
 }
