@@ -41,6 +41,8 @@ public class ClienteController {
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ListarClientes"})
 	public ModelAndView redirecListarClientes() {
 		ModelAndView MV = new ModelAndView();
+		ClienteDao Clidao= new ClienteDao();
+		MV.addObject("ClientesList", Clidao.ListarClientes());
 		MV.setViewName("ListarClientes");
 		return MV;
 	}
