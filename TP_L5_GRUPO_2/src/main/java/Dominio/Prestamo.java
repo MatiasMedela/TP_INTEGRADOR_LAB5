@@ -9,7 +9,7 @@ public class Prestamo implements Serializable {
 	//Atributos
 	private int idPrestamo;
 	private Usuario usuario;
-	private double cbu;
+	private Cuenta cbu;
 	private Movimiento movimiento;
 	private int cantidadMeses;
 	private float importeTotal;
@@ -22,7 +22,7 @@ public class Prestamo implements Serializable {
 		
 	}
 	
-	public Prestamo(int id,Usuario usuario,Movimiento movimiento,int cantidadMeses,float importeTotal,EstadoPrestamo estado,float montoPagar, double cbu)
+	public Prestamo(int id,Usuario usuario,Movimiento movimiento,int cantidadMeses,float importeTotal,EstadoPrestamo estado,float montoPagar, Cuenta cbu)
 	{
 		this.idPrestamo = id;
 		this.usuario =usuario;
@@ -34,7 +34,7 @@ public class Prestamo implements Serializable {
 		this.cbu = cbu;
 	}
 	
-	public Prestamo(Usuario usuario,Movimiento movimiento,int cantidadMeses,float importeTotal,EstadoPrestamo estado,float montoPagar, double cbu)
+	public Prestamo(Usuario usuario,Movimiento movimiento,int cantidadMeses,float importeTotal,EstadoPrestamo estado,float montoPagar, Cuenta cbu)
 	{
 		this.usuario =usuario;
 		this.movimiento = movimiento;
@@ -46,11 +46,11 @@ public class Prestamo implements Serializable {
 	}
 	
 
-	public double getCbu() {
+	public Cuenta getCbu() {
 		return cbu;
 	}
 
-	public void setCbu(double cbu) {
+	public void setCbu(Cuenta cbu) {
 		this.cbu = cbu;
 	}
 

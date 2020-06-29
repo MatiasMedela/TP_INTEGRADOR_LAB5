@@ -60,24 +60,17 @@
 				</tr>
 			</thead>
 			<tbody>
+			<c:forEach items="${listadoPrestamos}" var="prestamo" varStatus="loop">
 				<tr>
-					<td>Cuenta principal</td>
-					<td>$100.000</td>
-					<td>$125.000</td>
-					<td>0/3</td>
-					<td>$125.000</td>
+					<td>${prestamo[0]}</td>
+ 					<td>${prestamo[1]}</td>
+					<td>${prestamo[2]}</td>
+					<td>${prestamo[3]}</td>
+					<td>${prestamo[4]}</td>
 					<td class="btn-pagar-cuota"><button type="button" class="btn btn-grid btn-light">Pagar
 							cuota</button></td>
-				</tr>
-				<tr>
-					<td>Cuenta secundaria</td>
-					<td>$50.000</td>
-					<td>$62.500</td>
-					<td>11/12</td>
-					<td>$5.208,33</td>
-					<td class="btn-pagar-cuota"><button type="button" class="btn btn-grid btn-light">Pagar
-							cuota</button></td>
-				</tr>
+				</tr>			
+			</c:forEach>
 			</tbody>
 		</table>
 	</div>

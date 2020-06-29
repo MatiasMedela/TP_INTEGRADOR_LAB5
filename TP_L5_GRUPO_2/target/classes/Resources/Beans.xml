@@ -112,7 +112,7 @@
 		<property name="importeTotal" value="-1"></property>
 		<property name="estado" ref="BEstadoPrestamo"></property>
 		<property name="montoPagar" value="-1"></property>
-		<property name="cbu" value="-1"></property>
+		<property name="cbu" ref="BCuenta"></property>
 	</bean>
 	
 	<!--BEAN CUOTA -->

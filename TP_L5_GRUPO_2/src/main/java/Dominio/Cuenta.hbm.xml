@@ -20,7 +20,7 @@
         <property name="saldo" type="float">
             <column name="SALDO" />
         </property>
-        <property name="cbu" type="double">
+        <property name="cbu" type="double" unique="true">
             <column name="CBU" />
            </property>
         <property name="alias" type="java.lang.String" access="field" unique="true">

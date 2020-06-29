@@ -26,8 +26,8 @@
         <property name="montoPagar" type="float">
             <column name="MONTOPAGAR" />
         </property>
-        <property name="cbu" type="double">
+        <many-to-one class="Dominio.Cuenta" name="cbu" property-ref="cbu">
             <column name="CBU" />
-        </property>
+        </many-to-one>
     </class>
 </hibernate-mapping>

@@ -843,7 +843,7 @@ public class App {
     	prestamo1.setImporteTotal(60000);
     	prestamo1.setEstado(estado2);
     	prestamo1.setMontoPagar(75000);    	
-    	prestamo1.setCbu(1);
+    	prestamo1.setCbu(cuenta1);
     	
     	Prestamo prestamo2 = (Prestamo) appContext.getBean("BPrestamo");
     	prestamo2.setUsuario(usuario5);
@@ -852,7 +852,7 @@ public class App {
     	prestamo2.setImporteTotal(35000);
     	prestamo2.setEstado(estado2);
     	prestamo2.setMontoPagar(43750);
-    	prestamo2.setCbu(3);
+    	prestamo2.setCbu(cuenta3);
     	
     	Prestamo prestamo3 = (Prestamo) appContext.getBean("BPrestamo");
     	prestamo3.setUsuario(usuario5);
@@ -860,7 +860,7 @@ public class App {
     	prestamo3.setImporteTotal(45000);
     	prestamo3.setEstado(estado3);
     	prestamo3.setMontoPagar(56250);
-    	prestamo3.setCbu(4);
+    	prestamo3.setCbu(cuenta4);
     	 	
     	Prestamo prestamo4 = (Prestamo) appContext.getBean("BPrestamo");
     	prestamo4.setUsuario(usuario6);
@@ -869,7 +869,7 @@ public class App {
     	prestamo4.setImporteTotal(75000);
     	prestamo4.setEstado(estado2);
     	prestamo4.setMontoPagar(93750);
-    	prestamo4.setCbu(5);
+    	prestamo4.setCbu(cuenta5);
     	
     	session.save(prestamo1);
     	session.save(prestamo2);

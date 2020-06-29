@@ -14,10 +14,15 @@ import Dominio.Cuenta;
 
 @Controller
 public class PrestamoController {
-	
+		
 	@RequestMapping(value="redirecNavBar.html", params = {"prestamos"})
-	public ModelAndView redirecPrestamo() {
+	public ModelAndView redirecPrestamo(HttpServletRequest request) {
 		ModelAndView MV = new ModelAndView();
+		if(request.getSession().getAttribute("IDUsuario") != null) {
+			String IDUsuario = 	request.getSession().getAttribute("IDUsuario").toString();
+			PrestamoDao presDao = new PrestamoDao();
+			MV.addObject("listadoPrestamos", presDao.listarPrestamosUsuario(Integer.parseInt(IDUsuario)));	
+		}
 		MV.setViewName("prestamos");
 		return MV;
 	}
