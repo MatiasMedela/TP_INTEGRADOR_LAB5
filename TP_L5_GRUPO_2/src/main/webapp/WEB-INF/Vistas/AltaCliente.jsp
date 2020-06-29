@@ -138,21 +138,14 @@ function ValFormatoTelFijo(){
 		        </select>                    
 		    </div>   
 		    
-		<!-- Localidad -->   <!--  <div class="form-group"> 
+			<div class="form-group"> <!-- Localidad -->
 		      <label for="state_id" class="control-label">Localidad</label>
 		      <select class="form-control form-control-sm" id="state_id" name="LocName">  
 		      <c:forEach items="${LocalidadesList}" var="loc" varStatus="loop">
-		      		<option value="${loop.index}">${loc.getLocNombre()}</option>
+		      		<option value="${loc.getIdLocalidad()}">${loc.getLocNombre()}</option>
 		      </c:forEach>
 			  </select>                     
-		    </div>    --> 
-		     
-		    <div class="form-group"> <!-- Provincia -->
-		        <label for="state_id" class="control-label">Provincia</label>
-		        <select class="form-control form-control-sm" id="state_id" name="LocName">
-		            <option value="5">Los Patos</option>
-		        </select>                    
-		    </div>             
+		    </div>                
 		    
 		     <div class="form-group"> <!-- Correo electronico -->
 		        <label for="full_name_id" class="control-label">Correo Electronico</label>
