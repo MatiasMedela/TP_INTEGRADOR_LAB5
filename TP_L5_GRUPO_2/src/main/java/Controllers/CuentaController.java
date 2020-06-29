@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import AccesoDatos.CuentaDao;
+import AccesoDatos.TipoCuentaDao;
+import AccesoDatos.UsuarioDao;
 import Negocio.CuentaNegocio;
 
 @Controller
@@ -28,6 +30,12 @@ public class CuentaController {
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"CuentaNueva"})
 	public ModelAndView redirecCuentaNuevaAdmin() {
 		ModelAndView MV = new ModelAndView();
+		UsuarioDao user = new UsuarioDao();
+		TipoCuentaDao tc = new TipoCuentaDao();
+		cuentaD = new CuentaDao();
+		MV.addObject("listadoUsuarios", user.listarUsuarios());
+		MV.addObject("listadoTipos", tc.listarTipos());
+		MV.addObject("proxCBU", cuentaD.proximoCBU());
 		MV.setViewName("AltaCuenta");
 		return MV;
 	}

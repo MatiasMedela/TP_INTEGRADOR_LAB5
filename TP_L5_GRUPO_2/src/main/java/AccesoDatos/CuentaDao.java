@@ -1,6 +1,7 @@
 package AccesoDatos;
 
 import java.util.Date;
+import java.util.Formatter;
 import java.util.List;
 
 
@@ -27,7 +28,7 @@ public class CuentaDao {
 	}	
 	
 	
-	public void crearCuenta(int idTipoCN, int idUsuarioN, float saldoN, double CBUN)
+	public void crearCuenta(int idTipoCN, int idUsuarioN, double CBUN)
 	{
 		
 		ConfigHibernate ch = new ConfigHibernate();
@@ -41,8 +42,9 @@ public class CuentaDao {
 		c.setTipoCuenta(tpc);
 		c.setfechaCreacion(new Date());
 		c.setCbu(CBUN); //cambiarlo a big int!
+		c.setAlias("Prueba");
 		c.setUsuario(user);
-		c.setSaldo(saldoN);	
+		c.setSaldo(10000);	
 		c.setEstado(true);	
 		session.save(c);
 		session.getTransaction().commit();
@@ -95,7 +97,24 @@ public class CuentaDao {
     	ch.cerrarSession();
 	}
 	
-	
+	public String proximoCBU()
+	{
+		Formatter fmt = new Formatter();
+		String fn = "";
+		Integer res = null;
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		session.beginTransaction();
+		String c = (String) session.createQuery("Select MAX(c.cbu) FROM Cuenta as c").uniqueResult().toString();
+		c = c.substring(0,c.length()-2);
+		res = Integer.parseInt(c) +1;
+		//fn = res.toString();
+		
+		fmt.format("%022d",res);
+		fn = fmt.toString();
+    	ch.cerrarSession();
+    	return fn;
+	}
 //	public List<Cuenta> datosCuentaBasic(String legajo) {
 //		ConfigHibernate ch = new ConfigHibernate();
 //		Session session = ch.abrirConexion();

@@ -22,14 +22,24 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 	crossorigin="anonymous"></script>
-<!-- Hoja de estilos-->
-<link rel=stylesheet
+	<link rel=stylesheet
 	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
 	media=screen>
+<script type="text/javascript" src="<c:url value="resources/Funciones/funciones.js"/>"></script>
+		<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+	
 <meta charset="ISO-8859-1">
-<title>Alta Cliente</title>
-
+<title>Alta Cliente</title>	
+	
 </head>
+<body onload="cantidadPaginas()" onresize="cantidadPaginas()">
 
 <body>
 		<!-- NAVBAR -->
@@ -43,19 +53,19 @@
 					<div class="col">
 						<div class="form-group">
 							<!-- Tipo de cuenta -->
+							
 							<label for="state_id" class="control-label">Tipo de Cuenta</label> <select
 								class="form-control" id="state_id">
-								<option value="01">Caja de ahorro en pesos</option>
-								<option value="02">Caja de ahorro en dolares</option>
-								<option value="03">Cuenta corriente</option>
-								<option value="04">Cuenta corriente especial en pesos</option>
-								<option value="05">Cuenta corriente especial en dolares</option>
+								
+								<c:forEach items="${ listadoTipos }" var="tipos" varStatus="loop">							
+								<option value="${tipos.idTipoCuenta}">${tipos.descripcion}</option>					
+							    </c:forEach>
 							</select>
 						</div>
 						<div class="form-group">
 							<!-- CBU -->
 							<label for="full_name_id" class="control-label">CBU</label>
-							<label for="full_name_id" class="control-label">XXXX.XXXX.XXXX</label>
+							<label for="full_name_id" class="control-label">${proxCBU}</label>
 						</div>
 						<div class="form-group">
 							<!-- CBU -->
@@ -66,14 +76,28 @@
 					<div class="col">
 						<div class="form-group">
 							<!-- Cliente -->
-							<label for="state_id" class="control-label">Cliente</label> <select
-								class="form-control" id="state_id">
-								<option value="01">Leandro Lescano</option>
-								<option value="02">Juan Cassano</option>
-								<option value="03">Sebastian Font</option>
-								<option value="04">Matias Medela</option>
-								<option value="05">Cuenta corriente especial en dolares</option>
-							</select>
+							<input type="hidden" id="clienteSeleccionado" name="clienteSeleccionado" value="">
+							
+<table id="TableCuentasAll" class="table table-hover">
+			<thead>
+				<tr>
+				<th scope="col">DNI</th>
+				<th scope="col">Cliente</th>
+				<th scope="col">Email</th>
+				</tr>
+			</thead>
+			<tbody>	
+					<c:forEach items="${ listadoUsuarios }" var="user" varStatus="loop">			
+					<tr>
+						
+						<td id="DNI${loop.index}">${user.getDni()}</td>
+						<td id="NombreAp${loop.index}">${user.getNombre()} ${user.getApellido()}</td>
+						<td id="Email${loop.index}">${user.getEmail()}</td>					
+							
+					</tr>						
+				</c:forEach>			
+			</tbody>
+		</table>
 						</div>
 						<div class="form-group">
 							<!-- Direccion -->
@@ -120,6 +144,49 @@
 <script type="text/javascript">
 CurrentItem = document.getElementById("mnCuentas");
 CurrentItem.className +=" active";
+
+
+$('#TableCuentasAll').DataTable({
+	"ordering" : false,
+	"bInfo" : false,
+	"lengthChange" : false,
+	"dom" : '<"pull-left"f>rtip',
+	"oLanguage" : {
+		"sSearch" : "Busqueda:",
+	},
+	"language" : {
+		"zeroRecords" : "No se encontraron registros coincidentes",
+		"paginate" : {
+			"next" : "Siguiente",
+			"previous" : "Previo"
+		},
+	}
+});
+
+   
+var table = $('#TableCuentasAll').DataTable();  
+    
+    
+$('#TableCuentasAll tbody').on( 'click', 'tr', function () {
+	
+	if ( $(this).hasClass('selected-table') ) {
+       // $(this).removeClass('selected');
+
+    }
+    else {
+        table.$('tr.selected-table').removeClass('selected-table');
+        $(this).addClass('selected-table');
+
+    }
+ 
+    //$(this).toggleClass('selected');
+			
+          $("#clienteSeleccionado").val(table.rows(['.selected-table']).data().pluck(0).toArray());
+                    
+} );
+    
+
+	
 </script>
 
 </html>

@@ -13,6 +13,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
+import Dominio.Cuenta;
 import Dominio.Usuario;
 
 
@@ -91,5 +92,7 @@ public class ClienteDao {
 			} finally {
 				((ConfigurableApplicationContext)(appContext)).close();
 			}
+				
+			
 		}	
 }

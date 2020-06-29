@@ -89,6 +89,10 @@ form {
 	margin-block-end: 0px!important;
 }
 
+.selected-table {
+	background-color: lightgray;
+}
+
 .container-prestamo {
 	width: 35%;	
 /* 	-webkit-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.69);

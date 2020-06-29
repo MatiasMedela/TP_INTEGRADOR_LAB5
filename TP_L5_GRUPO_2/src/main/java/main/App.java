@@ -348,7 +348,7 @@ public class App {
     	//---------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA USUARIO--*/
     	Usuario usuario1 = (Usuario) appContext.getBean("BUsuario");
-    	usuario1.setDni("38456789");
+    	usuario1.setDni("30000001");
     	usuario1.setTipoUsu(tipoUsuario1);
     	usuario1.setGen(gen1);
     	usuario1.setLoc(local5);
@@ -356,12 +356,12 @@ public class App {
     	usuario1.setApellido("Alessio");
     	usuario1.setNacionalidad("Argentino");
     	usuario1.setFechaNac(new Date());
-    	usuario1.setEstado(false);
+    	usuario1.setEstado(true);
     	usuario1.setDireccion("Mosconi 556");
     	usuario1.setEmail("dalessio@gmail.com");
     	
     	Usuario usuario2 = (Usuario) appContext.getBean("BUsuario");
-    	usuario2.setDni("38456789");
+    	usuario2.setDni("30000002");
     	usuario2.setTipoUsu(tipoUsuario2);
     	usuario2.setGen(gen2);
     	usuario2.setLoc(local3);
@@ -369,12 +369,12 @@ public class App {
     	usuario2.setApellido("Cassano");
     	usuario2.setNacionalidad("Argentino");
     	usuario2.setFechaNac(new Date());
-    	usuario2.setEstado(false);
+    	usuario2.setEstado(true);
     	usuario2.setDireccion("Riobamba 126");
     	usuario2.setEmail("jcasano@gmail.com");
     	
     	Usuario usuario3 = (Usuario) appContext.getBean("BUsuario");
-    	usuario3.setDni("38456789");
+    	usuario3.setDni("30000003");
     	usuario3.setTipoUsu(tipoUsuario2);
     	usuario3.setGen(gen2);
     	usuario3.setLoc(local1);
@@ -382,12 +382,12 @@ public class App {
     	usuario3.setApellido("Lescano");
     	usuario3.setNacionalidad("Argentino");
     	usuario3.setFechaNac(new Date());
-    	usuario3.setEstado(false);
+    	usuario3.setEstado(true);
     	usuario3.setDireccion("Alsina 236");
     	usuario3.setEmail("llescano@gmail.com");
     	
     	Usuario usuario4 = (Usuario) appContext.getBean("BUsuario");
-    	usuario4.setDni("38456789");
+    	usuario4.setDni("30000004");
     	usuario4.setTipoUsu(tipoUsuario2);
     	usuario4.setGen(gen2);
     	usuario4.setLoc(local2);
@@ -395,12 +395,12 @@ public class App {
     	usuario4.setApellido("Font");
     	usuario4.setNacionalidad("Argentino");
     	usuario4.setFechaNac(new Date());
-    	usuario4.setEstado(false);
+    	usuario4.setEstado(true);
     	usuario4.setDireccion("General Paz 546");
     	usuario4.setEmail("sfont@gmail.com");
     	
     	Usuario usuario5 = (Usuario) appContext.getBean("BUsuario");
-    	usuario5.setDni("38456789");
+    	usuario5.setDni("30000005");
     	usuario5.setTipoUsu(tipoUsuario2);
     	usuario5.setGen(gen2);
     	usuario5.setLoc(local4);
@@ -408,12 +408,12 @@ public class App {
     	usuario5.setApellido("Medela");
     	usuario5.setNacionalidad("Argentino");
     	usuario5.setFechaNac(new Date());
-    	usuario5.setEstado(false);
+    	usuario5.setEstado(true);
     	usuario5.setDireccion("Mosconi 546");
     	usuario5.setEmail("mmedela@gmail.com");
     	
     	Usuario usuario6 = (Usuario) appContext.getBean("BUsuario");
-    	usuario6.setDni("38456789");
+    	usuario6.setDni("30000006");
     	usuario6.setTipoUsu(tipoUsuario2);
     	usuario6.setGen(gen2);
     	usuario6.setLoc(local3);
@@ -421,12 +421,12 @@ public class App {
     	usuario6.setApellido("de Lage");
     	usuario6.setNacionalidad("Argentino");
     	usuario6.setFechaNac(new Date());
-    	usuario6.setEstado(false);
+    	usuario6.setEstado(true);
     	usuario6.setDireccion("Haedo 652");
     	usuario6.setEmail("jjlage@gmail.com");
     	
     	Usuario usuario7 = (Usuario) appContext.getBean("BUsuario");
-    	usuario7.setDni("38456789");
+    	usuario7.setDni("30000007");
     	usuario7.setTipoUsu(tipoUsuario2);
     	usuario7.setGen(gen2);
     	usuario7.setLoc(local3);
@@ -435,12 +435,12 @@ public class App {
     	usuario7.setNacionalidad("Argentino");
     	usuario7.setNacionalidad("Argentino");
     	usuario7.setFechaNac(new Date());
-    	usuario7.setEstado(false);
+    	usuario7.setEstado(true);
     	usuario7.setDireccion("Av. Centenario 1256");
     	usuario7.setEmail("hsuarez@gmail.com");
     	
     	Usuario usuario8 = (Usuario) appContext.getBean("BUsuario");
-    	usuario8.setDni("38456789");
+    	usuario8.setDni("30000008");
     	usuario8.setTipoUsu(tipoUsuario2);
     	usuario8.setGen(gen1);
     	usuario8.setLoc(local3);
@@ -448,12 +448,12 @@ public class App {
     	usuario8.setApellido("Capotosti");
     	usuario8.setNacionalidad("Argentino");
     	usuario8.setFechaNac(new Date());
-    	usuario8.setEstado(false);
+    	usuario8.setEstado(true);
     	usuario8.setDireccion("Haedo 568");
     	usuario8.setEmail("ocapotosti@gmail.com");
     	
     	Usuario usuario9 = (Usuario) appContext.getBean("BUsuario");
-    	usuario9.setDni("38456789");
+    	usuario9.setDni("30000009");
     	usuario9.setTipoUsu(tipoUsuario2);
     	usuario9.setGen(gen1);
     	usuario9.setLoc(local4);
@@ -461,12 +461,12 @@ public class App {
     	usuario9.setApellido("Vasquez");
     	usuario9.setNacionalidad("Argentino");
     	usuario9.setFechaNac(new Date());
-    	usuario9.setEstado(false);
+    	usuario9.setEstado(true);
     	usuario9.setDireccion("Alsina 326");
     	usuario9.setEmail("mvasquez@gmail.com");
     	
     	Usuario usuario10 = (Usuario) appContext.getBean("BUsuario");
-    	usuario10.setDni("38456789");
+    	usuario10.setDni("30000010");
     	usuario10.setTipoUsu(tipoUsuario2);
     	usuario10.setGen(gen2);
     	usuario10.setLoc(local4);
@@ -474,7 +474,7 @@ public class App {
     	usuario10.setApellido("Vivas");
     	usuario10.setNacionalidad("Argentino");
     	usuario10.setFechaNac(new Date());
-    	usuario10.setEstado(false);
+    	usuario10.setEstado(true);
     	usuario10.setDireccion("Julian Navarro 135");
     	usuario10.setEmail("mvivas@gmail.com");
     	
