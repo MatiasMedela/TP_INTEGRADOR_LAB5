@@ -41,6 +41,8 @@ $(document).ready(function(){
 								"searching": true,
 								"scrollX" : true,
 								"scrollY" : 500,
+								"dom" : '<"pull-left"f>rtip',
+								"dom" : '<"pull-left"f><"pull-right"l>rtip',
 								sPaginationType : "full_numbers",
 								bProcessing : true,
 								bAutoWidth : true,
@@ -75,137 +77,11 @@ $(document).ready(function(){
 					 });
 </script>
 <script type="text/javascript">
- function doSearchNomApe()
-        {
-            const tableReg = document.getElementById('TClientes');
-            const searchText = document.getElementById('NomApeTxtId').value.toLowerCase();
-            var total = 0;
- 
-            // Recorremos todas las filas con contenido de la tabla
-            for (let i = 1; i < tableReg.rows.length; i++) {
-                // Si el td tiene la clase "noSearch" no se busca en su cntenido
-                if (tableReg.rows[i].classList.contains("noSearch")) {
-                    continue;
-                }
- 
-                var found = false;
-                var NoIngresado = false;
-                const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
-                // Recorremos todas las celdas
-                for (var j = 0; j < cellsOfRow.length && !found; j++) {
-                    const compareWith = cellsOfRow[1].innerHTML.toLowerCase();
-                    // Buscamos el texto en el contenido de la celda
-                    if (compareWith.includes(searchText)) {
-                        found = true;
-                        total++;
-                    }
-                    if(searchText.length == 0 ){
-                   	 NoIngresado = true;
-                    }
-                }
-                if (found) {
-                    tableReg.rows[i].style.display = '';
-                } else {
-                    // si no ha encontrado ninguna coincidencia, esconde la fila de la tabla
-                    tableReg.rows[i].style.display = 'none';
-                }
-            }
-            if(NoIngresado == false){
-	            // mostramos las coincidencias
-	            const lastTR=tableReg.rows[tableReg.rows.length-1];
-	            const td=lastTR.querySelector("td");
-	            lastTR.classList.remove("hide", "red");
-	            if (searchText == "") {
-	                lastTR.classList.add("hide");
-	            } else if (total) {
-	                document.getElementById("LblApeNomId").style.color="green";
-	                document.querySelector('#LblApeNomId').innerText = "Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
-	            } else {
-	                document.getElementById("LblApeNomId").style.color="red";
-	                document.querySelector('#LblApeNomId').innerText = 'No se han encontrado coincidencias';
-	            }
-            }else{
-           	 document.getElementById("LblApeNomId").style.color="red";
-             document.querySelector('#LblApeNomId').innerText = 'Ingrese el apellido o nombre del cliente';
-         }
-       }
- function doSearchDni()
- {
-     const tableReg = document.getElementById('TClientes');
-     const searchText = document.getElementById('TxtDniId').value.toLowerCase();
-     var total = 0;
-
-     // Recorremos todas las filas con contenido de la tabla
-     for (let i = 1; i < tableReg.rows.length; i++) {
-         // Si el td tiene la clase "noSearch" no se busca en su cntenido
-         if (tableReg.rows[i].classList.contains("noSearch")) {
-             continue;
-         }
-
-         var found = false; 
-         var NoIngresado = false;
-         const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
-         // Recorremos todas las celdas
-         for (let j = 0; j < cellsOfRow.length && !found; j++) {
-             const compareWith = cellsOfRow[0].innerHTML.toLowerCase();
-             // Buscamos el texto en el contenido de la celda
-             if (compareWith.indexOf(searchText) > -1) {
-                 found = true;
-                 total++;
-             }
-             if(searchText.length == 0 ){
-            	 NoIngresado = true;
-             }
-         }
-         if (found) {
-             tableReg.rows[i].style.display = '';
-         } else {
-             // si no ha encontrado ninguna coincidencia, esconde la fila de la tabla
-             tableReg.rows[i].style.display = 'none';
-         }
-     }
-
-     // mostramos las coincidencias
-     const lastTR=tableReg.rows[tableReg.rows.length-1];
-     const td=lastTR.querySelector("td");
-     lastTR.classList.remove("hide", "red");
-     if(NoIngresado == false){
-	     if (searchText == "") {
-	         lastTR.classList.add("hide");
-	     } else if (total) {
-	         document.getElementById("LblDniId").style.color="green";
-	         document.querySelector('#LblDniId').innerText = "Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
-	     } else {
-	         document.getElementById("LblDniId").style.color="red";
-	         document.querySelector('#LblDniId').innerText = 'No se han encontrado coincidencias';
-	     }
-     }else{
-    	 document.getElementById("LblDniId").style.color="red";
-         document.querySelector('#LblDniId').innerText = 'Ingrese el numero de DNI';
-     }
- }
-
- function LimpiarFiltroNomApe(){
-	 const tableReg = document.getElementById('TClientes');
-	 for (var i = 1; i < tableReg.rows.length; i++) {
-		 tableReg.rows[i].style.display = '';
-	 }
-	 document.getElementById("NomApeTxtId").value=''; 
-	 document.querySelector('#LblApeNomId').innerText = '';
-}
- function LimpiarFiltroDni(){
-	 const tableReg = document.getElementById('TClientes');
-	 for (var i = 1; i < tableReg.rows.length; i++) {
-		 tableReg.rows[i].style.display = '';
-	 }
-	 document.getElementById("TxtDniId").value=''; 
-	 document.querySelector('#LblDniId').innerText = '';
-}
- 
 //con esta funcion pasamos los paremtros a los text del modal.
   function selCliente(Cadena){
 	 var array=Cadena.split(",");
 	 document.getElementById('DnieditId').value=array[0];
+	 document.getElementById('IdOldDniName').value=array[0];
 	 document.getElementById('NomEditId').value=array[1];
 	 document.getElementById('ApeEditId').value=array[2];
 	 //cmb genero
@@ -253,41 +129,7 @@ $(document).ready(function(){
 	<!-- END NAVBAR -->
 		<div class="container-fluid">
 			<div class="row row-cols-2">
-				<div class="col-2">
-					<fieldset class="border p-2">
-						<legend class="w-auto">Busquedas</legend>
-						<form class="form" id="form-Filter-Dni">
-							<div class="form-group ">
-								<!-- DNI -->
-								<label for="full_name_id" class="control-label">Número de documento</label> 
-								<input type="number" class="form-control form-control-sm" id="TxtDniId"
-									name="TxtDniName" placeholder="D.N.I" required>
-								<label for="full_name_id" class="control-label" id="LblDniId"></label>
-							</div>
-							<div class="form-group text-center" style="padding-left: 10px">
-								<!-- Submit Button -->
-								<button type="button" class="btn-sm btn-primary" name="DniNameSearch" onclick="doSearchDni()">Buscar</button>
-								<button type="button" class="btn-sm btn-primary" name="LimpiarDniTxtSearch" onclick="LimpiarFiltroDni()">Limpiar</button>
-							</div>
-						</form>
-
-						<form class="form" id="form-Filter-NomApe">
-							<div class="form-group">
-								<!-- Nombre y Apellido -->
-								<label for="full_name_id" class="control-label">Nombre y Apellido</label>
-								<input type="text" class="form-control form-control-sm"
-									id="NomApeTxtId" name="NomApeTxtName" placeholder="Nombre y Apellido">
-								<label for="full_name_id" class="control-label" id="LblApeNomId" required></label>
-							</div>
-							<div class="form-group text-center" style="padding-left: 10px">
-								<!-- Submit Button -->
-								<button type="button" class="btn-sm btn-primary" name="NomApeNameSearch" onclick="doSearchNomApe()">Buscar</button>
-								<button type="button" class="btn-sm btn-primary" name="LimpiarNomApeTxtSearch" onclick="LimpiarFiltroNomApe()">Limpiar</button>
-							</div>
-						</form>
-					</fieldset>
-				</div>
-				<div class="col-10">
+				<div class="col-12">
 					<!-- inicio tabla -->
 					<fieldset class="border p-1" >
 						<legend class="w-auto">Clientes</legend>
@@ -389,14 +231,14 @@ $(document).ready(function(){
         </button>
       </div>
       <div class="modal-body">
-	      <form action="">
+	      <form action="ModificarCliente.html" method="get">
 	      	<div class="container-fluid">
 	      	<div class="row">
 			<div class="col-8 col-sm-6">
-			
 			 <div class="form-group"> <!-- DNI -->
 		        <label for="full_name_id" class="control-label">Numero De Documento</label>
 		        <input type="number" class="form-control form-control-sm" id="DnieditId" name="DniEditName" placeholder="D.N.I">
+		         <input type="hidden" class="form-control" name="OldDniName"id="IdOldDniName" value=""/>
 		    </div>  
 		    <div class="form-group"> <!-- Nombre -->
 		        <label for="full_name_id" class="control-label">Nombre</label>
@@ -480,15 +322,13 @@ $(document).ready(function(){
 		    </div>
 		      
 		</div>
-		</div>
-			</div>
-	      </form>
+	</div>
+</div>
+ 	<div class="modal-footer">
+	     <button type="button" class="btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
+		 <button type="Submit" class="btn-sm btn-success" name="BtnGrabar" >Grabar</button>		
       </div>
-      <div class="modal-footer">
-     <form action="#" method="post" accept-charset=utf-8>
-     <button type="button" class="btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
-	 <button type="Submit" class="btn-sm btn-success" name="BtnGrabar" >Grabar</button>		
-		</form>
+      </form>
       </div>
     </div>
   </div>
