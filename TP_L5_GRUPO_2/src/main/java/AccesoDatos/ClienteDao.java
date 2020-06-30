@@ -41,26 +41,74 @@ public class ClienteDao {
 			}
 		}
 		 
-		public boolean BajaCliente() {
-			ConfigHibernate ch = new ConfigHibernate();
-			Session session = ch.abrirConexion();
-			Usuario Cliente = (Usuario) appContext.getBean("BUsuario");
-			//actualizar estado
-			((ConfigurableApplicationContext)(appContext)).close();
-			 return true;
+		public boolean BajaCliente(String dni) {
+				try {
+					Configuration configuration = new Configuration();
+			    	configuration.configure();	
+			    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+			    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+			    	Session session = sessionFactory.openSession();
+			    	session.beginTransaction();
+			    	Query query=session.createQuery("UPDATE Usuario L set L.Estado=0 where L.Dni="+dni);
+					int result = query.executeUpdate();
+					session.getTransaction().commit();
+					session.close();
+					sessionFactory.close();
+			    	if (result==1) {
+						return true;
+					} else {
+						return false;
+					}
+			    	
+				} catch (Exception e) {
+					e.printStackTrace();
+					return false;
+				}	
+		}
+		public boolean ModAltaCliente(String dni) {
+			try {
+				Configuration configuration = new Configuration();
+		    	configuration.configure();	
+		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+		    	Session session = sessionFactory.openSession();
+		    	session.beginTransaction();
+		    	Query query=session.createQuery("UPDATE Usuario L set L.Estado=1 where L.Dni="+dni);
+				int result = query.executeUpdate();
+				session.getTransaction().commit();
+				session.close();
+				sessionFactory.close();
+		    	if (result==1) {
+					return true;
+				} else {
+					return false;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
 		
 		public boolean ModificarCliente(Usuario Usu) {
-			ConfigHibernate ch = new ConfigHibernate();
-			Session session = ch.abrirConexion();
-			Usuario Cliente = (Usuario) appContext.getBean("BUsuario");
-			//Modfificar
-			((ConfigurableApplicationContext)(appContext)).close();
-			 return true;
+			try {
+		    	Configuration configuration = new Configuration();
+		    	configuration.configure();	
+		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+		    	Session session = sessionFactory.openSession();
+		    	session.beginTransaction();
+				session.update(Usu);
+				session.getTransaction().commit();
+				session.close();
+				sessionFactory.close();
+				 return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
 		
 		public List<Usuario> ListarClientes() {
-			
 			List<Usuario> ListLoc = null;
 			try {
 				ConfigHibernate ch = new ConfigHibernate();
