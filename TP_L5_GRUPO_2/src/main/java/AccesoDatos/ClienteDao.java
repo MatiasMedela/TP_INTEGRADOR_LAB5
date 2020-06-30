@@ -89,7 +89,7 @@ public class ClienteDao {
 			}
 		}
 		
-		public boolean ModificarCliente(Usuario Usu) {
+		public boolean ModificarCliente(Usuario Usu, String oldDniName) {
 			try {
 		    	Configuration configuration = new Configuration();
 		    	configuration.configure();	
@@ -97,6 +97,8 @@ public class ClienteDao {
 		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 		    	Session session = sessionFactory.openSession();
 		    	session.beginTransaction();
+		    	UsuarioDao usuDao= new UsuarioDao();
+		    	Usu.setIdUsu(usuDao.buscarUsuario(Integer.valueOf(oldDniName)).getIdUsu());
 				session.update(Usu);
 				session.getTransaction().commit();
 				session.close();
