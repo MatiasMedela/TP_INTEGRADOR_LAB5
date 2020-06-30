@@ -51,6 +51,8 @@ public class ClienteController {
 	public ModelAndView redirecEliminarCliente() {
 		ModelAndView MV = new ModelAndView();
 		ClienteDao Clidao= new ClienteDao();
+		LocalidadDao locdao= new LocalidadDao();
+		MV.addObject("LocalidadesList", locdao.ListLocalidades());
 		MV.addObject("ClientesList", Clidao.ListarClientes());
 		MV.setViewName("ModBajaCliente");
 		return MV;
@@ -105,7 +107,7 @@ public class ClienteController {
 		}
 	}
 	@RequestMapping("ModificarCliente.html")
-	public ModelAndView ModificarCliente(String DniEditName,String NomEditName,String ApeEditName,String NacEditName,
+	public ModelAndView ModificarCliente(String DniEditName,String OldDniName,String NomEditName,String ApeEditName,String NacEditName,
 			String EmailEditName,String ProvEditName,String DirEditName,String FnacEditName,Integer GenEditName,Integer LocEditName,String TelEditName) {
 		ModelAndView MV=new ModelAndView();
 		ClienteDao cldao= new ClienteDao();
@@ -115,7 +117,7 @@ public class ClienteController {
 			GeneroDao Gdao= new GeneroDao();
 			LocalidadDao LocDao= new LocalidadDao();
 			TipoUsuarioDao TusuDao= new TipoUsuarioDao();
-		
+		System.out.println("llegue");
 		//Validaciones
 			//if(true) {
 			Clie.setDni(DniEditName);
@@ -135,21 +137,24 @@ public class ClienteController {
 			Clie.setTel(TelEditName);
 			Clie.setTipoUsu(TusuDao.UserCliente());
 			Clie.setEstado(true);
-			if(cldao.ModificarCliente(Clie)==true) {
+			if(cldao.ModificarCliente(Clie,OldDniName) == true) {
+				System.out.println("UPDATE EJECUTADO EXITOSAMENTE");
 				MV.addObject("LocalidadesList", LocDao.ListLocalidades());
 				MV.addObject("ClientesList", cldao.ListarClientes());
 				MV.setViewName("ModBajaCliente");
 			}
 			else {
 				//error al modificar cliente
+				System.out.println("error al modificar cliente");
 				MV.addObject("LocalidadesList", LocDao.ListLocalidades());
 				MV.addObject("ClientesList", cldao.ListarClientes());
 				MV.setViewName("ModBajaCliente");
-				System.out.println("error al dar de alta cliente");
+				
 			}
 			//}
 			return MV;
 		} catch (Exception e) {
+			System.out.println("error al modificar cliente");
 			e.printStackTrace();
 			MV.addObject("ClientesList", cldao.ListarClientes());
 			MV.setViewName("ListarClientes");
