@@ -36,7 +36,6 @@ $(document).ready(function(){
 
 function ValFormatoTelCel(){
 	var TelTxt = document.querySelector('#TelId');
-
 	TelTxt.disabled = false;
 	TelTxt.setAttribute("placeholder", "ej: 1126208736");
 	TelTxt.setAttribute("pattern", "/ ^ (?: (?: 0 0 ) ? 5 4 9 ? ) ? 0 ? (?: 1 1 | [ 2 3 6 8 ] \ d ) (?: (? = \ D {0,2} 1 5 ");
@@ -45,11 +44,9 @@ function ValFormatoTelCel(){
 
 function ValFormatoTelFijo(){
 	var TelTxt = document.querySelector('#TelId');
-
 	TelTxt.disabled = false;
-	TelTxt.setAttribute("placeholder", "ej: 0123-489354");
+	TelTxt.setAttribute("placeholder", "ej: 0123489354");
 	TelTxt.setAttribute("pattern", "\([0-9]{4}\) [0-9]{3}[ -][0-9]{3}");
-	
 }
 </script>
 <meta charset="ISO-8859-1">
@@ -137,7 +134,7 @@ function ValFormatoTelFijo(){
 		            <option value="8">Mendoza</option>
 		        </select>                    
 		    </div>   
-		    
+		 
 			<div class="form-group"> <!-- Localidad -->
 		      <label for="state_id" class="control-label">Localidad</label>
 		      <select class="form-control form-control-sm" id="state_id" name="LocName">  
