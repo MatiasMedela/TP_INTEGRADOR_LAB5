@@ -26,11 +26,9 @@ public class LoginController {
 				Logueo User =  LogDao.BuscarLog(LoginUser, LoginKey);
 				request.getSession().setAttribute("IDUsuario", User.getUsuario().getIdUsu());
 				if (CLDao.BuscarUsuarioXId(LogDao.BuscarLog(LoginUser, LoginKey).getUsuario().getIdUsu()).getTipoUsu().getIdTipoUsuario()== 1){	
-					ClienteDao Clidao= new ClienteDao();
-					MV.addObject("ClientesList", Clidao.ListarClientes());
+					MV.addObject("ClientesList", CLDao.ListarClientes());
 					MV.setViewName("ListarClientes");
 				} else {
-					MV.addObject("NombreDelUsuario", User.getUsuario().getApellido());
 					MV.setViewName("redirect:/redirecNavBar.html?inicio");
 				}
 			} else {
