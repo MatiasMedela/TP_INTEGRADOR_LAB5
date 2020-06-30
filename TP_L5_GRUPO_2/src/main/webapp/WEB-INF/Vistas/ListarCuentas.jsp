@@ -47,8 +47,8 @@
 					<th scope="col">Nombre cliente</th>
 					<th scope="col">Moneda</th>
 					<th scope="col">Saldo</th>
-					<th scope="col" style="text-align: center;"></th>
-					<th scope="col" style="text-align: center;"></th>
+					<th scope="col" style="text-align: center;">Editar</th>
+					<th scope="col" style="text-align: center;">Eliminar</th>
 				</tr>
 			</thead>
 			<tbody>	
@@ -59,8 +59,8 @@
 						<td id="Moneda${loop.index}">${cuenta.tipoCuenta.moneda}</td>
 						<td id="Saldo${loop.index}">${cuenta.saldo}</td>
 						<!-- <td><img src="<c:url value="resources/Imagenes/edit.png"/>" style="display:block;" id="edit" name ="edit"/></td>  -->
-						<td><input type="image" src="resources/Imagenes/edit.png" id="btnAbrirModalM" value ="${cuenta.getIdCuenta()}" data-toggle="modal" data-target="#ModalEdit" onClick="llenarModal(${loop.index})"></td>
-					    <td><button type="button" class="btn btn-danger btn-sm btn-delete-account" value ="${cuenta.getIdCuenta()}" id="btnAbrirModalE" data-toggle="modal" data-target="#ModalDelete">X</button></td>	
+						<td  class="text-center"><input type="image" src="resources/Imagenes/edit.png" id="btnAbrirModalM" value ="${cuenta.getIdCuenta()}" data-toggle="modal" data-target="#ModalEdit" onClick="llenarModal(${loop.index})"></td>
+					    <td  class="text-center"><button type="button" class="btn btn-danger btn-sm btn-delete-account" value ="${cuenta.getIdCuenta()}" id="btnAbrirModalE" data-toggle="modal" data-target="#ModalDelete">X</button></td>	
 					</tr>						
 				</c:forEach>			
 			</tbody>
@@ -155,7 +155,7 @@
 	
 		<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog"
 		aria-labelledby="ModalDetailsAccount" aria-hidden="true">
-		<div class="modal-dialog modal-xl" role="document">
+		<div class="modal-dialog modal-xl" style="max-width: 1100px;" role="document">
 			<div class="modal-content">
 			<form method=get action=modificarCuenta.html>
 				<div class="modal-header">
@@ -164,25 +164,24 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-				</div>
-				
+				</div>	
 				<div class="modal-body">
-				
+				<div class="row">
+				<div class="col-4">
 								<label for="state_id" class="control-label">Tipo de Cuenta</label> <select
 								class="form-control" id="state_id" name="cbxTipo">
 								
 								<c:forEach items="${ listadoTipos }" var="tipos" varStatus="loop">							
 								<option value="${tipos.idTipoCuenta}">${tipos.descripcion}</option>					
 							    </c:forEach>
-							</select>
-							</br>		 
-							    
+							</select>	     
 				<label for="full_name_id" class="control-label">Saldo</label>
 		        <input type="number" class="form-control form-control-sm" id="saldoM" name="saldoM" placeholder="10000" required>
-		        
-		        			</br>
+		    </div>
+			<div class="col-8">
+
 		        			<input type="hidden" id="clienteSeleccionado" name="clienteSeleccionado" value="">		
-<table id="TableClientesAll" class="table table-hover">
+			<table id="TableClientesAll" class="table table-hover">
 			<thead>
 				<tr>
 				<th scope="col">DNI</th>
@@ -191,17 +190,16 @@
 			</thead>
 			<tbody>	
 					<c:forEach items="${ listadoUsuarios }" var="user" varStatus="loop">			
-					<tr>
-						
+					<tr>			
 						<td id="DNI${loop.index}">${user.getDni()}</td>
-						<td id="NombreAp${loop.index}">${user.getNombre()} ${user.getApellido()}</td>
-			
-							
+						<td id="NombreAp${loop.index}">${user.getNombre()} ${user.getApellido()}</td>				
 					</tr>						
-				</c:forEach>			
+				</c:forEach>
+		
 			</tbody>
-		</table>
-		        
+		</table>  
+											</div>
+				</div>	
 				</div>
 				<div class="modal-footer">
 				
@@ -213,6 +211,7 @@
 			</div>
 		</div>
 	</div>
+
 	
 	
 </body>
@@ -229,7 +228,7 @@
 //	}, false);
 
 	function llenarModal(id){
-		alert(id);
+		
 	};
 	
 	var eliminar = document.getElementById("delete");

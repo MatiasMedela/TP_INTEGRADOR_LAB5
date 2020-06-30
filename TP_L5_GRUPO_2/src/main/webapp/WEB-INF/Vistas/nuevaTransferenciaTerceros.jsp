@@ -5,9 +5,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -44,11 +42,11 @@
 
   <div class="form-group">
     <label for="formGroupCBU">CBU</label>
-    <input type="text" class="form-control" id="formGroupCBU" placeholder="0110357805411825791353">
+    <input type="text" class="form-control" name="CBUCuenta" id="formGroupCBU" placeholder="0110357805411825791353">
   </div>
 
   <div class="form-group">
-<button type="button" class="btn btn-primary">Verificar CBU</button> 
+<button id="btnVerificarCBU" type="button" class="btn btn-primary">Verificar CBU</button> 
  </div>
  
   <div class="form-group">
@@ -68,20 +66,27 @@
   <div class="form-group form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
     <label class="form-check-label" for="exampleCheck1">Acepto los términos y condiciones</label>
-  </div>
-  </br>		
+  </div>	
   <button type="submit" class="btn btn-primary btn-lg btn-block">Transferir</button>
-  
-  
-  
-  
   </fieldset>
 </form>
 </div>
-</br>		
-
-	</div>
 	<!-- END CONTENT -->
 
 </body>
+<script type="text/javascript">
+$("#btnVerificarCBU").click(function(){
+	var cbu = $("#formGroupCBU").val();
+    $.ajax({
+		url: 'verificarCBU.html',
+		type: 'POST',
+		data: { cbu },
+		success: function(data){
+			alert(data);
+		}
+	});
+
+})
+</script>
+
 </html>

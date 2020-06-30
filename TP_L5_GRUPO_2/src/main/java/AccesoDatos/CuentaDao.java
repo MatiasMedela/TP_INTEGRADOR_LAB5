@@ -62,6 +62,14 @@ public class CuentaDao {
 	    return c;		
 	}	
 	
+	public Cuenta buscarCuentaCBU(Double cbu) {
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		Cuenta c = (Cuenta) session.createQuery("FROM Cuenta as cu WHERE cu.cbu = " + cbu).uniqueResult();
+		ch.cerrarSession();
+	    return c;		
+	}	
+	
 	
 	public Cuenta buscarCuentaString(String idCuenta) {
 		ConfigHibernate ch = new ConfigHibernate();

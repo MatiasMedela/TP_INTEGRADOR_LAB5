@@ -115,14 +115,6 @@ public class ClienteDao {
 				Session session = ch.abrirConexion();
 				Query query=session.createQuery("SELECT L FROM Usuario L");
 				ListLoc = query.list();
-				
-				if (ListLoc.isEmpty()) {
-					System.out.println("ListaVacia");
-				}else {
-					for (Usuario loc : ListLoc) {
-						System.out.println(loc.toString());
-					}
-				}
 		    	ch.cerrarSession();
 			    return ListLoc;	
 			} catch (Exception e) {

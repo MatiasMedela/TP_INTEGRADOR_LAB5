@@ -36,14 +36,6 @@ public class LocalidadDao {
 			Session session = ch.abrirConexion();
 			Query query=session.createQuery("SELECT L FROM Localidad L");
 			ListLoc = query.list();
-			
-			if (ListLoc.isEmpty()) {
-				System.out.println("ListaVacia");
-			}else {
-				for (Localidad loc : ListLoc) {
-					System.out.println(loc.toString());
-				}
-			}
 	    	ch.cerrarSession();
 		    return ListLoc;	
 		} catch (Exception e) {
