@@ -60,8 +60,10 @@
 								<c:forEach items="${ listadoTipos }" var="tipos" varStatus="loop">							
 								<option value="${tipos.idTipoCuenta}">${tipos.descripcion}</option>					
 							    </c:forEach>
-							</select>
-						</div>
+
+							    </select>
+							    
+										</div>
 						<div class="form-group">
 							<!-- CBU -->
 							<label for="full_name_id" class="control-label">CBU</label>

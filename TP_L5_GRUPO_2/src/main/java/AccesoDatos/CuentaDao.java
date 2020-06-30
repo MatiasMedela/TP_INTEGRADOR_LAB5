@@ -41,7 +41,7 @@ public class CuentaDao {
 		Usuario user = ud.buscarUsuario(DNIUser);
 		c.setTipoCuenta(tpc);
 		c.setfechaCreacion(new Date());
-		c.setCbu(proximoCBUDouble()); //cambiarlo a big int!
+		c.setCbu(proximoCBUDouble()); 
 		c.setAlias("Prueba");
 		c.setUsuario(user);
 		c.setSaldo(10000);	
@@ -63,20 +63,28 @@ public class CuentaDao {
 	}	
 	
 	
-	public void modificarCuenta(int idCuentaM, int idTipoCM, float saldoM, int idUsuarioM)
+	public Cuenta buscarCuentaString(String idCuenta) {
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		Cuenta c = (Cuenta) session.createQuery("FROM Cuenta as cu WHERE cu.idCuenta = '"+idCuenta+"'").uniqueResult();
+		ch.cerrarSession();
+	    return c;		
+	}	
+	
+	public void modificarCuenta(String idCuentaM, int idTipoCM, float saldoM, int DNIUser)
 	{
 		ConfigHibernate ch = new ConfigHibernate();
 		TipoCuentaDao tc = new TipoCuentaDao();
 		UsuarioDao ud = new UsuarioDao();
 		Session session = ch.abrirConexion();
 		session.beginTransaction();
-		Cuenta c = buscarCuenta(idCuentaM);
+		Cuenta c = buscarCuentaString(idCuentaM);
 		Tipo_Cuenta tpc = tc.buscarTipoCuenta(idTipoCM);
-		Usuario user = ud.buscarUsuario(idUsuarioM);
+		Usuario user = ud.buscarUsuario(DNIUser);
 		c.setUsuario(user);
 		c.setTipoCuenta(tpc);
-		c.setSaldo(saldoM);		
-		session.save(c);
+		c.setSaldo(saldoM);	
+		session.saveOrUpdate(c);
 		session.getTransaction().commit();
     	ch.cerrarSession();
     	

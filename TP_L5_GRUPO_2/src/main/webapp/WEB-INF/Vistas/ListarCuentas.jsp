@@ -58,7 +58,8 @@
 						<td id="Nombre${loop.index}">${cuenta.getUsuario().getNombre()} ${cuenta.getUsuario().getApellido()}</td>
 						<td id="Moneda${loop.index}">${cuenta.tipoCuenta.moneda}</td>
 						<td id="Saldo${loop.index}">${cuenta.saldo}</td>
-						<td><img src="<c:url value="resources/Imagenes/edit.png"/>" style="display:block;" id="edit" name ="edit"/></td>
+						<!-- <td><img src="<c:url value="resources/Imagenes/edit.png"/>" style="display:block;" id="edit" name ="edit"/></td>  -->
+						<td><input type="image" src="resources/Imagenes/edit.png" id="btnAbrirModalM" value ="${cuenta.getIdCuenta()}" data-toggle="modal" data-target="#ModalEdit" onClick="llenarModal(${loop.index})"></td>
 					    <td><button type="button" class="btn btn-danger btn-sm btn-delete-account" value ="${cuenta.getIdCuenta()}" id="btnAbrirModalE" data-toggle="modal" data-target="#ModalDelete">X</button></td>	
 					</tr>						
 				</c:forEach>			
@@ -151,6 +152,69 @@
 			</div>
 		</div>
 	</div>
+	
+		<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog"
+		aria-labelledby="ModalDetailsAccount" aria-hidden="true">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+			<form method=get action=modificarCuenta.html>
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Modificar Cuenta</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				
+				<div class="modal-body">
+				
+								<label for="state_id" class="control-label">Tipo de Cuenta</label> <select
+								class="form-control" id="state_id" name="cbxTipo">
+								
+								<c:forEach items="${ listadoTipos }" var="tipos" varStatus="loop">							
+								<option value="${tipos.idTipoCuenta}">${tipos.descripcion}</option>					
+							    </c:forEach>
+							</select>
+							</br>		 
+							    
+				<label for="full_name_id" class="control-label">Saldo</label>
+		        <input type="number" class="form-control form-control-sm" id="saldoM" name="saldoM" placeholder="10000" required>
+		        
+		        			</br>
+		        			<input type="hidden" id="clienteSeleccionado" name="clienteSeleccionado" value="">		
+<table id="TableClientesAll" class="table table-hover">
+			<thead>
+				<tr>
+				<th scope="col">DNI</th>
+				<th scope="col">Cliente</th>
+				</tr>
+			</thead>
+			<tbody>	
+					<c:forEach items="${ listadoUsuarios }" var="user" varStatus="loop">			
+					<tr>
+						
+						<td id="DNI${loop.index}">${user.getDni()}</td>
+						<td id="NombreAp${loop.index}">${user.getNombre()} ${user.getApellido()}</td>
+			
+							
+					</tr>						
+				</c:forEach>			
+			</tbody>
+		</table>
+		        
+				</div>
+				<div class="modal-footer">
+				
+					<button type="button" class="btn btn-secondary data-dismiss="modal"" >Cancelar</button>
+					<button type="submit" name="idCuentaM" class="btn btn-danger" id="btnModalModificar" value="">Grabar</button>
+						
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
 </body>
 
 <script type="text/javascript">
@@ -159,17 +223,27 @@
 
 	var editar = document.getElementById("edit");
 	
-	editar.addEventListener("click", function(){
-		$('#ModalDetails').modal('show');
+//	editar.addEventListener("click", function(){
+//		$('#ModalDetails').modal('show');
 		
-	}, false);
+//	}, false);
+
+	function llenarModal(id){
+		alert(id);
+	};
 	
 	var eliminar = document.getElementById("delete");
 
 		$('#btnAbrirModalE').click(function() {
 			$('#btnModalEliminar').val($(this).val());
 			
+	});
+	
+			$('#btnAbrirModalM').click(function() {
+			$('#btnModalModificar').val($(this).val());
+			
 	})
+	
 
 	$('#TableCuentasAll').DataTable({
 		"ordering" : false,
@@ -188,7 +262,46 @@
 		}
 	});
 	
+		$('#TableClientesAll').DataTable({
+			"ordering" : false,
+			"bInfo" : false,
+			"lengthChange" : false,
+			"pageLength" : 4,
+			"dom" : '<"pull-left"f>rtip',
+			"oLanguage" : {
+				"sSearch" : "Busqueda:",
+			},
+			"language" : {
+				"zeroRecords" : "No se encontraron registros coincidentes",
+				"paginate" : {
+					"next" : "Siguiente",
+					"previous" : "Previo"
+				},
+				
+			}
+		});
 	
-	
+		
+		var table = $('#TableClientesAll').DataTable();  
+	    
+	    
+		$('#TableClientesAll tbody').on( 'click', 'tr', function () {
+			
+			if ( $(this).hasClass('selected-table') ) {
+		       // $(this).removeClass('selected');
+
+		    }
+		    else {
+		        table.$('tr.selected-table').removeClass('selected-table');
+		        $(this).addClass('selected-table');
+
+		    }
+		 
+		    //$(this).toggleClass('selected');
+					
+		          $("#clienteSeleccionado").val(table.rows(['.selected-table']).data().pluck(0).toArray());
+		                    
+		} );
+		
 </script>
 </html>

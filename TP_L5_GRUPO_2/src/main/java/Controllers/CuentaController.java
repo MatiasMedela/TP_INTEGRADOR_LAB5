@@ -48,7 +48,11 @@ public class CuentaController {
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ListarCuentas"})
 	public ModelAndView redirecListarCuentasAdmin() {
 		ModelAndView MV = new ModelAndView();
+		TipoCuentaDao tc = new TipoCuentaDao();
+		UsuarioDao user = new UsuarioDao();
 		cuentaD = new CuentaDao();
+		MV.addObject("listadoUsuarios", user.listarUsuarios());
+		MV.addObject("listadoTipos", tc.listarTipos());
 		MV.addObject("listadoCuentas", cuentaD.listarCuentas());
 		MV.setViewName("ListarCuentas");
 		return MV;
@@ -73,4 +77,14 @@ public class CuentaController {
 		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarCuentas");
 		return MV;
 	}
+	
+	@RequestMapping(value="modificarCuenta.html")
+	public ModelAndView modificarCuenta(String idCuentaM, int cbxTipo, int saldoM, int clienteSeleccionado) {
+		ModelAndView MV = new ModelAndView();
+		cuentaD = new CuentaDao();
+		cuentaD.modificarCuenta(idCuentaM, cbxTipo, saldoM, clienteSeleccionado);
+		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarCuentas");
+		return MV;
+	}
+	
 }
