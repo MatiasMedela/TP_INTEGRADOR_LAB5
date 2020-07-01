@@ -86,10 +86,10 @@ $(document).ready(function(){
 	 document.getElementById('ApeEditId').value=array[2];
 	 //cmb genero
 	  if (array[3] == "Masculino" ){
-		  $("#GenEditId option[value=1]").attr("selected",true);
+		  $("#GenEditId option[value=2]").attr("selected",true);
 		   }else{
 			   if(array[3]=="Femenino"){
-				   $("#GenEditId option[value=2]").attr("selected",true);
+				   $("#GenEditId option[value=1]").attr("selected",true);
 				   }else{
 					   $("#GenEditId  option[value=3]").attr("selected",true);
 					}
@@ -262,8 +262,8 @@ $(document).ready(function(){
 		     <div class="form-group"> <!-- Sexo -->
 		        <label for="state_id" class="control-label">Sexo</label>
 		        <select class="form-control form-control-sm" id="GenEditId" name="GenEditName">
-		            <option value="1">Masculino</option>
-		            <option value="2">Femenino</option>
+		           <option value="1">Femenino</option>
+		            <option value="2">Masculino</option>
 		            <option value="3">Otro</option>
 		        </select>                    
 		    </div>
