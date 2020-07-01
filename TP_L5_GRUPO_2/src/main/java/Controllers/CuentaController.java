@@ -79,7 +79,7 @@ public class CuentaController {
 	}
 	
 	@RequestMapping(value="modificarCuenta.html")
-	public ModelAndView modificarCuenta(String idCuentaM, int cbxTipo, int saldoM, int clienteSeleccionado) {
+	public ModelAndView modificarCuenta(String idCuentaM, int cbxTipo, float saldoM, int clienteSeleccionado) {
 		ModelAndView MV = new ModelAndView();
 		cuentaD = new CuentaDao();
 		cuentaD.modificarCuenta(idCuentaM, cbxTipo, saldoM, clienteSeleccionado);

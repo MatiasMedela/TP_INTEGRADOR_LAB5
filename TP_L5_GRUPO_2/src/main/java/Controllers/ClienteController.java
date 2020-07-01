@@ -47,6 +47,15 @@ public class ClienteController {
 		return MV;
 	}
 	
+	@RequestMapping(value="redireccListarClientes.html")
+	public ModelAndView redireccListarClientes() {
+		ModelAndView MV = new ModelAndView();
+		ClienteDao Clidao= new ClienteDao();
+		MV.addObject("ClientesList", Clidao.ListarClientes());
+		MV.setViewName("ListarClientes");
+		return MV;
+	}
+	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"EliminarCliente"})
 	public ModelAndView redirecEliminarCliente() {
 		ModelAndView MV = new ModelAndView();

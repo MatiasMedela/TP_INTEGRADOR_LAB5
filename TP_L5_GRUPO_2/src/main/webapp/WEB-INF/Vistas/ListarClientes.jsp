@@ -106,7 +106,6 @@ $(document).ready(function(){
 									<th scope="col">Nombre y Apellido</th>
 									<th scope="col">E-mail</th>
 									<th scope="col">Telefono</th>
-									<th scope="col">Estado</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -116,7 +115,6 @@ $(document).ready(function(){
 								    <td>${ Cliente.getNombre() }, ${ Cliente.getApellido() }</td>
 								    <td>${ Cliente.getEmail() }</td>
 								    <td>${ Cliente. getTel() }</td>
-								    <td>${ Cliente.isEstado() }</td>
 								  </tr>
 								</c:forEach>
 							</tbody>

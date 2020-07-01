@@ -61,7 +61,7 @@
 						<td id="Saldo${loop.index}">${cuenta.saldo}</td>
 						<!-- <td><img src="<c:url value="resources/Imagenes/edit.png"/>" style="display:block;" id="edit" name ="edit"/></td>  -->
 						<td  class="text-center"><input type="image" src="resources/Imagenes/edit.png" id="btnAbrirModalM" value ="${cuenta.getIdCuenta()}" data-toggle="modal" data-target="#ModalEdit" onClick="llenarModal(${loop.index}, ${cuenta.tipoCuenta.idTipoCuenta }, ${cuenta.getUsuario().getDni() })"></td>
-					    <td  class="text-center"><button type="button" class="btn btn-danger btn-sm btn-delete-account" value ="${cuenta.getIdCuenta()}" id="btnAbrirModalE" data-toggle="modal" data-target="#ModalDelete">X</button></td>	
+					    <td  class="text-center"><button type="button" class="btn btn-danger btn-delete-account" value ="${cuenta.getIdCuenta()}" id="btnAbrirModalE" data-toggle="modal" data-target="#ModalDelete" onClick="modalEliminar()">X</button></td>	
 					</tr>						
 				</c:forEach>			
 			</tbody>
@@ -145,10 +145,10 @@
 						<h6>¿Está seguro que desea eliminar la cuenta?</h6>
 				</div>
 				<div class="modal-footer">
-				<form method=get action=borrarCuenta.html>
+				<form method="get" action=borrarCuenta.html>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 					<button type="submit" name="idCuenta" class="btn btn-danger" id="btnModalEliminar" value="">Eliminar</button>
-						</form>
+				</form>
 				</div>
 			</div>
 		</div>
@@ -179,10 +179,10 @@
 				<label for="full_name_id" class="control-label mt-2">Saldo</label>
 		        <input type="number" class="form-control form-control-sm" id="saldoM" name="saldoM" placeholder="10000" required>
 		        <label for="clienteSelectModal" class="control-label mt-2">Cliente</label>
-		        <input type="text" readonly class="form-control form-control-sm" id="clienteSelectModal" value="">
+		        <input type="text" readonly class="form-control form-control-sm" id="clienteSelectModal">
 		    </div>
 			<div class="col-8">
-		        			<input type="hidden" id="clienteSeleccionado" name="clienteSeleccionado" value="">		
+		    <input type="hidden" id="clienteSeleccionado" name="clienteSeleccionado" value="">		
 			<table id="TableClientesAll" class="table table-hover table-sm">
 			<thead>
 				<tr>
@@ -222,30 +222,16 @@
 	CurrentItem = document.getElementById("mnCuentas");
 	CurrentItem.className +=" active";
 
-	var editar = document.getElementById("edit");
-	
-//	editar.addEventListener("click", function(){
-//		$('#ModalDetails').modal('show');
-		
-//	}, false);
-
 	function llenarModal(id, tipoCuenta, dni){
 		$("#saldoM").val($("#Saldo" + id).html());
 		$("#state_id option[value="+tipoCuenta+"]").attr("selected", "selected");
 		$("#clienteSelectModal").val(dni + " - " + $("#Nombre" + id).html());
+		$('#btnModalModificar').val($('#btnAbrirModalM').val());		
 	};
-	
-	var eliminar = document.getElementById("delete");
 
-		$('#btnAbrirModalE').click(function() {
-			$('#btnModalEliminar').val($(this).val());
-			
-	});
-			$('#btnAbrirModalM').click(function() {
-			$('#btnModalModificar').val($(this).val());
-			
-	})
-	
+	function modalEliminar(){
+		$('#btnModalEliminar').val($("#btnAbrirModalE").val());	
+	}	
 
 	$('#TableCuentasAll').DataTable({
 		"bInfo" : false,
@@ -298,7 +284,7 @@
 		    $("#clienteSeleccionado").val(table.rows(['.selected-table']).data().pluck(0).toArray());
 		    $("#clienteSelectModal").val(table.rows(['.selected-table']).data().pluck(0).toArray() + " - " + table.rows(['.selected-table']).data().pluck(1).toArray());
 		                    
-		} );
+		});
 		
 </script>
 </html>
