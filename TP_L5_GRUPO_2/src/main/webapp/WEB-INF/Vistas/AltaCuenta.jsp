@@ -41,7 +41,7 @@
 </head>
 <body onload="cantidadPaginas()" onresize="cantidadPaginas()">
 
-<body>
+<body onClick="checkUserSelected()">
 		<!-- NAVBAR -->
 <%@ include file="NavbarAdmin.html"%>
 	<!-- END NAVBAR -->
@@ -54,7 +54,7 @@
 						<div class="form-group">
 							<!-- Tipo de cuenta -->
 							
-							<label for="state_id" class="control-label">Tipo de Cuenta</label> <select
+							<label for="state_id" class="control-label">Tipo de cuenta</label> <select
 								class="form-control" id="state_id" name="cbxTipo">
 								
 								<c:forEach items="${ listadoTipos }" var="tipos" varStatus="loop">							
@@ -66,13 +66,17 @@
 										</div>
 						<div class="form-group">
 							<!-- CBU -->
-							<label for="full_name_id" class="control-label">CBU</label>
+							<label for="full_name_id" class="control-label">CBU:</label>
 							<label for="full_name_id" class="control-label">${proxCBU}</label>
 						</div>
 						<div class="form-group">
 							<!-- CBU -->
-							<label for="full_name_id" class="control-label">Alias</label>
+							<label for="full_name_id" class="control-label">Alias:</label>
 							<label for="full_name_id" class="control-label">facultadPacheco2020</label>
+						</div>
+						<div class="form-group">
+							<label for="full_name_id" class="control-label">Saldo:</label>
+							<label for="full_name_id" class="control-label">$10.000</label>
 						</div>
 					</div>
 					<div class="col">
@@ -100,18 +104,12 @@
 				</c:forEach>			
 			</tbody>
 		</table>
-						</div>
-						<div class="form-group">
-							<!-- Direccion -->
-							<label for="full_name_id" class="control-label">Saldo</label>
-							<label for="full_name_id" class="control-label">$10.000</label>
-						</div>
-						
+						</div>						
 					</div>
 				</div>
 				<div class="form-group text-center">
 					<!-- Submit Button -->
-					<button type="submit" class="btn btn-primary">Grabar</button>
+					<button id="btnGrabar" type="submit" disabled class="btn btn-primary">Grabar</button>
 				</div>
 			</div>
 		</fieldset>
@@ -147,6 +145,14 @@
 CurrentItem = document.getElementById("mnCuentas");
 CurrentItem.className +=" active";
 
+	function checkUserSelected(){
+		if($("#clienteSeleccionado").val() != ""){
+			$("#btnGrabar").attr("disabled", false);
+		}
+		else{
+			$("#btnGrabar").attr("disabled", true);
+		}
+	}
 
 $('#TableCuentasAll').DataTable({
 	"ordering" : false,
@@ -164,31 +170,19 @@ $('#TableCuentasAll').DataTable({
 		},
 	}
 });
-
    
-var table = $('#TableCuentasAll').DataTable();  
-    
+var table = $('#TableCuentasAll').DataTable();   
     
 $('#TableCuentasAll tbody').on( 'click', 'tr', function () {
-	
 	if ( $(this).hasClass('selected-table') ) {
        // $(this).removeClass('selected');
-
     }
     else {
         table.$('tr.selected-table').removeClass('selected-table');
         $(this).addClass('selected-table');
-
     }
- 
-    //$(this).toggleClass('selected');
-			
-          $("#clienteSeleccionado").val(table.rows(['.selected-table']).data().pluck(0).toArray());
-                    
-} );
-    
-
-	
+    //$(this).toggleClass('selected');		
+     $("#clienteSeleccionado").val(table.rows(['.selected-table']).data().pluck(0).toArray());                  
+});	
 </script>
-
 </html>

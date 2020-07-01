@@ -37,11 +37,12 @@
 		<!-- NAVBAR -->
 <%@ include file="NavbarAdmin.html"%>
 	<!-- END NAVBAR -->
-
+	<div style="padding: 20px">
+<fieldset class="border p-2">
+	<legend class="w-auto">Cuentas</legend>
 	<div class="container-md">
-		<h3 style="margin-top: 20px;">Cuentas</h3>
 		<table id="TableCuentasAll" class="table">
-			<thead>
+			<thead class="thead-dark">
 				<tr>
 					<th scope="col">Tipo de cuenta</th>
 					<th scope="col">Nombre cliente</th>
@@ -59,7 +60,7 @@
 						<td id="Moneda${loop.index}">${cuenta.tipoCuenta.moneda}</td>
 						<td id="Saldo${loop.index}">${cuenta.saldo}</td>
 						<!-- <td><img src="<c:url value="resources/Imagenes/edit.png"/>" style="display:block;" id="edit" name ="edit"/></td>  -->
-						<td  class="text-center"><input type="image" src="resources/Imagenes/edit.png" id="btnAbrirModalM" value ="${cuenta.getIdCuenta()}" data-toggle="modal" data-target="#ModalEdit" onClick="llenarModal(${loop.index})"></td>
+						<td  class="text-center"><input type="image" src="resources/Imagenes/edit.png" id="btnAbrirModalM" value ="${cuenta.getIdCuenta()}" data-toggle="modal" data-target="#ModalEdit" onClick="llenarModal(${loop.index}, ${cuenta.tipoCuenta.idTipoCuenta }, ${cuenta.getUsuario().getDni() })"></td>
 					    <td  class="text-center"><button type="button" class="btn btn-danger btn-sm btn-delete-account" value ="${cuenta.getIdCuenta()}" id="btnAbrirModalE" data-toggle="modal" data-target="#ModalDelete">X</button></td>	
 					</tr>						
 				</c:forEach>			
@@ -67,6 +68,8 @@
 		</table>
 
 	</div>
+</fieldset>
+</div>
 	
 		<div class="modal fade" id="ModalDetails" tabindex="-1" role="dialog"
 		aria-labelledby="ModalDetailsAccount" aria-hidden="true">
@@ -132,20 +135,18 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">Eliminar Cuenta</h5>
+					<h5 class="modal-title" id="exampleModalLongTitle">Eliminar cuenta</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
-					<div class="row">
-						<h4>¿Estás seguro que desea eliminar la cuenta?</h4>
-					</div>
+						<h6>¿Está seguro que desea eliminar la cuenta?</h6>
 				</div>
 				<div class="modal-footer">
 				<form method=get action=borrarCuenta.html>
-					<button type="button" class="btn btn-secondary data-dismiss="modal"" >Cancelar</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 					<button type="submit" name="idCuenta" class="btn btn-danger" id="btnModalEliminar" value="">Eliminar</button>
 						</form>
 				</div>
@@ -175,13 +176,14 @@
 								<option value="${tipos.idTipoCuenta}">${tipos.descripcion}</option>					
 							    </c:forEach>
 							</select>	     
-				<label for="full_name_id" class="control-label">Saldo</label>
+				<label for="full_name_id" class="control-label mt-2">Saldo</label>
 		        <input type="number" class="form-control form-control-sm" id="saldoM" name="saldoM" placeholder="10000" required>
+		        <label for="clienteSelectModal" class="control-label mt-2">Cliente</label>
+		        <input type="text" readonly class="form-control form-control-sm" id="clienteSelectModal" value="">
 		    </div>
 			<div class="col-8">
-
 		        			<input type="hidden" id="clienteSeleccionado" name="clienteSeleccionado" value="">		
-			<table id="TableClientesAll" class="table table-hover">
+			<table id="TableClientesAll" class="table table-hover table-sm">
 			<thead>
 				<tr>
 				<th scope="col">DNI</th>
@@ -203,8 +205,8 @@
 				</div>
 				<div class="modal-footer">
 				
-					<button type="button" class="btn btn-secondary data-dismiss="modal"" >Cancelar</button>
-					<button type="submit" name="idCuentaM" class="btn btn-danger" id="btnModalModificar" value="">Grabar</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="submit" name="idCuentaM" class="btn btn-primary" id="btnModalModificar" value="">Grabar</button>
 						
 				</div>
 				</form>
@@ -227,8 +229,10 @@
 		
 //	}, false);
 
-	function llenarModal(id){
-		
+	function llenarModal(id, tipoCuenta, dni){
+		$("#saldoM").val($("#Saldo" + id).html());
+		$("#state_id option[value="+tipoCuenta+"]").attr("selected", "selected");
+		$("#clienteSelectModal").val(dni + " - " + $("#Nombre" + id).html());
 	};
 	
 	var eliminar = document.getElementById("delete");
@@ -237,7 +241,6 @@
 			$('#btnModalEliminar').val($(this).val());
 			
 	});
-	
 			$('#btnAbrirModalM').click(function() {
 			$('#btnModalModificar').val($(this).val());
 			
@@ -245,7 +248,6 @@
 	
 
 	$('#TableCuentasAll').DataTable({
-		"ordering" : false,
 		"bInfo" : false,
 		"lengthChange" : false,
 		"dom" : '<"pull-left"f>rtip',
@@ -281,24 +283,20 @@
 		});
 	
 		
-		var table = $('#TableClientesAll').DataTable();  
-	    
+		var table = $('#TableClientesAll').DataTable();    
 	    
 		$('#TableClientesAll tbody').on( 'click', 'tr', function () {
 			
 			if ( $(this).hasClass('selected-table') ) {
 		       // $(this).removeClass('selected');
-
 		    }
 		    else {
 		        table.$('tr.selected-table').removeClass('selected-table');
 		        $(this).addClass('selected-table');
-
 		    }
-		 
-		    //$(this).toggleClass('selected');
-					
-		          $("#clienteSeleccionado").val(table.rows(['.selected-table']).data().pluck(0).toArray());
+		    //$(this).toggleClass('selected');	
+		    $("#clienteSeleccionado").val(table.rows(['.selected-table']).data().pluck(0).toArray());
+		    $("#clienteSelectModal").val(table.rows(['.selected-table']).data().pluck(0).toArray() + " - " + table.rows(['.selected-table']).data().pluck(1).toArray());
 		                    
 		} );
 		
