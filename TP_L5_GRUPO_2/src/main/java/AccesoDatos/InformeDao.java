@@ -12,14 +12,12 @@ public class InformeDao {
 			Session session = ch.abrirConexion();				
 			ArrayList<String> informe = new ArrayList<String>();
 			String PresAutorizados = (String) session.createQuery("SELECT count(p) FROM Prestamo as p "
-														+ "INNER JOIN p.movimiento as m "
-														+ "WHERE p.estado = 1 AND m.Fecha between :stFecha AND :edFecha ")
+														+ "WHERE p.estado = 1 AND p.fechaResolucion between :stFecha AND :edFecha ")
 														.setDate("stFecha", FechaInicio)
 														.setDate("edFecha", FechaFinal).uniqueResult().toString();
 			
 			String PresNoAutorizados = (String) session.createQuery("SELECT count(p) FROM Prestamo as p "
-																  + "INNER JOIN p.movimiento as m "
-																  + "WHERE p.estado = 2 AND m.Fecha between :stFecha AND :edFecha ")
+																  + "WHERE p.estado = 2 AND p.fechaResolucion between :stFecha AND :edFecha ")
 																  .setDate("stFecha", FechaInicio)
 																  .setDate("edFecha", FechaFinal).uniqueResult().toString();
 			informe.add(PresAutorizados);

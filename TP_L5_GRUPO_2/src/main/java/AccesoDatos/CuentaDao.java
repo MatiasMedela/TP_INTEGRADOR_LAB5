@@ -124,8 +124,6 @@ public class CuentaDao {
 		String c = (String) session.createQuery("Select MAX(c.cbu) FROM Cuenta as c").uniqueResult().toString();
 		c = c.substring(0,c.length()-2);
 		res = Integer.parseInt(c) +1;
-		//fn = res.toString();
-		
 		fmt.format("%022d",res);
 		fn = fmt.toString();
     	ch.cerrarSession();

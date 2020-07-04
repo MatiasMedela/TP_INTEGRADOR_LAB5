@@ -78,15 +78,7 @@
 		<property name="contrasenia" value="Default"></property>
 		<property name="usuario" ref="BUsuario"></property>
 	</bean>
-	
-	<!--BEAN MOVIMIENTO -->
-	<bean id="BMovimiento" class="Dominio.Movimiento" scope="prototype">
-		<property name="tipoMovimiento" ref="BTipo_Movimiento"></property>
-		<property name="cbuOrigen" value="-1"></property>
-		<property name="Fecha" value="1975-04-10"></property>
-		<property name="importe" value="-1"></property>
-	</bean>
-	
+		
 	<!--BEAN CUENTA -->
 	<bean id="BCuenta" class="Dominio.Cuenta" scope="prototype">
 		<property name="idCuenta" value="-1"></property>
@@ -98,7 +90,18 @@
 		<property name="alias" value="Default"></property>
 		<property name="estado" value="1"></property>
 	</bean>
-		<!-- BEAN EstadoPrestamo -->
+	
+	<!--BEAN MOVIMIENTO -->
+	<bean id="BMovimiento" class="Dominio.Movimiento" scope="prototype">
+		<property name="tipoMovimiento" ref="BTipo_Movimiento"></property>
+		<property name="cuentaOrigen" ref="BCuenta"></property>
+		<property name="cuentaDestino"><null/></property>
+		<property name="Fecha" value="1975-04-10"></property>
+		<property name="importe" value="-1"></property>
+		<property name="motivo" value="Default"></property>
+	</bean>
+
+		<!-- BEAN ESTADOPRESTAMO -->
 	<bean id="BEstadoPrestamo" class="Dominio.EstadoPrestamo" scope="prototype">
 		<property name="id" value="-1"></property>
 		<property name="descripcion" value="Default"></property>
@@ -110,6 +113,8 @@
 		<property name="movimiento" value="#{ null }"></property>
 		<property name="cantidadMeses" value="-1"></property>
 		<property name="importeTotal" value="-1"></property>
+		<property name="fechaSolicitud" value="#{ null }"></property>
+		<property name="fechaResolucion" value="#{ null }"></property>
 		<property name="estado" ref="BEstadoPrestamo"></property>
 		<property name="montoPagar" value="-1"></property>
 		<property name="cbu" ref="BCuenta"></property>
@@ -120,13 +125,6 @@
 		<property name="numeroCuota" value="-1"></property>
 		<property name="prestamo" ref="BPrestamo"></property>
 		<property name="movimiento" ref="BMovimiento"></property>
-	</bean>
-	
-	<!--BEAN TRANSFERENCIA -->
-	<bean id="BTransferencia" class="Dominio.Transferencia" scope="prototype">
-		<property name="idTransferencia" value="-1"></property>
-		<property name="movimiento" ref="BMovimiento"></property>
-	    <property name="cbuDestino" value="-1"></property>
 	</bean>
 	
 </beans>

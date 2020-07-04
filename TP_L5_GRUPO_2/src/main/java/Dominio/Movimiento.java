@@ -14,9 +14,11 @@ public class Movimiento implements Serializable,PropertyEditorRegistrar{
 	//Atributos
 	private int idMovimiento;
 	private Tipo_Movimiento tipoMovimiento;
-	private double cbuOrigen;
-	private Date Fecha;
+	private Cuenta cuentaOrigen;
+	private Cuenta cuentaDestino;
+	private Date fecha;
 	private float importe;
+	private String motivo;
 	
 	//Constructor
 	public Movimiento()
@@ -24,22 +26,22 @@ public class Movimiento implements Serializable,PropertyEditorRegistrar{
 		
 	}
 	
-	public Movimiento(int id,Tipo_Movimiento tipoMovimiento,double cbuOrigen,Date fecha,float importe)
+	public Movimiento(int id,Tipo_Movimiento tipoMovimiento, Cuenta cuentaOrigen,Date fecha,float importe)
 	{
 		this.idMovimiento = id;
 		this.tipoMovimiento = tipoMovimiento;
-		this.cbuOrigen = cbuOrigen;
-		this.Fecha = fecha;
+		this.cuentaOrigen = cuentaOrigen;
+		this.fecha = fecha;
 		this.importe = importe;
 		
 	}
 	
-	public Movimiento(Tipo_Movimiento tipoMovimiento,double cbuOrigen,Date fecha,float importe)
+	public Movimiento(Tipo_Movimiento tipoMovimiento,Cuenta cuentaOrigen,Date fecha,float importe)
 	{
 
 		this.tipoMovimiento = tipoMovimiento;
-		this.cbuOrigen = cbuOrigen;
-		this.Fecha = fecha;
+		this.cuentaOrigen = cuentaOrigen;
+		this.fecha = fecha;
 		this.importe = importe;
 	}
 	
@@ -58,22 +60,30 @@ public class Movimiento implements Serializable,PropertyEditorRegistrar{
 
 	public void setTipoMovimiento(Tipo_Movimiento tipoMovimiento) {
 		this.tipoMovimiento = tipoMovimiento;
+	}	
+
+	public Cuenta getCuentaOrigen() {
+		return cuentaOrigen;
 	}
 
-	public double getCbuOrigen() {
-		return cbuOrigen;
+	public void setCuentaOrigen(Cuenta cuentaOrigen) {
+		this.cuentaOrigen = cuentaOrigen;
 	}
 
-	public void setCbuOrigen(double cbuOrigen) {
-		this.cbuOrigen = cbuOrigen;
+	public Cuenta getCuentaDestino() {
+		return cuentaDestino;
+	}
+
+	public void setCuentaDestino(Cuenta cuentaDestino) {
+		this.cuentaDestino = cuentaDestino;
 	}
 
 	public Date getFecha() {
-		return Fecha;
+		return fecha;
 	}
 
 	public void setFecha(Date fecha) {
-		Fecha = fecha;
+		this.fecha = fecha;
 	}
 
 	public float getImporte() {
@@ -88,5 +98,15 @@ public class Movimiento implements Serializable,PropertyEditorRegistrar{
 		registry.registerCustomEditor(Date.class, 
                 new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), false));
 	}
+	
+	public String getMotivo() {
+		return motivo;
+	}
+	
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
+	
 	//Métodos
+
 }

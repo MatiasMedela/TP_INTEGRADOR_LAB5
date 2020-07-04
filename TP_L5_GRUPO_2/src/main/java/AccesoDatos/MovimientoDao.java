@@ -1,34 +1,89 @@
 package AccesoDatos;
 
+import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 
 import org.hibernate.Session;
 
+import Dominio.Movimiento;
+
 @SuppressWarnings("unchecked")
 public class MovimientoDao {
 	
-	public List<Object[]> movimientosxUsuario(String legajoUsuario) {
+	public List<Movimiento> movimientosxUsuario(String legajoUsuario) {
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
-		List<Object[]> listado = (List<Object[]>) session.createQuery("SELECT m, t.cbuDestino FROM Movimiento m, Cuenta c, Transferencia t "
-																		+ "WHERE (c.usuario = " + legajoUsuario + " and (c.cbu = m.cbuOrigen OR t.movimiento = m.idMovimiento)) AND "
-																		+ "(c.usuario = " + legajoUsuario + " AND t.cbuDestino in (SELECT c.cbu from Cuenta c where c.usuario = "+legajoUsuario+") AND "
-																		+ "m.cbuOrigen <> t.cbuDestino) "
-																		+ "group by m.idMovimiento").list();
-		
+		List<Movimiento> listado = (List<Movimiento>) session.createQuery("SELECT m FROM Movimiento m "
+																		+ "INNER JOIN m.cuentaOrigen as c "
+																		+ "INNER JOIN c.usuario as u "
+																		+ "where u.IdUsu = " + legajoUsuario).list();
     	ch.cerrarSession();
 	    return listado;		
 	}	
 
-	public List<Object[]> movimientosxCuenta(String Cbu) {
+	public List<Movimiento> movimientosxCuenta(int idCuenta) {
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
-		List<Object[]> listado = (List<Object[]>) session.createQuery("SELECT m, t.cbuDestino FROM Transferencia as t "
-																	+ "RIGHT JOIN t.movimiento as m "
-																	+ "WHERE m.cbuOrigen = '"+Cbu+"' OR t.cbuDestino = '"+Cbu+"' "
-																	+ "order by m.Fecha desc").list();
-		
+		List<Movimiento> listado = (List<Movimiento>) session.createQuery("SELECT m FROM Movimiento as m "
+																		+ "INNER JOIN m.cuentaOrigen as co "
+																		+ "INNER JOIN m.cuentaDestino as cd "
+																		+ "WHERE co.idCuenta = :IDCuenta OR cd.idCuenta = :IDCuenta "
+																		+ "order by m.Fecha desc").setParameter("IDCuenta", idCuenta).list();
     	ch.cerrarSession();
+	    return listado;		
+	}
+	
+	
+	public void agregarTransferencia(Movimiento mov) {
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		
+		session.beginTransaction();
+		session.save(mov);
+		session.getTransaction().commit();
+		ch.cerrarSession();
+	}
+	
+	
+	public ArrayList<Object[]> transferenciasxMes(int yearSelect) {
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		ArrayList<Object[]> listado = null;
+		try {	
+			listado = (ArrayList<Object[]>) session.createQuery("SELECT month(m.Fecha), count(m.idMovimiento) FROM Movimiento m "
+																+ "where m.cuentaDestino is not null AND year(m.Fecha) = :añoSelect "
+																+ "group by month(m.Fecha) "
+																+ "order by month(m.Fecha) asc")
+																.setInteger("añoSelect", yearSelect).list();
+		}catch(Exception e){
+			System.out.println(e.toString());
+			return listado;
+		}finally {
+			ch.cerrarSession();			
+		}
+		
+	    return listado;		
+	}	
+	
+	public ArrayList<Object[]> transferenciasxUsuario(int IDUsuario) {
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		ArrayList<Object[]> listado = null;
+		try {	
+			listado = (ArrayList<Object[]>) session.createQuery("SELECT DATE_FORMAT(m.Fecha,'%d/%c/%Y'), co.cbu, cd.cbu, m.importe FROM Movimiento m "
+																		+ "INNER JOIN m.cuentaOrigen as co "
+																		+ "INNER JOIN m.cuentaDestino as cd "
+																		+ "where m.cuentaOrigen in (FROM Cuenta c where c.usuario = :IDUser) "
+																		+ "OR m.cuentaDestino in (FROM Cuenta c where c.usuario = :IDUser)")
+																		.setInteger("IDUser", IDUsuario).list();
+		}catch(Exception e){
+			System.out.println(e.toString());
+			return listado;
+		}finally {
+			ch.cerrarSession();			
+		}
+		
 	    return listado;		
 	}
 }

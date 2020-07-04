@@ -19,6 +19,21 @@
 		<property name="prefix" value="WEB-INF/Vistas/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+		
+	<!-- BEAN MOVIMIENTO NEGOCIO -->
+	<bean id="BMovimientoN" scope="singleton" class="Negocio.MovimientoNegocio"/>
+	
+	<!-- BEAN MOVIMIENTO DAO  -->
+	<bean id="BMovimientoDao" scope="singleton" class="AccesoDatos.MovimientoDao"/>
+	
+	<!-- BEAN CUENTA NEGOCIO -->
+	<bean id="BCuentaN" scope="singleton" class="Negocio.CuentaNegocio"/>
+	
+	<!-- BEAN CUENTA DAO -->
+	<bean id="BCuentaDao" scope="singleton" class="AccesoDatos.CuentaDao"/>
+	
+	<!-- BEAN TIPO MOVIMIENTO DAO -->
+	<bean id="BTipoMovimientoDao" scope="singleton" class="AccesoDatos.TipoMovimientoDao"/>
 	
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 

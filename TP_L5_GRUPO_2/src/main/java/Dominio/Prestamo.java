@@ -1,6 +1,7 @@
 package Dominio;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Prestamo implements Serializable {
 
@@ -13,6 +14,8 @@ public class Prestamo implements Serializable {
 	private Movimiento movimiento;
 	private int cantidadMeses;
 	private float importeTotal;
+	private Date fechaSolicitud;
+	private Date fechaResolucion;
 	private EstadoPrestamo estado;
 	private float montoPagar;
 	
@@ -109,6 +112,22 @@ public class Prestamo implements Serializable {
 
 	public void setMontoPagar(float montoPagar) {
 		this.montoPagar = montoPagar;
+	}
+
+	public Date getFechaSolicitud() {
+		return fechaSolicitud;
+	}
+
+	public void setFechaSolicitud(Date fechaSolicitud) {
+		this.fechaSolicitud = fechaSolicitud;
+	}
+
+	public Date getFechaResolucion() {
+		return fechaResolucion;
+	}
+
+	public void setFechaResolucion(Date fechaResolucion) {
+		this.fechaResolucion = fechaResolucion;
 	}
 	
 	

@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <link rel="stylesheet"
@@ -24,7 +25,7 @@
 
 	<!-- CONTENT -->
 <div class="container-md">
-<form style="padding: 20px">
+<form id="formTransferencia" action="nuevaTransferencia.html" method="post" style="padding: 20px">
 <fieldset class="border p-2">
 <legend class="w-auto">Nueva transferencia - Cuenta propia</legend>
   <div class="form-group" >
@@ -33,52 +34,95 @@
   <div class="input-group-prepend">
     <label class="input-group-text" for="inputGroupSelect01">Cuenta</label>
   </div>
-  <select class="custom-select" id="inputGroupSelect01">
-    <option selected>CA - 2154-135977/2 - CUENTA - PESOS: $10.000,00</option>
-    <option value="1">CA - 2154-186273/4 - CUENTA - DOLARES: U$D 1.000,00</option>
-
+  <select name="cuentaOrigen" class="custom-select" id="cuentaOrigen">
+  <c:forEach items="${cuentasUsuario}" var="cuentaO">
+    <option value="${cuentaO.idCuenta}">${cuentaO.tipoCuenta.descripcion} - ${cuentaO.alias} - <fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${cuentaO.cbu}"/> - ${cuentaO.tipoCuenta.moneda} : $ <fmt:formatNumber type="number" maxFractionDigits="2" value="${cuentaO.saldo}" /></option>
+  </c:forEach>
   </select>
 </div>
   </div>
-
   <div class="form-group">
     <label for="cuentaAc">Cuenta a acreditar</label>
 <div class="input-group mb-3">
   <div class="input-group-prepend">
-    <label class="input-group-text" for="inputGroupSelect01">Cuenta</label>
+    <label class="input-group-text" for="cuentaDestino">Cuenta</label>
   </div>
-  <select class="custom-select" id="inputGroupSelect01">
-    <option selected>CA - 2154-135977/2 - CUENTA - PESOS: $10.000,00</option>
-    <option value="1">CA - 2154-186273/4 - CUENTA - DOLARES: U$D 1.000,00</option>
-
+  <select class="custom-select" name="cuentaDestino" id="cuentaDestino">
+  <c:forEach items="${cuentasUsuario}" var="cuentaD">
+    <option value="${cuentaD.idCuenta}">${cuentaD.tipoCuenta.descripcion} - ${cuentaD.alias} - <fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${cuentaD.cbu}"/> - ${cuentaD.tipoCuenta.moneda} : $ <fmt:formatNumber type="number" maxFractionDigits="2" value="${cuentaD.saldo}" /></option>
+  </c:forEach>
   </select>
 </div>
   </div>
-
   <div class="form-group">
     <label for="formGroupImporte">Importe</label>
-    <input type="text" class="form-control" id="formGroupImporte" placeholder="1000">
+    <input name="importe" type="text" class="form-control" id="formGroupImporte" placeholder="1000">
   </div>
-  
     <div class="form-group">
     <label for="formGroupMotivo">Motivo</label>
-    <input type="text" class="form-control" id="formGroupMotivo" placeholder="Varios">
+    <input name="motivo" type="text" class="form-control" id="formGroupMotivo" placeholder="Varios">
   </div>
-
   <div class="form-group form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
     <label class="form-check-label" for="exampleCheck1">Acepto los términos y condiciones</label>
   </div>
-  </br>		
-  <button type="submit" class="btn btn-primary btn-lg btn-block">Transferir</button>
+  <button id="btnTransferir" type="button" onClick="verificarCuentasDistintas()" class="btn btn-primary btn-lg btn-block">Transferir</button>
   </fieldset>
 </form>
 </div>
 
+<div id="confirmarModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar transferencia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-6 text-right">
+        		<p>Cuenta a debitar:</p>
+        		<p>Cuenta a acreditar:</p>
+        		<p>Importe:</p>
+        		<p>Motivo:</p>
+        	</div>
+        	<div class="col-6">
+        		<p id="modalCuentaO"></p>
+        		<p id="modalCuentaD"></p>
+        		<p id="modalImporte"></p>
+        		<p id="modalMotivo"></p>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Transferir</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-	</div>
 	<!-- END CONTENT -->
 
 </body>
+<script type="text/javascript">
+   function verificarCuentasDistintas(){
+	   var origen = $("#cuentaOrigen").children("option:selected").val();
+	   var destino = $("#cuentaDestino").children("option:selected").val();
+	   if(origen == destino){
+		   alert("Ambas cuentas seleccionadas son la misma, seleccione diferentes cuentas!")
+	   }
+	   else{
+		   $("#modalCuentaO").html();
+		   $("#modalCuentaD").html();
+		   $("#modalImporte").html();
+		   $("#modalMotivo").html();
+		   $("#confirmarModal").modal("toggle");
+	   }
+   }
+
+		  /*  $("#formTransferencia").submit(); */
+</script>
 </html>

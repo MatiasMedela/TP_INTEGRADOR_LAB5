@@ -1,6 +1,7 @@
 package AccesoDatos;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import Dominio.Usuario;
 public class PrestamoDao {
 	private ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
     HttpServletRequest request;
+    
 	public boolean cargarPrestamo(float importeTotal, int meses, float montoPagar, int idCuenta) {
 		ConfigHibernate ch = new ConfigHibernate();
 		UsuarioDao userDao = new UsuarioDao();
@@ -35,6 +37,7 @@ public class PrestamoDao {
 		nuevo.setImporteTotal(importeTotal);
 		nuevo.setMontoPagar(montoPagar);
 		nuevo.setCantidadMeses(meses);
+		nuevo.setFechaSolicitud(new Date());
 		nuevo.setEstado(estado);
 		nuevo.setUsuario(user);
 		nuevo.setCbu(cuentaDao.buscarCuenta(idCuenta));

@@ -11,15 +11,19 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import AccesoDatos.InformeDao;
-import AccesoDatos.TransferenciaDao;
+import AccesoDatos.MovimientoDao;
 
 @Controller
 public class InformeController {
+	
+	@Autowired
+	private MovimientoDao movDao;
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"informes"})
 	public ModelAndView redirecInformes() throws ParseException {
@@ -62,8 +66,7 @@ public class InformeController {
 	}
 	
 	public List<String[]> filtrarTransferenciasAnio(int anio){
-		TransferenciaDao transDao = new TransferenciaDao();
-		ArrayList<Object[]> informeTransferencias = transDao.transferenciasxMes(anio);
+		ArrayList<Object[]> informeTransferencias = movDao.transferenciasxMes(anio);
 		ArrayList<String[]> informeMeses = new ArrayList<String[]>();
 		Integer mes = 1;
 		int count = 0;

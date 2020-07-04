@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <link rel="stylesheet"
@@ -65,8 +66,8 @@
 			    <c:forEach items="${listadoTransferencias}" var="transfer" varStatus="loop">
 					<tr>
 						<td>${transfer[0]}</td>
-						<td>${transfer[1]}</td>
-						<td>${transfer[2]}</td>
+						<td><fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${transfer[1]}"/></td>
+						<td><fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${transfer[2]}"/></td>
 						<td>${transfer[3]}</td>
 					</tr>
 			    </c:forEach>

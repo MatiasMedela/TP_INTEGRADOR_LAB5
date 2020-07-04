@@ -11,14 +11,20 @@
         <many-to-one name="tipoMovimiento" class="Dominio.Tipo_Movimiento" lazy="false">
             <column name="ID_TIPOMOVIMIENTO" />
         </many-to-one>
-        <property name="cbuOrigen" type="double">
-            <column name="CBU_ORIGEN" />
-        </property>
+        <many-to-one name="cuentaOrigen" class="Dominio.Cuenta" lazy="false">
+            <column name="ID_CUENTAORIGEN" />
+        </many-to-one>
+        <many-to-one name="cuentaDestino" class="Dominio.Cuenta" lazy="false">
+            <column name="ID_CUENTADESTINO" />
+        </many-to-one>
         <property name="Fecha" type="java.util.Date">
             <column name="FECHA" />
         </property>
         <property name="importe" type="float">
             <column name="IMPORTE" />
+        </property>
+        <property name="motivo" type="java.lang.String">
+            <column name="MOTIVO" />
         </property>
     </class>
 </hibernate-mapping>

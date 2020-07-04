@@ -262,17 +262,12 @@ public class App {
     	
     	Tipo_Movimiento tipoMovimient4 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
     	tipoMovimient4.setIdTipoMovimiento(4);
-    	tipoMovimient4.setDescripcion("Acreditar transferencia");
-    	
-    	Tipo_Movimiento tipoMovimient5 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
-    	tipoMovimient5.setIdTipoMovimiento(5);
-    	tipoMovimient5.setDescripcion("Debitar transferencia");
+    	tipoMovimient4.setDescripcion("Transferencia");
     	
     	session.save(tipoMovimient1);
     	session.save(tipoMovimient2);
     	session.save(tipoMovimient3);
     	session.save(tipoMovimient4);
-    	session.save(tipoMovimient5); 
     	//---------------------------------------------------------------
     	/*--CARGO DATOS TABLA LOCALIDAD*/
     	Localidad local1 = (Localidad) appContext.getBean("BLocalidad");
@@ -670,70 +665,70 @@ public class App {
     	Movimiento movimiento1 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento1.setIdMovimiento(1);
     	movimiento1.setTipoMovimiento(tipoMovimient1);
-    	movimiento1.setCbuOrigen(cuenta1.getCbu());
+    	movimiento1.setCuentaOrigen(cuenta1);
     	movimiento1.setFecha(cuenta1.getfechaCreacion());
     	movimiento1.setImporte(cuenta1.getSaldo());
     	
     	Movimiento movimiento2 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento2.setIdMovimiento(2);
     	movimiento2.setTipoMovimiento(tipoMovimient1);
-    	movimiento2.setCbuOrigen(cuenta2.getCbu());
+    	movimiento2.setCuentaOrigen(cuenta2);
     	movimiento2.setFecha(cuenta2.getfechaCreacion());
     	movimiento2.setImporte(cuenta2.getSaldo());
     	
     	Movimiento movimiento3 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento3.setIdMovimiento(3);
     	movimiento3.setTipoMovimiento(tipoMovimient1);
-    	movimiento3.setCbuOrigen(cuenta3.getCbu());
+    	movimiento3.setCuentaOrigen(cuenta3);
     	movimiento3.setFecha(cuenta3.getfechaCreacion());
     	movimiento3.setImporte(cuenta3.getSaldo());
     	
     	Movimiento movimiento4 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento4.setIdMovimiento(4);
     	movimiento4.setTipoMovimiento(tipoMovimient1);
-    	movimiento4.setCbuOrigen(cuenta4.getCbu());
+    	movimiento4.setCuentaOrigen(cuenta4);
     	movimiento4.setFecha(cuenta4.getfechaCreacion());
     	movimiento4.setImporte(cuenta4.getSaldo());
     	
     	Movimiento movimiento5 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento5.setIdMovimiento(5);
     	movimiento5.setTipoMovimiento(tipoMovimient1);
-    	movimiento5.setCbuOrigen(cuenta5.getCbu());
+    	movimiento5.setCuentaOrigen(cuenta5);
     	movimiento5.setFecha(cuenta5.getfechaCreacion());
     	movimiento5.setImporte(cuenta5.getSaldo());
     	
     	Movimiento movimiento6 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento6.setIdMovimiento(6);
     	movimiento6.setTipoMovimiento(tipoMovimient1);
-    	movimiento6.setCbuOrigen(cuenta6.getCbu());
+    	movimiento6.setCuentaOrigen(cuenta6);
     	movimiento6.setFecha(cuenta6.getfechaCreacion());
     	movimiento6.setImporte(cuenta6.getSaldo());
     	
     	Movimiento movimiento7 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento7.setIdMovimiento(7);
     	movimiento7.setTipoMovimiento(tipoMovimient1);
-    	movimiento7.setCbuOrigen(cuenta7.getCbu());
+    	movimiento7.setCuentaOrigen(cuenta7);
     	movimiento7.setFecha(cuenta7.getfechaCreacion());
     	movimiento7.setImporte(cuenta7.getSaldo());
     	
     	Movimiento movimiento8 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento8.setIdMovimiento(8);
     	movimiento8.setTipoMovimiento(tipoMovimient1);
-    	movimiento8.setCbuOrigen(cuenta8.getCbu());
+    	movimiento8.setCuentaOrigen(cuenta8);
     	movimiento8.setFecha(cuenta8.getfechaCreacion());
     	movimiento8.setImporte(cuenta8.getSaldo());
     	
     	Movimiento movimiento9 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento9.setIdMovimiento(9);
     	movimiento9.setTipoMovimiento(tipoMovimient1);
-    	movimiento9.setCbuOrigen(cuenta9.getCbu());
+    	movimiento9.setCuentaOrigen(cuenta9);
     	movimiento9.setFecha(cuenta9.getfechaCreacion());
     	movimiento9.setImporte(cuenta9.getSaldo());
     	
     	Movimiento movimiento10 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento10.setIdMovimiento(10);
     	movimiento10.setTipoMovimiento(tipoMovimient1);
-    	movimiento10.setCbuOrigen(cuenta10.getCbu());
+    	movimiento10.setCuentaOrigen(cuenta10);
     	movimiento10.setFecha(cuenta10.getfechaCreacion());
     	movimiento10.setImporte(cuenta10.getSaldo());
     	
@@ -741,43 +736,46 @@ public class App {
     	
     	Movimiento movimiento11 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento11.setIdMovimiento(11);
-    	movimiento11.setTipoMovimiento(tipoMovimient5);
-    	movimiento11.setCbuOrigen(cuenta1.getCbu());
+    	movimiento11.setTipoMovimiento(tipoMovimient4);
+    	movimiento11.setCuentaOrigen(cuenta1);
+    	movimiento11.setCuentaDestino(cuenta3);
     	movimiento11.setFecha(format.parse("2020-06-23 00:00:00"));
     	movimiento11.setImporte(3500);
     	
     	Movimiento movimiento12 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento12.setIdMovimiento(12);
-    	movimiento12.setTipoMovimiento(tipoMovimient5);
-    	movimiento12.setCbuOrigen(cuenta2.getCbu());
+    	movimiento12.setTipoMovimiento(tipoMovimient4);
+    	movimiento12.setCuentaOrigen(cuenta2);
+    	movimiento12.setCuentaDestino(cuenta1);
     	movimiento12.setFecha(format.parse("2020-06-24 00:00:00"));
     	movimiento12.setImporte(6000);
     	
     	Movimiento movimiento13 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento13.setIdMovimiento(13);
     	movimiento13.setTipoMovimiento(tipoMovimient2);
-    	movimiento13.setCbuOrigen(cuenta1.getCbu());
+    	movimiento13.setCuentaOrigen(cuenta1);
     	movimiento13.setFecha(format.parse("2020-06-25 00:00:00"));
     	movimiento13.setImporte(60000);
     	
     	Movimiento movimiento14 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento14.setIdMovimiento(14);
     	movimiento14.setTipoMovimiento(tipoMovimient2);
-    	movimiento14.setCbuOrigen(cuenta3.getCbu());
+    	movimiento14.setCuentaOrigen(cuenta3);
     	movimiento14.setFecha(format.parse("2020-05-25 00:00:00"));
     	movimiento14.setImporte(35000);
     	
     	Movimiento movimiento15 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento15.setIdMovimiento(15);
     	movimiento15.setTipoMovimiento(tipoMovimient2);
-    	movimiento15.setCbuOrigen(cuenta5.getCbu());
+    	movimiento15.setCuentaOrigen(cuenta5);
     	movimiento15.setFecha(format.parse("2020-03-15 00:00:00"));
     	movimiento15.setImporte(75000);
     	
     	Movimiento movimiento16 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento16.setIdMovimiento(16);
-    	movimiento16.setTipoMovimiento(tipoMovimient5);
-    	movimiento16.setCbuOrigen(cuenta4.getCbu());
+    	movimiento16.setTipoMovimiento(tipoMovimient4);
+    	movimiento16.setCuentaOrigen(cuenta4);
+    	movimiento16.setCuentaDestino(cuenta5);
     	movimiento16.setFecha(format.parse("2020-04-25 00:00:00"));
     	movimiento16.setImporte(25600);
   	
@@ -797,24 +795,6 @@ public class App {
     	session.save(movimiento14);
     	session.save(movimiento15);
     	session.save(movimiento16);
-
-    	//----------------------------------------------------------------
-    	/*--CARGO DATOS EN LA TABLA TRANSFERENCIAS--*/
-    	Transferencia transferencia1 = (Transferencia) appContext.getBean("BTransferencia");
-    	transferencia1.setCbuDestino(3);
-    	transferencia1.setMovimiento(movimiento11);
-    	
-    	Transferencia transferencia2 = (Transferencia) appContext.getBean("BTransferencia");
-    	transferencia2.setCbuDestino(1);
-    	transferencia2.setMovimiento(movimiento12);
-    	
-    	Transferencia transferencia3 = (Transferencia) appContext.getBean("BTransferencia");
-    	transferencia3.setCbuDestino(5);
-    	transferencia3.setMovimiento(movimiento16);
-    	
-    	session.save(transferencia1);
-    	session.save(transferencia2);
-    	session.save(transferencia3);
     	
     	//----------------------------------------------------------------
     	/*--CARGO DATOS EN LA TABLA ESTADOSPRESTAMO--*/
@@ -841,6 +821,8 @@ public class App {
     	prestamo1.setMovimiento(movimiento13);
     	prestamo1.setCantidadMeses(3);
     	prestamo1.setImporteTotal(60000);
+    	prestamo1.setFechaSolicitud(format.parse("2020-05-24 00:00:00"));
+    	prestamo1.setFechaResolucion(format.parse("2020-05-25 00:00:00"));
     	prestamo1.setEstado(estado2);
     	prestamo1.setMontoPagar(75000);    	
     	prestamo1.setCbu(cuenta1);
@@ -850,6 +832,8 @@ public class App {
     	prestamo2.setMovimiento(movimiento14);
     	prestamo2.setCantidadMeses(3);
     	prestamo2.setImporteTotal(35000);
+    	prestamo2.setFechaSolicitud(format.parse("2020-05-23 00:00:00"));
+    	prestamo2.setFechaResolucion(format.parse("2020-05-25 00:00:00"));
     	prestamo2.setEstado(estado2);
     	prestamo2.setMontoPagar(43750);
     	prestamo2.setCbu(cuenta3);
@@ -858,15 +842,19 @@ public class App {
     	prestamo3.setUsuario(usuario5);
     	prestamo3.setCantidadMeses(6);
     	prestamo3.setImporteTotal(45000);
+    	prestamo3.setFechaSolicitud(format.parse("2020-05-23 00:00:00"));
+    	prestamo3.setFechaResolucion(format.parse("2020-05-26 00:00:00"));
     	prestamo3.setEstado(estado3);
     	prestamo3.setMontoPagar(56250);
     	prestamo3.setCbu(cuenta4);
     	 	
     	Prestamo prestamo4 = (Prestamo) appContext.getBean("BPrestamo");
     	prestamo4.setUsuario(usuario6);
-    	prestamo4.setMovimiento(movimiento16);
+    	prestamo4.setMovimiento(movimiento15);
     	prestamo4.setCantidadMeses(12);
     	prestamo4.setImporteTotal(75000);
+    	prestamo4.setFechaSolicitud(format.parse("2020-03-13 00:00:00"));
+    	prestamo4.setFechaResolucion(format.parse("2020-03-15 00:00:00"));
     	prestamo4.setEstado(estado2);
     	prestamo4.setMontoPagar(93750);
     	prestamo4.setCbu(cuenta5);

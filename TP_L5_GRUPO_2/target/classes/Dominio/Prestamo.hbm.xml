@@ -20,6 +20,12 @@
         <property name="importeTotal" type="float">
             <column name="IMPORTETOTAL" />
         </property>
+        <property name="fechaSolicitud" type="java.util.Date">
+            <column name="FECHASOLICITUD" />
+        </property>
+         <property name="fechaResolucion" type="java.util.Date">
+            <column name="FECHARESOLUCION" />
+        </property>
         <many-to-one name="estado" class="Dominio.EstadoPrestamo" fetch="join">
             <column name="ESTADO" />
         </many-to-one>
