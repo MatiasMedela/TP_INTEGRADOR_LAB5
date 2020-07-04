@@ -41,6 +41,9 @@
 	<!-- BEAN CLIENTE DAO -->
 	<bean id="BClienteDao" scope="singleton" class="AccesoDatos.ClienteDao"/>
 	
+	<!-- BEAN INFORME DAO -->
+	<bean id="BInformeDao" scope="singleton" class="AccesoDatos.InformeDao"/>
+	
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 </beans>

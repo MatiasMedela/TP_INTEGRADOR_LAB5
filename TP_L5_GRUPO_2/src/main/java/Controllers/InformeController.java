@@ -14,7 +14,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 
 import AccesoDatos.InformeDao;
 import AccesoDatos.MovimientoDao;
@@ -24,6 +28,9 @@ public class InformeController {
 	
 	@Autowired
 	private MovimientoDao movDao;
+	
+	@Autowired
+	private InformeDao infDao;
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"informes"})
 	public ModelAndView redirecInformes() throws ParseException {
@@ -51,18 +58,29 @@ public class InformeController {
 	@RequestMapping(value="filtrarInforme.html")
 	public ModelAndView filtrarFechas(String startDate, String endDate, String anioSelect) throws ParseException {
 		ModelAndView MV = new ModelAndView();
-		InformeDao infDao = new InformeDao();
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 		Date sDate = format.parse(startDate);
 		Date eDate = format.parse(endDate);
 		ArrayList<String> informe = (ArrayList<String>) infDao.informePrestamos(sDate, eDate);
-		MV.addObject("stDate", new SimpleDateFormat("yyyy-MM-dd").format(sDate));
-		MV.addObject("edDate", new SimpleDateFormat("yyyy-MM-dd").format(eDate));
 		MV.addObject("informeTransferencia", filtrarTransferenciasAnio(Integer.parseInt(anioSelect)));
-		MV.addObject("anio", anioSelect);
-		MV.addObject("InformePrestamos", informe);
 		MV.setViewName("informes");
 		return MV;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="filtrarInformeAsync.html")
+	@ResponseBody
+	public String filtrarFechasAsync(String startDate, String endDate) throws ParseException {
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+		Date sDate = format.parse(startDate);
+		Date eDate = format.parse(endDate);
+		ArrayList<String> informe = (ArrayList<String>) infDao.informePrestamos(sDate, eDate);
+		return new Gson().toJson(informe);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="filtrarTransferenciasAsync.html")
+	@ResponseBody
+	public String filtrarTransferenciasAsync(String anio) throws ParseException {
+		return new Gson().toJson(filtrarTransferenciasAnio(Integer.parseInt(anio)));
 	}
 	
 	public List<String[]> filtrarTransferenciasAnio(int anio){
