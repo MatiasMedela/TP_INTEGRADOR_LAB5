@@ -8,9 +8,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -22,6 +20,7 @@
 <link rel=stylesheet
 	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
 	media=screen>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script type="text/javascript" src="<c:url value="resources/Funciones/funciones.js"/>"></script>
 		<script type="text/javascript" charset="utf8"
 	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
@@ -49,7 +48,7 @@
 					<th scope="col">Moneda</th>
 					<th scope="col">Saldo</th>
 					<th scope="col" style="text-align: center;">Editar</th>
-					<th scope="col" style="text-align: center;">Eliminar</th>
+					<th scope="col" style="text-align: center;">Estado</th>
 				</tr>
 			</thead>
 			<tbody>	
@@ -59,9 +58,13 @@
 						<td id="Nombre${loop.index}">${cuenta.getUsuario().getNombre()} ${cuenta.getUsuario().getApellido()}</td>
 						<td id="Moneda${loop.index}">${cuenta.tipoCuenta.moneda}</td>
 						<td id="Saldo${loop.index}">${cuenta.saldo}</td>
-						<!-- <td><img src="<c:url value="resources/Imagenes/edit.png"/>" style="display:block;" id="edit" name ="edit"/></td>  -->
 						<td  class="text-center"><input type="image" src="resources/Imagenes/edit.png" id="btnAbrirModalM" value ="${cuenta.getIdCuenta()}" data-toggle="modal" data-target="#ModalEdit" onClick="llenarModal(${loop.index}, ${cuenta.tipoCuenta.idTipoCuenta }, ${cuenta.getUsuario().getDni() })"></td>
-					    <td  class="text-center"><button type="button" class="btn btn-danger btn-delete-account" value ="${cuenta.getIdCuenta()}" id="btnAbrirModalE" data-toggle="modal" data-target="#ModalDelete" onClick="modalEliminar()">X</button></td>	
+					    <c:if test="${cuenta.estado}">
+						    <td class="text-center"><button type="button" class="btn-sm btn-success btn-state-account" value="${cuenta.getIdCuenta()}" id="btnAbrirModalE" onClick="modalEliminar(this)">Alta</button></td>	
+					    </c:if>
+					    <c:if test="${!cuenta.estado}">
+						    <td class="text-center"><button type="button" class="btn-sm btn-danger btn-state-account" value="${cuenta.getIdCuenta()}" id="btnAbrirModalA" onClick="modalAbrir(this)">Baja</button></td>	
+					    </c:if>
 					</tr>						
 				</c:forEach>			
 			</tbody>
@@ -191,23 +194,20 @@
 				</tr>
 			</thead>
 			<tbody>	
-					<c:forEach items="${ listadoUsuarios }" var="user" varStatus="loop">			
-					<tr>			
-						<td id="DNI${loop.index}">${user.getDni()}</td>
-						<td id="NombreAp${loop.index}">${user.getNombre()} ${user.getApellido()}</td>				
-					</tr>						
+				<c:forEach items="${ listadoUsuarios }" var="user" varStatus="loop">			
+				<tr>			
+					<td id="DNI${loop.index}">${user.getDni()}</td>
+					<td id="NombreAp${loop.index}">${user.getNombre()} ${user.getApellido()}</td>				
+				</tr>						
 				</c:forEach>
-		
 			</tbody>
 		</table>  
-											</div>
+			</div>
 				</div>	
 				</div>
 				<div class="modal-footer">
-				
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 					<button type="submit" name="idCuentaM" class="btn btn-primary" id="btnModalModificar" value="">Grabar</button>
-						
 				</div>
 				</form>
 			</div>
@@ -229,10 +229,72 @@
 		$('#btnModalModificar').val($('#btnAbrirModalM').val());		
 	};
 
-	function modalEliminar(){
-		$('#btnModalEliminar').val($("#btnAbrirModalE").val());	
+	function modalEliminar(btn){
+		var id = $(btn).val();
+		Swal.fire({
+			title:"¿Desea dar de baja esta cuenta?",
+			showCancelButton: true,
+			confirmButtonColor: "#c82333",
+		    cancelButtonText: "Cancelar",
+		    confirmButtonText: "Dar de baja",
+		    reverseButtons: true
+		}).then((result) => {
+			if(result.value){
+				   $.ajax({
+						url: '${request.getContextPath()}/TP_L5_GRUPO_2/cerrarCuentaAsync.html',
+						type: 'POST',
+				        data: { idCuenta: id },
+						success: function(data){
+							if(data == "\"Exitoso\""){
+								Swal.fire({
+									icon: "success",
+									title: "Cuenta dada de baja",
+									confirmButtonText: "Entendido"
+								}).then((result) => {
+									if(result.value){
+										location.reload();
+									}
+								})
+							}
+						}
+					});
+				}
+			})
 	}	
 
+	function modalAbrir(btn){
+		var id = $(btn).val();
+		Swal.fire({
+			title:"¿Desea dar de alta esta cuenta?",
+			showCancelButton: true,
+			confirmButtonColor: "#218838",
+		    cancelButtonText: "Cancelar",
+		    confirmButtonText: "Dar de alta",
+		    reverseButtons: true
+		}).then((result) => {
+			if(result.value){
+			   $.ajax({
+					url: '${request.getContextPath()}/TP_L5_GRUPO_2/abrirCuentaAsync.html',
+					type: 'POST',
+			        data: { idCuenta: id },
+					success: function(data){
+						if(data == "\"Exitoso\""){
+							Swal.fire({
+								icon: "success",
+								title: "Cuenta dada de alta",
+								confirmButtonText: "Entendido"
+							}).then((result) => {
+								if(result.value){
+									location.reload();
+								}
+							})
+						}
+					}
+				});
+			}
+		})
+	}
+	
 	$('#TableCuentasAll').DataTable({
 		"bInfo" : false,
 		"lengthChange" : false,

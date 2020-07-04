@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -16,12 +17,16 @@ import Dominio.Usuario;
 public class CuentaDao {
 
 	private ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
-	
+	@Autowired
+	private UsuarioDao userDao;
+
+	@Autowired
+	private TipoCuentaDao tcDao;
 	
 	public List<Cuenta> listarCuentas() {
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
-		List<Cuenta> listado = (List<Cuenta>) session.createQuery("FROM Cuenta as c WHERE c.estado=1").list();
+		List<Cuenta> listado = (List<Cuenta>) session.createQuery("FROM Cuenta").list();
 		
     	ch.cerrarSession();
 	    return listado;		
@@ -29,16 +34,13 @@ public class CuentaDao {
 	
 	
 	public void crearCuenta(int idTipoCN, int DNIUser)
-	{
-		
+	{		
 		ConfigHibernate ch = new ConfigHibernate();
-		TipoCuentaDao tc = new TipoCuentaDao();
-		UsuarioDao ud = new UsuarioDao();
 		Session session = ch.abrirConexion();
 		session.beginTransaction();
 		Cuenta c = (Cuenta) appContext.getBean("BCuenta");
-		Tipo_Cuenta tpc = tc.buscarTipoCuenta(idTipoCN);
-		Usuario user = ud.buscarUsuario(DNIUser);
+		Tipo_Cuenta tpc = tcDao.buscarTipoCuenta(idTipoCN);
+		Usuario user = userDao.buscarUsuario(DNIUser);
 		c.setTipoCuenta(tpc);
 		c.setfechaCreacion(new Date());
 		c.setCbu(proximoCBUDouble()); 
@@ -48,10 +50,7 @@ public class CuentaDao {
 		c.setEstado(true);	
 		session.save(c);
 		session.getTransaction().commit();
-    	ch.cerrarSession();
-		
-		
-		
+    	ch.cerrarSession();		
 	}
 	
 	public Cuenta buscarCuenta(int idCuenta) {
@@ -82,13 +81,11 @@ public class CuentaDao {
 	public void modificarCuenta(String idCuentaM, int idTipoCM, float saldoM, int DNIUser)
 	{
 		ConfigHibernate ch = new ConfigHibernate();
-		TipoCuentaDao tc = new TipoCuentaDao();
-		UsuarioDao ud = new UsuarioDao();
 		Session session = ch.abrirConexion();
 		session.beginTransaction();
 		Cuenta c = buscarCuentaString(idCuentaM);
-		Tipo_Cuenta tpc = tc.buscarTipoCuenta(idTipoCM);
-		Usuario user = ud.buscarUsuario(DNIUser);
+		Tipo_Cuenta tpc = tcDao.buscarTipoCuenta(idTipoCM);
+		Usuario user = userDao.buscarUsuario(DNIUser);
 		c.setUsuario(user);
 		c.setTipoCuenta(tpc);
 		c.setSaldo(saldoM);	
@@ -101,16 +98,43 @@ public class CuentaDao {
 		//c.setTipoCuenta(tc);
 	}
 	
-	public void cerrarCuenta(String idCuenta)
+	public boolean cerrarCuenta(String idCuenta)
 	{
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
-		session.beginTransaction();
-		Cuenta c = (Cuenta) session.createQuery("FROM Cuenta as cu WHERE cu.idCuenta = '"+idCuenta+"'").uniqueResult();
-		c.setEstado(false);
-		session.save(c);
-		session.getTransaction().commit();
-    	ch.cerrarSession();
+		try {
+			session.beginTransaction();
+			Cuenta c = (Cuenta) session.createQuery("FROM Cuenta as cu WHERE cu.idCuenta = '"+idCuenta+"'").uniqueResult();
+			c.setEstado(false);
+			session.save(c);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			ch.cerrarSession();			
+		}
+		return true;
+	}
+	
+	public boolean abrirCuenta(String idCuenta)
+	{
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		try {
+			session.beginTransaction();
+			Cuenta c = (Cuenta) session.createQuery("FROM Cuenta as cu WHERE cu.idCuenta = '"+idCuenta+"'").uniqueResult();
+			c.setEstado(true);
+			session.save(c);			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			session.getTransaction().commit();
+			ch.cerrarSession();
+		}
+		return true;
 	}
 	
 	public String proximoCBU()
@@ -132,7 +156,6 @@ public class CuentaDao {
 	
 	public double proximoCBUDouble()
 	{
-
 		double res = 0;
 		String traer = "";
 		ConfigHibernate ch = new ConfigHibernate();
@@ -144,16 +167,6 @@ public class CuentaDao {
     	ch.cerrarSession();
     	return res;
 	}
-	
-//	public List<Cuenta> datosCuentaBasic(String legajo) {
-//		ConfigHibernate ch = new ConfigHibernate();
-//		Session session = ch.abrirConexion();
-//
-//		List<Object[]> listado = (List<Object[]>) session.createQuery("SELECT c.saldo, c.alias, tc.moneda, tc.descripcion, c.cbu, c.idCuenta FROM Cuenta as c inner join c.tipoCuenta as tc WHERE c.usuario = " + legajo).list();
-//		List<Cuenta> listado = (List<Cuenta>) session.createQuery("SELECT c FROM Cuenta as c inner join c.tipoCuenta as tc WHERE c.usuario = " + legajo).list();
-//   	ch.cerrarSession();
-//	    return listado;		
-//	}
 	
 	public List<Cuenta> CuentaUsuario(String legajo) {
 		ConfigHibernate ch = new ConfigHibernate();

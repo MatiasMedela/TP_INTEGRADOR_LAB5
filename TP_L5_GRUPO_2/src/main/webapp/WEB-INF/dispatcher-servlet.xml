@@ -32,6 +32,9 @@
 	<!-- BEAN CUENTA DAO -->
 	<bean id="BCuentaDao" scope="singleton" class="AccesoDatos.CuentaDao"/>
 	
+	<!-- BEAN TIPO CUENTA DAO -->
+	<bean id="BTipoCuentaDao" scope="singleton" class="AccesoDatos.TipoCuentaDao"/>
+	
 	<!-- BEAN TIPO MOVIMIENTO DAO -->
 	<bean id="BTipoMovimientoDao" scope="singleton" class="AccesoDatos.TipoMovimientoDao"/>
 	
