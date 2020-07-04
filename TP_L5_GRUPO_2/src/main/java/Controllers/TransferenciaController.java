@@ -1,7 +1,11 @@
 package Controllers;
 
+import java.util.ArrayList;
+
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +21,7 @@ import Negocio.MovimientoNegocio;
 
 @Controller
 public class TransferenciaController {
-	
+	ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 	@Autowired
 	private CuentaNegocio cuentaN;
 	
@@ -66,6 +70,24 @@ public class TransferenciaController {
 		else {
 			return new Gson().toJson("Error");
 		}
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="datosCuentas.html")
+	@ResponseBody
+	public String devolverDatosCuentas(String idOrigen, String idDestino) {
+		ArrayList<Cuenta> listado = new ArrayList<Cuenta>();
+		listado.add(cuentaDao.buscarCuenta(Integer.parseInt(idOrigen))); 
+		listado.add(cuentaDao.buscarCuenta(Integer.parseInt(idDestino)));
+		return new Gson().toJson(listado);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="datosCuentasTerceros.html")
+	@ResponseBody
+	public String devolverDatosCuentasTerceros(String idOrigen, String cbuDestino) {
+		ArrayList<Cuenta> listado = new ArrayList<Cuenta>();
+		listado.add(cuentaDao.buscarCuenta(Integer.parseInt(idOrigen))); 
+		listado.add(cuentaDao.buscarCuentaCBU(Double.parseDouble(cbuDestino)));
+		return new Gson().toJson(listado);
 	}
 	
 	@RequestMapping(method= RequestMethod.POST, value="nuevaTransferenciaTerceros.html")

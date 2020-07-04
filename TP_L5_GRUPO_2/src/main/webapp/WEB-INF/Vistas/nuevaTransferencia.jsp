@@ -84,102 +84,118 @@
    function verificarCampos(){
 	   var origen = $("#cuentaOrigen").children("option:selected").val();
 	   var destino = $("#cuentaDestino").children("option:selected").val();
-	   var saldoString = $("#cuentaOrigen option:selected").html().substring($("#cuentaOrigen option:selected").html().indexOf("$")+2);
-	   var saldo = parseFloat(saldoString.slice(0, saldoString.indexOf(".")) + saldoString.slice(saldoString.indexOf(".")+1));
-	   var importeFloat = parseFloat($("#importe").val());
-	   var cuentaO = $("#cuentaOrigen option:selected").html().substring(0, $("#cuentaOrigen option:selected").html().indexOf("-")-1);
-	   var cuentaD = $("#cuentaDestino option:selected").html().substring(0,$("#cuentaDestino option:selected").html().indexOf("-")-1);
-	   var importe = parseFloat($("#importe").val()).toLocaleString(undefined);
-	   
-	   if($("#motivo").val() == ""){
-		   var motivo = "Varios";		   
-	   }
-	   else{
-	   		var motivo = $("#motivo").val(); 			   
-	   }
-	    	
-	   if(origen == destino){
-		   Swal.fire({
-			   title: "Atención!",
-			   icon: "warning",
-			   text: "Ambas cuentas seleccionadas iguales",
-			   confirmButtonText: "Entendido"
-		   })
-	   }
-	   else if($("#importe").val() == "" || importeFloat == 0){
-		   Swal.fire({
-			   position: "top-end",
-			   text: "Debe ingresar un importe para realizar la transferencia.",
-		   	   toast: true,
-		   	   timer: 8000,
-		   	   timerProgressBar: true,
-		   })
-	   }
-	   else if(!$("#checkTerminos").prop("checked")){
-		   Swal.fire({
-			   position: "top-end",
-			   text: "Debe aceptar los términos y condiciones.",
-		   	   toast: true,
-		   	   timer: 8000,
-		   	   timerProgressBar: true,
-		   })
-	   }
-	   else if(saldo < importeFloat){
-		   Swal.fire({
-			   title: "Atención!",
-			   icon: "warning",
-			   text: "El importe ingresado es mayor al saldo de la cuenta de origen.",
-			   confirmButtonText: "Entendido"
-		   })
-	   }
-	   else{
-		   Swal.fire({
-			   title: 'Confirmar transferencia',
-			   html: 
-			    '<p>Cuenta a debitar: ' + cuentaO + '</p>' +
-	        	'<p>Cuenta a acreditar: '  + cuentaD + '</p>' +
-       			'<p>Importe: $' + importe + '</p>' +
-       			'<p>Motivo: ' + motivo  + '</p>',
-			   showCancelButton: true,
-			   reverseButtons: true,
-			   cancelButtonText: 'Cancelar',
-			   confirmButtonText: 'Transferir'}).then((result) => {
-				   if(result.value){
-					   var cuentaOrig = $("#cuentaOrigen option:selected").val();
-					   var cuentaDest = $("#cuentaDestino option:selected").val();
-					   var importeIngresado = $("#importe").val();
-					   var motivoIngresado = $("#motivo").val()
-					   $.ajax({
-							url: '${request.getContextPath()}/TP_L5_GRUPO_2/nuevaTransferencia.html',
-							type: 'POST',
-					        data: { cuentaOrigen: cuentaOrig,
-					        		cuentaDestino: cuentaDest,
-					        		importe : importeIngresado,
-					        		motivo: motivoIngresado},
-							success: function(data){
-								if(data == "\"Exito\""){
-									Swal.fire({
-										icon: "success",
-										title: "Transferencia realizada",
-										confirmButtonText: "Entendido"
-									}).then((result) => {
-										if(result.value){
-											location.reload();
-										}
-									})
-								}
-								else{
-									Swal.fire({
-										icon: "error",
-										title: "La transferencia falló",
-										confirmButtonText: "Entendido"
-									})
-								}
-							}
-						}); 					   
+	   var cuentas;
+	   $.ajax({
+			url: '${request.getContextPath()}/TP_L5_GRUPO_2/datosCuentas.html',
+			type: 'POST',
+	        data: { idOrigen: origen,
+	        	    idDestino: destino},
+			success: function(data){
+				cuentas = JSON.parse(data);
+				   var importeFloat = parseFloat($("#importe").val());
+				   var importe = parseFloat($("#importe").val()).toLocaleString(undefined);
+				   
+				   if($("#motivo").val() == ""){
+					   var motivo = "Varios";		   
 				   }
-			   })
-	   }
+				   else{
+				   		var motivo = $("#motivo").val(); 			   
+				   }
+				    	
+				   if(cuentas[0].idCuenta == cuentas[1].idCuenta){
+					   Swal.fire({
+						   title: "Atención!",
+						   icon: "warning",
+						   text: "Ambas cuentas seleccionadas iguales",
+						   confirmButtonText: "Entendido"
+					   })
+				   }
+				   else if(cuentas[0].tipoCuenta.moneda != cuentas[1].tipoCuenta.moneda){
+					   Swal.fire({
+						   title: "Atención!",
+						   icon: "warning",
+						   text: "Las cuenta seleccionadas poseen diferentes tipos de moneda",
+						   confirmButtonText: "Entendido"
+					   }) 
+				   }
+				   else if($("#importe").val() == "" || importeFloat == 0){
+					   Swal.fire({
+						   position: "top-end",
+						   text: "Debe ingresar un importe para realizar la transferencia.",
+					   	   toast: true,
+					   	   timer: 8000,
+					   	   timerProgressBar: true,
+					   })
+				   }
+				   else if(!$("#checkTerminos").prop("checked")){
+					   Swal.fire({
+						   position: "top-end",
+						   text: "Debe aceptar los términos y condiciones.",
+					   	   toast: true,
+					   	   timer: 8000,
+					   	   timerProgressBar: true,
+					   })
+				   }
+				   else if(cuentas[0].saldo < importeFloat){
+					   Swal.fire({
+						   title: "Atención!",
+						   icon: "warning",
+						   text: "El importe ingresado es mayor al saldo de la cuenta de origen.",
+						   confirmButtonText: "Entendido"
+					   })
+				   }
+				   else{
+					   Swal.fire({
+						   title: 'Confirmar transferencia',
+						   html: 
+						    '<p>Cuenta a debitar: ' + cuentas[0].alias + '</p>' +
+				        	'<p>Cuenta a acreditar: '  + cuentas[1].alias + '</p>' +
+			       			'<p>Importe: $' + importe + '</p>' +
+			       			'<p>Motivo: ' + motivo  + '</p>',
+						   showCancelButton: true,
+						   reverseButtons: true,
+						   cancelButtonText: 'Cancelar',
+						   confirmButtonText: 'Transferir'}).then((result) => {
+							   if(result.value){
+								   var cuentaOrig = $("#cuentaOrigen option:selected").val();
+								   var cuentaDest = $("#cuentaDestino option:selected").val();
+								   var importeIngresado = $("#importe").val();
+								   var motivoIngresado = $("#motivo").val()
+								   $.ajax({
+										url: '${request.getContextPath()}/TP_L5_GRUPO_2/nuevaTransferencia.html',
+										type: 'POST',
+								        data: { cuentaOrigen: cuentaOrig,
+								        		cuentaDestino: cuentaDest,
+								        		importe : importeIngresado,
+								        		motivo: motivoIngresado},
+										success: function(data){
+											if(data == "\"Exito\""){
+												Swal.fire({
+													icon: "success",
+													title: "Transferencia realizada",
+													confirmButtonText: "Entendido"
+												}).then((result) => {
+													if(result.value){
+														location.reload();
+													}
+												})
+											}
+											else{
+												Swal.fire({
+													icon: "error",
+													title: "La transferencia falló",
+													confirmButtonText: "Entendido"
+												})
+											}
+										}
+									}); 					   
+							   }
+						   })
+				   }
+			}
+		}); 
+	   
+
    }
 </script>
 </html>

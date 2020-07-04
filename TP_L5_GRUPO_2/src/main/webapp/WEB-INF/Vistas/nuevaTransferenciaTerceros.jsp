@@ -99,13 +99,14 @@ $("#btnVerificarCBU").click(function(){
 				}
 				else{
 			    var obj = JSON.parse(data)
-			    	$("#userCBUIngresado").html("CBU correspondiente a: "+obj.usuario.Apellido + ", " + obj.usuario.Nombre +" DNI: " + obj.usuario.Dni)
+			    	$("#userCBUIngresado").html("CBU correspondiente a: "+obj.usuario.Apellido + ", " + obj.usuario.Nombre +" DNI: " + obj.usuario.Dni + " - Moneda: " + obj.tipoCuenta.moneda)
 					Swal.fire({
 						icon: "success",
 						title: "Cuenta encontrada",
 						html: "<p>El CBU ingresado corresponde a</p>" +
 						      "<p>"+ obj.usuario.Apellido + ", " + obj.usuario.Nombre + 
-							  " DNI: " + obj.usuario.Dni + "</p>",
+							  " DNI: " + obj.usuario.Dni + "</p>" + 
+							  "</p> Moneda: " + obj.tipoCuenta.moneda + "</p>",
 						confirmButtonText: "Entendido"
 					})
 				}
@@ -124,100 +125,116 @@ $("#btnVerificarCBU").click(function(){
 })
 
    function verificarCampos(){
-	   var saldoString = $("#cuentaOrigen option:selected").html().substring($("#cuentaOrigen option:selected").html().indexOf("$")+2);
-	   var saldo = parseFloat(saldoString.slice(0, saldoString.indexOf(".")) + saldoString.slice(saldoString.indexOf(".")+1));
+	   var cuentaO = $("#cuentaOrigen option:selected").val();
 	   var importeFloat = parseFloat($("#importe").val());
-	   var cuentaO = $("#cuentaOrigen option:selected").html().substring(0, $("#cuentaOrigen option:selected").html().indexOf("-")-1);
 	   var cbuDestino = $("#formGroupCBU").val();
 	   var importeModal = parseFloat($("#importe").val()).toLocaleString(undefined);
-	   
-	   if($("#motivo").val() == ""){
-		   var motivoModal = "Varios";		   
-	   }
-	   else{
-	   		var motivoModal = $("#motivo").val(); 			   
-	   }
-	    	
-	   if($("#formGroupCBU").val() == ""){
-		   Swal.fire({
-			   position: "top-end",
-			   text: "Debe ingresar un CBU para realizar la transferencia.",
-		   	   toast: true,
-		   	   timer: 8000,
-		   	   timerProgressBar: true,
-		   })
-	   }	   
-	   else if($("#importe").val() == ""){
-		   Swal.fire({
-			   position: "top-end",
-			   text: "Debe ingresar un importe para realizar la transferencia.",
-		   	   toast: true,
-		   	   timer: 8000,
-		   	   timerProgressBar: true,
-		   })
-	   }
-	   else if(!$("#checkTerminos").prop("checked")){
-		   Swal.fire({
-			   position: "top-end",
-			   text: "Debe aceptar los términos y condiciones.",
-		   	   toast: true,
-		   	   timer: 8000,
-		   	   timerProgressBar: true,
-		   })
-	   }
-	   else if(saldo < importeFloat){
-		   Swal.fire({
-			   title: "Atención!",
-			   icon: "warning",
-			   text: "El importe ingresado es mayor al saldo de la cuenta de origen.",
-			   confirmButtonText: "Entendido"
-		   })
-	   }
-	   else{
-		   Swal.fire({
-			   title: 'Confirmar transferencia',
-			   html: 
-			    '<p>Cuenta a debitar: ' + cuentaO + '</p>' +
-	        	'<p>CBU a depositar: '  + cbuDestino + '</p>' +
-       			'<p>Importe: $' + importeModal + '</p>' +
-       			'<p>Motivo: ' + motivoModal  + '</p>',
-			   showCancelButton: true,
-			   reverseButtons: true,
-			   cancelButtonText: 'Cancelar',
-			   confirmButtonText: 'Transferir'}).then((result) => {
-				   if(result.value){
-					   var cuentaOrig = $("#cuentaOrigen option:selected").val();
-					   var CBUD = $("#formGroupCBU").val();
-					   var importeIngresado = $("#importe").val();
-					   var motivoIngresado = $("#motivo").val()
-					   $.ajax({
-							url: '${request.getContextPath()}/TP_L5_GRUPO_2/nuevaTransferenciaTerceros.html',
-							type: 'POST',
-					        data: { cuentaOrigen: cuentaOrig,
-					        		CBUCuenta: CBUD,
-					        		importe : importeIngresado,
-					        		motivo: motivoIngresado},
-							success: function(data){
-								if(data == "\"Exito\""){
-									Swal.fire({
-										icon: "success",
-										title: "Transferencia realizada",
-										confirmButtonText: "Entendido"
-									})
-								}
-								else{
-									Swal.fire({
-										icon: "error",
-										title: "La transferencia falló",
-										confirmButtonText: "Entendido"
-									})
-								}
-							}
-						});
-					   
+	   var cuentas;
+	   $.ajax({
+			url: '${request.getContextPath()}/TP_L5_GRUPO_2/datosCuentasTerceros.html',
+			type: 'POST',
+	        data: { idOrigen: cuentaO,
+	        	    cbuDestino: cbuDestino},
+			success: function(data){
+				cuentas = JSON.parse(data);
+				   if($("#motivo").val() == ""){
+					   var motivoModal = "Varios";		   
 				   }
-			   })
-	   }
+				   else{
+				   		var motivoModal = $("#motivo").val(); 			   
+				   }
+				    	
+				   if($("#formGroupCBU").val() == ""){
+					   Swal.fire({
+						   position: "top-end",
+						   text: "Debe ingresar un CBU para realizar la transferencia.",
+					   	   toast: true,
+					   	   timer: 8000,
+					   	   timerProgressBar: true,
+					   })
+				   }
+				   else if(cuentas[0].tipoCuenta.moneda != cuentas[1].tipoCuenta.moneda){
+					   Swal.fire({
+						   title: "Atención!",
+						   icon: "warning",
+						   text: "Las cuenta seleccionadas poseen diferentes tipos de moneda",
+						   confirmButtonText: "Entendido"
+					   }) 
+				   }
+				   else if($("#importe").val() == ""){
+					   Swal.fire({
+						   position: "top-end",
+						   text: "Debe ingresar un importe para realizar la transferencia.",
+					   	   toast: true,
+					   	   timer: 8000,
+					   	   timerProgressBar: true,
+					   })
+				   }
+				   else if(!$("#checkTerminos").prop("checked")){
+					   Swal.fire({
+						   position: "top-end",
+						   text: "Debe aceptar los términos y condiciones.",
+					   	   toast: true,
+					   	   timer: 8000,
+					   	   timerProgressBar: true,
+					   })
+				   }
+				   else if(cuentas[0].saldo < importeFloat){
+					   Swal.fire({
+						   title: "Atención!",
+						   icon: "warning",
+						   text: "El importe ingresado es mayor al saldo de la cuenta de origen.",
+						   confirmButtonText: "Entendido"
+					   })
+				   }
+				   else{
+					   Swal.fire({
+						   title: 'Confirmar transferencia',
+						   html: 
+						    '<p>Cuenta a debitar: ' + cuenta[0].alias + '</p>' +
+				        	'<p>CBU a depositar: '  + cuenta[1].cbu + '</p>' +
+			       			'<p>Importe: $' + importeModal + '</p>' +
+			       			'<p>Motivo: ' + motivoModal  + '</p>',
+						   showCancelButton: true,
+						   reverseButtons: true,
+						   cancelButtonText: 'Cancelar',
+						   confirmButtonText: 'Transferir'}).then((result) => {
+							   if(result.value){
+								   var cuentaOrig = $("#cuentaOrigen option:selected").val();
+								   var CBUD = $("#formGroupCBU").val();
+								   var importeIngresado = $("#importe").val();
+								   var motivoIngresado = $("#motivo").val()
+								   $.ajax({
+										url: '${request.getContextPath()}/TP_L5_GRUPO_2/nuevaTransferenciaTerceros.html',
+										type: 'POST',
+								        data: { cuentaOrigen: cuentaOrig,
+								        		CBUCuenta: CBUD,
+								        		importe : importeIngresado,
+								        		motivo: motivoIngresado},
+										success: function(data){
+											if(data == "\"Exito\""){
+												Swal.fire({
+													icon: "success",
+													title: "Transferencia realizada",
+													confirmButtonText: "Entendido"
+												})
+											}
+											else{
+												Swal.fire({
+													icon: "error",
+													title: "La transferencia falló",
+													confirmButtonText: "Entendido"
+												})
+											}
+										}
+									});
+								   
+							   }
+						   })
+				   }
+			}
+	   });
+
    }
 </script>
 

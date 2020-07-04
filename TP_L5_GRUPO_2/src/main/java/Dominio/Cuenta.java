@@ -2,6 +2,7 @@ package Dominio;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.beans.PropertyEditorRegistrar;
@@ -40,6 +41,10 @@ public class Cuenta implements Serializable, PropertyEditorRegistrar{
 		this.cbu=cbu;
 		this.alias = alias;
 		this.estado = estado;
+	}
+	
+	public ArrayList<Cuenta> newArrayCuenta (){
+		return new ArrayList<Cuenta>();
 	}
 	
 	public Cuenta(Usuario usuario,Date fechaCreacion,Tipo_Cuenta tipoCuenta,float saldo,double cbu,String alias,boolean estado)
