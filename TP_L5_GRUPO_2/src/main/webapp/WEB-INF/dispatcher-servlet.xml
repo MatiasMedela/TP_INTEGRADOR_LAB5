@@ -38,7 +38,7 @@
 	<!-- BEAN USUARIO DAO -->
 	<bean id="BUsuarioDao" scope="singleton" class="AccesoDatos.UsuarioDao"/>
 	
-		<!-- BEAN CLIENTE DAO -->
+	<!-- BEAN CLIENTE DAO -->
 	<bean id="BClienteDao" scope="singleton" class="AccesoDatos.ClienteDao"/>
 	
 	<mvc:resources mapping="/resources/**" location="/resources/" />

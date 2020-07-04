@@ -12,19 +12,15 @@ import org.hibernate.service.ServiceRegistryBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.transaction.annotation.Transactional;
 
-import Dominio.Localidad;
 import Dominio.Usuario;
-
-
 
 public class ClienteDao {
 	ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 	//ABML
 		public boolean AltaCliente(Usuario Usu ) {
 			try {
-		    	Configuration configuration = new Configuration();
+		    	Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 		    	configuration.configure();	
 		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -43,7 +39,7 @@ public class ClienteDao {
 		 
 		public boolean BajaCliente(String dni) {
 				try {
-					Configuration configuration = new Configuration();
+					Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 			    	configuration.configure();	
 			    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 			    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -67,7 +63,7 @@ public class ClienteDao {
 		}
 		public boolean ModAltaCliente(String dni) {
 			try {
-				Configuration configuration = new Configuration();
+				Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 		    	configuration.configure();	
 		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -91,7 +87,7 @@ public class ClienteDao {
 		
 		public boolean ModificarCliente(Usuario Usu, String oldDniName) {
 			try {
-		    	Configuration configuration = new Configuration();
+		    	Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 		    	configuration.configure();	
 		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -134,7 +130,6 @@ public class ClienteDao {
 		}
 
 		public Usuario BuscarUsuarioXId(int idUsu) {
-			ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 			try {
 				ConfigHibernate ch = new ConfigHibernate();
 				Session session = ch.abrirConexion();

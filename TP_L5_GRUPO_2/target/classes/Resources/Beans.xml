@@ -127,4 +127,7 @@
 		<property name="movimiento" ref="BMovimiento"></property>
 	</bean>
 	
+	<!-- BEAN CONFIGURATION -->
+	<bean id="BConfiguration" class="org.hibernate.cfg.Configuration"/>
+	
 </beans>

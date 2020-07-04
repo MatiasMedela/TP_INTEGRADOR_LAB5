@@ -6,9 +6,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -108,7 +106,7 @@
 			   confirmButtonText: "Entendido"
 		   })
 	   }
-	   else if($("#importe").val() == ""){
+	   else if($("#importe").val() == "" || importeFloat == 0){
 		   Swal.fire({
 			   position: "top-end",
 			   text: "Debe ingresar un importe para realizar la transferencia.",
@@ -147,7 +145,38 @@
 			   cancelButtonText: 'Cancelar',
 			   confirmButtonText: 'Transferir'}).then((result) => {
 				   if(result.value){
-					 $("#formTransferencia").submit();   					   
+					   var cuentaOrig = $("#cuentaOrigen option:selected").val();
+					   var cuentaDest = $("#cuentaDestino option:selected").val();
+					   var importeIngresado = $("#importe").val();
+					   var motivoIngresado = $("#motivo").val()
+					   $.ajax({
+							url: '${request.getContextPath()}/TP_L5_GRUPO_2/nuevaTransferencia.html',
+							type: 'POST',
+					        data: { cuentaOrigen: cuentaOrig,
+					        		cuentaDestino: cuentaDest,
+					        		importe : importeIngresado,
+					        		motivo: motivoIngresado},
+							success: function(data){
+								if(data == "\"Exito\""){
+									Swal.fire({
+										icon: "success",
+										title: "Transferencia realizada",
+										confirmButtonText: "Entendido"
+									}).then((result) => {
+										if(result.value){
+											location.reload();
+										}
+									})
+								}
+								else{
+									Swal.fire({
+										icon: "error",
+										title: "La transferencia falló",
+										confirmButtonText: "Entendido"
+									})
+								}
+							}
+						}); 					   
 				   }
 			   })
 	   }

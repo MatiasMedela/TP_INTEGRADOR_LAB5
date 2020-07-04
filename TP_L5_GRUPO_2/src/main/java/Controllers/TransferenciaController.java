@@ -2,7 +2,6 @@ package Controllers;
 
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,12 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
-import AccesoDatos.ClienteDao;
 import AccesoDatos.CuentaDao;
 import AccesoDatos.MovimientoDao;
-import AccesoDatos.UsuarioDao;
 import Dominio.Cuenta;
-import Dominio.Usuario;
 import Negocio.CuentaNegocio;
 import Negocio.MovimientoNegocio;
 
@@ -30,9 +26,6 @@ public class TransferenciaController {
 	
 	@Autowired
 	private MovimientoDao movDao;
-	
-	@Autowired
-	private ClienteDao userDao;
 	
 	@Autowired
 	private CuentaDao cuentaDao;
@@ -64,18 +57,15 @@ public class TransferenciaController {
 		return MV;
 	}
 	
-	@RequestMapping(value="nuevaTransferencia.html")
-	public ModelAndView nuevaTransferencia(int cuentaDestino, int cuentaOrigen, String importe, String motivo) {
-		ModelAndView MV = new ModelAndView();
-		if(movN.nuevaTransferencia(cuentaDestino, cuentaOrigen, importe, motivo)) {
-			MV.addObject("resultado", "Exitoso");
-			MV.setViewName("redirect:/redirecNavBar.html?transferencias");
+	@RequestMapping(method = RequestMethod.POST, value="nuevaTransferencia.html")
+	@ResponseBody
+	public String nuevaTransferencia(String cuentaDestino, String cuentaOrigen, String importe, String motivo) {
+		if(movN.nuevaTransferencia(Integer.parseInt(cuentaDestino), Integer.parseInt(cuentaOrigen), importe, motivo)) {
+			return new Gson().toJson("Exito");
 		}
 		else {
-			MV.addObject("resultado", "Error");
-			MV.setViewName("nuevaTransferenciaTerceros");
+			return new Gson().toJson("Error");
 		}
-		return MV;
 	}
 	
 	@RequestMapping(method= RequestMethod.POST, value="nuevaTransferenciaTerceros.html")

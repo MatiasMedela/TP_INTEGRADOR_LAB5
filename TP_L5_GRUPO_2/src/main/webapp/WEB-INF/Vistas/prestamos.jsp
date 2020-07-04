@@ -37,17 +37,10 @@
 	<!-- CONTENT -->
 
 	<div class="container-md">
-		<div class="row align-items-center">
-			<div class="col">
-				<h3 style="margin-top: 20px;">Mis préstamos</h3>
-			</div>
-			<form method="post" action="solicitarPrestamo.html">
-			<div class="col">
-				<input type="submit" class="btn btn-primary pull-right" value="Solicitar préstamo"/>
-			</div>
-			</form>
-
-		</div>
+		<h3 style="margin-top: 20px;">Mis préstamos</h3>
+		<form method="post" action="solicitarPrestamo.html">
+			<input type="submit" class="btn btn-primary pull-right mb-1" value="Solicitar préstamo"/>
+		</form>
 		<table id="TableMisPrestamos" class="table">
 			<thead>
 				<tr>

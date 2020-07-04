@@ -37,22 +37,18 @@
 	<!-- CONTENT -->
 
 	<div class="container-md">
-		<div class="row align-items-center">
-			<div class="col">
-				<h3 style="margin-top: 20px;">Mis transferencias</h3>
-			</div>
-<form action="redirecNuevaTransferencia.html" method="get">
-	<div class="dropdown">
-	  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownTransf" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	    Nueva transferencia
-	  </button>
-	  <div class="dropdown-menu" aria-labelledby="dropdownTransf">
-	    <input type="submit" name="normal" class="dropdown-item" value="A cuenta propia"/>
-	    <input type="submit" name="terceros" class="dropdown-item" value="A terceros"/>
-	  </div>
-	 </div>
-</form>
-	</div>
+	<h3 style="margin-top: 20px;">Mis transferencias</h3>
+	<form action="redirecNuevaTransferencia.html" method="get">
+		<div class="dropdown pull-right mb-1">
+		  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownTransf" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Nueva transferencia
+		  </button>
+		  <div class="dropdown-menu" aria-labelledby="dropdownTransf">
+		    <input type="submit" name="normal" class="dropdown-item" value="A cuenta propia"/>
+		    <input type="submit" name="terceros" class="dropdown-item" value="A terceros"/>
+		  </div>
+		 </div>
+	</form>
 		<table id="MisTransferencias" class="table">
 			<thead>
 				<tr>
@@ -65,7 +61,7 @@
 			<tbody>
 			    <c:forEach items="${listadoTransferencias}" var="transfer" varStatus="loop">
 					<tr>
-						<td><fmt:formatDate type="date" dateStyle="short" value="${transfer[0]}"/></td>
+						<td><fmt:formatDate type="both" timeStyle="short" dateStyle="short" value="${transfer[0]}"/></td>
 						<td><fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${transfer[1]}"/></td>
 						<td><fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${transfer[2]}"/></td>
 						<td>$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${transfer[3]}"/></td>
