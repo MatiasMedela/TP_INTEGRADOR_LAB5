@@ -65,7 +65,7 @@ public class TransferenciaController {
 	}
 	
 	@RequestMapping(value="nuevaTransferencia.html")
-	public ModelAndView nuevaTransferencia(int cuentaDestino, int cuentaOrigen,String importe, String motivo) {
+	public ModelAndView nuevaTransferencia(int cuentaDestino, int cuentaOrigen, String importe, String motivo) {
 		ModelAndView MV = new ModelAndView();
 		if(movN.nuevaTransferencia(cuentaDestino, cuentaOrigen, importe, motivo)) {
 			MV.addObject("resultado", "Exitoso");
@@ -78,11 +78,18 @@ public class TransferenciaController {
 		return MV;
 	}
 	
-	@RequestMapping(value="nuevaTransferenciaTerceros.html")
-	public ModelAndView nuevaTransferenciaTerceros() {
-		ModelAndView MV = new ModelAndView();
-		MV.setViewName("nuevaTransferenciaTerceros");
-		return MV;
+	@RequestMapping(method= RequestMethod.POST, value="nuevaTransferenciaTerceros.html")
+	@ResponseBody
+	public String nuevaTransferenciaTerceros(String cuentaOrigen, String CBUCuenta, String importe, String motivo ) {
+		Double cbuDestino = Double.parseDouble(CBUCuenta);
+		int cuentaDestino = cuentaDao.buscarCuentaCBU(cbuDestino).getIdCuenta();
+		if(movN.nuevaTransferencia(cuentaDestino, Integer.parseInt(cuentaOrigen), importe, motivo)) {
+			return new Gson().toJson("Exito");
+		}
+		else {
+			return new Gson().toJson("Error");
+		}
+
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value="verificarCBU.html")

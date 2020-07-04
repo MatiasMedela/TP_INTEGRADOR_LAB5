@@ -29,7 +29,7 @@ public class MovimientoDao {
 																		+ "INNER JOIN m.cuentaOrigen as co "
 																		+ "INNER JOIN m.cuentaDestino as cd "
 																		+ "WHERE co.idCuenta = :IDCuenta OR cd.idCuenta = :IDCuenta "
-																		+ "order by m.Fecha desc").setParameter("IDCuenta", idCuenta).list();
+																		+ "order by m.fecha desc").setParameter("IDCuenta", idCuenta).list();
     	ch.cerrarSession();
 	    return listado;		
 	}
@@ -50,10 +50,10 @@ public class MovimientoDao {
 		Session session = ch.abrirConexion();
 		ArrayList<Object[]> listado = null;
 		try {	
-			listado = (ArrayList<Object[]>) session.createQuery("SELECT month(m.Fecha), count(m.idMovimiento) FROM Movimiento m "
-																+ "where m.cuentaDestino is not null AND year(m.Fecha) = :añoSelect "
-																+ "group by month(m.Fecha) "
-																+ "order by month(m.Fecha) asc")
+			listado = (ArrayList<Object[]>) session.createQuery("SELECT month(m.fecha), count(m.idMovimiento) FROM Movimiento m "
+																+ "where m.cuentaDestino is not null AND year(m.fecha) = :añoSelect "
+																+ "group by month(m.fecha) "
+																+ "order by month(m.fecha) asc")
 																.setInteger("añoSelect", yearSelect).list();
 		}catch(Exception e){
 			System.out.println(e.toString());
@@ -70,11 +70,12 @@ public class MovimientoDao {
 		Session session = ch.abrirConexion();
 		ArrayList<Object[]> listado = null;
 		try {	
-			listado = (ArrayList<Object[]>) session.createQuery("SELECT DATE_FORMAT(m.Fecha,'%d/%c/%Y'), co.cbu, cd.cbu, m.importe FROM Movimiento m "
+			listado = (ArrayList<Object[]>) session.createQuery("SELECT m.fecha, co.cbu, cd.cbu, m.importe FROM Movimiento m "
 																		+ "INNER JOIN m.cuentaOrigen as co "
 																		+ "INNER JOIN m.cuentaDestino as cd "
 																		+ "where m.cuentaOrigen in (FROM Cuenta c where c.usuario = :IDUser) "
-																		+ "OR m.cuentaDestino in (FROM Cuenta c where c.usuario = :IDUser)")
+																		+ "OR m.cuentaDestino in (FROM Cuenta c where c.usuario = :IDUser) "
+																		+ "ORDER BY m.fecha DESC")
 																		.setInteger("IDUser", IDUsuario).list();
 		}catch(Exception e){
 			System.out.println(e.toString());

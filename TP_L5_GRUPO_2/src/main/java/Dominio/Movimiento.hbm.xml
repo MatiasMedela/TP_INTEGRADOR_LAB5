@@ -17,7 +17,7 @@
         <many-to-one name="cuentaDestino" class="Dominio.Cuenta" lazy="false">
             <column name="ID_CUENTADESTINO" />
         </many-to-one>
-        <property name="Fecha" type="java.util.Date">
+        <property name="fecha" type="java.util.Date">
             <column name="FECHA" />
         </property>
         <property name="importe" type="float">

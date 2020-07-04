@@ -65,10 +65,10 @@
 			<tbody>
 			    <c:forEach items="${listadoTransferencias}" var="transfer" varStatus="loop">
 					<tr>
-						<td>${transfer[0]}</td>
+						<td><fmt:formatDate type="date" dateStyle="short" value="${transfer[0]}"/></td>
 						<td><fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${transfer[1]}"/></td>
 						<td><fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${transfer[2]}"/></td>
-						<td>${transfer[3]}</td>
+						<td>$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${transfer[3]}"/></td>
 					</tr>
 			    </c:forEach>
 			</tbody>

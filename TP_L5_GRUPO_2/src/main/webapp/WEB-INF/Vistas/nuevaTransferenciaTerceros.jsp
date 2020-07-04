@@ -45,9 +45,8 @@
 
   <div class="form-group">
     <label for="formGroupCBU">CBU</label>
-    <input type="text" class="form-control" name="CBUCuenta" id="formGroupCBU" placeholder="0110357805411825791353">
+    <input type="text" onkeypress="return soloNumeros(event);" class="form-control" name="CBUCuenta" id="formGroupCBU" placeholder="0110357805411825791353">
   </div>
-
   <div class="form-inline mb-2">
 <button id="btnVerificarCBU" type="button" class="btn btn-primary">Verificar CBU</button> 
 <small id="userCBUIngresado" class="ml-2 form-text text-muted"></small>
@@ -83,35 +82,35 @@
 </body>
 <script type="text/javascript">
 $("#btnVerificarCBU").click(function(){
-	if($(this).val() != ""){	
-	var cbu = $("#formGroupCBU").val();
-    $.ajax({
-		url: '${request.getContextPath()}/TP_L5_GRUPO_2/verificarCBU.html',
-		type: 'POST',
-        data: { CBU: cbu },
-		success: function(data){
-			if(data == "\"CBU userAct\""){
-				Swal.fire({
-					icon: "warning",
-					title: "CBU Incorrecto",
-					text: "El CBU ingresado corresponde a otra cuenta de su propiedad, para transferir entre cuentras propias debe volver al menú de transferencias y seleccionar Transferencia a cuenta propia",
-					confirmButtonText: "Entendido"
-				})
+	if($("#formGroupCBU").val() != ""){	
+		var cbu = $("#formGroupCBU").val();
+	    $.ajax({
+			url: '${request.getContextPath()}/TP_L5_GRUPO_2/verificarCBU.html',
+			type: 'POST',
+	        data: { CBU: cbu },
+			success: function(data){
+				if(data == "\"CBU userAct\""){
+					Swal.fire({
+						icon: "warning",
+						title: "CBU Incorrecto",
+						text: "El CBU ingresado corresponde a otra cuenta de su propiedad, para transferir entre cuentras propias debe volver al menú de transferencias y seleccionar Transferencia a cuenta propia",
+						confirmButtonText: "Entendido"
+					})
+				}
+				else{
+			    var obj = JSON.parse(data)
+			    	$("#userCBUIngresado").html("CBU correspondiente a: "+obj.usuario.Apellido + ", " + obj.usuario.Nombre +" DNI: " + obj.usuario.Dni)
+					Swal.fire({
+						icon: "success",
+						title: "Cuenta encontrada",
+						html: "<p>El CBU ingresado corresponde a</p>" +
+						      "<p>"+ obj.usuario.Apellido + ", " + obj.usuario.Nombre + 
+							  " DNI: " + obj.usuario.Dni + "</p>",
+						confirmButtonText: "Entendido"
+					})
+				}
 			}
-			else{
-		    var obj = JSON.parse(data)
-		    	$("#userCBUIngresado").html("CBU correspondiente a: "+obj.usuario.Apellido + ", " + obj.usuario.Nombre +" DNI: " + obj.usuario.Dni)
-				Swal.fire({
-					icon: "success",
-					title: "Cuenta encontrada",
-					html: "<p>El CBU ingresado corresponde a</p>" +
-					      "<p>"+ obj.usuario.Apellido + ", " + obj.usuario.Nombre + 
-						  " DNI: " + obj.usuario.Dni + "</p>",
-					confirmButtonText: "Entendido"
-				})
-			}
-		}
-	});
+		});
 	}
 	else{
 	   Swal.fire({
@@ -130,16 +129,25 @@ $("#btnVerificarCBU").click(function(){
 	   var importeFloat = parseFloat($("#importe").val());
 	   var cuentaO = $("#cuentaOrigen option:selected").html().substring(0, $("#cuentaOrigen option:selected").html().indexOf("-")-1);
 	   var cbuDestino = $("#formGroupCBU").val();
-	   var importe = parseFloat($("#importe").val()).toLocaleString(undefined);
+	   var importeModal = parseFloat($("#importe").val()).toLocaleString(undefined);
 	   
 	   if($("#motivo").val() == ""){
-		   var motivo = "Varios";		   
+		   var motivoModal = "Varios";		   
 	   }
 	   else{
-	   		var motivo = $("#motivo").val(); 			   
+	   		var motivoModal = $("#motivo").val(); 			   
 	   }
 	    	
-	   if($("#importe").val() == ""){
+	   if($("#formGroupCBU").val() == ""){
+		   Swal.fire({
+			   position: "top-end",
+			   text: "Debe ingresar un CBU para realizar la transferencia.",
+		   	   toast: true,
+		   	   timer: 8000,
+		   	   timerProgressBar: true,
+		   })
+	   }	   
+	   else if($("#importe").val() == ""){
 		   Swal.fire({
 			   position: "top-end",
 			   text: "Debe ingresar un importe para realizar la transferencia.",
@@ -171,14 +179,42 @@ $("#btnVerificarCBU").click(function(){
 			   html: 
 			    '<p>Cuenta a debitar: ' + cuentaO + '</p>' +
 	        	'<p>CBU a depositar: '  + cbuDestino + '</p>' +
-       			'<p>Importe: $' + importe + '</p>' +
-       			'<p>Motivo: ' + motivo  + '</p>',
+       			'<p>Importe: $' + importeModal + '</p>' +
+       			'<p>Motivo: ' + motivoModal  + '</p>',
 			   showCancelButton: true,
 			   reverseButtons: true,
 			   cancelButtonText: 'Cancelar',
 			   confirmButtonText: 'Transferir'}).then((result) => {
 				   if(result.value){
-					 $("#formTransferenciaTerceros").submit();   					   
+					   var cuentaOrig = $("#cuentaOrigen option:selected").val();
+					   var CBUD = $("#formGroupCBU").val();
+					   var importeIngresado = $("#importe").val();
+					   var motivoIngresado = $("#motivo").val()
+					   $.ajax({
+							url: '${request.getContextPath()}/TP_L5_GRUPO_2/nuevaTransferenciaTerceros.html',
+							type: 'POST',
+					        data: { cuentaOrigen: cuentaOrig,
+					        		CBUCuenta: CBUD,
+					        		importe : importeIngresado,
+					        		motivo: motivoIngresado},
+							success: function(data){
+								if(data == "\"Exito\""){
+									Swal.fire({
+										icon: "success",
+										title: "Transferencia realizada",
+										confirmButtonText: "Entendido"
+									})
+								}
+								else{
+									Swal.fire({
+										icon: "error",
+										title: "La transferencia falló",
+										confirmButtonText: "Entendido"
+									})
+								}
+							}
+						});
+					   
 				   }
 			   })
 	   }
