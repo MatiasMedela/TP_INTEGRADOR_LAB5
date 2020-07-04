@@ -1,7 +1,5 @@
 package Controllers;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +16,6 @@ import com.google.gson.Gson;
 import AccesoDatos.CuentaDao;
 import AccesoDatos.TipoCuentaDao;
 import AccesoDatos.UsuarioDao;
-import Dominio.Cuenta;
-import Dominio.Usuario;
 import Negocio.CuentaNegocio;
 
 @Controller
@@ -40,7 +36,7 @@ public class CuentaController {
 	
 	@RequestMapping(value="redirecNavBar.html", params = { "inicio" })
 	public ModelAndView cuentasUsuario(HttpServletRequest request) {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 		MV.addObject("listadoCuentasUsuario", cuentaN.datosCuentaBasic(IDUsuario));		
 		MV.setViewName("index");
@@ -49,7 +45,7 @@ public class CuentaController {
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"CuentaNueva"})
 	public ModelAndView redirecCuentaNuevaAdmin() {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		MV.addObject("listadoUsuarios", userDao.listarUsuarios());
 		MV.addObject("listadoTipos", tcDao.listarTipos());
 		MV.addObject("proxCBU", cuentaDao.proximoCBU());
@@ -59,7 +55,7 @@ public class CuentaController {
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ListarCuentas"})
 	public ModelAndView redirecListarCuentasAdmin() {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		MV.addObject("listadoUsuarios", userDao.listarUsuarios());
 		MV.addObject("listadoTipos", tcDao.listarTipos());
 		MV.addObject("listadoCuentas", cuentaDao.listarCuentas());
@@ -69,7 +65,7 @@ public class CuentaController {
 	
 	@RequestMapping(value="borrarCuenta.html")
 	public ModelAndView BorrarCuenta(String idCuenta) {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		cuentaDao.cerrarCuenta(idCuenta);
 		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarCuentas");
 		return MV;
@@ -77,7 +73,7 @@ public class CuentaController {
 	
 	@RequestMapping(value="abrirCuenta.html")
 	public ModelAndView AbrirCuenta(String idCuenta) {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		cuentaDao.abrirCuenta(idCuenta);
 		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarCuentas");
 		return MV;
@@ -103,13 +99,11 @@ public class CuentaController {
 		else {
 			return new Gson().toJson("Error");	
 		}
-	}
-	
-	
+	}	
 
 	@RequestMapping(value="cargarCuenta.html")
 	public ModelAndView cargarCuenta(int cbxTipo, int clienteSeleccionado) {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		cuentaDao.crearCuenta(cbxTipo, clienteSeleccionado);
 		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarCuentas");
 		return MV;
@@ -117,7 +111,7 @@ public class CuentaController {
 	
 	@RequestMapping(value="modificarCuenta.html")
 	public ModelAndView modificarCuenta(String idCuentaM, int cbxTipo, float saldoM, int clienteSeleccionado) {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		cuentaDao.modificarCuenta(idCuentaM, cbxTipo, saldoM, clienteSeleccionado);
 		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarCuentas");
 		return MV;

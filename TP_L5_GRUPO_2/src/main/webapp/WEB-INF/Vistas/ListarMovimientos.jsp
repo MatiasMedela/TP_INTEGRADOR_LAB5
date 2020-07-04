@@ -38,7 +38,7 @@
 
 	<div class="container-md">
 		<h3 style="margin-top: 20px;">Movimientos - ${Alias} - CBU:
-			${CBU}</h3>
+			<fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${CBU}"/></h3>
 		<table id="TablaMov" class="table tableMovements">
 			<thead>
 				<tr>
@@ -52,7 +52,7 @@
 				<c:forEach items="${ listadoMovimientos }" var="movimiento"
 					varStatus="loop">
 					<tr>
-						<td><fmt:formatDate type="date" dateStyle="short" value="${movimiento.getFecha()}"/></td>
+						<td><fmt:formatDate type="both" timeStyle="short" dateStyle="short" value="${movimiento.getFecha()}"/></td>
 						<c:if test="${movimiento.getTipoMovimiento().getIdTipoMovimiento() == '1'}" > <!-- ALTA CUENTA -->
 							<td>${movimiento.getTipoMovimiento().getDescripcion()}</td>
 							<td>CBU Nro. <fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${movimiento.getCuentaOrigen().getCbu()}"/> dado de alta. </td>

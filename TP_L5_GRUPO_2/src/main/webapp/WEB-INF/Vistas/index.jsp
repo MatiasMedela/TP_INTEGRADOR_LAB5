@@ -11,9 +11,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -104,10 +102,10 @@
 							<p id="Moneda">Pesos</p>
 							<div class="row">
 								<div class="col-8">
-									<p id="Cbu">0000000000000000000000</p>
+									<input class="input-copy" readonly id="Cbu" value="0000000000000000000000"/>
 								</div>
 								<div class="col-4">
-									<p class="edit-text" id="edit-ident">Copiar</p>
+									<button data-toggle="tooltip" data-placement="top" title="CBU copiado!" onClick="copiarCBU()" class="edit-text" id="copy-cbu">Copiar</button>
 								</div>
 							</div>
 							<p id="Alias">WORD.WORD.WORD</p>
@@ -132,6 +130,10 @@
 	CurrentItem = document.getElementById("mnInicio");
 	CurrentItem.className +=" active";
 
+	  $('#copy-cbu').tooltip({
+			 trigger: "manual"
+	  });
+	
 	$("#nombreUsuario").html($("#userName").val());
 	
 	$('#edit-ident').click(function() {
@@ -146,12 +148,22 @@
 		}
 	})
 	
+	function copiarCBU(){
+	  var copyText = document.getElementById("Cbu");
+	  copyText.select();
+	  document.execCommand("copy");
+	  copyText.blur();
+	  $('#copy-cbu').tooltip("show");
+	  }
+	
+	
 	function mostrarModalDetalles(index){
+		var cbu = parseInt($("#Cbu" + index).val())
 		$("#Saldo").html($("#Saldo" + index).html())
 		$("#Tipo").html($("#Tipo" + index).html())
 		$("#Moneda").html($("#Moneda" + index).html())
 		$("#text-ident").html($("#Ident" + index).html())
-		$("#Cbu").html($("#Cbu" + index).val())
+		$("#Cbu").val(cbu.toString().padStart(22,"0"))
 	}
 	
 </script>

@@ -36,7 +36,7 @@ public class TransferenciaController {
 	
 	@RequestMapping(value="redirecNavBar.html", params = {"transferencias"})
 	public ModelAndView redirecTrans(HttpServletRequest request) {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 		MV.addObject("listadoTransferencias", movDao.transferenciasxUsuario(Integer.parseInt(IDUsuario)));
 		MV.setViewName("transferencias");
@@ -45,7 +45,7 @@ public class TransferenciaController {
 	
 	@RequestMapping(value="redirecNuevaTransferencia.html", params = { "normal" })
 	public ModelAndView redirecNuevaTrans(HttpServletRequest request) {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 		MV.addObject("cuentasUsuario",cuentaN.CuentaUsuario(IDUsuario));
 		MV.setViewName("nuevaTransferencia");
@@ -54,7 +54,7 @@ public class TransferenciaController {
 
 	@RequestMapping(value="redirecNuevaTransferencia.html", params= { "terceros" })
 	public ModelAndView redirecNuevaTransTerceros(HttpServletRequest request) {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 		MV.addObject("cuentasUsuario",cuentaN.CuentaUsuario(IDUsuario));
 		MV.setViewName("nuevaTransferenciaTerceros");
@@ -75,7 +75,7 @@ public class TransferenciaController {
 	@RequestMapping(method = RequestMethod.POST, value="datosCuentas.html")
 	@ResponseBody
 	public String devolverDatosCuentas(String idOrigen, String idDestino) {
-		ArrayList<Cuenta> listado = new ArrayList<Cuenta>();
+		ArrayList<Cuenta> listado = (ArrayList<Cuenta>) appContext.getBean("ArrayList");
 		listado.add(cuentaDao.buscarCuenta(Integer.parseInt(idOrigen))); 
 		listado.add(cuentaDao.buscarCuenta(Integer.parseInt(idDestino)));
 		return new Gson().toJson(listado);
@@ -84,7 +84,7 @@ public class TransferenciaController {
 	@RequestMapping(method = RequestMethod.POST, value="datosCuentasTerceros.html")
 	@ResponseBody
 	public String devolverDatosCuentasTerceros(String idOrigen, String cbuDestino) {
-		ArrayList<Cuenta> listado = new ArrayList<Cuenta>();
+		ArrayList<Cuenta> listado = (ArrayList<Cuenta>) appContext.getBean("ArrayList");;
 		listado.add(cuentaDao.buscarCuenta(Integer.parseInt(idOrigen))); 
 		listado.add(cuentaDao.buscarCuentaCBU(Double.parseDouble(cbuDestino)));
 		return new Gson().toJson(listado);
@@ -101,7 +101,6 @@ public class TransferenciaController {
 		else {
 			return new Gson().toJson("Error");
 		}
-
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value="verificarCBU.html")
@@ -112,7 +111,6 @@ public class TransferenciaController {
 		if(cuenta.getUsuario().getIdUsu() == IDUsuario) {
 			return new Gson().toJson("CBU userAct");
 		}
-		
 		return new Gson().toJson(cuenta);
 	}
 

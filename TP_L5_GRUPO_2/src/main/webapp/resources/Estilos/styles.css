@@ -14,6 +14,27 @@
 	padding: 6px 0px!important;
 }
 
+.input-copy{
+	border: 0px;
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently */
+    width: 230px;
+}
+.input-copy:focus{
+	outline: 0px;
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
 #faltaImporte {
 	color: red;
     position: absolute;
@@ -42,6 +63,12 @@
 	color: dimgray;
 	text-decoration: underline;
 	text-align: center;
+	border: 0;
+    background-color: white;
+}
+
+.edit-text:focus {
+	outline: 0px;
 }
 
 .form-detalle {
