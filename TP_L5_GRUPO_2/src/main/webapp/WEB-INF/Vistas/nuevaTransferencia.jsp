@@ -64,7 +64,6 @@
     </div>
     <input id="importe" name="importe" onkeypress="return soloNumeros(event);" type="text" class="form-control" id="formGroupImporte" placeholder="1000.00">
   </div>
-  <span id="faltaImporte" hidden>Debe ingresar un importe para realizar la transferencia</span>
   </div>
     <div class="form-group">
     <label for="formGroupMotivo">Motivo</label>
@@ -95,7 +94,7 @@
 	   var importe = parseFloat($("#importe").val()).toLocaleString(undefined);
 	   
 	   if($("#motivo").val() == ""){
-		   var motivo = "varios";		   
+		   var motivo = "Varios";		   
 	   }
 	   else{
 	   		var motivo = $("#motivo").val(); 			   

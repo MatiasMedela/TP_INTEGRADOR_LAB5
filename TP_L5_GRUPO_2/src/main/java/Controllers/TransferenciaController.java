@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
+import AccesoDatos.ClienteDao;
 import AccesoDatos.CuentaDao;
 import AccesoDatos.MovimientoDao;
+import AccesoDatos.UsuarioDao;
 import Dominio.Cuenta;
+import Dominio.Usuario;
 import Negocio.CuentaNegocio;
 import Negocio.MovimientoNegocio;
 
@@ -27,6 +30,12 @@ public class TransferenciaController {
 	
 	@Autowired
 	private MovimientoDao movDao;
+	
+	@Autowired
+	private ClienteDao userDao;
+	
+	@Autowired
+	private CuentaDao cuentaDao;
 	
 	@RequestMapping(value="redirecNavBar.html", params = {"transferencias"})
 	public ModelAndView redirecTrans(HttpServletRequest request) {
@@ -47,8 +56,10 @@ public class TransferenciaController {
 	}
 
 	@RequestMapping(value="redirecNuevaTransferencia.html", params= { "terceros" })
-	public ModelAndView redirecNuevaTransTerceros() {
+	public ModelAndView redirecNuevaTransTerceros(HttpServletRequest request) {
 		ModelAndView MV = new ModelAndView();
+		String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
+		MV.addObject("cuentasUsuario",cuentaN.CuentaUsuario(IDUsuario));
 		MV.setViewName("nuevaTransferenciaTerceros");
 		return MV;
 	}
@@ -74,11 +85,15 @@ public class TransferenciaController {
 		return MV;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value="/verificarCBU.html", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.POST, value="verificarCBU.html")
 	@ResponseBody
-	public String verificarCBU(String CBUCuenta) {
-		CuentaDao cuentaDao = new CuentaDao();
-		Cuenta cuenta = cuentaDao.buscarCuentaCBU(Double.parseDouble(CBUCuenta.substring(CBUCuenta.lastIndexOf("0")+1)));
+	public String verificarCBU(String CBU, HttpServletRequest request) {
+		int IDUsuario = Integer.parseInt(request.getSession().getAttribute("IDUsuario").toString());
+		Cuenta cuenta = cuentaDao.buscarCuentaCBU(Double.parseDouble(CBU.substring(CBU.lastIndexOf("0")+1)));
+		if(cuenta.getUsuario().getIdUsu() == IDUsuario) {
+			return new Gson().toJson("CBU userAct");
+		}
+		
 		return new Gson().toJson(cuenta);
 	}
 
