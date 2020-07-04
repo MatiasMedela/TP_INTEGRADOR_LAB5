@@ -38,7 +38,6 @@ public class MovimientoDao {
 	public void agregarTransferencia(Movimiento mov) {
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
-		
 		session.beginTransaction();
 		session.save(mov);
 		session.getTransaction().commit();

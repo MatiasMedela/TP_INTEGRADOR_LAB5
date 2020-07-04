@@ -14,6 +14,13 @@
 	padding: 6px 0px!important;
 }
 
+#faltaImporte {
+	color: red;
+    position: absolute;
+    top: 343px;
+    right: 175px;
+}
+
 .btn-grid {
 	display: block!important;
 	margin: auto!important;

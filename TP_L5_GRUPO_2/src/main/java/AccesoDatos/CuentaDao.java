@@ -158,11 +158,34 @@ public class CuentaDao {
 	public List<Cuenta> CuentaUsuario(String legajo) {
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
-		
-		List<Cuenta> listado = (List<Cuenta>) session.createQuery("SELECT c FROM Cuenta c WHERE c.usuario = " + legajo + " AND c.estado=1").list();
-		
-    	ch.cerrarSession();
+		List<Cuenta> listado = null;
+		try {			
+			listado = (List<Cuenta>) session.createQuery("SELECT c FROM Cuenta c WHERE c.usuario = " + legajo + " AND c.estado=1").list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			ch.cerrarSession();		
+		}
 	    return listado;		
+	}
+
+
+	public void modificarSaldo(Cuenta cuenta, float importe) {
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		try {
+			session.getTransaction().begin();
+			cuenta.setSaldo(cuenta.getSaldo() + importe);
+			session.saveOrUpdate(cuenta);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			session.getTransaction().commit();
+			ch.cerrarSession();	
+		}
+	    return;	
 	}
 	
 }

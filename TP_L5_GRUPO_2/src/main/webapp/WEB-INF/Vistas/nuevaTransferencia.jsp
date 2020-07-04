@@ -18,6 +18,8 @@
 	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 	crossorigin="anonymous"></script>
 <link rel=stylesheet href="<c:url value="resources/Estilos/styles.css"/>" type="text/css" media=screen>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script type="text/javascript" src="<c:url value="resources/Funciones/funciones.js"/>"></script>
 </head>
 <body>
 <%@ include file="NavbarClient.html"%>
@@ -35,7 +37,7 @@
     <label class="input-group-text" for="inputGroupSelect01">Cuenta</label>
   </div>
   <select name="cuentaOrigen" class="custom-select" id="cuentaOrigen">
-  <c:forEach items="${cuentasUsuario}" var="cuentaO">
+  <c:forEach items="${cuentasUsuario}" var="cuentaO" varStatus="loop">
     <option value="${cuentaO.idCuenta}">${cuentaO.tipoCuenta.descripcion} - ${cuentaO.alias} - <fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${cuentaO.cbu}"/> - ${cuentaO.tipoCuenta.moneda} : $ <fmt:formatNumber type="number" maxFractionDigits="2" value="${cuentaO.saldo}" /></option>
   </c:forEach>
   </select>
@@ -56,73 +58,100 @@
   </div>
   <div class="form-group">
     <label for="formGroupImporte">Importe</label>
-    <input name="importe" type="text" class="form-control" id="formGroupImporte" placeholder="1000">
+    <div class="input-group mb-3">
+    <div class="input-group-prepend">
+    <label class="input-group-text" for="importe">$</label>
+    </div>
+    <input id="importe" name="importe" onkeypress="return soloNumeros(event);" type="text" class="form-control" id="formGroupImporte" placeholder="1000.00">
+  </div>
+  <span id="faltaImporte" hidden>Debe ingresar un importe para realizar la transferencia</span>
   </div>
     <div class="form-group">
     <label for="formGroupMotivo">Motivo</label>
-    <input name="motivo" type="text" class="form-control" id="formGroupMotivo" placeholder="Varios">
+    <input id="motivo" name="motivo" type="text" class="form-control" id="formGroupMotivo" placeholder="Varios">
   </div>
   <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <input  type="checkbox" class="form-check-input" id="checkTerminos">
     <label class="form-check-label" for="exampleCheck1">Acepto los términos y condiciones</label>
   </div>
-  <button id="btnTransferir" type="button" onClick="verificarCuentasDistintas()" class="btn btn-primary btn-lg btn-block">Transferir</button>
+  <button id="btnTransferir" type="button" onClick="verificarCampos()" class="btn btn-primary btn-lg btn-block">Transferir</button>
   </fieldset>
 </form>
-</div>
-
-<div id="confirmarModal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Confirmar transferencia</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-        	<div class="col-6 text-right">
-        		<p>Cuenta a debitar:</p>
-        		<p>Cuenta a acreditar:</p>
-        		<p>Importe:</p>
-        		<p>Motivo:</p>
-        	</div>
-        	<div class="col-6">
-        		<p id="modalCuentaO"></p>
-        		<p id="modalCuentaD"></p>
-        		<p id="modalImporte"></p>
-        		<p id="modalMotivo"></p>
-        	</div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Transferir</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
 </div>
 
 	<!-- END CONTENT -->
 
 </body>
 <script type="text/javascript">
-   function verificarCuentasDistintas(){
+   
+   function verificarCampos(){
 	   var origen = $("#cuentaOrigen").children("option:selected").val();
 	   var destino = $("#cuentaDestino").children("option:selected").val();
-	   if(origen == destino){
-		   alert("Ambas cuentas seleccionadas son la misma, seleccione diferentes cuentas!")
+	   var saldoString = $("#cuentaOrigen option:selected").html().substring($("#cuentaOrigen option:selected").html().indexOf("$")+2);
+	   var saldo = parseFloat(saldoString.slice(0, saldoString.indexOf(".")) + saldoString.slice(saldoString.indexOf(".")+1));
+	   var importeFloat = parseFloat($("#importe").val());
+	   var cuentaO = $("#cuentaOrigen option:selected").html().substring(0, $("#cuentaOrigen option:selected").html().indexOf("-")-1);
+	   var cuentaD = $("#cuentaDestino option:selected").html().substring(0,$("#cuentaDestino option:selected").html().indexOf("-")-1);
+	   var importe = parseFloat($("#importe").val()).toLocaleString(undefined);
+	   
+	   if($("#motivo").val() == ""){
+		   var motivo = "varios";		   
 	   }
 	   else{
-		   $("#modalCuentaO").html();
-		   $("#modalCuentaD").html();
-		   $("#modalImporte").html();
-		   $("#modalMotivo").html();
-		   $("#confirmarModal").modal("toggle");
+	   		var motivo = $("#motivo").val(); 			   
+	   }
+	    	
+	   if(origen == destino){
+		   Swal.fire({
+			   title: "Atención!",
+			   icon: "warning",
+			   text: "Ambas cuentas seleccionadas iguales",
+			   confirmButtonText: "Entendido"
+		   })
+	   }
+	   else if($("#importe").val() == ""){
+		   Swal.fire({
+			   position: "top-end",
+			   text: "Debe ingresar un importe para realizar la transferencia.",
+		   	   toast: true,
+		   	   timer: 8000,
+		   	   timerProgressBar: true,
+		   })
+	   }
+	   else if(!$("#checkTerminos").prop("checked")){
+		   Swal.fire({
+			   position: "top-end",
+			   text: "Debe aceptar los términos y condiciones.",
+		   	   toast: true,
+		   	   timer: 8000,
+		   	   timerProgressBar: true,
+		   })
+	   }
+	   else if(saldo < importeFloat){
+		   Swal.fire({
+			   title: "Atención!",
+			   icon: "warning",
+			   text: "El importe ingresado es mayor al saldo de la cuenta de origen.",
+			   confirmButtonText: "Entendido"
+		   })
+	   }
+	   else{
+		   Swal.fire({
+			   title: 'Confirmar transferencia',
+			   html: 
+			    '<p>Cuenta a debitar: ' + cuentaO + '</p>' +
+	        	'<p>Cuenta a acreditar: '  + cuentaD + '</p>' +
+       			'<p>Importe: $' + importe + '</p>' +
+       			'<p>Motivo: ' + motivo  + '</p>',
+			   showCancelButton: true,
+			   reverseButtons: true,
+			   cancelButtonText: 'Cancelar',
+			   confirmButtonText: 'Transferir'}).then((result) => {
+				   if(result.value){
+					 $("#formTransferencia").submit();   					   
+				   }
+			   })
 	   }
    }
-
-		  /*  $("#formTransferencia").submit(); */
 </script>
 </html>
