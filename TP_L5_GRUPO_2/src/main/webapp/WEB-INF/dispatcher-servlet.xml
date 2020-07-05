@@ -47,6 +47,9 @@
 	<!-- BEAN INFORME DAO -->
 	<bean id="BInformeDao" scope="singleton" class="AccesoDatos.InformeDao"/>
 	
+	<!-- BEAN PRESTAMO DAO -->
+	<bean id="BPrestamoDao" scope="singleton" class="AccesoDatos.PrestamoDao"/>
+	
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 </beans>
