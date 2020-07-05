@@ -50,6 +50,25 @@
 	<!-- BEAN PRESTAMO DAO -->
 	<bean id="BPrestamoDao" scope="singleton" class="AccesoDatos.PrestamoDao"/>
 	
+	<!--BEAN LOCALIDAD DAO -->
+	<bean id="BLocalidadDao" scope="singleton" class="AccesoDatos.LocalidadDao"/>
+	
+	<!--BEAN GENERO DAO -->
+	<bean id="BGeneroDao" scope="singleton" class="AccesoDatos.GeneroDao"/>
+	
+	<!--BEAN TIPO USUARIO DAO -->
+	<bean id="BTipoUsuarioDao" scope="singleton" class="AccesoDatos.TipoUsuarioDao"/>
+	
+	<!-- BEAN LOGUEO NEGOCIO -->
+	<bean id="BLogueoNegocio" scope="singleton" class="Negocio.LogueoNegocio"/>
+	
+	<!-- BEAN LOGUEO DAO -->
+	<bean id="BLogueoDao" scope="singleton" class="AccesoDatos.LogueoDao"/>
+	
+	<!-- BEAN CONFIGURACION HIBERNATE -->
+	<bean id="BConfigHibernate" scope="singleton" class="AccesoDatos.ConfigHibernate"/>
+	
+	
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 </beans>
