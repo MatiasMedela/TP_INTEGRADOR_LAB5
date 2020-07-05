@@ -42,18 +42,24 @@
   </select>
 </div>
   </div>
-
-  <div class="form-group">
+  <div class="form-group row">
+  <div class="col-6">
     <label for="formGroupCBU">CBU</label>
     <input type="text" onkeypress="return soloNumeros(event);" class="form-control" name="CBUCuenta" id="formGroupCBU" placeholder="0110357805411825791353">
+	  <div class="form-inline mt-2">
+	<button onClick="verificarCbu(this)" type="button" class="btn btn-primary">Verificar CBU</button> 
+	  </div>
+	<small id="userCBUIngresado" class="ml-2 form-text text-muted"></small>
+	  </div>
+	 <div class="col-6">
+	     <label for="formGroupCBU">Alias CBU</label>
+	    <input type="text" class="form-control" name="AliasCBUCuenta" id="formGroupAlias" placeholder="PALABRA.PALABRA.PALABRA">
+		  <div class="form-inline mt-2">
+		<button onClick="verificarCbu(this)" type="button" class="btn btn-primary">Verificar Alias CBU</button> 
+		  </div>
+		<small id="userAliasCBUIngresado" class="ml-2 form-text text-muted"></small>
+	  </div>
   </div>
-  <div class="form-inline mb-2">
-<button id="btnVerificarCBU" type="button" class="btn btn-primary">Verificar CBU</button> 
-<small id="userCBUIngresado" class="ml-2 form-text text-muted"></small>
- </div>
- 
-
-
   <div class="form-group">
     <label for="formGroupImporte">Importe</label>
     <div class="input-group mb-3">
@@ -81,13 +87,21 @@
 
 </body>
 <script type="text/javascript">
-$("#btnVerificarCBU").click(function(){
-	if($("#formGroupCBU").val() != ""){	
-		var cbu = $("#formGroupCBU").val();
+function verificarCbu(btn){
+	if($("#formGroupCBU").val() != "" || $("#formGroupAlias").val() != ""){	
+		if($(btn).html() == "Verificar CBU"){
+			var cbu = $("#formGroupCBU").val();	
+			var aliasCbu = "";
+		}
+		else{
+			var aliasCbu = $("#formGroupAlias").val();	
+			var cbu = "";	
+		}
 	    $.ajax({
 			url: '${request.getContextPath()}/TP_L5_GRUPO_2/verificarCBU.html',
 			type: 'POST',
-	        data: { CBU: cbu },
+	        data: { CBU: cbu,
+	        		Alias: aliasCbu},
 			success: function(data){
 				if(data == "\"CBU userAct\""){
 					Swal.fire({
@@ -97,10 +111,20 @@ $("#btnVerificarCBU").click(function(){
 						confirmButtonText: "Entendido"
 					})
 				}
+				else if(data == "\"CBU no encontrado\""){
+					Swal.fire({
+						icon: "error",
+						title: "CBU no encontrado",
+						confirmButtonText: "Entendido"
+					})
+				}
 				else{
 			    var obj = JSON.parse(data)
+			    var cbuEncontrado = obj.cbu
 			    	$("#userCBUIngresado").html("CBU correspondiente a: "+obj.usuario.Apellido + ", " + obj.usuario.Nombre +" DNI: " + obj.usuario.Dni + " - Moneda: " + obj.tipoCuenta.moneda)
-					Swal.fire({
+					$("#formGroupCBU").val(cbuEncontrado.toString().padStart(22, "0"))
+					$("#formGroupAlias").val(obj.alias)
+			    	Swal.fire({
 						icon: "success",
 						title: "Cuenta encontrada",
 						html: "<p>El CBU ingresado corresponde a</p>" +
@@ -122,7 +146,7 @@ $("#btnVerificarCBU").click(function(){
 	   	   timerProgressBar: true,
 	   })
 	}
-})
+}
 
    function verificarCampos(){
 	   var cuentaO = $("#cuentaOrigen option:selected").val();
@@ -144,10 +168,10 @@ $("#btnVerificarCBU").click(function(){
 				   		var motivoModal = $("#motivo").val(); 			   
 				   }
 				    	
-				   if($("#formGroupCBU").val() == ""){
+				   if($("#formGroupCBU").val() == "" && $("#formGroupAlias").val() == ""){
 					   Swal.fire({
 						   position: "top-end",
-						   text: "Debe ingresar un CBU para realizar la transferencia.",
+						   text: "Debe ingresar un CBU/Alias para realizar la transferencia.",
 					   	   toast: true,
 					   	   timer: 8000,
 					   	   timerProgressBar: true,

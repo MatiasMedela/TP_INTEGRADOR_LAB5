@@ -105,10 +105,20 @@ public class TransferenciaController {
 	
 	@RequestMapping(method = RequestMethod.POST, value="verificarCBU.html")
 	@ResponseBody
-	public String verificarCBU(String CBU, HttpServletRequest request) {
+	public String verificarCBU(String CBU, String Alias, HttpServletRequest request) {
 		int IDUsuario = Integer.parseInt(request.getSession().getAttribute("IDUsuario").toString());
-		Cuenta cuenta = cuentaDao.buscarCuentaCBU(Double.parseDouble(CBU.substring(CBU.lastIndexOf("0")+1)));
-		if(cuenta.getUsuario().getIdUsu() == IDUsuario) {
+		Cuenta cuenta = null;
+		if(CBU != "") {
+			CBU = CBU.replaceFirst("^0+(?!$)", "");
+			cuenta = cuentaDao.buscarCuentaCBU(Double.parseDouble(CBU));			
+		}
+		else {
+			cuenta = cuentaDao.buscarCuentaAlias(Alias);
+		}
+		if(cuenta == null) {
+			return new Gson().toJson("CBU no encontrado");
+		}
+		else if(cuenta.getUsuario().getIdUsu() == IDUsuario) {
 			return new Gson().toJson("CBU userAct");
 		}
 		return new Gson().toJson(cuenta);

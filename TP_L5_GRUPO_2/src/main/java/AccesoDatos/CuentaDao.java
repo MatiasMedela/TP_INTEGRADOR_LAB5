@@ -246,4 +246,13 @@ public class CuentaDao {
 		}
 		return res;		
 	}
+
+
+	public Cuenta buscarCuentaAlias(String alias) {
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		Cuenta c = (Cuenta) session.createQuery("FROM Cuenta as cu WHERE cu.alias = '"+alias+"'").uniqueResult();
+		ch.cerrarSession();
+	    return c;
+	}
 }
