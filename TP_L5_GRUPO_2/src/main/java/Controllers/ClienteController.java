@@ -2,39 +2,38 @@ package Controllers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.sun.javafx.collections.MappingChange.Map;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import AccesoDatos.ClienteDao;
 import AccesoDatos.GeneroDao;
 import AccesoDatos.LocalidadDao;
 import AccesoDatos.LogueoDao;
 import AccesoDatos.TipoUsuarioDao;
-import Dominio.Localidad;
 import Dominio.Logueo;
 import Dominio.Usuario;
 
 
 @Controller
 public class ClienteController {
+	ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
+	
+	@Autowired
+	private LocalidadDao locdao;
+	@Autowired
+	private ClienteDao Clidao;
+	@Autowired
+	private GeneroDao Gdao;
+	@Autowired
+	private TipoUsuarioDao TusuDao;
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ClienteNuevo"})
 	public ModelAndView redirecAltaCliente() {
-		ModelAndView MV = new ModelAndView();
-		LocalidadDao locdao= new LocalidadDao();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		MV.addObject("LocalidadesList", locdao.ListLocalidades());
 		MV.setViewName("AltaCliente");
 		return MV;
@@ -42,8 +41,7 @@ public class ClienteController {
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ListarClientes"})
 	public ModelAndView redirecListarClientes() {
-		ModelAndView MV = new ModelAndView();
-		ClienteDao Clidao= new ClienteDao();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		MV.addObject("ClientesList", Clidao.ListarClientes());
 		MV.setViewName("ListarClientes");
 		return MV;
@@ -51,9 +49,7 @@ public class ClienteController {
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"EliminarCliente"})
 	public ModelAndView redirecEliminarCliente() {
-		ModelAndView MV = new ModelAndView();
-		ClienteDao Clidao= new ClienteDao();
-		LocalidadDao locdao= new LocalidadDao();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		MV.addObject("LocalidadesList", locdao.ListLocalidades());
 		MV.addObject("ClientesList", Clidao.ListarClientes());
 		MV.setViewName("ModBajaCliente");
@@ -64,14 +60,9 @@ public class ClienteController {
 	@RequestMapping("CargarCliente.html")
 	public ModelAndView CargarCliente(String DniName,String NombreName,String ApeName,String NacName,
 	String EmailName,String CmbProv,String DirName,String FechaNac,Integer CmbGen,String LocName,String CliTel) {
-		ModelAndView MV=new ModelAndView();
+		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
 		try {
-			ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
-			ClienteDao cldao= new ClienteDao();
 			Usuario Clie = (Usuario) appContext.getBean("BUsuario");
-			GeneroDao Gdao= new GeneroDao();
-			LocalidadDao LocDao= new LocalidadDao();
-			TipoUsuarioDao TusuDao= new TipoUsuarioDao();
 		
 		//Validaciones
 			//if(true) {
@@ -89,11 +80,11 @@ public class ClienteController {
 			Clie.setNacionalidad(NacName);
 			Clie.setGen(Gdao.BuscarGeneroXId(CmbGen));
 			String[] parts = LocName.split(",");
-			Clie.setLoc(LocDao.BuscarLocalidad(Integer.valueOf(parts[0])));
+			Clie.setLoc(locdao.BuscarLocalidad(Integer.valueOf(parts[0])));
 			Clie.setTel(CliTel);
 			Clie.setTipoUsu(TusuDao.UserCliente());
 			Clie.setEstado(true);
-			if(cldao.AltaCliente(Clie)==true) {
+			if(Clidao.AltaCliente(Clie)==true) {
 				LogueoDao ld=new LogueoDao();
 				Logueo l=new Logueo();
 				l.setUsuario(Clie);
@@ -118,15 +109,9 @@ public class ClienteController {
 	@RequestMapping("ModificarCliente.html")
 	public ModelAndView ModificarCliente(String DniEditName,String OldDniName,String NomEditName,String ApeEditName,String NacEditName,
 			String EmailEditName,String ProvEditName,String DirEditName,String FnacEditName,Integer GenEditName,Integer LocEditName,String TelEditName) {
-		ModelAndView MV=new ModelAndView();
-		ClienteDao cldao= new ClienteDao();
+		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
 		try {
-			ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 			Usuario Clie = (Usuario) appContext.getBean("BUsuario");
-			GeneroDao Gdao= new GeneroDao();
-			LocalidadDao LocDao= new LocalidadDao();
-			TipoUsuarioDao TusuDao= new TipoUsuarioDao();
-		System.out.println("llegue");
 		//Validaciones
 			//if(true) {
 			Clie.setDni(DniEditName);
@@ -142,92 +127,77 @@ public class ClienteController {
 			Clie.setFechaNac(dateDB);
 			Clie.setNacionalidad(NacEditName);
 			Clie.setGen(Gdao.BuscarGeneroXId( GenEditName));
-			Clie.setLoc(LocDao.BuscarLocalidad(LocEditName));
+			Clie.setLoc(locdao.BuscarLocalidad(LocEditName));
 			Clie.setTel(TelEditName);
 			Clie.setTipoUsu(TusuDao.UserCliente());
 			Clie.setEstado(true);
-			if(cldao.ModificarCliente(Clie,OldDniName) == true) {
+			if(Clidao.ModificarCliente(Clie,OldDniName) == true) {
 				System.out.println("UPDATE EJECUTADO EXITOSAMENTE");
-				MV.addObject("LocalidadesList", LocDao.ListLocalidades());
-				MV.addObject("ClientesList", cldao.ListarClientes());
+				MV.addObject("LocalidadesList", locdao.ListLocalidades());
+				MV.addObject("ClientesList", Clidao.ListarClientes());
 				MV.setViewName("ModBajaCliente");
 			}
 			else {
 				//error al modificar cliente
 				System.out.println("error al modificar cliente");
-				MV.addObject("LocalidadesList", LocDao.ListLocalidades());
-				MV.addObject("ClientesList", cldao.ListarClientes());
-				MV.setViewName("ModBajaCliente");
-				
+				MV.addObject("LocalidadesList", locdao.ListLocalidades());
+				MV.addObject("ClientesList", Clidao.ListarClientes());
+				MV.setViewName("ModBajaCliente");	
 			}
 			//}
 			return MV;
 		} catch (Exception e) {
 			System.out.println("error al modificar cliente");
 			e.printStackTrace();
-			MV.addObject("ClientesList", cldao.ListarClientes());
+			MV.addObject("ClientesList", Clidao.ListarClientes());
 			MV.setViewName("ListarClientes");
 			return MV;
 		}
 	}
 	@RequestMapping("RedireccionarDarDeAltaCliente.html")
 	public ModelAndView DarDeAltaCliente(String TxtAltaClientName) {
-		ModelAndView MV=new ModelAndView();
-		ClienteDao cldao= new ClienteDao();
+		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
 		try {
-			ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
-			Usuario Clie = (Usuario) appContext.getBean("BUsuario");
-			System.out.println(TxtAltaClientName);
-			if(cldao.ModAltaCliente(TxtAltaClientName)==true) {
-				LocalidadDao l =new LocalidadDao();
-				MV.addObject("LocalidadesList", l.ListLocalidades());
-				MV.addObject("ClientesList", cldao.ListarClientes());
+			if(Clidao.ModAltaCliente(TxtAltaClientName)==true) {
+				MV.addObject("LocalidadesList", locdao.ListLocalidades());
+				MV.addObject("ClientesList", Clidao.ListarClientes());
 				MV.setViewName("ModBajaCliente");
 			}
 			else {
 				//Error al dar de baja cliente
 				System.out.println("error al dar de alta al cliente");
-				LocalidadDao l =new LocalidadDao();
-				MV.addObject("LocalidadesList", l.ListLocalidades());
-				MV.addObject("ClientesList", cldao.ListarClientes());
+				MV.addObject("LocalidadesList", locdao.ListLocalidades());
+				MV.addObject("ClientesList", Clidao.ListarClientes());
 				MV.setViewName("ModBajaCliente");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			LocalidadDao l =new LocalidadDao();
-			MV.addObject("LocalidadesList", l.ListLocalidades());
-			MV.addObject("ClientesList", cldao.ListarClientes());
+			MV.addObject("LocalidadesList", locdao.ListLocalidades());
+			MV.addObject("ClientesList", Clidao.ListarClientes());
 			MV.setViewName("ModBajaCliente");
 		}
 		return MV;
 	}
 	@RequestMapping("RedireccionarDarDeBajaCliente.html")
 	public ModelAndView DarDeBajaCliente(String TxtBajaClientName) {
-		ModelAndView MV=new ModelAndView();
-		ClienteDao cldao= new ClienteDao();
+		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
 		try {
-			ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
-			Usuario Clie = (Usuario) appContext.getBean("BUsuario");
-			System.out.println(TxtBajaClientName);
-			if(cldao.BajaCliente(TxtBajaClientName)==true) {
-				LocalidadDao l =new LocalidadDao();
-				MV.addObject("LocalidadesList", l.ListLocalidades());
-				MV.addObject("ClientesList", cldao.ListarClientes());
+			if(Clidao.BajaCliente(TxtBajaClientName)==true) {
+				MV.addObject("LocalidadesList", locdao.ListLocalidades());
+				MV.addObject("ClientesList", Clidao.ListarClientes());
 				MV.setViewName("ModBajaCliente");
 			}
 			else {
 				//Error al dar de baja cliente
 				System.out.println("error al dar de baja al cliente");
-				LocalidadDao l =new LocalidadDao();
-				MV.addObject("LocalidadesList", l.ListLocalidades());
-				MV.addObject("ClientesList", cldao.ListarClientes());
+				MV.addObject("LocalidadesList", locdao.ListLocalidades());
+				MV.addObject("ClientesList",Clidao.ListarClientes());
 				MV.setViewName("ModBajaCliente");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			LocalidadDao l =new LocalidadDao();
-			MV.addObject("LocalidadesList", l.ListLocalidades());
-			MV.addObject("ClientesList", cldao.ListarClientes());
+			MV.addObject("LocalidadesList", locdao.ListLocalidades());
+			MV.addObject("ClientesList", Clidao.ListarClientes());
 			MV.setViewName("ModBajaCliente");
 		}
 		return MV;
