@@ -24,6 +24,7 @@ public class MovimientoController {
 		MV.addObject("listadoMovimientos", movN.movimientosxCuenta(cuentaDao.buscarCuentaCBU(Double.parseDouble(CbuCuenta)).getIdCuenta()));
 		MV.addObject("CBU", CbuCuenta);
 		MV.addObject("Alias", AliasCuenta);
+		MV.addObject("Tipo", cuentaDao.buscarCuentaCBU(Double.parseDouble(CbuCuenta)).getTipoCuenta().getDescripcion());
 		MV.setViewName("ListarMovimientos");
 		return MV;
 	}
