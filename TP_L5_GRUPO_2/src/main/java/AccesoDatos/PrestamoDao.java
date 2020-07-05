@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import Dominio.Cuenta;
 import Dominio.EstadoPrestamo;
 import Dominio.Prestamo;
 import Dominio.Usuario;
@@ -73,4 +74,14 @@ public class PrestamoDao {
 	    return listado;	
 	}	
 	
+	public List<Prestamo> listarPrestamosPorEstado(int estado) {
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		List<Prestamo> listado = (List<Prestamo>) session.createQuery("FROM Prestamo where estado="+estado).list();
+		
+    	ch.cerrarSession();
+	    return listado;		
+	}	
+	
+
 }

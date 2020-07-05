@@ -57,8 +57,31 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>Juan Gómez</td>
+			
+					<c:forEach items="${ listadoPrestamosAdm}" var="prestamo" varStatus="loop">			
+					<tr>
+						<td id="Nombre${loop.index}">${prestamo.getUsuario().getNombre()} ${prestamo.getUsuario().getApellido()}</td>
+						<td id="Tipo${loop.index}">${prestamo.getCbu().getTipoCuenta().descripcion}</td>
+						<td id="ImporteSol${loop.index}">${prestamo.importeTotal}</td>
+						<td id="ImporteFinal${loop.index}">${prestamo.montoPagar}</td>
+						<td id="Meses${loop.index}">${prestamo.cantidadMeses}</td>
+						<td id="FechaSol${loop.index}">${prestamo.fechaSolicitud}</td>
+						<td id="Estado${loop.index}">${prestamo.estado.descripcion}</td>
+						<td><div class="dropdown">
+				  <button class="btn btn-secondary dropdown-toggle btn-grid-action" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Acción
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				    <a class="dropdown-item" href="#">Aprobar</a>
+				    <a class="dropdown-item" href="#">Rechazar</a>
+				
+				  </div>
+				</div>
+				</td>
+					</tr>						
+				</c:forEach>		
+				<!--  <tr>
+				    <td>Juan Gómez</td>
 					<td>Cuenta principal</td>
 					<td>$100.000</td>
 					<td>$125.000</td>
@@ -76,27 +99,7 @@
 				  </div>
 				</div>
 				</td>
-				</tr>
-				<tr>
-					<td>Tomás Ramírez</td>				
-					<td>Cuenta secundaria</td>
-					<td>$50.000</td>
-					<td>$62.500</td>
-					<td>12</td>
-					<td>08/05/2020</td>
-					<td>Pendiente</td>
-					<td><div class="dropdown">
-					  <button class="btn btn-secondary dropdown-toggle btn-grid-action" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					    Acción
-					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					    <a class="dropdown-item" href="#">Aprobar</a>
-					    <a class="dropdown-item" href="#">Rechazar</a>
-					
-					  </div>
-					</div>
-					</td>
-				</tr>
+				</tr> <-->
 			</tbody>
 		</table>		
 	</div>

@@ -26,7 +26,7 @@
          <property name="fechaResolucion" type="java.util.Date">
             <column name="FECHARESOLUCION" />
         </property>
-        <many-to-one name="estado" class="Dominio.EstadoPrestamo" fetch="join">
+        <many-to-one name="estado" class="Dominio.EstadoPrestamo" fetch="join" lazy="false">
             <column name="ESTADO" />
         </many-to-one>
         <property name="montoPagar" type="float">
