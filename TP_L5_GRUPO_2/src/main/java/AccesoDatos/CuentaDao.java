@@ -3,7 +3,7 @@ package AccesoDatos;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.List;
-
+import java.util.Random;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -208,6 +208,32 @@ public class CuentaDao {
 			ch.cerrarSession();	
 		}
 	    return;	
+	}
+	
+	public String generarAlias()
+	{
+		String res = "";
+		int n = 0;
+		String[] x = {"PERRO", "GATO", "VACA", "RATON", "OVEJA", "ARGENTINA", "PERU", "PARAGUAY", "COREA", "JAPON", "ARBOL", "PLANTA", "ARBUSTO", "TORRE"};
+		Random r = new Random();
+		for (int v = 0; v<3; v++)
+		{
+			n = r.nextInt(14);
+			if (v==0)
+			{
+			res = x[n];	
+			}	
+		    else
+		    {
+		    	res = res + "." + x[n];
+		    }
+			
+			
+		}
+		
+		
+		return res;
+		
 	}
 	
 }
