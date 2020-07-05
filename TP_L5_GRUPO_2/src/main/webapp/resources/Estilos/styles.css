@@ -23,6 +23,7 @@
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently */
     width: 230px;
+    margin-bottom: 1rem;
 }
 .input-copy:focus{
 	outline: 0px;
@@ -72,10 +73,10 @@
 }
 
 .form-detalle {
-    height: calc(1em + .75rem + 2px);
+    height: calc(1em + .75rem + 2px)!important;
     margin-top: -3px;
     margin-left: -6.5px;
-    padding: .375rem .35rem;
+    padding: .375rem .35rem!important;
 }
 
 #text-ident {

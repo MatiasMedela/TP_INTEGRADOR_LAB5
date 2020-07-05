@@ -33,7 +33,7 @@ public class CuentaDao {
 	}	
 	
 	
-	public void crearCuenta(int idTipoCN, int DNIUser)
+	public boolean crearCuenta(int idTipoCN, int DNIUser)
 	{		
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
@@ -47,10 +47,19 @@ public class CuentaDao {
 		c.setAlias("Prueba");
 		c.setUsuario(user);
 		c.setSaldo(10000);	
-		c.setEstado(true);	
-		session.save(c);
-		session.getTransaction().commit();
-    	ch.cerrarSession();		
+		c.setEstado(true);
+		try {
+			session.save(c);
+			session.getTransaction().commit();			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			ch.cerrarSession();	
+			
+		}
+    	return true;
 	}
 	
 	public Cuenta buscarCuenta(int idCuenta) {

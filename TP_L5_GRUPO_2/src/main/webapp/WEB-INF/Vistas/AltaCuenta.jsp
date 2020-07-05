@@ -44,7 +44,7 @@
 		<!-- NAVBAR -->
 <%@ include file="NavbarAdmin.html"%>
 	<!-- END NAVBAR -->
-	<form method=get action=cargarCuenta.html style="padding: 20px">
+	<div style="padding: 20px">
 		<fieldset class="border p-2">
 			<legend class="w-auto">Alta cuenta</legend>
 			<div class="container-fluid">
@@ -53,7 +53,7 @@
 						<div class="form-group">
 							<!-- Tipo de cuenta -->
 							<label for="state_id" class="control-label">Tipo de cuenta</label> 
-							<select	class="form-control" id="state_id" name="cbxTipo">
+							<select	class="form-control" id="cuentaSelect" name="cbxTipo">
 								<c:forEach items="${ listadoTipos }" var="tipos" varStatus="loop">							
 									<option value="${tipos.idTipoCuenta}">${tipos.descripcion}</option>					
 							    </c:forEach>
@@ -76,10 +76,10 @@
 					</div>
 					<div class="col">
 						<div class="form-group">
-							<!-- Cliente -->
-							<input type="hidden" id="clienteSeleccionado" name="clienteSeleccionado" value="">
+		<!-- Cliente -->
+		<input type="hidden" id="clienteSeleccionado" name="clienteSeleccionado" value="">
 							
-<table id="TableCuentasAll" class="table table-hover">
+		<table id="TableCuentasAll" class="table table-hover">
 			<thead>
 				<tr>
 				<th scope="col">DNI</th>
@@ -102,11 +102,11 @@
 				</div>
 				<div class="form-group text-center">
 					<!-- Submit Button -->
-					<button id="btnGrabar" type="submit" disabled class="btn btn-primary">Grabar</button>
+					<button id="btnGrabar" onClick="verificarDatos()" disabled class="btn btn-primary">Grabar</button>
 				</div>
 			</div>
 		</fieldset>
-		</form>
+		</div>
 		<!-- modal cerrar session  -->
 	<div class="modal fade" id="ModalCerrarSession" tabindex="-1"
 		role="dialog">
@@ -138,14 +138,6 @@
 CurrentItem = document.getElementById("mnCuentas");
 CurrentItem.className +=" active";
 
-	function checkUserSelected(){
-		if($("#clienteSeleccionado").val() != ""){
-			$("#btnGrabar").attr("disabled", false);
-		}
-		else{
-			$("#btnGrabar").attr("disabled", true);
-		}
-	}
 
 $('#TableCuentasAll').DataTable({
 	"ordering" : false,
@@ -163,8 +155,77 @@ $('#TableCuentasAll').DataTable({
 		},
 	}
 });
-   
+
 var table = $('#TableCuentasAll').DataTable();   
+
+	function verificarDatos(){
+		var dni = $("#clienteSeleccionado").val();
+	   $.ajax({
+			url: '${request.getContextPath()}/TP_L5_GRUPO_2/cantidadCuentas.html',
+			type: 'POST',
+	        data: { dniCliente: dni },
+			success: function(data){
+				if(parseInt(JSON.parse(data)) >= 4){
+					Swal.fire({
+						icon: "warning",
+						title: "Este cliente posee 4 o más cuentas activas.",
+						confirmButtonText: "Entendido"
+					})					
+				}
+				else{
+				    var ApeNom =  table.rows(['.selected-table']).data().pluck(1).toArray();
+					Swal.fire({
+						title: "Confirmar alta de cuenta",
+						html: "<p>Cliente: " + ApeNom + " - DNI: " + dni + "</p>" + 
+							  "<p>Cuenta: " + $("#cuentaSelect option:selected").html() + "</p>",	
+						showCancelButton: true,
+						confirmButtonColor: "#218838",
+						cancelButtonText: "Cancelar",
+						confirmButtonText: "Dar de alta",
+						reverseButtons: true
+					}).then((result) => {
+						if(result.value){
+							var tipoC = $("#cuentaSelect").val();
+							$.ajax({
+								url: '${request.getContextPath()}/TP_L5_GRUPO_2/crearCuentaAsync.html',
+								type: 'POST',
+						        data: { tipoCuenta: tipoC ,
+						        		dniCliente: dni},
+								success: function(data){
+									if(data == "\"Exitoso\""){
+										Swal.fire({
+											icon: "success",
+											title: "Cuenta creada",
+											confirmButtonText: "Entendido"
+										}).then((result) => {
+											if(result.value){
+												location.reload();
+											}
+										})
+									}
+									else{
+										Swal.fire({
+											icon: "error",
+											title: "Hubo un problema al crear la cuenta",
+											confirmButtonText: "Entendido"
+										})
+									}
+								}
+							});
+						}
+					})
+				}
+		}});
+	}
+
+	function checkUserSelected(){
+		if($("#clienteSeleccionado").val() != ""){
+			$("#btnGrabar").attr("disabled", false);
+		}
+		else{
+			$("#btnGrabar").attr("disabled", true);
+		}
+	}
     
 $('#TableCuentasAll tbody').on( 'click', 'tr', function () {
 	if ( $(this).hasClass('selected-table') ) {

@@ -1,5 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <link rel=stylesheet
@@ -48,7 +49,7 @@
 						<td id="Tipo${loop.index}">${cuenta.tipoCuenta.descripcion}</td>
 						<td id="Ident${loop.index}">${cuenta.alias}</td>
 						<td id="Moneda${loop.index}">${cuenta.tipoCuenta.moneda}</td>
-						<td id="Saldo${loop.index}">${cuenta.saldo}</td>
+						<td id="Saldo${loop.index}">$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${cuenta.saldo}"/></td>
 						<td><button onClick="mostrarModalDetalles(${loop.index})"
 								type="button" class="btn btn-grid btn-light" data-toggle="modal"
 								data-target="#ModalDetails">Ver detalles</button></td>
@@ -142,8 +143,10 @@
 			$('#input-ident').attr('hidden', false);
 			$('#edit-ident').html('Aceptar');
 		} else {
+			$("#text-ident").html($("#input-ident").val());
 			$('#text-ident').attr('hidden', false);
 			$('#input-ident').attr('hidden', true);
+			
 			$('#edit-ident').html('Editar');
 		}
 	})
@@ -154,8 +157,7 @@
 	  document.execCommand("copy");
 	  copyText.blur();
 	  $('#copy-cbu').tooltip("show");
-	  }
-	
+	 }
 	
 	function mostrarModalDetalles(index){
 		var cbu = parseInt($("#Cbu" + index).val())
@@ -163,6 +165,7 @@
 		$("#Tipo").html($("#Tipo" + index).html())
 		$("#Moneda").html($("#Moneda" + index).html())
 		$("#text-ident").html($("#Ident" + index).html())
+		$("#input-ident").val($("#Ident" + index).html())
 		$("#Cbu").val(cbu.toString().padStart(22,"0"))
 	}
 	

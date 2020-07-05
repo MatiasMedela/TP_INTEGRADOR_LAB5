@@ -128,11 +128,11 @@
 	</bean>
 	
 	<!-- BEAN CONFIGURATION -->
-	<bean id="BConfiguration" class="org.hibernate.cfg.Configuration"/>
+	<bean id="BConfiguration" scope="prototype" class="org.hibernate.cfg.Configuration"/>
 	
 	<!-- BEAN ARRAYLIST -->
-	<bean id="ArrayList" class="java.util.ArrayList"/>
+	<bean id="ArrayList" scope="prototype" class="java.util.ArrayList"/>
 	
 	<!-- BEAN MODEL AND VIEW -->
-	<bean id="ModelView" class="org.springframework.web.servlet.ModelAndView"/>
+	<bean id="ModelView" scope="prototype" class="org.springframework.web.servlet.ModelAndView"/>
 </beans>

@@ -27,4 +27,14 @@ public class UsuarioDao {
     	ch.cerrarSession();
 	    return listado;		
 	}	
+	
+	public Long cantidadCuentas(String DNIUser) {
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		Long cantCuentas = (Long) session.createQuery("SELECT count(u) FROM Cuenta as c "
+													  + "INNER JOIN c.usuario as u "
+													  + "WHERE u.Dni = :DNI").setParameter("DNI", DNIUser).uniqueResult();
+		ch.cerrarSession();
+	    return cantCuentas;	
+	}
 }

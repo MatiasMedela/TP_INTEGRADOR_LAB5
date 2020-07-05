@@ -84,7 +84,7 @@
    function verificarCampos(){
 	   var origen = $("#cuentaOrigen").children("option:selected").val();
 	   var destino = $("#cuentaDestino").children("option:selected").val();
-	   var cuentas;
+	   var cuentas = "";
 	   $.ajax({
 			url: '${request.getContextPath()}/TP_L5_GRUPO_2/datosCuentas.html',
 			type: 'POST',

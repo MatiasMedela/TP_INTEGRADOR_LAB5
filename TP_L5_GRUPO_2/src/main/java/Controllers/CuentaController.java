@@ -78,6 +78,29 @@ public class CuentaController {
 		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarCuentas");
 		return MV;
 	}
+
+	@RequestMapping(value="cargarCuenta.html")
+	public ModelAndView cargarCuenta(int cbxTipo, int clienteSeleccionado) {
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
+		cuentaDao.crearCuenta(cbxTipo, clienteSeleccionado);
+		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarCuentas");
+		return MV;
+	}
+	
+	@RequestMapping(value="modificarCuenta.html")
+	public ModelAndView modificarCuenta(String idCuentaM, int cbxTipo, float saldoM, int clienteSeleccionado) {
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
+		cuentaDao.modificarCuenta(idCuentaM, cbxTipo, saldoM, clienteSeleccionado);
+		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarCuentas");
+		return MV;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="cantidadCuentas.html")
+	@ResponseBody
+	public String cantidadCuentas(String dniCliente) {
+		Long cantidad = userDao.cantidadCuentas(dniCliente);
+		return new Gson().toJson(cantidad.toString());
+	}
 	
 	@RequestMapping(method = RequestMethod.POST, value="abrirCuentaAsync.html")
 	@ResponseBody
@@ -100,21 +123,15 @@ public class CuentaController {
 			return new Gson().toJson("Error");	
 		}
 	}	
-
-	@RequestMapping(value="cargarCuenta.html")
-	public ModelAndView cargarCuenta(int cbxTipo, int clienteSeleccionado) {
-		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		cuentaDao.crearCuenta(cbxTipo, clienteSeleccionado);
-		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarCuentas");
-		return MV;
-	}
 	
-	@RequestMapping(value="modificarCuenta.html")
-	public ModelAndView modificarCuenta(String idCuentaM, int cbxTipo, float saldoM, int clienteSeleccionado) {
-		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		cuentaDao.modificarCuenta(idCuentaM, cbxTipo, saldoM, clienteSeleccionado);
-		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarCuentas");
-		return MV;
+	@RequestMapping(method = RequestMethod.POST, value="crearCuentaAsync.html")
+	@ResponseBody
+	public String crearCuentaAsync(String tipoCuenta, String dniCliente) {
+		if(cuentaDao.crearCuenta(Integer.parseInt(tipoCuenta), Integer.parseInt(dniCliente))) {
+			return new Gson().toJson("Exitoso");			
+		}
+		else {
+			return new Gson().toJson("Error");	
+		}
 	}
-	
 }
