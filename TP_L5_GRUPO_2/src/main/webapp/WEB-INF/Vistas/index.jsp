@@ -33,7 +33,7 @@
 			<thead>
 				<tr>
 					<th scope="col">Tipo de cuenta</th>
-					<th scope="col">Identificación</th>
+					<th scope="col">Alias</th>
 					<th scope="col">Moneda</th>
 					<th scope="col">Saldo</th>
 					<th scope="col" style="text-align: center;">Detalle</th>
@@ -45,7 +45,7 @@
 					<form action="listarMovimientosCuenta.html" method="get">
 					<tr>
 						<input type="hidden" name="CbuCuenta" value="${cuenta.cbu}" id="Cbu${loop.index}" />
-						<input type="hidden" name="AliasCuenta" value="${cuenta.alias}">
+						<input type="hidden" name="AliasCuenta" value="${cuenta.alias}" id="Alias${loop.index}">
 						<td id="Tipo${loop.index}">${cuenta.tipoCuenta.descripcion}</td>
 						<td id="Ident${loop.index}">${cuenta.alias}</td>
 						<td id="Moneda${loop.index}">${cuenta.tipoCuenta.moneda}</td>
@@ -81,7 +81,6 @@
 					<div class="row">
 						<div class="col-4" style="text-align: right;">
 							<p>Tipo de cuenta:</p>
-							<p>Identificación:</p>
 							<p>Moneda:</p>
 							<p>CBU:</p>
 							<p>ALIAS CBU:</p>
@@ -89,17 +88,6 @@
 						</div>
 						<div class="col-8">
 							<p id="Tipo">Caja ahorro en pesos</p>
-							<div class="row">
-								<div class="col-8">
-									<p id="text-ident">Cuenta principal</p>
-									<input id="input-ident" type="text"
-										class="form-control form-detalle" value="Cuenta principal"
-										hidden>
-								</div>
-								<div class="col-4">
-									<p class="edit-text" id="edit-ident">Editar</p>
-								</div>
-							</div>
 							<p id="Moneda">Pesos</p>
 							<div class="row">
 								<div class="col-8">
@@ -115,8 +103,6 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" disabled>Guardar
-						cambios</button>
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Cerrar</button>
 				</div>
@@ -137,20 +123,6 @@
 	
 	$("#nombreUsuario").html($("#userName").val());
 	
-	$('#edit-ident').click(function() {
-		if ($('#edit-ident').html() == "Editar") {
-			$('#text-ident').attr('hidden', true);
-			$('#input-ident').attr('hidden', false);
-			$('#edit-ident').html('Aceptar');
-		} else {
-			$("#text-ident").html($("#input-ident").val());
-			$('#text-ident').attr('hidden', false);
-			$('#input-ident').attr('hidden', true);
-			
-			$('#edit-ident').html('Editar');
-		}
-	})
-	
 	function copiarCBU(){
 	  var copyText = document.getElementById("Cbu");
 	  copyText.select();
@@ -164,9 +136,8 @@
 		$("#Saldo").html($("#Saldo" + index).html())
 		$("#Tipo").html($("#Tipo" + index).html())
 		$("#Moneda").html($("#Moneda" + index).html())
-		$("#text-ident").html($("#Ident" + index).html())
-		$("#input-ident").val($("#Ident" + index).html())
 		$("#Cbu").val(cbu.toString().padStart(22,"0"))
+		$("#Alias").html($("#Alias" + index).val())
 	}
 	
 </script>
