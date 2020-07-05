@@ -1,4 +1,74 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	//Modificar Log
+	  $("#formCheckPassword").submit(function() {
+				    var x = $("#KeyM").val();
+				    var z = $("#KeyOkM").val();
+				      if (x!=z) {	
+				        return false;
+				      } else {
+				    	  return true;	
+				      }
+				         		
+				    });
+			$("#fregistrar").ready(function() {
+			    var x = $("#KeyA").val();
+			    var z = $("#KeyOkA").val();
+			      if (x!=z) {	
+			        return false;
+			      } else {
+			    	  return true;	
+			      }
+			         		
+			    });
+	// Cuando el checkbox cambie de estado.
+	$('#show_passwordm').on('change',function(event){
+	   // Si el checkbox esta "checkeado"
+	   if($('#show_passwordm').is(':checked')){
+	      // Convertimos el input de contraseña a texto.
+	      $('#KeyM').get(0).type='text';
+	     $('#KeyOkM').get(0).type ='text';
+	   // En caso contrario..
+	   } else {
+	      // Lo convertimos a contraseña.
+	      $('#KeyM').get(0).type='password';
+	     $('#KeyOkM').get(0).type = 'password';
+	   }
+	});
+});
 
+function ComprobarClaveModificaUsuario(){ 
+   	var clave1 = document.FModificar.ModKey.value ;
+   	var clave2 = document.FModificar.TxtKeyOk.value ;
+
+   	if (clave1 == clave2) {
+   		document.getElementById('KeyM').style.borderColor="green";
+   		document.getElementById('KeyOkM').style.borderColor="green";
+   		document.getElementById('KeyM').style.color='green';
+		document.getElementById('KeyOkM').style.color='green';
+   	}
+   	else {
+      	alert("Las dos claves ingresadas son distintas...") 
+      	document.getElementById('KeyM').style.borderColor="red";
+      	document.getElementById('KeyOkM').style.borderColor="red";
+      	document.getElementById('KeyM').style.color='red';
+   		document.getElementById('KeyOkM').style.color='red';
+   	}	
+}
+
+function evitar_envio_formulario(){
+	var ka = document.getElementById('KeyOkM').value;
+	var kaok = document.getElementById('KeyM').value;
+	
+	  if (ka == kaok) {
+	    return true;
+	  } else {
+	    return false;
+	  }
+}
+
+</script>
+	<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<a class="navbar-brand" href="#"> <img
 		src="https://toppng.com/uploads/preview/indian-bank-icon-bank-sign-icon-11553435301aafxlgwngt.png"
@@ -7,7 +77,6 @@
 	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
     </button>
-	<!-- NAVBAR -->
 	<div class="collapse navbar-collapse" id="navbarCollapse">
 	<form action="redirecNavBar.html" method="get">
 		<ul class="navbar-nav mr-auto">
@@ -16,21 +85,24 @@
 			<li id="mnPrestamos" class="nav-item"><input class="nav-link navBarRedirec" name="prestamos" type="submit" value="Préstamos"/></li>
 		</ul>
 	</form>
-		<ul class="navbar-nav ml-auto">
-			<li><img src="<c:url value="resources/Imagenes/UserLog.png"/>" width="40" height="40"
-				class=" align-right" alt=""></li>
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+	  <ul class="navbar-nav ml-auto">
+		<li>
+			<img src="<c:url value="resources/Imagenes/UserLog.png"/>" width="40" height="40" class=" align-right" alt="">
+		</li>
+		<li class="nav-item dropdown" style="padding-right: 25px">
+			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"> Nombre de usuario </a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="#">Configuración</a> <a
-						class="dropdown-item" data-toggle="modal" data-target="#ModalCerrarSession">Salir</a>
-				</div></li>
-		</ul>
+				aria-expanded="false"> <c:out value="${NomApeUser}"></c:out> 
+			</a>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" type="submit" data-toggle="modal" data-target="#ModalConfiguracion">Configuración</a> 
+					<a class="dropdown-item" type="submit" data-toggle="modal" data-target="#ModalCerrarSession">Salir</a>
+			</div>
+		</li>
+	   </ul>
 	</div>
 </nav>
-
+	<!-- FIN NAVBAR -->
 <!-- modal cerrar session  -->
 <div class="modal fade" id="ModalCerrarSession" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -45,7 +117,7 @@
         ¿Desea cerrar la sesion?
       </div>
       <div class="modal-footer">
-     <form action="#" method="post" accept-charset=utf-8>
+     <form action="CerrarSession.html" method="post" accept-charset=utf-8>
      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 	 <button type="Submit" class="btn btn-primary" name="BtnCerrarSesion" >Cerrar Sesion</button>		
 		</form>
@@ -54,3 +126,50 @@
   </div>
 </div>  
 <!-- modal cerrar session  -->
+
+<!-- Modal Configuracion -->
+<div class="modal fade" id="ModalConfiguracion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modificar Usuario y Contraseña</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+	      <form action="ModificarLog.html" name="FModificar" onsubmit="return evitar_envio_formulario()">
+		      <input type="hidden" class="form-control" name="UserNameOld"id="IdUserNameOld" value="${NameUser}"/>
+		      <input type="hidden" class="form-control" name="KeyOld"id="IdKeyOld" value="${Key}"/>
+	        	<div class="form-group"> <!-- new name user -->
+			        <label for="full_name_id" class="control-label">Nuevo nombre de usuario</label>
+			        <input type="text" class="form-control form-control-sm" id="ModUserNameId" name="ModUserName" value="" placeholder="Nombre de usuario" 
+			         autocomplete="off" required>
+			    </div>  
+			    <div class="form-group"> <!-- new key -->
+			        <label for="full_name_id" class="control-label">Nueva contraseña</label>
+			        <input type="password" class="form-control form-control-sm" id="KeyM" value="" minlength="6" name="ModKey" placeholder="Contraseña" 
+			        autocomplete="off" required>
+			    </div>    
+			    
+			    <div class="form-group"> <!-- Confirm key -->
+			        <label for="full_name_id" class="control-label">Confirmar contraeña</label>
+			        <input type="password" class="form-control form-control-sm" id="KeyOkM" value="" minlength="6" name="TxtKeyOk" placeholder="Confirmar contraseña" 
+			        autocomplete="off" required>
+			    </div> 
+			    
+	     		<div class="form-group" >
+	     		<label for="full_name_id" class="control-label">Mostrar contraseña</label>
+					<input type="checkbox" id="show_passwordm">
+				</div>
+				
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="submit" class="btn btn-primary" onClick="ComprobarClaveModificaUsuario()">Guardar cambios</button>
+		      </div>
+	      </form>
+     </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Configuracion -->
