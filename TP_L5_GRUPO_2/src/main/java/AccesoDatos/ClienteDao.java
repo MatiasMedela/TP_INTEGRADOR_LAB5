@@ -1,6 +1,5 @@
 package AccesoDatos;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -12,15 +11,17 @@ import org.hibernate.service.ServiceRegistryBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
+import Dominio.Logueo;
 import Dominio.Usuario;
+
+
 
 public class ClienteDao {
 	ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 	//ABML
 		public boolean AltaCliente(Usuario Usu ) {
 			try {
-		    	Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
+		    	Configuration configuration = new Configuration();
 		    	configuration.configure();	
 		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -39,7 +40,7 @@ public class ClienteDao {
 		 
 		public boolean BajaCliente(String dni) {
 				try {
-					Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
+					Configuration configuration = new Configuration();
 			    	configuration.configure();	
 			    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 			    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -63,7 +64,7 @@ public class ClienteDao {
 		}
 		public boolean ModAltaCliente(String dni) {
 			try {
-				Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
+				Configuration configuration = new Configuration();
 		    	configuration.configure();	
 		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -87,7 +88,7 @@ public class ClienteDao {
 		
 		public boolean ModificarCliente(Usuario Usu, String oldDniName) {
 			try {
-		    	Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
+		    	Configuration configuration = new Configuration();
 		    	configuration.configure();	
 		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -119,17 +120,25 @@ public class ClienteDao {
 				return ListLoc;
 			}	 
 		}
-		public List ListarClientesXNombreApellido() {
-			ConfigHibernate ch = new ConfigHibernate();
-			Session session = ch.abrirConexion();
-			List<Usuario> LUsuarios = new ArrayList<Usuario>();
-			Usuario Cliente = (Usuario) appContext.getBean("BUsuario");
-			//for
-			((ConfigurableApplicationContext)(appContext)).close();
-			return LUsuarios;
+		
+		public Usuario BuscarUsuarioXIdLog(Logueo l ) {
+			ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
+			try {
+				ConfigHibernate ch = new ConfigHibernate();
+				Session session = ch.abrirConexion();
+				Usuario Usu = (Usuario) appContext.getBean("BUsuario");
+				if ((Usuario) session.createQuery(" FROM Usuario u WHERE u.IdUsu = "+l.getUsuario().getIdUsu()).uniqueResult()!=null) {
+					Usu =(Usuario) session.createQuery(" FROM Usuario u WHERE u.IdUsu = "+l.getUsuario().getIdUsu()).uniqueResult();
+				} 
+			    session.close();
+			    return Usu;
+			} finally {
+				((ConfigurableApplicationContext)(appContext)).close();
+			}
 		}
 
 		public Usuario BuscarUsuarioXId(int idUsu) {
+			ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 			try {
 				ConfigHibernate ch = new ConfigHibernate();
 				Session session = ch.abrirConexion();

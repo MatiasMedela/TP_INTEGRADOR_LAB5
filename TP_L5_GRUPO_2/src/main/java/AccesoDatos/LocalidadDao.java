@@ -34,7 +34,7 @@ public class LocalidadDao {
 		try {
 			ConfigHibernate ch = new ConfigHibernate();
 			Session session = ch.abrirConexion();
-			Query query=session.createQuery("SELECT L FROM Localidad L");
+			Query query=session.createQuery(" FROM Localidad ");
 			ListLoc = query.list();
 	    	ch.cerrarSession();
 		    return ListLoc;	
