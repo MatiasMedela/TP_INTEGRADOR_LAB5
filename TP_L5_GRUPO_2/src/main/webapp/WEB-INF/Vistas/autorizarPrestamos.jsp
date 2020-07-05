@@ -66,7 +66,7 @@
 						<td id="ImporteFinal${loop.index}">${prestamo.montoPagar}</td>
 						<td id="Meses${loop.index}">${prestamo.cantidadMeses}</td>
 						<td id="FechaSol${loop.index}">${prestamo.fechaSolicitud}</td>
-						<td id="Estado${loop.index}">${prestamo.getEstado().getDescripcion()}</td>
+						<td id="Estado${loop.index}">${prestamo.estado.descripcion}</td>
 						<td><div class="dropdown">
 				  <button class="btn btn-secondary dropdown-toggle btn-grid-action" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				    Acción
