@@ -17,4 +17,18 @@ public class LogueoNegocio {
 			return false;
 		}
 	}
+
+	public boolean UserName(String modUserName, String userNameOld) {
+		try {
+			LogueoDao LogDao=new LogueoDao();
+			if (LogDao.BuscarLog(modUserName).getNUsuario().equals("Default") || LogDao.BuscarLog(modUserName).getNUsuario().equals(userNameOld) ) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
