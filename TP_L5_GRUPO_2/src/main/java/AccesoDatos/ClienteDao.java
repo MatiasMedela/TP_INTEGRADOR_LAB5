@@ -107,6 +107,7 @@ public class ClienteDao {
 			}
 		}
 		
+		@SuppressWarnings("unchecked")
 		public List<Usuario> ListarClientes() {
 			List<Usuario> ListLoc = null;
 			try {

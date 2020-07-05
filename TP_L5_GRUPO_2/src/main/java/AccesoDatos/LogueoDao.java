@@ -1,11 +1,11 @@
 package AccesoDatos;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,13 +13,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import Dominio.Logueo;
 	
 public class LogueoDao {
+ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 	
+	@Autowired
+	private ConfigHibernate ch;
 	 
 	public Logueo BuscarLog(String UserName,String Key) {
-		ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 		try {
-			
-			ConfigHibernate ch = new ConfigHibernate();
 			Session session = ch.abrirConexion();
 			Logueo log = (Logueo) appContext.getBean("BLogueo");
 			if ((Logueo) session.createQuery(" FROM Logueo L WHERE L.nUsuario = '" + UserName + "' AND L.contrasenia = '" + Key + "'").uniqueResult()!=null) {
@@ -33,10 +33,7 @@ public class LogueoDao {
 	}
 	
 	public Logueo BuscarLog(String modUserName) {
-		ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 		try {
-			
-			ConfigHibernate ch = new ConfigHibernate();
 			Session session = ch.abrirConexion();
 			Logueo log = (Logueo) appContext.getBean("BLogueo");
 			if ((Logueo) session.createQuery(" FROM Logueo L WHERE L.nUsuario = '" + modUserName + "'").uniqueResult()!=null) {
@@ -83,9 +80,5 @@ public class LogueoDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
-
-	
-
 }
