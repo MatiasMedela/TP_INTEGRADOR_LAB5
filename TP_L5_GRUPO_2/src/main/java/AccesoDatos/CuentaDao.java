@@ -33,7 +33,7 @@ public class CuentaDao {
 	}	
 	
 	
-	public boolean crearCuenta(int idTipoCN, int DNIUser)
+	public boolean crearCuenta(int idTipoCN, int DNIUser, String alias)
 	{		
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
@@ -46,6 +46,7 @@ public class CuentaDao {
 		c.setCbu(proximoCBUDouble()); 
 		c.setAlias("Prueba");
 		c.setUsuario(user);
+		c.setAlias(alias);
 		c.setSaldo(10000);	
 		c.setEstado(true);
 		try {
@@ -212,28 +213,37 @@ public class CuentaDao {
 	
 	public String generarAlias()
 	{
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		boolean disponible = false;
 		String res = "";
-		int n = 0;
-		String[] x = {"PERRO", "GATO", "VACA", "RATON", "OVEJA", "ARGENTINA", "PERU", "PARAGUAY", "COREA", "JAPON", "ARBOL", "PLANTA", "ARBUSTO", "TORRE"};
-		Random r = new Random();
-		for (int v = 0; v<3; v++)
-		{
-			n = r.nextInt(14);
-			if (v==0)
+		while(!disponible) {
+			int n = 0;
+			String[] x = {"PERRO", "GATO", "VACA", "RATON", "OVEJA", "ARGENTINA", "PERU", "PARAGUAY", "COREA", "JAPON", 
+						"ARBOL", "PLANTA", "ARBUSTO", "TORRE", "MIMO", "POSTE", "MANZANA", "BANANA", "MANDARINA", "PERA", 
+						"AUTO", "MOTO", "RELOJ", "CAMION", "LUZ", "CEJAS", "FRUTA", "CLAVO", "PIE", "AZUL", "ROJO", "AMARILLO", 
+						"VERDE", "PINTOR", "PAPEL", "BOTA", "RAYO", "CINE", "PLAYA", "MANO", "CAMA", "MOSCA", "HOJA", "OREJA", 
+						"JUGO", "ARROZ", "CAMPANA", "AGUA", "PERCHA", "ESCOBA", "GORRA", "MESA", "PIEDRA", "ABAJO", "BOTELLA",
+						"RODILLA", "PIERNA", "BRAZO", "ANILLO", "CARTERA", "PALA", "CUARTO", "VENTANA", "BIGOTE", "JARRA", "KIWI",
+						"PELO", "PELOTA", "OJOS", "PASTO", "CONEJO", "SACO", "CUERDA", "CALLE", "FLORES", "GORRO", "FOCA", "PARED"};
+			Random r = new Random();
+			for (int v = 0; v<3; v++)
 			{
-			res = x[n];	
-			}	
-		    else
-		    {
-		    	res = res + "." + x[n];
-		    }
-			
-			
+				n = r.nextInt(14);
+				if (v==0){
+					res = x[n];	
+				}
+				else{
+			    	res = res + "." + x[n];
+			    }		
+			}
+			Long alias = (Long) session.createQuery("SELECT count(c) FROM Cuenta c "
+													  + "WHERE c.alias = :AliasGenerado")
+													    .setParameter("AliasGenerado", res).uniqueResult();
+			if(alias == 0) {
+				disponible = true;
+			}
 		}
-		
-		
-		return res;
-		
+		return res;		
 	}
-	
 }

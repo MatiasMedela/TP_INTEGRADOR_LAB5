@@ -67,7 +67,7 @@
 						<div class="form-group">
 							<!-- CBU -->
 							<label for="full_name_id" class="control-label">Alias:</label>
-							<label for="full_name_id" class="control-label">facultadPacheco2020</label>
+							<label name="aliasCuenta" id="aliasCuenta" class="control-label">${proxAlias}</label>
 						</div>
 						<div class="form-group">
 							<label for="full_name_id" class="control-label">Saldo:</label>
@@ -88,11 +88,11 @@
 				</tr>
 			</thead>
 			<tbody>	
-					<c:forEach items="${ listadoUsuarios }" var="user" varStatus="loop">			
+				<c:forEach items="${ listadoUsuarios }" var="user" varStatus="loop">			
 					<tr>
-						<td id="DNI${loop.index}">${user.getDni()}</td>
-						<td id="NombreAp${loop.index}">${user.getNombre()} ${user.getApellido()}</td>
-						<td id="Email${loop.index}">${user.getEmail()}</td>							
+					<td id="DNI${loop.index}">${user.getDni()}</td>
+					<td id="NombreAp${loop.index}">${user.getNombre()} ${user.getApellido()}</td>
+					<td id="Email${loop.index}">${user.getEmail()}</td>							
 					</tr>						
 				</c:forEach>			
 			</tbody>
@@ -137,7 +137,6 @@
 <script type="text/javascript">
 CurrentItem = document.getElementById("mnCuentas");
 CurrentItem.className +=" active";
-
 
 $('#TableCuentasAll').DataTable({
 	"ordering" : false,
@@ -186,11 +185,13 @@ var table = $('#TableCuentasAll').DataTable();
 					}).then((result) => {
 						if(result.value){
 							var tipoC = $("#cuentaSelect").val();
+							var aliasGenerado = $("#aliasCuenta").html();
 							$.ajax({
 								url: '${request.getContextPath()}/TP_L5_GRUPO_2/crearCuentaAsync.html',
 								type: 'POST',
 						        data: { tipoCuenta: tipoC ,
-						        		dniCliente: dni},
+						        		dniCliente: dni,
+						        		alias: aliasGenerado},
 								success: function(data){
 									if(data == "\"Exitoso\""){
 										Swal.fire({
@@ -229,14 +230,13 @@ var table = $('#TableCuentasAll').DataTable();
     
 $('#TableCuentasAll tbody').on( 'click', 'tr', function () {
 	if ( $(this).hasClass('selected-table') ) {
-       // $(this).removeClass('selected');
     }
     else {
         table.$('tr.selected-table').removeClass('selected-table');
         $(this).addClass('selected-table');
-    }
-    //$(this).toggleClass('selected');		
-     $("#clienteSeleccionado").val(table.rows(['.selected-table']).data().pluck(0).toArray());                  
+    }	
+     $("#clienteSeleccionado").val(table.rows(['.selected-table']).data().pluck(0).toArray());
+     $("#aliasCuenta")
 });	
 </script>
 </html>

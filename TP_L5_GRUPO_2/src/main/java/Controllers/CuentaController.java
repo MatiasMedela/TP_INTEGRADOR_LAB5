@@ -49,6 +49,7 @@ public class CuentaController {
 		MV.addObject("listadoUsuarios", userDao.listarUsuarios());
 		MV.addObject("listadoTipos", tcDao.listarTipos());
 		MV.addObject("proxCBU", cuentaDao.proximoCBU());
+		MV.addObject("proxAlias", cuentaDao.generarAlias());
 		MV.setViewName("AltaCuenta");
 		return MV;
 	}
@@ -80,9 +81,9 @@ public class CuentaController {
 	}
 
 	@RequestMapping(value="cargarCuenta.html")
-	public ModelAndView cargarCuenta(int cbxTipo, int clienteSeleccionado) {
+	public ModelAndView cargarCuenta(int cbxTipo, int clienteSeleccionado, String aliasCuenta) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		cuentaDao.crearCuenta(cbxTipo, clienteSeleccionado);
+		cuentaDao.crearCuenta(cbxTipo, clienteSeleccionado, aliasCuenta);
 		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarCuentas");
 		return MV;
 	}
@@ -126,8 +127,8 @@ public class CuentaController {
 	
 	@RequestMapping(method = RequestMethod.POST, value="crearCuentaAsync.html")
 	@ResponseBody
-	public String crearCuentaAsync(String tipoCuenta, String dniCliente) {
-		if(cuentaDao.crearCuenta(Integer.parseInt(tipoCuenta), Integer.parseInt(dniCliente))) {
+	public String crearCuentaAsync(String tipoCuenta, String dniCliente, String alias) {
+		if(cuentaDao.crearCuenta(Integer.parseInt(tipoCuenta), Integer.parseInt(dniCliente), alias)) {
 			return new Gson().toJson("Exitoso");			
 		}
 		else {
