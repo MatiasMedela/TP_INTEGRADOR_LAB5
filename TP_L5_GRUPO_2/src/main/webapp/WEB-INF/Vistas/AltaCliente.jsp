@@ -32,6 +32,21 @@
 $(document).ready(function(){
 	CurrentItem = document.getElementById("mnClientes");
 	CurrentItem.className += " active";	
+
+
+	$('select#Prov_id').on('change',function(){
+	    var valor = $(this).val();
+		$("#Loc_id option").each(function(){
+			var z=$(this).attr('value');
+			var array = z.split(',');
+			var g=array[1];
+			if(array[1] == valor){
+				$(this).show();
+			}else{
+				$(this).hide();
+			}
+		});
+	});
 })
 
 function ValFormatoTelCel(){
@@ -48,6 +63,8 @@ function ValFormatoTelFijo(){
 	TelTxt.setAttribute("placeholder", "ej: 0123489354");
 	TelTxt.setAttribute("pattern", "\([0-9]{4}\) [0-9]{3}[ -][0-9]{3}");
 }
+
+
 </script>
 <meta charset="ISO-8859-1">
 <title>Alta Cliente</title>
@@ -80,13 +97,13 @@ function ValFormatoTelFijo(){
 		    </div> 
 		    <div class="form-group"> <!-- Nacionalidad -->
 		        <label for="full_name_id" class="control-label">Nacionalidad</label>
-		        <input type="text" class="form-control form-control-sm" id="full_name_id" name="NacName" placeholder="NACIONALIDAD" 
+		        <input type="text" class="form-control form-control-sm" id="nacid" name="NacName" placeholder="NACIONALIDAD" 
 		        autocomplete="off" pattern="^[a-zA-Z ]*$" required>
 		    </div> 
 		    
 		    <div class="form-group"> <!-- Sexo -->
 		        <label for="state_id" class="control-label">Sexo</label>
-		        <select class="form-control form-control-sm" id="state_id" name="CmbGen">
+		        <select class="form-control form-control-sm" id="genid" name="CmbGen">
 		            <option value="1">Masculino</option>
 		            <option value="2">Femenino</option>
 		            <option value="3">Otro</option>
@@ -97,17 +114,18 @@ function ValFormatoTelFijo(){
 		<div class="col">
 		    <div class="form-group "><!-- Fecha De Nacimiento -->
 		     <label for="full_name_id" class="control-label">Fecha De Nacimiento</label>
-			    <input class="form-control form-control-sm" type="date"  id="example-date-input" name="FechaNac" required>
+			    <input class="form-control form-control-sm" type="date"  id="fnacid" name="FechaNac" required>
 			</div>
 		   <div class="form-group"> <!-- Direccion -->
 		        <label for="full_name_id" class="control-label">Direccion</label>
-		        <input type="text" class="form-control form-control-sm" id="full_name_id" name="DirName" 
+		        <input type="text" class="form-control form-control-sm" id="Dire_id" name="DirName" 
 		        placeholder="DIRECCION" required>
 		    </div>
 		    
 		     <div class="form-group"> <!-- Provincia -->
 		        <label for="state_id" class="control-label">Provincia</label>
-		        <select class="form-control form-control-sm" id="state_id" name="CmbProv">
+		        <select class="form-control form-control-sm" id="Prov_id" name="CmbProv">
+		        	<option value="-1" selected disabled>--Provincia--</option> 
 		            <option value="2">Buenos Aires</option>
 		            <option value="1">Ciudad Autonoma De Buenos Aires</option>
 		            <option value="15">Tucuman</option>
@@ -134,19 +152,19 @@ function ValFormatoTelFijo(){
 		            <option value="8">Mendoza</option>
 		        </select>                    
 		    </div>   
-		 
 			<div class="form-group"> <!-- Localidad -->
 		      <label for="state_id" class="control-label">Localidad</label>
-		      <select class="form-control form-control-sm" id="state_id" name="LocName">  
+		      <select class="form-control form-control-sm" id="Loc_id" name="LocName"> 
+		      <option value="-1" selected disabled>--Localidad--</option> 
 		      <c:forEach items="${LocalidadesList}" var="loc" varStatus="loop">
-		      		<option value="${loc.getIdLocalidad()}">${loc.getLocNombre()}</option>
+						  <option value="${loc.getIdLocalidad()},${loc.getProvLoc().getIdProvincia() }">${loc.getLocNombre()}</option>
 		      </c:forEach>
 			  </select>                     
 		    </div>                
 		    
 		     <div class="form-group"> <!-- Correo electronico -->
 		        <label for="full_name_id" class="control-label">Correo Electronico</label>
-		        <input type="email" class="form-control form-control-sm" id="full_name_id" name="EmailName" 
+		        <input type="email" class="form-control form-control-sm" id="email_id" name="EmailName" 
 		        placeholder="e-mail" required>
 		    </div> 
 		    
@@ -175,28 +193,6 @@ function ValFormatoTelFijo(){
 	</fieldset>  
 </form>
 <!--Fin Formulario alta -->
-
-<!-- modal cerrar session  -->
-<div class="modal fade" id="ModalCerrarSession" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Cerrar Sesion</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">¿Desea cerrar la sesion?</div>
-      <div class="modal-footer">
-     <form action="#" method="post" accept-charset=utf-8>
-     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	 <button type="Submit" class="btn btn-primary" name="BtnCerrarSesion" >Cerrar Sesion</button>		
-		</form>
-      </div>
-    </div>
-  </div>
-</div>  
-<!-- modal cerrar session  -->
 
 </body>
 </html>
