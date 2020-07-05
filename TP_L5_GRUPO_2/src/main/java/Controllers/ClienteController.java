@@ -21,8 +21,10 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
 import AccesoDatos.ClienteDao;
 import AccesoDatos.GeneroDao;
 import AccesoDatos.LocalidadDao;
+import AccesoDatos.LogueoDao;
 import AccesoDatos.TipoUsuarioDao;
 import Dominio.Localidad;
+import Dominio.Logueo;
 import Dominio.Usuario;
 
 
@@ -47,15 +49,6 @@ public class ClienteController {
 		return MV;
 	}
 	
-	@RequestMapping(value="redireccListarClientes.html")
-	public ModelAndView redireccListarClientes() {
-		ModelAndView MV = new ModelAndView();
-		ClienteDao Clidao= new ClienteDao();
-		MV.addObject("ClientesList", Clidao.ListarClientes());
-		MV.setViewName("ListarClientes");
-		return MV;
-	}
-	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"EliminarCliente"})
 	public ModelAndView redirecEliminarCliente() {
 		ModelAndView MV = new ModelAndView();
@@ -70,7 +63,7 @@ public class ClienteController {
 	
 	@RequestMapping("CargarCliente.html")
 	public ModelAndView CargarCliente(String DniName,String NombreName,String ApeName,String NacName,
-	String EmailName,String CmbProv,String DirName,String FechaNac,Integer CmbGen,Integer LocName,String CliTel) {
+	String EmailName,String CmbProv,String DirName,String FechaNac,Integer CmbGen,String LocName,String CliTel) {
 		ModelAndView MV=new ModelAndView();
 		try {
 			ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
@@ -95,11 +88,18 @@ public class ClienteController {
 			Clie.setFechaNac(dateDB);
 			Clie.setNacionalidad(NacName);
 			Clie.setGen(Gdao.BuscarGeneroXId(CmbGen));
-			Clie.setLoc(LocDao.BuscarLocalidad(LocName));
+			String[] parts = LocName.split(",");
+			Clie.setLoc(LocDao.BuscarLocalidad(Integer.valueOf(parts[0])));
 			Clie.setTel(CliTel);
 			Clie.setTipoUsu(TusuDao.UserCliente());
 			Clie.setEstado(true);
 			if(cldao.AltaCliente(Clie)==true) {
+				LogueoDao ld=new LogueoDao();
+				Logueo l=new Logueo();
+				l.setUsuario(Clie);
+				l.setContrasenia(DniName);
+				l.setNUsuario(EmailName);
+				ld.NuevoLog(l);
 				MV.setViewName("AltaCliente");
 			}
 			else {
