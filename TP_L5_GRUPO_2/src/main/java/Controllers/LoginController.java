@@ -30,20 +30,20 @@ ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Be
 
 	
 	@RequestMapping("VerificarLog.html")
-	public ModelAndView RedireccionarLog(String LoginUser,String LoginKey, HttpServletRequest request , ServletRequest session) {
+	public ModelAndView RedireccionarLog(String LoginUser,String LoginKey, HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		try {
 			if (LN.validarLogin(LoginUser, LoginKey)==true) {
 				Logueo User =  LogDao.BuscarLog(LoginUser, LoginKey);
 				request.getSession().setAttribute("IDUsuario", User.getUsuario().getIdUsu()); 
-	            session.setAttribute("NomApeUser",Clidao.BuscarUsuarioXIdLog(User).getNombre()+", "+Clidao.BuscarUsuarioXIdLog(User).getApellido());
-	            session.setAttribute("NameUser", LoginUser);
-	            session.setAttribute("Key", LoginKey);
-				if (Clidao.BuscarUsuarioXId(LogDao.BuscarLog(LoginUser, LoginKey).getUsuario().getIdUsu()).getTipoUsu().getIdTipoUsuario()== 1){	
+	            MV.addObject("NomApeUser",User.getUsuario().getNombre()+", "+User.getUsuario().getApellido());
+	            request.getSession().setAttribute("NameUser", LoginUser);
+	            request.getSession().setAttribute("Key", LoginKey);
+				if (User.getUsuario().getTipoUsu().getIdTipoUsuario()== 1){	
 					MV.addObject("ClientesList", Clidao.ListarClientes());
 					MV.setViewName("ListarClientes");
 				} else {
-					MV.setViewName("index");
+					MV.setViewName("redirect:/redirecNavBar.html?inicio");
 				}
 			} else {
 				MV.setViewName("Login");

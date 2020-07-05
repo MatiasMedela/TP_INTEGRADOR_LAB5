@@ -6,17 +6,18 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ConfigHibernate {
-
+	
+	ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 	private SessionFactory sessionFactory;
 	private Session session;
-	
-	@Autowired
-	private Configuration configuration;
 
 	public ConfigHibernate()
 	{
+		Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
         configuration.configure();
         ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);

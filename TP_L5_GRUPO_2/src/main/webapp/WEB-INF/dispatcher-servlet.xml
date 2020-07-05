@@ -64,13 +64,10 @@
 	
 	<!-- BEAN LOGUEO DAO -->
 	<bean id="BLogueoDao" scope="singleton" class="AccesoDatos.LogueoDao"/>
-	
+		
 	<!-- BEAN CONFIGURACION HIBERNATE -->
 	<bean id="BConfigHibernate" scope="singleton" class="AccesoDatos.ConfigHibernate"/>
-	
-	<!-- BEAN CONFIGURATION SPRING -->
-	<bean id="BConfiguration" scope="singleton" class="org.hibernate.cfg.Configuration"/>
-	
+		
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 </beans>

@@ -110,7 +110,7 @@
 		</div>
 	</div>
 	<!-- END MODAL DETAILS -->
-	<input type="hidden" value="${NombreDelUsuario}" id="userName" />
+	<input type="hidden" value="${NomApeUser}" id="userName" />
 </body>
 
 <script type="text/javascript">	
