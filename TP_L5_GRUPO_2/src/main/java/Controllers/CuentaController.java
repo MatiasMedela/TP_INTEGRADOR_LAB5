@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import AccesoDatos.CuentaDao;
 import AccesoDatos.TipoCuentaDao;
 import AccesoDatos.UsuarioDao;
+import Dominio.Usuario;
 import Negocio.CuentaNegocio;
 
 @Controller
@@ -37,30 +38,53 @@ public class CuentaController {
 	@RequestMapping(value="redirecNavBar.html", params = { "inicio" })
 	public ModelAndView cuentasUsuario(HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
-		MV.addObject("listadoCuentasUsuario", cuentaN.datosCuentaBasic(IDUsuario));		
-		MV.setViewName("index");
+		if(request.getSession().getAttribute("IDUsuario") !=null) {			
+			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("listadoCuentasUsuario", cuentaN.datosCuentaBasic(IDUsuario));		
+			MV.setViewName("index");
+		}
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"CuentaNueva"})
-	public ModelAndView redirecCuentaNuevaAdmin() {
+	public ModelAndView redirecCuentaNuevaAdmin(HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		MV.addObject("listadoUsuarios", userDao.listarUsuarios());
-		MV.addObject("listadoTipos", tcDao.listarTipos());
-		MV.addObject("proxCBU", cuentaDao.proximoCBU());
-		MV.addObject("proxAlias", cuentaDao.generarAlias());
-		MV.setViewName("AltaCuenta");
+		if(request.getSession().getAttribute("IDUsuario") !=null) {			
+			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("listadoUsuarios", userDao.listarUsuarios());
+			MV.addObject("listadoTipos", tcDao.listarTipos());
+			MV.addObject("proxCBU", cuentaDao.proximoCBU());
+			MV.addObject("proxAlias", cuentaDao.generarAlias());
+			MV.setViewName("AltaCuenta");
+		}
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ListarCuentas"})
-	public ModelAndView redirecListarCuentasAdmin() {
+	public ModelAndView redirecListarCuentasAdmin(HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
+		if(request.getSession().getAttribute("IDUsuario") !=null) {			
+			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
 		MV.addObject("listadoUsuarios", userDao.listarUsuarios());
 		MV.addObject("listadoTipos", tcDao.listarTipos());
 		MV.addObject("listadoCuentas", cuentaDao.listarCuentas());
 		MV.setViewName("ListarCuentas");
+		}
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 	

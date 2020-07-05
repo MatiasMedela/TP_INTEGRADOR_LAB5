@@ -18,6 +18,14 @@ public class UsuarioDao {
 	    return user;	
 	}
 	
+	public Usuario buscarUsuario(String IDUsuario) {
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		Usuario user = (Usuario) session.createQuery("FROM Usuario as us WHERE us.IdUsu = '"+IDUsuario+"'").uniqueResult();
+		ch.cerrarSession();
+	    return user;	
+	}
+	
 	
 	public List<Usuario> listarUsuarios() {
 		ConfigHibernate ch = new ConfigHibernate();

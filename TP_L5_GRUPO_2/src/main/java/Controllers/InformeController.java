@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,8 @@ import com.google.gson.Gson;
 
 import AccesoDatos.InformeDao;
 import AccesoDatos.MovimientoDao;
+import AccesoDatos.UsuarioDao;
+import Dominio.Usuario;
 
 @Controller
 public class InformeController {
@@ -32,26 +36,37 @@ public class InformeController {
 	@Autowired
 	private InformeDao infDao;
 	
+	@Autowired
+	private UsuarioDao userDao;
+	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"informes"})
-	public ModelAndView redirecInformes() throws ParseException {
+	public ModelAndView redirecInformes(HttpServletRequest request) throws ParseException {
 		ModelAndView MV = new ModelAndView();
-		InformeDao infDao = new InformeDao();
-		DateFormat formatUS = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String StartDate = Year.now().getValue() + "-01-01 00:00:00"; 
-		String EndDate = Year.now().getValue() + "-12-31 23:59:59";
-		Date sDateMethod = formatUS.parse(StartDate);
-		Date eDateMethod = formatUS.parse(EndDate);
-		ArrayList<String> informe = (ArrayList<String>) infDao.informePrestamos(sDateMethod, eDateMethod);
-		
-		MV.addObject("stDate", new SimpleDateFormat("yyyy-MM-dd").format(sDateMethod));
-		MV.addObject("edDate", new SimpleDateFormat("yyyy-MM-dd").format(eDateMethod));
-		MV.addObject("InformePrestamos", informe);
-		
-		/* --  FIN PRESTAMOS  --*/
-
-		MV.addObject("informeTransferencia", filtrarTransferenciasAnio(Integer.parseInt(Year.now().toString())));
-		MV.addObject("anio", Year.now().toString());
-		MV.setViewName("informes");	
+		if(request.getSession().getAttribute("IDUsuario") !=null) {			
+			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			InformeDao infDao = new InformeDao();
+			DateFormat formatUS = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			String StartDate = Year.now().getValue() + "-01-01 00:00:00"; 
+			String EndDate = Year.now().getValue() + "-12-31 23:59:59";
+			Date sDateMethod = formatUS.parse(StartDate);
+			Date eDateMethod = formatUS.parse(EndDate);
+			ArrayList<String> informe = (ArrayList<String>) infDao.informePrestamos(sDateMethod, eDateMethod);
+			
+			MV.addObject("stDate", new SimpleDateFormat("yyyy-MM-dd").format(sDateMethod));
+			MV.addObject("edDate", new SimpleDateFormat("yyyy-MM-dd").format(eDateMethod));
+			MV.addObject("InformePrestamos", informe);
+			
+			/* --  FIN PRESTAMOS  --*/
+	
+			MV.addObject("informeTransferencia", filtrarTransferenciasAnio(Integer.parseInt(Year.now().toString())));
+			MV.addObject("anio", Year.now().toString());
+			MV.setViewName("informes");	
+		}
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 	

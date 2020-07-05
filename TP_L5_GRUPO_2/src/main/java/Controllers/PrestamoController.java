@@ -13,7 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import AccesoDatos.CuentaDao;
 import AccesoDatos.PrestamoDao;
+import AccesoDatos.UsuarioDao;
 import Dominio.Cuenta;
+import Dominio.Usuario;
 
 @Controller
 public class PrestamoController {
@@ -21,26 +23,40 @@ public class PrestamoController {
 	ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 	
 	@Autowired
-	
 	private PrestamoDao prestDao;
+	
+	@Autowired
+	private UsuarioDao userDao;
 	
 	@RequestMapping(value="redirecNavBar.html", params = {"prestamos"})
 	public ModelAndView redirecPrestamo(HttpServletRequest request) {
 		ModelAndView MV = new ModelAndView();
 		if(request.getSession().getAttribute("IDUsuario") != null) {
 			String IDUsuario = 	request.getSession().getAttribute("IDUsuario").toString();
-			PrestamoDao presDao = new PrestamoDao();
-			MV.addObject("listadoPrestamos", presDao.listarPrestamosUsuario(Integer.parseInt(IDUsuario)));	
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("listadoPrestamos", prestDao.listarPrestamosUsuario(Integer.parseInt(IDUsuario)));	
+			MV.setViewName("prestamos");
 		}
-		MV.setViewName("prestamos");
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"prestamos"})
-	public ModelAndView redirecPrestamoAdmin() {
+	public ModelAndView redirecPrestamoAdmin(HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(0));		
-		MV.setViewName("autorizarPrestamos");
+		if(request.getSession().getAttribute("IDUsuario") != null) {
+			String IDUsuario = 	request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(0));		
+			MV.setViewName("autorizarPrestamos");
+		}
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 	
@@ -51,11 +67,11 @@ public class PrestamoController {
 		try {
 			presDao.cargarPrestamo(Float.parseFloat(importe), Integer.parseInt(meses), Float.parseFloat(importeAPagar), Integer.parseInt(idCuenta));
 			MV.addObject("prestamo", "Exito");
-			MV.setViewName("prestamos");
+			MV.setViewName("redirec:/redirecNavBar.html?prestamos");
 		} catch (Exception e) {
 			e.printStackTrace();
 			MV.addObject("prestamo", "Error");
-			MV.setViewName("solicitudPrestamo");
+			MV.setViewName("redirec:/solicitarPrestamo.html");
 		}
 		return MV;
 	}
@@ -66,7 +82,9 @@ public class PrestamoController {
 		CuentaDao cuentaDao = new CuentaDao();
 		if(request.getSession().getAttribute("IDUsuario") != null) {
 			String IDUsuario = (String) request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
 			ArrayList<Cuenta> listadoCuentas = (ArrayList<Cuenta>) cuentaDao.CuentaUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
 			MV.addObject("listadoCuentas", listadoCuentas);
 			MV.setViewName("solicitudPrestamo");
 		}
@@ -78,26 +96,50 @@ public class PrestamoController {
 	}
 
 	@RequestMapping(value="redirecPrestamos.html", params = { "aprobados" })
-	public ModelAndView redirecPrestamosAprob() {
+	public ModelAndView redirecPrestamosAprob(HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(1));	
-		MV.setViewName("prestamosAprobados");
+		if(request.getSession().getAttribute("IDUsuario") != null) {
+			String IDUsuario = 	request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(1));	
+			MV.setViewName("prestamosAprobados");
+		}
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 	
 	@RequestMapping(value="redirecPrestamos.html", params = { "rechazados" })
-	public ModelAndView redirecPrestamosRech() {
+	public ModelAndView redirecPrestamosRech(HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(2));	
-		MV.setViewName("prestamosRechazados");
+		if(request.getSession().getAttribute("IDUsuario") != null) {
+			String IDUsuario = 	request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(2));	
+			MV.setViewName("prestamosRechazados");
+		}
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 	
 	@RequestMapping(value="redirecPrestamos.html", params = { "pendientes" })
-	public ModelAndView redirecAutorizarPres() {
+	public ModelAndView redirecAutorizarPres(HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(0));	
-		MV.setViewName("autorizarPrestamos");
+		if(request.getSession().getAttribute("IDUsuario") != null) {
+			String IDUsuario = 	request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(0));	
+			MV.setViewName("autorizarPrestamos");
+		}
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 

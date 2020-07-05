@@ -15,7 +15,9 @@ import com.google.gson.Gson;
 
 import AccesoDatos.CuentaDao;
 import AccesoDatos.MovimientoDao;
+import AccesoDatos.UsuarioDao;
 import Dominio.Cuenta;
+import Dominio.Usuario;
 import Negocio.CuentaNegocio;
 import Negocio.MovimientoNegocio;
 
@@ -34,30 +36,54 @@ public class TransferenciaController {
 	@Autowired
 	private CuentaDao cuentaDao;
 	
+	@Autowired
+	private UsuarioDao userDao;
+	
 	@RequestMapping(value="redirecNavBar.html", params = {"transferencias"})
 	public ModelAndView redirecTrans(HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
-		MV.addObject("listadoTransferencias", movDao.transferenciasxUsuario(Integer.parseInt(IDUsuario)));
-		MV.setViewName("transferencias");
+		if(request.getSession().getAttribute("IDUsuario") !=null) {			
+			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("listadoTransferencias", movDao.transferenciasxUsuario(Integer.parseInt(IDUsuario)));
+			MV.setViewName("transferencias");
+		}
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 	
 	@RequestMapping(value="redirecNuevaTransferencia.html", params = { "normal" })
 	public ModelAndView redirecNuevaTrans(HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
-		MV.addObject("cuentasUsuario",cuentaN.CuentaUsuario(IDUsuario));
-		MV.setViewName("nuevaTransferencia");
+		if(request.getSession().getAttribute("IDUsuario") !=null) {			
+			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("cuentasUsuario",cuentaN.CuentaUsuario(IDUsuario));
+			MV.setViewName("nuevaTransferencia");
+		}
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 
 	@RequestMapping(value="redirecNuevaTransferencia.html", params= { "terceros" })
 	public ModelAndView redirecNuevaTransTerceros(HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
-		MV.addObject("cuentasUsuario",cuentaN.CuentaUsuario(IDUsuario));
-		MV.setViewName("nuevaTransferenciaTerceros");
+		if(request.getSession().getAttribute("IDUsuario") !=null) {			
+			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("cuentasUsuario",cuentaN.CuentaUsuario(IDUsuario));
+			MV.setViewName("nuevaTransferenciaTerceros");
+		}
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 	

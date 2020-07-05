@@ -2,6 +2,9 @@ package Controllers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -14,6 +17,7 @@ import AccesoDatos.GeneroDao;
 import AccesoDatos.LocalidadDao;
 import AccesoDatos.LogueoDao;
 import AccesoDatos.TipoUsuarioDao;
+import AccesoDatos.UsuarioDao;
 import Dominio.Logueo;
 import Dominio.Usuario;
 
@@ -30,29 +34,55 @@ public class ClienteController {
 	private GeneroDao Gdao;
 	@Autowired
 	private TipoUsuarioDao TusuDao;
+	@Autowired
+	private UsuarioDao userDao;
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ClienteNuevo"})
-	public ModelAndView redirecAltaCliente() {
+	public ModelAndView redirecAltaCliente(HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		MV.addObject("LocalidadesList", locdao.ListLocalidades());
-		MV.setViewName("AltaCliente");
+		if(request.getSession().getAttribute("IDUsuario") !=null) {			
+			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("LocalidadesList", locdao.ListLocalidades());
+			MV.setViewName("AltaCliente");
+		}
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ListarClientes"})
-	public ModelAndView redirecListarClientes() {
+	public ModelAndView redirecListarClientes(HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		MV.addObject("ClientesList", Clidao.ListarClientes());
-		MV.setViewName("ListarClientes");
+		if(request.getSession().getAttribute("IDUsuario") !=null) {			
+			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("ClientesList", Clidao.ListarClientes());
+			MV.setViewName("ListarClientes");
+		}
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"EliminarCliente"})
-	public ModelAndView redirecEliminarCliente() {
+	public ModelAndView redirecEliminarCliente(HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		MV.addObject("LocalidadesList", locdao.ListLocalidades());
-		MV.addObject("ClientesList", Clidao.ListarClientes());
-		MV.setViewName("ModBajaCliente");
+		if(request.getSession().getAttribute("IDUsuario") !=null) {			
+			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
+			Usuario user = userDao.buscarUsuario(IDUsuario);
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("LocalidadesList", locdao.ListLocalidades());
+			MV.addObject("ClientesList", Clidao.ListarClientes());
+			MV.setViewName("ModBajaCliente");
+		}
+		else {
+			MV.setViewName("Login");
+		}
 		return MV;
 	}
 
@@ -91,18 +121,18 @@ public class ClienteController {
 				l.setContrasenia(DniName);
 				l.setNUsuario(EmailName);
 				ld.NuevoLog(l);
-				MV.setViewName("AltaCliente");
+				MV.setViewName("redirec:/redirecNavBarAdmin.html?ClienteNuevo");
 			}
 			else {
 					//Error al dar de alta
-					MV.setViewName("AltaCliente");
+					MV.setViewName("redirec:/redirecNavBarAdmin.html?ClienteNuevo");
 					System.out.println("error al dar de alta cliente");
 			}
 			//}
 			return MV;
 		} catch (Exception e) {
 			e.printStackTrace();
-			MV.setViewName("ListarClientes");
+			MV.setViewName("redirec:/redirecNavBarAdmin.html?ListarClientes");
 			return MV;
 		}
 	}
@@ -142,7 +172,7 @@ public class ClienteController {
 				System.out.println("error al modificar cliente");
 				MV.addObject("LocalidadesList", locdao.ListLocalidades());
 				MV.addObject("ClientesList", Clidao.ListarClientes());
-				MV.setViewName("ModBajaCliente");	
+				MV.setViewName("redirec:/redirecNavBarAdmin.html?EliminarCliente");	
 			}
 			//}
 			return MV;
@@ -150,7 +180,7 @@ public class ClienteController {
 			System.out.println("error al modificar cliente");
 			e.printStackTrace();
 			MV.addObject("ClientesList", Clidao.ListarClientes());
-			MV.setViewName("ListarClientes");
+			MV.setViewName("redirec:/redirecNavBarAdmin.html?ListarClientes");
 			return MV;
 		}
 	}
@@ -161,21 +191,19 @@ public class ClienteController {
 			if(Clidao.ModAltaCliente(TxtAltaClientName)==true) {
 				MV.addObject("LocalidadesList", locdao.ListLocalidades());
 				MV.addObject("ClientesList", Clidao.ListarClientes());
-				MV.setViewName("ModBajaCliente");
 			}
 			else {
 				//Error al dar de baja cliente
 				System.out.println("error al dar de alta al cliente");
 				MV.addObject("LocalidadesList", locdao.ListLocalidades());
 				MV.addObject("ClientesList", Clidao.ListarClientes());
-				MV.setViewName("ModBajaCliente");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			MV.addObject("LocalidadesList", locdao.ListLocalidades());
 			MV.addObject("ClientesList", Clidao.ListarClientes());
-			MV.setViewName("ModBajaCliente");
 		}
+		MV.setViewName("redirec:/redirecNavBarAdmin.html?EliminarCliente");
 		return MV;
 	}
 	@RequestMapping("RedireccionarDarDeBajaCliente.html")
@@ -185,21 +213,19 @@ public class ClienteController {
 			if(Clidao.BajaCliente(TxtBajaClientName)==true) {
 				MV.addObject("LocalidadesList", locdao.ListLocalidades());
 				MV.addObject("ClientesList", Clidao.ListarClientes());
-				MV.setViewName("ModBajaCliente");
 			}
 			else {
 				//Error al dar de baja cliente
 				System.out.println("error al dar de baja al cliente");
 				MV.addObject("LocalidadesList", locdao.ListLocalidades());
 				MV.addObject("ClientesList",Clidao.ListarClientes());
-				MV.setViewName("ModBajaCliente");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			MV.addObject("LocalidadesList", locdao.ListLocalidades());
 			MV.addObject("ClientesList", Clidao.ListarClientes());
-			MV.setViewName("ModBajaCliente");
 		}
+		MV.setViewName("redirec:/redirecNavBarAdmin.html?EliminarCliente");
 		return MV;
 	}
 }
