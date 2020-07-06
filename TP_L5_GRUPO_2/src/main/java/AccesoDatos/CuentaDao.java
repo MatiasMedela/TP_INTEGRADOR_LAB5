@@ -17,6 +17,7 @@ import Dominio.Usuario;
 public class CuentaDao {
 
 	private ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
+	
 	@Autowired
 	private UsuarioDao userDao;
 

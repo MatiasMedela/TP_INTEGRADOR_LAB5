@@ -7,18 +7,27 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import Dominio.Cuenta;
 import Dominio.EstadoPrestamo;
 import Dominio.Prestamo;
+import Dominio.Tipo_Cuenta;
 import Dominio.Usuario;
 
 @SuppressWarnings("unchecked")
 public class PrestamoDao {
+	
 	private ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
     HttpServletRequest request;
+    
+	@Autowired
+	private TipoCuentaDao tcDao;
+	
+	@Autowired
+	private CuentaDao cDao;
     
 	public boolean cargarPrestamo(float importeTotal, int meses, float montoPagar, int idCuenta) {
 		ConfigHibernate ch = new ConfigHibernate();
@@ -82,6 +91,70 @@ public class PrestamoDao {
     	ch.cerrarSession();
 	    return listado;		
 	}	
+	
+	public EstadoPrestamo buscarEstadoPrestamo(int estado)
+	{
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		EstadoPrestamo ep = (EstadoPrestamo) session.createQuery("FROM EstadoPrestamo as ep WHERE ep.id = '"+estado+"'").uniqueResult();
+		ch.cerrarSession();
+	    return ep;			
+
+	}
+	
+	public Prestamo buscarPrestamo(int idPrestamo)
+	{
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		Prestamo p = (Prestamo) session.createQuery("FROM Prestamo as p WHERE p.idPrestamo = '"+idPrestamo+"'").uniqueResult();
+		ch.cerrarSession();
+	    return p;			
+
+	}
+	
+	public boolean cambiarEstadoPrestamo(int idPrestamo, int estado)
+	{
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		try {
+			session.beginTransaction();
+			Prestamo p = (Prestamo) session.createQuery("FROM Prestamo as p WHERE p.idPrestamo = '"+idPrestamo+"'").uniqueResult();
+			p.setEstado(buscarEstadoPrestamo(estado));
+			p.setFechaResolucion(new Date());
+			session.save(p);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			ch.cerrarSession();			
+		}
+		return true;
+	}
+	
+	public boolean modificarPrestamo(int idPrestamo, int idCuenta, float importeSolicitado, float importeTotal, int cuotas)
+	{
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		try {
+			session.beginTransaction();
+			Prestamo p = buscarPrestamo(idPrestamo);
+			Cuenta c = cDao.buscarCuenta(idCuenta);
+			p.setCbu(c);
+			p.setImporteTotal(importeSolicitado);
+			p.setMontoPagar(importeTotal);
+			p.setCantidadMeses(cuotas);
+			session.saveOrUpdate(p);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			ch.cerrarSession();			
+		}
+		return true;
+	}
+	
 	
 
 }
