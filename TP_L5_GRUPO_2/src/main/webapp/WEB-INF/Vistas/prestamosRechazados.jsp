@@ -57,29 +57,19 @@
 				</tr>
 			</thead>
 			<tbody>
+										<c:forEach items="${ listadoPrestamosAdm}" var="prestamo" varStatus="loop">			
 					<tr>
-					<td>Gonzalo Martínez</td>				
-					<td>Cuenta secundaria</td>
-					<td>$100.000</td>
-					<td>$125.000</td>
-					<td>7</td>
-					<td>10/05/2020</td>
-					<td>12/05/2020</td>
-					<td>Rechazado</td>
-					
-				</tr>
-				
-				<tr>
-					<td>Silvia Giménez</td>				
-					<td>Cuenta primaria</td>
-					<td>$200.000</td>
-					<td>$250.000</td>
-					<td>5</td>
-					<td>23/05/2020</td>
-					<td>24/05/2020</td>
-					<td>Rechazado</td>
-					
-				</tr>
+						<td id="Nombre${loop.index}">${prestamo.getUsuario().getNombre()} ${prestamo.getUsuario().getApellido()}</td>
+						<td id="Tipo${loop.index}">${prestamo.getCbu().getTipoCuenta().descripcion}</td>
+						<td id="ImporteSol${loop.index}">${prestamo.importeTotal}</td>
+						<td id="ImporteFinal${loop.index}">${prestamo.montoPagar}</td>
+						<td id="Meses${loop.index}">${prestamo.cantidadMeses}</td>
+						<td id="FechaSol${loop.index}">${prestamo.fechaSolicitud}</td>
+						<td id="FechaSol${loop.index}">${prestamo.fechaResolucion}</td>
+						<td id="Estado${loop.index}">${prestamo.estado.descripcion}</td>
+						
+					</tr>						
+				</c:forEach>	
 			</tbody>
 		</table>
 		

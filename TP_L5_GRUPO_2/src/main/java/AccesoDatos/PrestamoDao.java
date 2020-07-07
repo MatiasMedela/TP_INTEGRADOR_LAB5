@@ -121,7 +121,31 @@ public class PrestamoDao {
 			Prestamo p = (Prestamo) session.createQuery("FROM Prestamo as p WHERE p.idPrestamo = '"+idPrestamo+"'").uniqueResult();
 			p.setEstado(buscarEstadoPrestamo(estado));
 			p.setFechaResolucion(new Date());
+			if (estado==1)
+			{
+				cargarCapitalPrestamo(idPrestamo);
+			}
 			session.save(p);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			ch.cerrarSession();			
+		}
+		return true;
+	}
+	
+	public boolean cargarCapitalPrestamo(int idPrestamo)
+	{
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		try {
+			session.beginTransaction();
+			Prestamo p = buscarPrestamo(idPrestamo);
+			Cuenta cu = (Cuenta) session.createQuery("FROM Cuenta as c WHERE c.idCuenta = '"+p.getCbu().getIdCuenta()+"'").uniqueResult();
+			cu.setSaldo(cu.getSaldo()+p.getImporteTotal());
+			session.saveOrUpdate(cu);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -72,34 +72,14 @@
 				    Acción
 				  </button>
 				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				    <a class="dropdown-item" href="#">Aprobar</a>
-				    <a class="dropdown-item" href="#">Rechazar</a>
+				    <a class="dropdown-item" value="${prestamo.idPrestamo}" href="#">Aprobar</a>
+				    <a class="dropdown-item" value="${prestamo.idPrestamo}"href="#">Rechazar</a>
 				
 				  </div>
 				</div>
 				</td>
 					</tr>						
 				</c:forEach>		
-				<!--  <tr>
-				    <td>Juan Gómez</td>
-					<td>Cuenta principal</td>
-					<td>$100.000</td>
-					<td>$125.000</td>
-					<td>3</td>
-					<td>03/06/2020</td>
-					<td>Pendiente</td>
-					<td><div class="dropdown">
-				  <button class="btn btn-secondary dropdown-toggle btn-grid-action" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    Acción
-				  </button>
-				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				    <a class="dropdown-item" href="#">Aprobar</a>
-				    <a class="dropdown-item" href="#">Rechazar</a>
-				
-				  </div>
-				</div>
-				</td>
-				</tr> <-->
 			</tbody>
 		</table>		
 	</div>
