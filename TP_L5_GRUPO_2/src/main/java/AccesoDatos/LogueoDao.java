@@ -31,6 +31,7 @@ public class LogueoDao {
 	}
 	
 	public Logueo BuscarLog(String modUserName) {
+		((ConfigurableApplicationContext)(appContext)).refresh();
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		Logueo log = (Logueo) appContext.getBean("BLogueo");
@@ -46,7 +47,8 @@ public class LogueoDao {
 	}
 	
 	public boolean ModLogueo(Logueo newlog) {
-		Configuration configuration = new Configuration();
+		((ConfigurableApplicationContext)(appContext)).refresh();
+		Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 		configuration.configure();	
 		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 		SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -67,7 +69,8 @@ public class LogueoDao {
 
 	public void NuevoLog(Logueo l) {
 		try {
-	    	Configuration configuration = new Configuration();
+			((ConfigurableApplicationContext)(appContext)).refresh();
+	    	Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 	    	configuration.configure();	
 	    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 	    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);

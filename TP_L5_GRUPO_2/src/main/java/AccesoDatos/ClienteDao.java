@@ -21,7 +21,8 @@ public class ClienteDao {
 	//ABML
 		public boolean AltaCliente(Usuario Usu ) {
 			try {
-		    	Configuration configuration = new Configuration();
+				((ConfigurableApplicationContext)(appContext)).refresh();
+		    	Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 		    	configuration.configure();	
 		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -40,7 +41,8 @@ public class ClienteDao {
 		 
 		public boolean BajaCliente(String dni) {
 				try {
-					Configuration configuration = new Configuration();
+					((ConfigurableApplicationContext)(appContext)).refresh();
+					Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 			    	configuration.configure();	
 			    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 			    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -64,7 +66,8 @@ public class ClienteDao {
 		}
 		public boolean ModAltaCliente(String dni) {
 			try {
-				Configuration configuration = new Configuration();
+				((ConfigurableApplicationContext)(appContext)).refresh();
+				Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 		    	configuration.configure();	
 		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -88,7 +91,8 @@ public class ClienteDao {
 		
 		public boolean ModificarCliente(Usuario Usu, String oldDniName) {
 			try {
-		    	Configuration configuration = new Configuration();
+				((ConfigurableApplicationContext)(appContext)).refresh();
+		    	Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 		    	configuration.configure();	
 		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -123,8 +127,8 @@ public class ClienteDao {
 		}
 		
 		public Usuario BuscarUsuarioXIdLog(Logueo l ) {
-			ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 			try {
+				((ConfigurableApplicationContext)(appContext)).refresh();
 				ConfigHibernate ch = new ConfigHibernate();
 				Session session = ch.abrirConexion();
 				Usuario Usu = (Usuario) appContext.getBean("BUsuario");
@@ -139,13 +143,29 @@ public class ClienteDao {
 		}
 
 		public Usuario BuscarUsuarioXId(int idUsu) {
-			ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 			try {
+				((ConfigurableApplicationContext)(appContext)).refresh();
 				ConfigHibernate ch = new ConfigHibernate();
 				Session session = ch.abrirConexion();
 				Usuario Usu = (Usuario) appContext.getBean("BUsuario");
 				if ((Usuario) session.createQuery(" FROM Usuario u WHERE u.IdUsu = "+idUsu).uniqueResult()!=null) {
 					Usu =(Usuario) session.createQuery(" FROM Usuario u WHERE u.IdUsu = "+idUsu).uniqueResult();
+				} 
+			    session.close();
+			    return Usu;
+			} finally {
+				((ConfigurableApplicationContext)(appContext)).close();
+			}
+		}	
+		
+		public Usuario BuscarUsuarioXDni(String dni) {
+			try {
+				((ConfigurableApplicationContext)(appContext)).refresh();
+				ConfigHibernate ch = new ConfigHibernate();
+				Session session = ch.abrirConexion();
+				Usuario Usu = (Usuario) appContext.getBean("BUsuario");
+				if ((Usuario) session.createQuery(" FROM Usuario u WHERE u.Dni = "+dni).uniqueResult()!=null) {
+					Usu =(Usuario) session.createQuery(" FROM Usuario u WHERE u.Dni = "+dni).uniqueResult();
 				} 
 			    session.close();
 			    return Usu;
