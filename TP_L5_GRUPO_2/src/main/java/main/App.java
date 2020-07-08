@@ -30,7 +30,7 @@ public class App {
 	public static void insertarRegistros() throws ParseException {
 		ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
     	SessionFactory sessionFactory;
-    	Configuration configuration = new Configuration();
+    	Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
     	configuration.configure();	
     	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
     	sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -247,35 +247,15 @@ public class App {
     	session.save(prov23);
     	session.save(prov24);
     	//---------------------------------------------------------------
-    	/*--CARGO DATOS EN TABLA TIPO MOVIMIENTO--*/
-    	Tipo_Movimiento tipoMovimient1 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
-    	tipoMovimient1.setIdTipoMovimiento(1);
-    	tipoMovimient1.setDescripcion("Alta de cuenta");
-    	
-    	Tipo_Movimiento tipoMovimient2 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
-    	tipoMovimient2.setIdTipoMovimiento(2);
-    	tipoMovimient2.setDescripcion("Alta de un prestamo");
-    	
-    	Tipo_Movimiento tipoMovimient3 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
-    	tipoMovimient3.setIdTipoMovimiento(3);
-    	tipoMovimient3.setDescripcion("Pago de un prestamo");
-    	
-    	Tipo_Movimiento tipoMovimient4 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
-    	tipoMovimient4.setIdTipoMovimiento(4);
-    	tipoMovimient4.setDescripcion("Transferencia");
-    	
-    	session.save(tipoMovimient1);
-    	session.save(tipoMovimient2);
-    	session.save(tipoMovimient3);
-    	session.save(tipoMovimient4);
-    	//---------------------------------------------------------------
     	/*--CARGO DATOS TABLA LOCALIDAD*/
+    	//ciudad autonoma de bsas
     	Localidad local1 = (Localidad) appContext.getBean("BLocalidad");
     	local1.setIdLocalidad(1);
     	local1.setProvLoc(prov1);
     	local1.setLocNombre("C.A.B.A");
     	local1.setCodigoPostal("0");
     	
+    	//BS AS
     	Localidad local2 = (Localidad) appContext.getBean("BLocalidad");
     	local2.setIdLocalidad(2);
     	local2.setProvLoc(prov2);
@@ -288,23 +268,11 @@ public class App {
     	local3.setLocNombre("DOCK SUD");
     	local3.setCodigoPostal("1871");
     	
-    	Localidad local4 = (Localidad) appContext.getBean("BLocalidad");
-    	local4.setIdLocalidad(4);
-    	local4.setProvLoc(prov2);
-    	local4.setLocNombre("SAN JOSE");
-    	local4.setCodigoPostal("6665");
-    	
-    	Localidad local5 = (Localidad) appContext.getBean("BLocalidad");
-    	local5.setIdLocalidad(5);
-    	local5.setProvLoc(prov2);
-    	local5.setLocNombre("LOS PATOS");
-    	local5.setCodigoPostal("7603");
-    	
-    	Localidad local6 = (Localidad) appContext.getBean("BLocalidad");
-    	local6.setIdLocalidad(6);
-    	local6.setProvLoc(prov2);
-    	local6.setLocNombre("MIRAMAR");
-    	local6.setCodigoPostal("7607");
+    	Localidad local11 = (Localidad) appContext.getBean("BLocalidad");
+    	local11.setIdLocalidad(11);
+    	local11.setProvLoc(prov2);
+    	local11.setLocNombre("PILAR");
+    	local11.setCodigoPostal("3505");
     	
     	Localidad local7 = (Localidad) appContext.getBean("BLocalidad");
     	local7.setIdLocalidad(7);
@@ -330,6 +298,426 @@ public class App {
     	local10.setLocNombre("MONTE CRESPO");
     	local10.setCodigoPostal("7020");
     	
+    	//Mendoza
+    	Localidad local4 = (Localidad) appContext.getBean("BLocalidad");
+    	local4.setIdLocalidad(4);
+    	local4.setProvLoc(prov8);
+    	local4.setLocNombre("SAN JOSE");
+    	local4.setCodigoPostal("5535");
+    	
+    	Localidad local12 = (Localidad) appContext.getBean("BLocalidad");
+    	local12.setIdLocalidad(12);
+    	local12.setProvLoc(prov8);
+    	local12.setLocNombre("AGUA NUEVA");
+    	local12.setCodigoPostal("5600");
+    	
+    	Localidad local13 = (Localidad) appContext.getBean("BLocalidad");
+    	local13.setIdLocalidad(13);
+    	local13.setProvLoc(prov8);
+    	local13.setLocNombre("AGUA DE LA MULA");
+    	local13.setCodigoPostal("5600");
+    	
+    	//Catamarca
+    	Localidad local14 = (Localidad) appContext.getBean("BLocalidad");
+    	local14.setIdLocalidad(14);
+    	local14.setProvLoc(prov3);
+    	local14.setLocNombre("ANTINACO");
+    	local14.setCodigoPostal("5341");
+    	
+    	Localidad local15 = (Localidad) appContext.getBean("BLocalidad");
+    	local15.setIdLocalidad(15);
+    	local15.setProvLoc(prov3);
+    	local15.setLocNombre("MINAS CAPILLITAS");
+    	local15.setCodigoPostal("4740");
+    	
+    	Localidad local16 = (Localidad) appContext.getBean("BLocalidad");
+    	local16.setIdLocalidad(16);
+    	local16.setProvLoc(prov3);
+    	local16.setLocNombre("LAMPASITO");
+    	local16.setCodigoPostal("4139");
+    	
+    	//Cordoba
+    	
+    	Localidad local5 = (Localidad) appContext.getBean("BLocalidad");
+    	local5.setIdLocalidad(5);
+    	local5.setProvLoc(prov4);
+    	local5.setLocNombre("LOS PATOS");
+    	local5.setCodigoPostal("7603");
+    	
+    	Localidad local17 = (Localidad) appContext.getBean("BLocalidad");
+    	local17.setIdLocalidad(17);
+    	local17.setProvLoc(prov4);
+    	local17.setLocNombre("LA CONCEPCION");
+    	local17.setCodigoPostal("5281");
+    	
+    	Localidad local18 = (Localidad) appContext.getBean("BLocalidad");
+    	local18.setIdLocalidad(18);
+    	local18.setProvLoc(prov4);
+    	local18.setLocNombre("VILLA CIUDAD PQUE LOS REARTES");
+    	local18.setCodigoPostal("5189");
+    	
+    	//Santa Fe
+    	Localidad local6 = (Localidad) appContext.getBean("BLocalidad");
+    	local6.setIdLocalidad(6);
+    	local6.setProvLoc(prov13);
+    	local6.setLocNombre("MIRAMAR");
+    	local6.setCodigoPostal("7607");
+    	
+    	Localidad local20 = (Localidad) appContext.getBean("BLocalidad");
+    	local20.setIdLocalidad(20);
+    	local20.setProvLoc(prov13);
+    	local20.setLocNombre("MIGUEL TORRES");
+    	local20.setCodigoPostal("2631");
+    	
+    	Localidad local21 = (Localidad) appContext.getBean("BLocalidad");
+    	local21.setIdLocalidad(21);
+    	local21.setProvLoc(prov13);
+    	local21.setLocNombre("RASTREADOR FOURNIER");
+    	local21.setCodigoPostal("2605");
+    	
+    	//Chaco
+    	Localidad local22 = (Localidad) appContext.getBean("BLocalidad");
+    	local22.setIdLocalidad(22);
+    	local22.setProvLoc(prov16);
+    	local22.setLocNombre("COLONIA BENITEZ");
+    	local22.setCodigoPostal("3505");
+    	
+    	Localidad local23 = (Localidad) appContext.getBean("BLocalidad");
+    	local23.setIdLocalidad(23);
+    	local23.setProvLoc(prov16);
+    	local23.setLocNombre("COLONIA EL PILAR");
+    	local23.setCodigoPostal("3505");
+    	
+    	Localidad local24 = (Localidad) appContext.getBean("BLocalidad");
+    	local24.setIdLocalidad(24);
+    	local24.setProvLoc(prov16);
+    	local24.setLocNombre("PUERTO ANTEQUERA");
+    	local24.setCodigoPostal("3505");
+    	
+    	//Chubut
+    	Localidad local25 = (Localidad) appContext.getBean("BLocalidad");
+    	local25.setIdLocalidad(25);
+    	local25.setProvLoc(prov17);
+    	local25.setLocNombre("LAGUNA DE VACAS");
+    	local25.setCodigoPostal("9121");
+    	
+    	Localidad local26 = (Localidad) appContext.getBean("BLocalidad");
+    	local26.setIdLocalidad(26);
+    	local26.setProvLoc(prov17);
+    	local26.setLocNombre("FRONTERA DE RIO PICO");
+    	local26.setCodigoPostal("9225");
+    	
+    	Localidad local27 = (Localidad) appContext.getBean("BLocalidad");
+    	local27.setIdLocalidad(27);
+    	local27.setProvLoc(prov17);
+    	local27.setLocNombre("LAGO PAZ");
+    	local27.setCodigoPostal("9225");
+    	
+    	//Corrientes
+    	Localidad local28 = (Localidad) appContext.getBean("BLocalidad");
+    	local28.setIdLocalidad(28);
+    	local28.setProvLoc(prov5);
+    	local28.setLocNombre("VACA PASO");
+    	local28.setCodigoPostal("3461");
+
+    	Localidad local29 = (Localidad) appContext.getBean("BLocalidad");
+    	local29.setIdLocalidad(29);
+    	local29.setProvLoc(prov5);
+    	local29.setLocNombre("CUARTA SECCION LOMAS");
+    	local29.setCodigoPostal("3461");
+    	
+    	Localidad local30 = (Localidad) appContext.getBean("BLocalidad");
+    	local30.setIdLocalidad(30);
+    	local30.setProvLoc(prov5);
+    	local30.setLocNombre("RINCON QUIROZ");
+    	local30.setCodigoPostal("3461");
+    	
+    	//Entre Ríos
+    	Localidad local31 = (Localidad) appContext.getBean("BLocalidad");
+    	local31.setIdLocalidad(31);
+    	local31.setProvLoc(prov6);
+    	local31.setLocNombre("ZONA DELTA GUALEGUAYCHU");
+    	local31.setCodigoPostal("2820");
+    	
+    	Localidad local32 = (Localidad) appContext.getBean("BLocalidad");
+    	local32.setIdLocalidad(32);
+    	local32.setProvLoc(prov6);
+    	local32.setLocNombre("COLONIA BERTOZZI");
+    	local32.setCodigoPostal("3192");
+    	
+    	Localidad local33 = (Localidad) appContext.getBean("BLocalidad");
+    	local33.setIdLocalidad(33);
+    	local33.setProvLoc(prov6);
+    	local33.setLocNombre("COLONIA LA MARTA");
+    	local33.setCodigoPostal("3185");
+    	
+    	//Formosa
+    	Localidad local34 = (Localidad) appContext.getBean("BLocalidad");
+    	local34.setIdLocalidad(34);
+    	local34.setProvLoc(prov18);
+    	local34.setLocNombre("ISLA GRAL BELGRANO");
+    	local34.setCodigoPostal("3610");
+    	
+    	Localidad local35 = (Localidad) appContext.getBean("BLocalidad");
+    	local35.setIdLocalidad(35);
+    	local35.setProvLoc(prov18);
+    	local35.setLocNombre("PUNTA DE AGUA");
+    	local35.setCodigoPostal("3630");
+    	
+    	Localidad local36 = (Localidad) appContext.getBean("BLocalidad");
+    	local36.setIdLocalidad(36);
+    	local36.setProvLoc(prov18);
+    	local36.setLocNombre("PESCADO NEGRO");
+    	local36.setCodigoPostal("3636");
+    	
+    	//Jujuy
+    	Localidad local37 = (Localidad) appContext.getBean("BLocalidad");
+    	local37.setIdLocalidad(37);
+    	local37.setProvLoc(prov7);
+    	local37.setLocNombre("EL CHAGUARAL");
+    	local37.setCodigoPostal("4500");
+    	
+    	Localidad local38 = (Localidad) appContext.getBean("BLocalidad");
+    	local38.setIdLocalidad(38);
+    	local38.setProvLoc(prov7);
+    	local38.setLocNombre("CERRO AGUA CALIENTE");
+    	local38.setCodigoPostal("4641");
+    	
+    	Localidad local39 = (Localidad) appContext.getBean("BLocalidad");
+    	local39.setIdLocalidad(39);
+    	local39.setProvLoc(prov7);
+    	local39.setLocNombre("AGUAS CALIENTES");
+    	local39.setCodigoPostal("4518");
+    	
+    	//La Pampa
+    	Localidad local40 = (Localidad) appContext.getBean("BLocalidad");
+    	local40.setIdLocalidad(40);
+    	local40.setProvLoc(prov21);
+    	local40.setLocNombre("ATREUCO");
+    	local40.setCodigoPostal("6305");
+    	
+    	Localidad local41 = (Localidad) appContext.getBean("BLocalidad");
+    	local41.setIdLocalidad(41);
+    	local41.setProvLoc(prov21);
+    	local41.setLocNombre("BELLA VISTA");
+    	local41.setCodigoPostal("6305");
+    	
+    	Localidad local42 = (Localidad) appContext.getBean("BLocalidad");
+    	local42.setIdLocalidad(42);
+    	local42.setProvLoc(prov21);
+    	local42.setLocNombre("CEREALES");
+    	local42.setCodigoPostal("6301");
+    	
+    	//La Rioja
+    	Localidad local43 = (Localidad) appContext.getBean("BLocalidad");
+    	local43.setIdLocalidad(43);
+    	local43.setProvLoc(prov9);
+    	local43.setLocNombre("AIMOGASTA");
+    	local43.setCodigoPostal("5310");
+    	
+    	Localidad local44 = (Localidad) appContext.getBean("BLocalidad");
+    	local44.setIdLocalidad(44);
+    	local44.setProvLoc(prov9);
+    	local44.setLocNombre("ARAUCO");
+    	local44.setCodigoPostal("5311");
+    	
+    	Localidad local45 = (Localidad) appContext.getBean("BLocalidad");
+    	local45.setIdLocalidad(45);
+    	local45.setProvLoc(prov9);
+    	local45.setLocNombre("ESTACION MAZAN");
+    	local45.setCodigoPostal("5313");
+    	
+    	//Misiones 
+    	Localidad local46 = (Localidad) appContext.getBean("BLocalidad");
+    	local46.setIdLocalidad(46);
+    	local46.setProvLoc(prov19);
+    	local46.setLocNombre("9 DE JULIO");
+    	local46.setCodigoPostal("3363");
+    	
+    	Localidad local47 = (Localidad) appContext.getBean("BLocalidad");
+    	local47.setIdLocalidad(47);
+    	local47.setProvLoc(prov19);
+    	local47.setLocNombre("BARRA BONITA");
+    	local47.setCodigoPostal("3357");
+    	
+    	Localidad local48 = (Localidad) appContext.getBean("BLocalidad");
+    	local48.setIdLocalidad(48);
+    	local48.setProvLoc(prov19);
+    	local48.setLocNombre("CAMPOS SALLES");
+    	local48.setCodigoPostal("3363");
+    	
+    	//Neuquén
+    	Localidad local49 = (Localidad) appContext.getBean("BLocalidad");
+    	local49.setIdLocalidad(49);
+    	local49.setProvLoc(prov20);
+    	local49.setLocNombre("BUTALON");
+    	local49.setCodigoPostal("8353");
+    	
+    	Localidad local50 = (Localidad) appContext.getBean("BLocalidad");
+    	local50.setIdLocalidad(50);
+    	local50.setProvLoc(prov20);
+    	local50.setLocNombre("FORTIN GUA");
+    	local50.setCodigoPostal("8353");
+    	
+    	Localidad local51 = (Localidad) appContext.getBean("BLocalidad");
+    	local51.setIdLocalidad(51);
+    	local51.setProvLoc(prov20);
+    	local51.setLocNombre("HUARACO");
+    	local51.setCodigoPostal("8353");
+    	
+    	//Río Negro
+    	Localidad local52 = (Localidad) appContext.getBean("BLocalidad");
+    	local52.setIdLocalidad(52);
+    	local52.setProvLoc(prov22);
+    	local52.setLocNombre("LAGUNA BLANCA");
+    	local52.setCodigoPostal("8417");
+    	
+    	Localidad local53 = (Localidad) appContext.getBean("BLocalidad");
+    	local53.setIdLocalidad(53);
+    	local53.setProvLoc(prov22);
+    	local53.setLocNombre("CUBANEA");
+    	local53.setCodigoPostal("8501");
+    	
+    	Localidad local54 = (Localidad) appContext.getBean("BLocalidad");
+    	local54.setIdLocalidad(54);
+    	local54.setProvLoc(prov22);
+    	local54.setLocNombre("COLAN CONHUE");
+    	local54.setCodigoPostal("8418");
+    	
+    	//Salta
+    	Localidad local55 = (Localidad) appContext.getBean("BLocalidad");
+    	local55.setIdLocalidad(55);
+    	local55.setProvLoc(prov10);
+    	local55.setLocNombre("AGUA SUCIA");
+    	local55.setCodigoPostal("4449");
+    	
+    	Localidad local56 = (Localidad) appContext.getBean("BLocalidad");
+    	local56.setIdLocalidad(56);
+    	local56.setProvLoc(prov10);
+    	local56.setLocNombre("ALGARROBAL");
+    	local56.setCodigoPostal("4446");
+    	
+    	Localidad local57 = (Localidad) appContext.getBean("BLocalidad");
+    	local57.setIdLocalidad(57);
+    	local57.setProvLoc(prov10);
+    	local57.setLocNombre("ALTO ALEGRE");
+    	local57.setCodigoPostal("4449");
+    	
+    	//San Juan
+    	Localidad local58 = (Localidad) appContext.getBean("BLocalidad");
+    	local58.setIdLocalidad(58);
+    	local58.setProvLoc(prov11);
+    	local58.setLocNombre("ALGARROBO VERDE");
+    	local58.setCodigoPostal("5443");
+    	
+    	Localidad local59 = (Localidad) appContext.getBean("BLocalidad");
+    	local59.setIdLocalidad(59);
+    	local59.setProvLoc(prov11);
+    	local59.setLocNombre("CUATRO ESQUINAS");
+    	local59.setCodigoPostal("5443");
+    	
+    	Localidad local60 = (Localidad) appContext.getBean("BLocalidad");
+    	local60.setIdLocalidad(60);
+    	local60.setProvLoc(prov11);
+    	local60.setLocNombre("CUYO");
+    	local60.setCodigoPostal("5443");
+    	
+    	//San Luis
+    	Localidad local61 = (Localidad) appContext.getBean("BLocalidad");
+    	local61.setIdLocalidad(61);
+    	local61.setProvLoc(prov12);
+    	local61.setLocNombre("EL ESPINILLO");
+    	local61.setCodigoPostal("6279");
+    	
+    	Localidad local62 = (Localidad) appContext.getBean("BLocalidad");
+    	local62.setIdLocalidad(62);
+    	local62.setProvLoc(prov12);
+    	local62.setLocNombre("AGUADITAS");
+    	local62.setCodigoPostal("5707");
+    	
+    	Localidad local63 = (Localidad) appContext.getBean("BLocalidad");
+    	local63.setIdLocalidad(63);
+    	local63.setProvLoc(prov12);
+    	local63.setLocNombre("BALDE DE ESCUDERO");
+    	local63.setCodigoPostal("5715");
+    	
+    	//Santa Cruz
+    	Localidad local64 = (Localidad) appContext.getBean("BLocalidad");
+    	local64.setIdLocalidad(64);
+    	local64.setProvLoc(prov23);
+    	local64.setLocNombre("EL GUADAL");
+    	local64.setCodigoPostal("9300");
+    	
+    	Localidad local65 = (Localidad) appContext.getBean("BLocalidad");
+    	local65.setIdLocalidad(65);
+    	local65.setProvLoc(prov23);
+    	local65.setLocNombre("AGUADA A PIQUE");
+    	local65.setCodigoPostal("9051");
+    	
+    	Localidad local66 = (Localidad) appContext.getBean("BLocalidad");
+    	local66.setIdLocalidad(66);
+    	local66.setProvLoc(prov23);
+    	local66.setLocNombre("AGUADA LA OVEJA");
+    	local66.setCodigoPostal("9051");
+    	
+    	//Santiago del Estero
+    	Localidad local67 = (Localidad) appContext.getBean("BLocalidad");
+    	local67.setIdLocalidad(67);
+    	local67.setProvLoc(prov14);
+    	local67.setLocNombre("CERRILLO");
+    	local67.setCodigoPostal("4336");
+    	
+    	Localidad local68 = (Localidad) appContext.getBean("BLocalidad");
+    	local68.setIdLocalidad(68);
+    	local68.setProvLoc(prov14);
+    	local68.setLocNombre("EL DIAMANTE");
+    	local68.setCodigoPostal("4336");
+    	
+    	Localidad local69 = (Localidad) appContext.getBean("BLocalidad");
+    	local69.setIdLocalidad(69);
+    	local69.setProvLoc(prov14);
+    	local69.setLocNombre("LOS HERRERAS");
+    	local69.setCodigoPostal("4336");
+    	
+    	//Tierra del Fuego
+    	Localidad local70 = (Localidad) appContext.getBean("BLocalidad");
+    	local70.setIdLocalidad(70);
+    	local70.setProvLoc(prov24);
+    	local70.setLocNombre("BAHIA LAPATAIA");
+    	local70.setCodigoPostal("9410");
+    	
+    	Localidad local71 = (Localidad) appContext.getBean("BLocalidad");
+    	local71.setIdLocalidad(71);
+    	local71.setProvLoc(prov24);
+    	local71.setLocNombre("ESTANCIA HARBERTON");
+    	local71.setCodigoPostal("9410");
+    	
+    	Localidad local72 = (Localidad) appContext.getBean("BLocalidad");
+    	local72.setIdLocalidad(72);
+    	local72.setProvLoc(prov24);
+    	local72.setLocNombre("HOSTERIA KAIKEN");
+    	local72.setCodigoPostal("9410");
+    	
+    	//Tucumán
+    	Localidad local73 = (Localidad) appContext.getBean("BLocalidad");
+    	local73.setIdLocalidad(73);
+    	local73.setProvLoc(prov15);
+    	local73.setLocNombre("HOSTERIA KAIKEN");
+    	local73.setCodigoPostal("9410");
+    	
+    	Localidad local74 = (Localidad) appContext.getBean("BLocalidad");
+    	local74.setIdLocalidad(74);
+    	local74.setProvLoc(prov15);
+    	local74.setLocNombre("HOSTERIA KAIKEN");
+    	local74.setCodigoPostal("9410");
+    	
+    	Localidad local75 = (Localidad) appContext.getBean("BLocalidad");
+    	local75.setIdLocalidad(75);
+    	local75.setProvLoc(prov15);
+    	local75.setLocNombre("HOSTERIA KAIKEN");
+    	local75.setCodigoPostal("9410");
+    	
+    	
     	session.save(local1);
     	session.save(local2);
     	session.save(local3);
@@ -340,7 +728,95 @@ public class App {
     	session.save(local8);
     	session.save(local9);
     	session.save(local10);
+    	session.save(local11);
+    	session.save(local12);
+    	session.save(local13);
+    	session.save(local14);
+    	session.save(local15);
+    	session.save(local16);
+    	session.save(local17);
+    	session.save(local18);
+    	session.save(local20);
+    	session.save(local21);
+    	session.save(local22);
+    	session.save(local23);
+    	session.save(local24);
+    	session.save(local25);
+    	session.save(local26);
+    	session.save(local27);
+    	session.save(local28);
+    	session.save(local29);
+    	session.save(local30);
+    	session.save(local31);
+    	session.save(local32);
+    	session.save(local33);
+    	session.save(local34);
+    	session.save(local35);
+    	session.save(local36);
+    	session.save(local37);
+    	session.save(local38);
+    	session.save(local39);
+    	session.save(local40);
+    	session.save(local41);
+    	session.save(local42);
+    	session.save(local43);
+    	session.save(local44);
+    	session.save(local45);
+    	session.save(local46);
+    	session.save(local47);
+    	session.save(local48);
+    	session.save(local49);
+    	session.save(local50);
+    	session.save(local51);
+    	session.save(local52);
+    	session.save(local53);
+    	session.save(local54);
+    	session.save(local55);
+    	session.save(local56);
+    	session.save(local57);
+    	session.save(local58);
+    	session.save(local59);
+    	session.save(local60);
+    	session.save(local61);
+    	session.save(local62);
+    	session.save(local63);
+    	session.save(local64);
+    	session.save(local65);
+    	session.save(local66);
+    	session.save(local67);
+    	session.save(local68);
+    	session.save(local69);
+    	session.save(local70);
+    	session.save(local71);
+    	session.save(local72);
+    	session.save(local73);
+    	session.save(local74);
+    	session.save(local75);
+    	
     	//---------------------------------------------------------------
+    	/*--CARGO DATOS EN TABLA TIPO MOVIMIENTO--*/
+    	Tipo_Movimiento tipoMovimient1 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
+    	tipoMovimient1.setIdTipoMovimiento(1);
+    	tipoMovimient1.setDescripcion("Alta de cuenta");
+    	
+    	Tipo_Movimiento tipoMovimient2 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
+    	tipoMovimient2.setIdTipoMovimiento(2);
+    	tipoMovimient2.setDescripcion("Alta de un prestamo");
+    	
+    	Tipo_Movimiento tipoMovimient3 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
+    	tipoMovimient3.setIdTipoMovimiento(3);
+    	tipoMovimient3.setDescripcion("Pago de un prestamo");
+    	
+    	Tipo_Movimiento tipoMovimient4 = (Tipo_Movimiento) appContext.getBean("BTipo_Movimiento");
+    	tipoMovimient4.setIdTipoMovimiento(4);
+    	tipoMovimient4.setDescripcion("Transferencia");
+    	
+    	session.save(tipoMovimient1);
+    	session.save(tipoMovimient2);
+    	session.save(tipoMovimient3);
+    	session.save(tipoMovimient4);
+    	//---------------------------------------------------------------
+    	
     	/*--CARGO DATOS EN TABLA USUARIO--*/
     	Usuario usuario1 = (Usuario) appContext.getBean("BUsuario");
     	usuario1.setDni("30000001");
@@ -353,6 +829,7 @@ public class App {
     	usuario1.setFechaNac(new Date());
     	usuario1.setEstado(true);
     	usuario1.setDireccion("Mosconi 556");
+    	usuario1.setTel("1126987435");
     	usuario1.setEmail("dalessio@gmail.com");
     	
     	Usuario usuario2 = (Usuario) appContext.getBean("BUsuario");
@@ -366,6 +843,7 @@ public class App {
     	usuario2.setFechaNac(new Date());
     	usuario2.setEstado(true);
     	usuario2.setDireccion("Riobamba 126");
+    	usuario2.setTel("1126987436");
     	usuario2.setEmail("jcasano@gmail.com");
     	
     	Usuario usuario3 = (Usuario) appContext.getBean("BUsuario");
@@ -379,6 +857,7 @@ public class App {
     	usuario3.setFechaNac(new Date());
     	usuario3.setEstado(true);
     	usuario3.setDireccion("Alsina 236");
+    	usuario3.setTel("1126987437");
     	usuario3.setEmail("llescano@gmail.com");
     	
     	Usuario usuario4 = (Usuario) appContext.getBean("BUsuario");
@@ -392,6 +871,7 @@ public class App {
     	usuario4.setFechaNac(new Date());
     	usuario4.setEstado(true);
     	usuario4.setDireccion("General Paz 546");
+    	usuario4.setTel("1126987438");
     	usuario4.setEmail("sfont@gmail.com");
     	
     	Usuario usuario5 = (Usuario) appContext.getBean("BUsuario");
@@ -405,6 +885,7 @@ public class App {
     	usuario5.setFechaNac(new Date());
     	usuario5.setEstado(true);
     	usuario5.setDireccion("Mosconi 546");
+    	usuario5.setTel("1126987439");
     	usuario5.setEmail("mmedela@gmail.com");
     	
     	Usuario usuario6 = (Usuario) appContext.getBean("BUsuario");
@@ -418,6 +899,7 @@ public class App {
     	usuario6.setFechaNac(new Date());
     	usuario6.setEstado(true);
     	usuario6.setDireccion("Haedo 652");
+    	usuario6.setTel("1126987411");
     	usuario6.setEmail("jjlage@gmail.com");
     	
     	Usuario usuario7 = (Usuario) appContext.getBean("BUsuario");
@@ -432,6 +914,7 @@ public class App {
     	usuario7.setFechaNac(new Date());
     	usuario7.setEstado(true);
     	usuario7.setDireccion("Av. Centenario 1256");
+    	usuario7.setTel("1126987422");
     	usuario7.setEmail("hsuarez@gmail.com");
     	
     	Usuario usuario8 = (Usuario) appContext.getBean("BUsuario");
@@ -445,6 +928,7 @@ public class App {
     	usuario8.setFechaNac(new Date());
     	usuario8.setEstado(true);
     	usuario8.setDireccion("Haedo 568");
+    	usuario8.setTel("1126987433");
     	usuario8.setEmail("ocapotosti@gmail.com");
     	
     	Usuario usuario9 = (Usuario) appContext.getBean("BUsuario");
@@ -458,6 +942,7 @@ public class App {
     	usuario9.setFechaNac(new Date());
     	usuario9.setEstado(true);
     	usuario9.setDireccion("Alsina 326");
+    	usuario9.setTel("1126987444");
     	usuario9.setEmail("mvasquez@gmail.com");
     	
     	Usuario usuario10 = (Usuario) appContext.getBean("BUsuario");
@@ -471,6 +956,7 @@ public class App {
     	usuario10.setFechaNac(new Date());
     	usuario10.setEstado(true);
     	usuario10.setDireccion("Julian Navarro 135");
+    	usuario10.setTel("1126987427");
     	usuario10.setEmail("mvivas@gmail.com");
     	
     	session.save(usuario1);
@@ -488,52 +974,52 @@ public class App {
     	/*--CARGO DATOS EN TABLA LOGUEO*/
     	Logueo log1 = (Logueo) appContext.getBean("BLogueo");
     	log1.setNUsuario(usuario1.getEmail());
-    	log1.setContrasenia("pppp");
+    	log1.setContrasenia(usuario1.getDni());
     	log1.setUsuario(usuario1);
     	
     	Logueo log2 = (Logueo) appContext.getBean("BLogueo");
     	log2.setNUsuario(usuario2.getEmail());
-    	log2.setContrasenia("pppp");
+    	log2.setContrasenia(usuario2.getDni());
     	log2.setUsuario(usuario2);
     	
     	Logueo log3 = (Logueo) appContext.getBean("BLogueo");
     	log3.setNUsuario(usuario3.getEmail());
-    	log3.setContrasenia("pppp");
+    	log3.setContrasenia(usuario3.getDni());
     	log3.setUsuario(usuario3);
     	
     	Logueo log4 = (Logueo) appContext.getBean("BLogueo");
     	log4.setNUsuario(usuario4.getEmail());
-    	log4.setContrasenia("pppp");
+    	log4.setContrasenia(usuario4.getDni());
     	log4.setUsuario(usuario4);
     	
     	Logueo log5 = (Logueo) appContext.getBean("BLogueo");
     	log5.setNUsuario(usuario5.getEmail());
-    	log5.setContrasenia("pppp");
+    	log5.setContrasenia(usuario5.getDni());
     	log5.setUsuario(usuario5);
     	
     	Logueo log6 = (Logueo) appContext.getBean("BLogueo");
     	log6.setNUsuario(usuario6.getEmail());
-    	log6.setContrasenia("pppp");
+    	log6.setContrasenia(usuario6.getDni());
     	log6.setUsuario(usuario6);
     	
     	Logueo log7 = (Logueo) appContext.getBean("BLogueo");
     	log7.setNUsuario(usuario7.getEmail());
-    	log7.setContrasenia("pppp");
+    	log7.setContrasenia(usuario7.getDni());
     	log7.setUsuario(usuario7);
     	
     	Logueo log8 = (Logueo) appContext.getBean("BLogueo");
     	log8.setNUsuario(usuario8.getEmail());
-    	log8.setContrasenia("pppp");
+    	log8.setContrasenia(usuario8.getDni());
     	log8.setUsuario(usuario8);
     	
     	Logueo log9 = (Logueo) appContext.getBean("BLogueo");
     	log9.setNUsuario(usuario9.getEmail());
-    	log9.setContrasenia("pppp");
+    	log9.setContrasenia(usuario9.getDni());
     	log9.setUsuario(usuario9);
     	
     	Logueo log10 = (Logueo) appContext.getBean("BLogueo");
     	log10.setNUsuario(usuario10.getEmail());
-    	log10.setContrasenia("pppp");
+    	log10.setContrasenia(usuario10.getDni());
     	log10.setUsuario(usuario10);
     	
     	
