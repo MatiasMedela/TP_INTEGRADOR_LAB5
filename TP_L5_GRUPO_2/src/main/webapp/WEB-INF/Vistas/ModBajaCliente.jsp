@@ -1,4 +1,5 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -157,7 +158,9 @@ $(document).ready(function(){
 				<td>${ Cliente.getDni() }</td>
 				<td>${ Cliente.getNombre() }, ${ Cliente.getApellido() }</td>
 				<td>${ Cliente.getGen().getDescripcion()}</td>
-				<td>${ Cliente.getFechaNac()}</td>
+				<td>
+					<fmt:formatDate type="date" pattern = "dd-MM-yyyy" value="${ Cliente.getFechaNac()}" />
+				</td>
 				<td>${ Cliente.getLoc().getLocNombre() }</td>
 				<td>${ Cliente.getDireccion() }</td>
 				<td>${ Cliente.getLoc().getProvLoc().getProvNombre() }</td>
