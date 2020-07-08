@@ -50,14 +50,14 @@ function ValFormatoTelCel(){
 	var TelTxt = document.querySelector('#TelId');
 	TelTxt.disabled = false;
 	TelTxt.setAttribute("placeholder", "ej: 1126208736");
-	TelTxt.setAttribute("pattern", "/ ^ (?: (?: 0 0 ) ? 5 4 9 ? ) ? 0 ? (?: 1 1 | [ 2 3 6 8 ] \ d ) (?: (? = \ D {0,2} 1 5 ");
+	TelTxt.setAttribute("pattern", "/(\11)?[([0-9][ -]*){8}  ");
 }
 
 function ValFormatoTelFijo(){
 	var TelTxt = document.querySelector('#TelId');
 	TelTxt.disabled = false;
 	TelTxt.setAttribute("placeholder", "ej: 0123489354");
-	TelTxt.setAttribute("pattern", "\([0-9]{10}\) [0-9]{6}");
+	TelTxt.setAttribute("pattern", "/[0-9]{10}");
 }
 
 function ValidarFormulario(){
