@@ -4,10 +4,7 @@
 <html>
 <head>
 <!-- JS, Popper.js, and jQuery -->
-	<script 
-	src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
-	crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<script 
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -54,14 +51,34 @@ function ValFormatoTelCel(){
 	TelTxt.disabled = false;
 	TelTxt.setAttribute("placeholder", "ej: 1126208736");
 	TelTxt.setAttribute("pattern", "/ ^ (?: (?: 0 0 ) ? 5 4 9 ? ) ? 0 ? (?: 1 1 | [ 2 3 6 8 ] \ d ) (?: (? = \ D {0,2} 1 5 ");
-	
 }
 
 function ValFormatoTelFijo(){
 	var TelTxt = document.querySelector('#TelId');
 	TelTxt.disabled = false;
 	TelTxt.setAttribute("placeholder", "ej: 0123489354");
-	TelTxt.setAttribute("pattern", "\([0-9]{4}\) [0-9]{3}[ -][0-9]{3}");
+	TelTxt.setAttribute("pattern", "\([0-9]{10}\) [0-9]{6}");
+}
+
+function ValidarFormulario(){
+
+	var datos={
+			"Dni":$("#DniID").val(),	
+	}
+	$.ajax({
+		type: "POST",
+		url:'${request.getContextPath()}/TP_L5_GRUPO_2/ValidarClienteAsync.html',
+		data:datos,
+		success:function(Res){
+			alert(Res);
+			if ( Res == "\"Valido\"") {
+				alert('llegue valido');
+				$("#CargarClienteId").submit();
+				  } else {
+				alert('llegue invalido');
+				 }
+		}
+	});
 }
 
 
@@ -74,7 +91,8 @@ function ValFormatoTelFijo(){
 	<%@ include file="NavbarAdmin.html"%>
 	<!-- END NAVBAR -->
 <!-- Formulario alta -->
-<form action="CargarCliente.html" method="get" style="padding: 20px" > 
+<form action="CargarCliente.html" method="get" id="CargarClienteId" style="padding: 20px"> 
+	<input id="valId" type="hidden" value="">
 	<fieldset class="border p-2">
 	  <legend  class="w-auto">Alta Cliente</legend>
 	   <div class="container-fluid">
@@ -187,7 +205,7 @@ function ValFormatoTelFijo(){
 		</div>   
 		</div>  
 		<div class="form-group text-center" > <!-- Submit Button -->
-	        <button type="submit" class="btn-sm btn-success" name="BtnGrabar">Grabar</button>
+	        <button type="button" class="btn-sm btn-success" name="BtnGrabar" onclick="return ValidarFormulario()">Grabar</button>
 	    </div>     
 	</div>
 	</fieldset>  
