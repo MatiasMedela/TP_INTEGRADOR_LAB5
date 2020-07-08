@@ -70,9 +70,11 @@ public class MovimientoDao {
 		Session session = ch.abrirConexion();
 		ArrayList<Object[]> listado = null;
 		try {	
-			listado = (ArrayList<Object[]>) session.createQuery("SELECT m.fecha, co.cbu, cd.cbu, m.importe FROM Movimiento m "
+			listado = (ArrayList<Object[]>) session.createQuery("SELECT m.fecha, concat(uOrigen.Apellido, ' ', uOrigen.Nombre), co.cbu, concat(uDestino.Apellido, ' ', uDestino.Nombre), cd.cbu, m.importe FROM Movimiento m "
 																		+ "INNER JOIN m.cuentaOrigen as co "
 																		+ "INNER JOIN m.cuentaDestino as cd "
+																		+ "INNER JOIN co.usuario as uOrigen "
+																		+ "INNER JOIN cd.usuario as uDestino "
 																		+ "where m.cuentaOrigen in (FROM Cuenta c where c.usuario = :IDUser) "
 																		+ "OR m.cuentaDestino in (FROM Cuenta c where c.usuario = :IDUser) "
 																		+ "ORDER BY m.fecha DESC")

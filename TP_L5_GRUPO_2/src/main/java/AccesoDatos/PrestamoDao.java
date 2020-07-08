@@ -14,7 +14,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import Dominio.Cuenta;
 import Dominio.EstadoPrestamo;
 import Dominio.Prestamo;
-import Dominio.Tipo_Cuenta;
 import Dominio.Usuario;
 
 @SuppressWarnings("unchecked")
@@ -22,22 +21,15 @@ public class PrestamoDao {
 	
 	private ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
     HttpServletRequest request;
-    
-	@Autowired
-	private TipoCuentaDao tcDao;
 	
 	@Autowired
 	private CuentaDao cDao;
-    
+	
 	public boolean cargarPrestamo(float importeTotal, int meses, float montoPagar, int idCuenta) {
 		ConfigHibernate ch = new ConfigHibernate();
-		UsuarioDao userDao = new UsuarioDao();
 		Session session = ch.abrirConexion();
-		CuentaDao cuentaDao = new CuentaDao(); 
 
-		Usuario user = (Usuario) appContext.getBean("BUsuario");
-		int IDUsuario = cuentaDao.buscarCuenta(idCuenta).getUsuario().getIdUsu();
-		user = userDao.buscarUsuario(IDUsuario);
+		Usuario user = cDao.buscarCuenta(idCuenta).getUsuario();
 		
 		EstadoPrestamo estado = (EstadoPrestamo) appContext.getBean("BEstadoPrestamo");
 		estado.setId(0);
@@ -50,7 +42,7 @@ public class PrestamoDao {
 		nuevo.setFechaSolicitud(new Date());
 		nuevo.setEstado(estado);
 		nuevo.setUsuario(user);
-		nuevo.setCbu(cuentaDao.buscarCuenta(idCuenta));
+		nuevo.setCbu(cDao.buscarCuenta(idCuenta));
 		try {
 			session.getTransaction().begin();
 			session.save(nuevo);

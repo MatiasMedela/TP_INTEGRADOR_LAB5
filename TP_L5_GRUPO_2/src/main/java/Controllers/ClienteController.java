@@ -77,6 +77,7 @@ public class ClienteController {
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ListarClientes"})
 	public ModelAndView redirecListarClientes(HttpServletRequest request) {
+		((ConfigurableApplicationContext)(appContext)).refresh();
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		if(request.getSession().getAttribute("IDUsuario") !=null) {			
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();

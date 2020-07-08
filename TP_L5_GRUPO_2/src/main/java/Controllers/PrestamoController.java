@@ -30,7 +30,7 @@ public class PrestamoController {
 	
 	@RequestMapping(value="redirecNavBar.html", params = {"prestamos"})
 	public ModelAndView redirecPrestamo(HttpServletRequest request) {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		if(request.getSession().getAttribute("IDUsuario") != null) {
 			String IDUsuario = 	request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
@@ -68,15 +68,14 @@ public class PrestamoController {
 	@RequestMapping(value="cargarPrestamo.html")
 	public ModelAndView cargarPrestamo(String idCuenta, String importe, String meses, String importeAPagar) {
 		ModelAndView MV = new ModelAndView();
-		PrestamoDao presDao = new PrestamoDao();
 		try {
-			presDao.cargarPrestamo(Float.parseFloat(importe), Integer.parseInt(meses), Float.parseFloat(importeAPagar), Integer.parseInt(idCuenta));
+			prestDao.cargarPrestamo(Float.parseFloat(importe), Integer.parseInt(meses), Float.parseFloat(importeAPagar), Integer.parseInt(idCuenta));
 			MV.addObject("prestamo", "Exito");
-			MV.setViewName("redirec:/redirecNavBar.html?prestamos");
+			MV.setViewName("redirect:/redirecNavBar.html?prestamos");
 		} catch (Exception e) {
 			e.printStackTrace();
 			MV.addObject("prestamo", "Error");
-			MV.setViewName("redirec:/solicitarPrestamo.html");
+			MV.setViewName("redirect:/solicitarPrestamo.html");
 		}
 		return MV;
 	}

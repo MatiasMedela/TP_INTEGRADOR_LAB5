@@ -163,7 +163,7 @@ $(document).ready(function(){
 		$("#idCuenta").val($("#cuentaSelect").val());
 		$("#importe").val($("#importeSolicitado").val());
 		$("#meses").val($("#mesesSelect option:selected").text());
-		$("#importeAPagar").val($("#totalAPagar").html());
+		$("#importeAPagar").val(parseFloat($("#importe").val())*1.25);
 	});
 	
 	$("#importeSolicitado").keyup(function(){
