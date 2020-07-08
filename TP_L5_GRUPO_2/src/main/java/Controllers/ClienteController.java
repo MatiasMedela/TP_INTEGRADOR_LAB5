@@ -58,13 +58,9 @@ public class ClienteController {
 		if(request.getSession().getAttribute("IDUsuario") !=null) {
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
-			if(user.getTipoUsu().getIdTipoUsuario() == 1) {
-				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-				MV.addObject("LocalidadesList", locdao.ListLocalidades());
-				MV.setViewName("AltaCliente");
-			} else {
-				MV.setViewName("Login");
-			}
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("LocalidadesList", locdao.ListLocalidades());
+			MV.setViewName("AltaCliente");
 		}
 		else {
 			MV.setViewName("Login");
@@ -78,14 +74,9 @@ public class ClienteController {
 		if(request.getSession().getAttribute("IDUsuario") !=null) {			
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
-			if(user.getTipoUsu().getIdTipoUsuario() == 1) {
-				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-				MV.addObject("ClientesList", Clidao.ListarClientes());
-				MV.setViewName("ListarClientes");
-			}
-			else {
-				MV.setViewName("Login");
-			}
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("ClientesList", Clidao.ListarClientes());
+			MV.setViewName("ListarClientes");
 		}
 		else {
 			MV.setViewName("Login");
@@ -99,15 +90,10 @@ public class ClienteController {
 		if(request.getSession().getAttribute("IDUsuario") !=null) {			
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
-			if(user.getTipoUsu().getIdTipoUsuario() == 1) {
-				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-				MV.addObject("LocalidadesList", locdao.ListLocalidades());
-				MV.addObject("ClientesList", Clidao.ListarClientes());
-				MV.setViewName("ModBajaCliente");
-			}
-			else {
-				MV.setViewName("Login");
-			}
+			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+			MV.addObject("LocalidadesList", locdao.ListLocalidades());
+			MV.addObject("ClientesList", Clidao.ListarClientes());
+			MV.setViewName("ModBajaCliente");
 		}
 		else {
 			MV.setViewName("Login");
@@ -159,11 +145,15 @@ public class ClienteController {
 	@RequestMapping(method = RequestMethod.POST, value="ValidarClienteAsync.html")
 	@ResponseBody
 	public String ValidarClienteAsync(String Dni) throws ParseException {
-			if (CliNeg.ValidarDNI(Dni)) {
+		if(Dni!="") {
+			if (CliNeg.ValidarDNI(Dni)==true ) {
 				return new Gson().toJson("Valido");
 			} else {
 				return new Gson().toJson("Invalido");
 			}
+		}else {
+			return new Gson().toJson("Invalido");
+		}	
 	}
 	
 	@RequestMapping("ModificarCliente.html")
