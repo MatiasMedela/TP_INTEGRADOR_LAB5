@@ -1,16 +1,25 @@
 package Controllers;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 
 import AccesoDatos.ClienteDao;
 import AccesoDatos.GeneroDao;
@@ -20,6 +29,7 @@ import AccesoDatos.TipoUsuarioDao;
 import AccesoDatos.UsuarioDao;
 import Dominio.Logueo;
 import Dominio.Usuario;
+import Negocio.ClienteNegocio;
 
 
 @Controller
@@ -36,11 +46,16 @@ public class ClienteController {
 	private TipoUsuarioDao TusuDao;
 	@Autowired
 	private UsuarioDao userDao;
+	@Autowired
+	private LogueoDao LogDao;
+	@Autowired
+	private ClienteNegocio CliNeg;
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ClienteNuevo"})
 	public ModelAndView redirecAltaCliente(HttpServletRequest request) {
+		((ConfigurableApplicationContext)(appContext)).refresh();
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		if(request.getSession().getAttribute("IDUsuario") !=null) {			
+		if(request.getSession().getAttribute("IDUsuario") !=null) {
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
 			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
@@ -92,43 +107,33 @@ public class ClienteController {
 	String EmailName,String CmbProv,String DirName,String FechaNac,Integer CmbGen,String LocName,String CliTel) {
 		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
 		try {
-			Usuario Clie = (Usuario) appContext.getBean("BUsuario");
-		
-		//Validaciones
-			//if(true) {
-			Clie.setDni(DniName);
-			Clie.setNombre(NombreName);
-			Clie.setApellido(ApeName);
-			Clie.setEmail(EmailName);
-			Clie.setDireccion(DirName);
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date dateStr = null;
-			try {dateStr = formatter.parse(FechaNac);} 
-			catch (ParseException e) {e.printStackTrace();}
-			java.sql.Date dateDB = new java.sql.Date(dateStr.getTime());
-			Clie.setFechaNac(dateDB);
-			Clie.setNacionalidad(NacName);
-			Clie.setGen(Gdao.BuscarGeneroXId(CmbGen));
-			String[] parts = LocName.split(",");
-			Clie.setLoc(locdao.BuscarLocalidad(Integer.valueOf(parts[0])));
-			Clie.setTel(CliTel);
-			Clie.setTipoUsu(TusuDao.UserCliente());
-			Clie.setEstado(true);
+				Usuario Clie = (Usuario) appContext.getBean("BUsuario");
+				Clie.setDni(DniName);
+				Clie.setNombre(NombreName);
+				Clie.setApellido(ApeName);
+				Clie.setEmail(EmailName);
+				Clie.setDireccion(DirName);
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				Clie.setFechaNac(formatter.parse(FechaNac));
+				Clie.setNacionalidad(NacName);
+				Clie.setGen(Gdao.BuscarGeneroXId(CmbGen));
+				String[] parts = LocName.split(",");
+				Clie.setLoc(locdao.BuscarLocalidad(Integer.valueOf(parts[0])));
+				Clie.setTel(CliTel);
+				Clie.setTipoUsu(TusuDao.UserCliente());
+				Clie.setEstado(true);
 			if(Clidao.AltaCliente(Clie)==true) {
-				LogueoDao ld=new LogueoDao();
-				Logueo l=new Logueo();
+				Logueo l=(Logueo) appContext.getBean("BLogueo");
 				l.setUsuario(Clie);
 				l.setContrasenia(DniName);
 				l.setNUsuario(EmailName);
-				ld.NuevoLog(l);
+				LogDao.NuevoLog(l);
 				MV.setViewName("redirec:/redirecNavBarAdmin.html?ClienteNuevo");
 			}
 			else {
-					//Error al dar de alta
 					MV.setViewName("redirec:/redirecNavBarAdmin.html?ClienteNuevo");
 					System.out.println("error al dar de alta cliente");
 			}
-			//}
 			return MV;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,6 +141,17 @@ public class ClienteController {
 			return MV;
 		}
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="ValidarClienteAsync.html")
+	@ResponseBody
+	public String ValidarClienteAsync(String Dni) throws ParseException {
+			if (CliNeg.ValidarDNI(Dni)) {
+				return new Gson().toJson("Valido");
+			} else {
+				return new Gson().toJson("Invalido");
+			}
+	}
+	
 	@RequestMapping("ModificarCliente.html")
 	public ModelAndView ModificarCliente(String DniEditName,String OldDniName,String NomEditName,String ApeEditName,String NacEditName,
 			String EmailEditName,String ProvEditName,String DirEditName,String FnacEditName,Integer GenEditName,Integer LocEditName,String TelEditName) {
