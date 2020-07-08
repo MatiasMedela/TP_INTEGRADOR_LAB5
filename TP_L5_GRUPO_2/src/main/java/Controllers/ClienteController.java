@@ -55,15 +55,22 @@ public class ClienteController {
 	public ModelAndView redirecAltaCliente(HttpServletRequest request) {
 		((ConfigurableApplicationContext)(appContext)).refresh();
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		if(request.getSession().getAttribute("IDUsuario") !=null) {
-			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
-			Usuario user = userDao.buscarUsuario(IDUsuario);
-			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("LocalidadesList", locdao.ListLocalidades());
-			MV.setViewName("AltaCliente");
+		try {
+			if(request.getSession().getAttribute("IDUsuario") !=null) {
+				String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
+				Usuario user = userDao.buscarUsuario(IDUsuario);
+				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+				MV.addObject("LocalidadesList", locdao.ListLocalidades());
+				MV.setViewName("AltaCliente");
+			}
+			else {
+				MV.setViewName("Login");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		else {
-			MV.setViewName("Login");
+		finally {
+			((ConfigurableApplicationContext)(appContext)).close();
 		}
 		return MV;
 	}
@@ -86,17 +93,25 @@ public class ClienteController {
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"EliminarCliente"})
 	public ModelAndView redirecEliminarCliente(HttpServletRequest request) {
+		((ConfigurableApplicationContext)(appContext)).refresh();
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		if(request.getSession().getAttribute("IDUsuario") !=null) {			
-			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
-			Usuario user = userDao.buscarUsuario(IDUsuario);
-			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("LocalidadesList", locdao.ListLocalidades());
-			MV.addObject("ClientesList", Clidao.ListarClientes());
-			MV.setViewName("ModBajaCliente");
+		try {
+			if(request.getSession().getAttribute("IDUsuario") !=null) {			
+				String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
+				Usuario user = userDao.buscarUsuario(IDUsuario);
+				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+				MV.addObject("LocalidadesList", locdao.ListLocalidades());
+				MV.addObject("ClientesList", Clidao.ListarClientes());
+				MV.setViewName("ModBajaCliente");
+			}
+			else {
+				MV.setViewName("Login");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		else {
-			MV.setViewName("Login");
+		finally{
+			((ConfigurableApplicationContext)(appContext)).close();
 		}
 		return MV;
 	}
@@ -105,6 +120,7 @@ public class ClienteController {
 	@RequestMapping("CargarCliente.html")
 	public ModelAndView CargarCliente(String DniName,String NombreName,String ApeName,String NacName,
 	String EmailName,String CmbProv,String DirName,String FechaNac,Integer CmbGen,String LocName,String CliTel) {
+		((ConfigurableApplicationContext)(appContext)).refresh();
 		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
 		try {
 				Usuario Clie = (Usuario) appContext.getBean("BUsuario");
@@ -128,16 +144,16 @@ public class ClienteController {
 				l.setContrasenia(DniName);
 				l.setNUsuario(EmailName);
 				LogDao.NuevoLog(l);
-				MV.setViewName("redirec:/redirecNavBarAdmin.html?ClienteNuevo");
+				MV.setViewName("redirect:/redirecNavBarAdmin.html?ClienteNuevo");
 			}
 			else {
-					MV.setViewName("redirec:/redirecNavBarAdmin.html?ClienteNuevo");
+					MV.setViewName("redirect:/redirecNavBarAdmin.html?ClienteNuevo");
 					System.out.println("error al dar de alta cliente");
 			}
 			return MV;
 		} catch (Exception e) {
 			e.printStackTrace();
-			MV.setViewName("redirec:/redirecNavBarAdmin.html?ListarClientes");
+			MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");
 			return MV;
 		}
 	}
@@ -159,6 +175,7 @@ public class ClienteController {
 	@RequestMapping("ModificarCliente.html")
 	public ModelAndView ModificarCliente(String DniEditName,String OldDniName,String NomEditName,String ApeEditName,String NacEditName,
 			String EmailEditName,String ProvEditName,String DirEditName,String FnacEditName,Integer GenEditName,Integer LocEditName,String TelEditName) {
+		((ConfigurableApplicationContext)(appContext)).refresh();
 		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
 		try {
 			Usuario Clie = (Usuario) appContext.getBean("BUsuario");
@@ -192,7 +209,7 @@ public class ClienteController {
 				System.out.println("error al modificar cliente");
 				MV.addObject("LocalidadesList", locdao.ListLocalidades());
 				MV.addObject("ClientesList", Clidao.ListarClientes());
-				MV.setViewName("redirec:/redirecNavBarAdmin.html?EliminarCliente");	
+				MV.setViewName("redirect:/redirecNavBarAdmin.html?EliminarCliente");	
 			}
 			//}
 			return MV;
@@ -200,7 +217,7 @@ public class ClienteController {
 			System.out.println("error al modificar cliente");
 			e.printStackTrace();
 			MV.addObject("ClientesList", Clidao.ListarClientes());
-			MV.setViewName("redirec:/redirecNavBarAdmin.html?ListarClientes");
+			MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");
 			return MV;
 		}
 	}
@@ -223,7 +240,7 @@ public class ClienteController {
 			MV.addObject("LocalidadesList", locdao.ListLocalidades());
 			MV.addObject("ClientesList", Clidao.ListarClientes());
 		}
-		MV.setViewName("redirec:/redirecNavBarAdmin.html?EliminarCliente");
+		MV.setViewName("redirect:/redirecNavBarAdmin.html?EliminarCliente");
 		return MV;
 	}
 	@RequestMapping("RedireccionarDarDeBajaCliente.html")
@@ -245,7 +262,7 @@ public class ClienteController {
 			MV.addObject("LocalidadesList", locdao.ListLocalidades());
 			MV.addObject("ClientesList", Clidao.ListarClientes());
 		}
-		MV.setViewName("redirec:/redirecNavBarAdmin.html?EliminarCliente");
+		MV.setViewName("redirect:/redirecNavBarAdmin.html?EliminarCliente");
 		return MV;
 	}
 }
