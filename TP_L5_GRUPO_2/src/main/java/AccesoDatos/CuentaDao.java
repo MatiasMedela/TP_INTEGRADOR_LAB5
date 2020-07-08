@@ -89,24 +89,27 @@ public class CuentaDao {
 	    return c;		
 	}	
 	
-	public void modificarCuenta(String idCuentaM, int idTipoCM, float saldoM, int DNIUser)
+	public boolean modificarCuenta(String idCuentaM, int idTipoCM, float saldoM, int DNIUser)
 	{
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
-		session.beginTransaction();
-		Cuenta c = buscarCuentaString(idCuentaM);
-		Tipo_Cuenta tpc = tcDao.buscarTipoCuenta(idTipoCM);
-		Usuario user = userDao.buscarUsuario(DNIUser);
-		c.setUsuario(user);
-		c.setTipoCuenta(tpc);
-		c.setSaldo(saldoM);	
-		session.saveOrUpdate(c);
-		session.getTransaction().commit();
-    	ch.cerrarSession();
-    	
-		//Tipo_Cuenta tc = c.getTipoCuenta();
-		//tc.setIdTipoCuenta(idModificado);
-		//c.setTipoCuenta(tc);
+		try {
+			session.beginTransaction();
+			Cuenta c = buscarCuentaString(idCuentaM);
+			Tipo_Cuenta tpc = tcDao.buscarTipoCuenta(idTipoCM);
+			Usuario user = userDao.buscarUsuario(DNIUser);
+			c.setUsuario(user);
+			c.setTipoCuenta(tpc);
+			c.setSaldo(saldoM);	
+			session.saveOrUpdate(c);
+			session.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {			
+			ch.cerrarSession();
+		}
 	}
 	
 	public boolean cerrarCuenta(String idCuenta)

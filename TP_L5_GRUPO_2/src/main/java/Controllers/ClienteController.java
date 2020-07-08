@@ -58,9 +58,13 @@ public class ClienteController {
 		if(request.getSession().getAttribute("IDUsuario") !=null) {
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
-			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("LocalidadesList", locdao.ListLocalidades());
-			MV.setViewName("AltaCliente");
+			if(user.getTipoUsu().getIdTipoUsuario() == 1) {
+				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+				MV.addObject("LocalidadesList", locdao.ListLocalidades());
+				MV.setViewName("AltaCliente");
+			} else {
+				MV.setViewName("Login");
+			}
 		}
 		else {
 			MV.setViewName("Login");
@@ -74,9 +78,14 @@ public class ClienteController {
 		if(request.getSession().getAttribute("IDUsuario") !=null) {			
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
-			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("ClientesList", Clidao.ListarClientes());
-			MV.setViewName("ListarClientes");
+			if(user.getTipoUsu().getIdTipoUsuario() == 1) {
+				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+				MV.addObject("ClientesList", Clidao.ListarClientes());
+				MV.setViewName("ListarClientes");
+			}
+			else {
+				MV.setViewName("Login");
+			}
 		}
 		else {
 			MV.setViewName("Login");
@@ -90,10 +99,15 @@ public class ClienteController {
 		if(request.getSession().getAttribute("IDUsuario") !=null) {			
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
-			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("LocalidadesList", locdao.ListLocalidades());
-			MV.addObject("ClientesList", Clidao.ListarClientes());
-			MV.setViewName("ModBajaCliente");
+			if(user.getTipoUsu().getIdTipoUsuario() == 1) {
+				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+				MV.addObject("LocalidadesList", locdao.ListLocalidades());
+				MV.addObject("ClientesList", Clidao.ListarClientes());
+				MV.setViewName("ModBajaCliente");
+			}
+			else {
+				MV.setViewName("Login");
+			}
 		}
 		else {
 			MV.setViewName("Login");

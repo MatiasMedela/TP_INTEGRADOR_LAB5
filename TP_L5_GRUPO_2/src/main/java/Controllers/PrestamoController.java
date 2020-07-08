@@ -50,9 +50,14 @@ public class PrestamoController {
 		if(request.getSession().getAttribute("IDUsuario") != null) {
 			String IDUsuario = 	request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
-			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(0));		
-			MV.setViewName("autorizarPrestamos");
+			if(user.getTipoUsu().getIdTipoUsuario() == 1) {
+				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+				MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(0));		
+				MV.setViewName("autorizarPrestamos");
+			}
+			else {
+				MV.setViewName("Login");
+			}
 		}
 		else {
 			MV.setViewName("Login");
@@ -101,9 +106,14 @@ public class PrestamoController {
 		if(request.getSession().getAttribute("IDUsuario") != null) {
 			String IDUsuario = 	request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
-			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(1));	
-			MV.setViewName("prestamosAprobados");
+			if(user.getTipoUsu().getIdTipoUsuario() == 1) {
+				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+				MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(1));	
+				MV.setViewName("prestamosAprobados");
+			}
+			else {
+				MV.setViewName("Login");
+			}
 		}
 		else {
 			MV.setViewName("Login");
@@ -117,9 +127,14 @@ public class PrestamoController {
 		if(request.getSession().getAttribute("IDUsuario") != null) {
 			String IDUsuario = 	request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
-			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(2));	
-			MV.setViewName("prestamosRechazados");
+			if(user.getTipoUsu().getIdTipoUsuario() == 1) {
+				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+				MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(2));	
+				MV.setViewName("prestamosRechazados");
+			}
+			else {
+				MV.setViewName("Login");
+			}
 		}
 		else {
 			MV.setViewName("Login");
@@ -133,9 +148,14 @@ public class PrestamoController {
 		if(request.getSession().getAttribute("IDUsuario") != null) {
 			String IDUsuario = 	request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
-			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(0));	
-			MV.setViewName("autorizarPrestamos");
+			if(user.getTipoUsu().getIdTipoUsuario() == 1) {
+				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+				MV.addObject("listadoPrestamosAdm", prestDao.listarPrestamosPorEstado(0));	
+				MV.setViewName("autorizarPrestamos");
+			}
+			else {
+				MV.setViewName("Login");
+			}
 		}
 		else {
 			MV.setViewName("Login");

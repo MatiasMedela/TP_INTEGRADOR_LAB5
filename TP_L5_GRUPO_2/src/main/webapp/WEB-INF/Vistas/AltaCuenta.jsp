@@ -167,7 +167,7 @@ var table = $('#TableCuentasAll').DataTable();
 				if(parseInt(JSON.parse(data)) >= 4){
 					Swal.fire({
 						icon: "warning",
-						title: "Este cliente posee 4 o más cuentas activas.",
+						title: "Este cliente posee 4 cuentas activas.",
 						confirmButtonText: "Entendido"
 					})					
 				}

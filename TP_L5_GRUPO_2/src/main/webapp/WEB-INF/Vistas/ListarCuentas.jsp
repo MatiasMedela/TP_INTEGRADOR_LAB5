@@ -207,7 +207,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					<button type="submit" name="idCuentaM" class="btn btn-primary" id="btnModalModificar" value="">Grabar</button>
+					<button type="button" onClick="modificarCuenta(this)" disabled name="idCuentaM" class="btn btn-primary" id="btnModalModificar" value="">Grabar</button>
 				</div>
 				</form>
 			</div>
@@ -229,6 +229,68 @@
 		$('#btnModalModificar').val($('#btnAbrirModalM').val());		
 	};
 
+	function modificarCuenta(btn){
+		var IDCuenta = $("#btnModalModificar").val();
+		var Tipo = $("#state_id option:selected").val();
+		var saldoM = $("#saldoM").val();
+		var dni = table.rows(['.selected-table']).data().pluck(0).toArray();
+	   $.ajax({
+			url: '${request.getContextPath()}/TP_L5_GRUPO_2/cantidadCuentas.html',
+			type: 'POST',
+	        data: { dniCliente: dni[0] },
+			success: function(data){
+				if(parseInt(JSON.parse(data)) >= 4){
+					Swal.fire({
+						icon: "warning",
+						title: "Este cliente posee 4 cuentas activas.",
+						confirmButtonText: "Entendido"
+					})					
+				}
+				else{
+					Swal.fire({
+						title: "Desea modificar la cuenta?",
+						icon: "question",
+						showCancelButton: true,
+						reverseButtons: true,
+						confirmButtonColor: "#218838",
+						confirmButtonText: "Modificar",
+					}).then((result) => {
+						if(result.value){	
+					   $.ajax({
+							url: '${request.getContextPath()}/TP_L5_GRUPO_2/modificarCuentaAsync.html',
+							type: 'POST',
+					        data: { idCuenta: IDCuenta,
+					        		cbxTipo: Tipo,
+					        		saldo: saldoM,
+					        		dniCliente: dni[0] },
+							success: function(data){
+								if(data == "\"Exitoso\""){
+									Swal.fire({
+										icon: "success",
+										title: "Cuenta modificada",
+										confirmButtonText: "Entendido"
+									}).then((result) => {
+										if(result.value){
+											location.reload();
+										}
+									})
+								}
+								else{
+									Swal.fire({
+										icon: "error",
+										title: "Hubo un error al modificar la cuenta",
+										confirmButtonText: "Entendido"
+									})
+								}
+							}
+							});
+						}
+					})
+				}
+			}
+	    });
+	}
+	
 	function modalEliminar(btn){
 		var id = $(btn).val();
 		Swal.fire({
@@ -345,6 +407,7 @@
 		    //$(this).toggleClass('selected');	
 		    $("#clienteSeleccionado").val(table.rows(['.selected-table']).data().pluck(0).toArray());
 		    $("#clienteSelectModal").val(table.rows(['.selected-table']).data().pluck(0).toArray() + " - " + table.rows(['.selected-table']).data().pluck(1).toArray());
+		    $("#btnModalModificar").attr("disabled", false);
 		                    
 		});
 		

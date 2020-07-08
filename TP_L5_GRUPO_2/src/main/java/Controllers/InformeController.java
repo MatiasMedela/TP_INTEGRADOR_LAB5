@@ -45,24 +45,29 @@ public class InformeController {
 		if(request.getSession().getAttribute("IDUsuario") !=null) {			
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
-			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			InformeDao infDao = new InformeDao();
-			DateFormat formatUS = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			String StartDate = Year.now().getValue() + "-01-01 00:00:00"; 
-			String EndDate = Year.now().getValue() + "-12-31 23:59:59";
-			Date sDateMethod = formatUS.parse(StartDate);
-			Date eDateMethod = formatUS.parse(EndDate);
-			ArrayList<String> informe = (ArrayList<String>) infDao.informePrestamos(sDateMethod, eDateMethod);
-			
-			MV.addObject("stDate", new SimpleDateFormat("yyyy-MM-dd").format(sDateMethod));
-			MV.addObject("edDate", new SimpleDateFormat("yyyy-MM-dd").format(eDateMethod));
-			MV.addObject("InformePrestamos", informe);
-			
-			/* --  FIN PRESTAMOS  --*/
-	
-			MV.addObject("informeTransferencia", filtrarTransferenciasAnio(Integer.parseInt(Year.now().toString())));
-			MV.addObject("anio", Year.now().toString());
-			MV.setViewName("informes");	
+			if(user.getTipoUsu().getIdTipoUsuario() == 1) {
+				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+				InformeDao infDao = new InformeDao();
+				DateFormat formatUS = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				String StartDate = Year.now().getValue() + "-01-01 00:00:00"; 
+				String EndDate = Year.now().getValue() + "-12-31 23:59:59";
+				Date sDateMethod = formatUS.parse(StartDate);
+				Date eDateMethod = formatUS.parse(EndDate);
+				ArrayList<String> informe = (ArrayList<String>) infDao.informePrestamos(sDateMethod, eDateMethod);
+				
+				MV.addObject("stDate", new SimpleDateFormat("yyyy-MM-dd").format(sDateMethod));
+				MV.addObject("edDate", new SimpleDateFormat("yyyy-MM-dd").format(eDateMethod));
+				MV.addObject("InformePrestamos", informe);
+				
+				/* --  FIN PRESTAMOS  --*/
+		
+				MV.addObject("informeTransferencia", filtrarTransferenciasAnio(Integer.parseInt(Year.now().toString())));
+				MV.addObject("anio", Year.now().toString());
+				MV.setViewName("informes");	
+			}
+			else {
+				MV.setViewName("Login");
+			}
 		}
 		else {
 			MV.setViewName("Login");

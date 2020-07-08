@@ -57,12 +57,17 @@ public class CuentaController {
 		if(request.getSession().getAttribute("IDUsuario") !=null) {			
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
-			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("listadoUsuarios", userDao.listarUsuarios());
-			MV.addObject("listadoTipos", tcDao.listarTipos());
-			MV.addObject("proxCBU", cuentaDao.proximoCBU());
-			MV.addObject("proxAlias", cuentaDao.generarAlias());
-			MV.setViewName("AltaCuenta");
+			if(user.getTipoUsu().getIdTipoUsuario() == 1) {
+				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+				MV.addObject("listadoUsuarios", userDao.listarUsuarios());
+				MV.addObject("listadoTipos", tcDao.listarTipos());
+				MV.addObject("proxCBU", cuentaDao.proximoCBU());
+				MV.addObject("proxAlias", cuentaDao.generarAlias());
+				MV.setViewName("AltaCuenta");
+			}
+			else {
+				MV.setViewName("Login");
+			}
 		}
 		else {
 			MV.setViewName("Login");
@@ -76,11 +81,16 @@ public class CuentaController {
 		if(request.getSession().getAttribute("IDUsuario") !=null) {			
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
-			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-		MV.addObject("listadoUsuarios", userDao.listarUsuarios());
-		MV.addObject("listadoTipos", tcDao.listarTipos());
-		MV.addObject("listadoCuentas", cuentaDao.listarCuentas());
-		MV.setViewName("ListarCuentas");
+			if(user.getTipoUsu().getIdTipoUsuario() == 1) {
+				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+				MV.addObject("listadoUsuarios", userDao.listarUsuarios());
+				MV.addObject("listadoTipos", tcDao.listarTipos());
+				MV.addObject("listadoCuentas", cuentaDao.listarCuentas());
+				MV.setViewName("ListarCuentas");
+			}
+			else {
+				MV.setViewName("Login");
+			}
 		}
 		else {
 			MV.setViewName("Login");
@@ -125,6 +135,17 @@ public class CuentaController {
 	public String cantidadCuentas(String dniCliente) {
 		Long cantidad = userDao.cantidadCuentas(dniCliente);
 		return new Gson().toJson(cantidad.toString());
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="modificarCuentaAsync.html")
+	@ResponseBody
+	public String modificarCuentaAsync(String idCuenta, String cbxTipo, String saldo, String dniCliente) {
+		if(cuentaDao.modificarCuenta(idCuenta, Integer.parseInt(cbxTipo), Float.parseFloat(saldo), Integer.parseInt(dniCliente))) {
+			return new Gson().toJson("Exitoso");			
+		}
+		else {
+			return new Gson().toJson("Error");	
+		}
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value="abrirCuentaAsync.html")
