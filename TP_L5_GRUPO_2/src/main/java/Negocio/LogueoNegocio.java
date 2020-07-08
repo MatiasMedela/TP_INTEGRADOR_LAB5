@@ -1,12 +1,15 @@
 package Negocio;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import AccesoDatos.LogueoDao;
 
 public class LogueoNegocio {
-
+	@Autowired
+	private LogueoDao LogDao;
+	
 	public boolean validarLogin(String user, String pass) {
 		try {
-			LogueoDao LogDao=new LogueoDao();
 			if (LogDao.BuscarLog(user,pass).getNUsuario().equals("Default")) {
 				return false;
 			} else {
@@ -20,7 +23,6 @@ public class LogueoNegocio {
 
 	public boolean UserName(String modUserName, String userNameOld) {
 		try {
-			LogueoDao LogDao=new LogueoDao();
 			if (LogDao.BuscarLog(modUserName).getNUsuario().equals("Default") || LogDao.BuscarLog(modUserName).getNUsuario().equals(userNameOld) ) {
 				return true;
 			} else {

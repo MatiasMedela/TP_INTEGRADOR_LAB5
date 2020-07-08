@@ -1,12 +1,19 @@
 package Negocio;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import AccesoDatos.ClienteDao;
+
 public class ClienteNegocio {
-//Validaciones
+	@Autowired
+	private ClienteDao Clidao;
+	
 	//dni no repetido
 	public boolean ValidarDNI(String dni) {
-		return true;
+		if(Clidao.BuscarUsuarioXDni(dni).getDni().equals("default")) {
+			return true;
+		}else {
+			return false;
+		}
 	}
-	
-	
-
 }
