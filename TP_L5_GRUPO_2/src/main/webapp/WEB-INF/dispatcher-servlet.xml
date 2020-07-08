@@ -62,6 +62,9 @@
 	<!-- BEAN LOGUEO NEGOCIO -->
 	<bean id="BLogueoNegocio" scope="singleton" class="Negocio.LogueoNegocio"/>
 	
+	<!-- BEAN CLIENTE NEGOCIO -->
+	<bean id="BClienteNegocio" scope="singleton" class="Negocio.ClienteNegocio"/>
+	
 	<!-- BEAN LOGUEO DAO -->
 	<bean id="BLogueoDao" scope="singleton" class="AccesoDatos.LogueoDao"/>
 		
