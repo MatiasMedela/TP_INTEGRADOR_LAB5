@@ -119,12 +119,12 @@ public class PrestamoDao {
 			p.setFechaResolucion(new Date());
 			if (estado==1)
 			{
-				mDao.enviarCorreo(idPrestamo, "Aprobado");
+				mDao.enviarCorreo(idPrestamo, "aprobado");
 				cargarCapitalPrestamo(idPrestamo);
 			}
 			else
 			{
-				mDao.enviarCorreo(idPrestamo, "Rechazado");
+				mDao.enviarCorreo(idPrestamo, "rechazado");
 			}
 			session.save(p);
 			session.getTransaction().commit();

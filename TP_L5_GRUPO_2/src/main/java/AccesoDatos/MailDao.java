@@ -30,7 +30,7 @@ public class MailDao {
         props.put("mail.smtp.auth", true);
         props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         props.put("mail.smtp.starttls.enable", true);
-        props.put("mail.smtp.Host", "smtp.gmail.com");
+        props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
 
         Session session = Session.getInstance(props,
@@ -47,7 +47,7 @@ public class MailDao {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(p.getUsuario().getEmail()));
 			message.setSubject("Resolución sobre solicitud prestamo nº"+idPrestamo);
-			message.setText("Estimado/a "+p.getUsuario().getNombre()+" "+p.getUsuario().getApellido()+", le comunicamos que ya se encuentra disponible la resolución sobre el prestamo que solicitó. El mismo fue "+cambio+". Saludos");
+			message.setText("Estimado/a "+p.getUsuario().getNombre()+" "+p.getUsuario().getApellido()+", le comunicamos que ya se encuentra disponible la resolución sobre el prestamo que solicitó el día "+ p.getFechaSolicitud().toString() +". El mismo fue "+cambio+". Saludos");
 
             Transport.send(message);
 
