@@ -26,8 +26,8 @@ public class MovimientoDao {
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		List<Movimiento> listado = (List<Movimiento>) session.createQuery("SELECT m FROM Movimiento as m "
-																		+ "INNER JOIN m.cuentaOrigen as co "
-																		+ "INNER JOIN m.cuentaDestino as cd "
+																		+ "LEFT JOIN m.cuentaOrigen as co "
+																		+ "LEFT JOIN m.cuentaDestino as cd "
 																		+ "WHERE co.idCuenta = :IDCuenta OR cd.idCuenta = :IDCuenta "
 																		+ "order by m.fecha desc").setParameter("IDCuenta", idCuenta).list();
     	ch.cerrarSession();

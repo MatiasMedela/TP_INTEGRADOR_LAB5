@@ -122,6 +122,7 @@ $(document).ready(function(){
 			confirmButtonText: "Solicitar"
 		}).then((result) => {
 			if(result.value){
+				$('html, body').css("cursor", "wait");
 				$.ajax({
 					url: '${request.getContextPath()}/TP_L5_GRUPO_2/cargarPrestamoAsync.html',
 					type: 'POST',
@@ -130,6 +131,7 @@ $(document).ready(function(){
 			        	    meses: mesesSelect ,
 			        	    importeAPagar: importePagar},
 					success: function(data){
+						$('html, body').css("cursor", "auto");
 						if(data == "\"Exitoso\""){
 							Swal.fire({
 								icon: "success",

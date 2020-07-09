@@ -90,12 +90,14 @@
 			eDate = new Date().getFullYear() + "-12-31";
 			$("#endDate").val(eDate);
 		}
+	$('html, body').css("cursor", "wait");
 	   $.ajax({
 			url: '${request.getContextPath()}/TP_L5_GRUPO_2/filtrarInformeAsync.html',
 			type: 'POST',
 	        data: { startDate: sDate,
 	        	    endDate: eDate},
 			success: function(data){
+				$('html, body').css("cursor", "auto");
 				var prestamos = JSON.parse(data);
 				var PresAutorizados = prestamos[0];
 				var PresNoAutorizados = prestamos[1];
@@ -123,11 +125,13 @@
 		if(anioSelected == ""){
 			anioSelected = new Date().getFullYear();
 		}
+		$('html, body').css("cursor", "wait");
 		   $.ajax({
 				url: '${request.getContextPath()}/TP_L5_GRUPO_2/filtrarTransferenciasAsync.html',
 				type: 'POST',
 		        data: { anio: anioSelected},
 				success: function(data){
+					$('html, body').css("cursor", "auto");
 					var transferencias = JSON.parse(data);
 					$("#TransferenciasChart").empty();
 					Morris.Line({

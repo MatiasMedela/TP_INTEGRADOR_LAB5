@@ -256,6 +256,7 @@
 						confirmButtonText: "Modificar",
 					}).then((result) => {
 						if(result.value){	
+							$('html, body').css("cursor", "wait");
 					   $.ajax({
 							url: '${request.getContextPath()}/TP_L5_GRUPO_2/modificarCuentaAsync.html',
 							type: 'POST',
@@ -264,6 +265,7 @@
 					        		saldo: saldoM,
 					        		dniCliente: dni[0] },
 							success: function(data){
+								$('html, body').css("cursor", "auto");
 								if(data == "\"Exitoso\""){
 									Swal.fire({
 										icon: "success",
@@ -302,11 +304,13 @@
 		    reverseButtons: true
 		}).then((result) => {
 			if(result.value){
+				$('html, body').css("cursor", "wait");
 				   $.ajax({
 						url: '${request.getContextPath()}/TP_L5_GRUPO_2/cerrarCuentaAsync.html',
 						type: 'POST',
 				        data: { idCuenta: id },
 						success: function(data){
+							$('html, body').css("cursor", "auto");
 							if(data == "\"Exitoso\""){
 								Swal.fire({
 									icon: "success",
@@ -335,11 +339,13 @@
 		    reverseButtons: true
 		}).then((result) => {
 			if(result.value){
+				$('html, body').css("cursor", "wait");
 			   $.ajax({
 					url: '${request.getContextPath()}/TP_L5_GRUPO_2/abrirCuentaAsync.html',
 					type: 'POST',
 			        data: { idCuenta: id },
 					success: function(data){
+						$('html, body').css("cursor", "auto");
 						if(data == "\"Exitoso\""){
 							Swal.fire({
 								icon: "success",

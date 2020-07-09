@@ -160,7 +160,8 @@
 								   var cuentaOrig = $("#cuentaOrigen option:selected").val();
 								   var cuentaDest = $("#cuentaDestino option:selected").val();
 								   var importeIngresado = $("#importe").val();
-								   var motivoIngresado = $("#motivo").val()
+								   var motivoIngresado = $("#motivo").val();
+								   $('html, body').css("cursor", "wait");
 								   $.ajax({
 										url: '${request.getContextPath()}/TP_L5_GRUPO_2/nuevaTransferencia.html',
 										type: 'POST',
@@ -169,6 +170,7 @@
 								        		importe : importeIngresado,
 								        		motivo: motivoIngresado},
 										success: function(data){
+											$('html, body').css("cursor", "auto");
 											if(data == "\"Exito\""){
 												Swal.fire({
 													icon: "success",

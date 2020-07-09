@@ -227,7 +227,8 @@ function verificarCbu(btn){
 								   var cuentaOrig = $("#cuentaOrigen option:selected").val();
 								   var CBUD = $("#formGroupCBU").val();
 								   var importeIngresado = $("#importe").val();
-								   var motivoIngresado = $("#motivo").val()
+								   var motivoIngresado = $("#motivo").val();
+								   $('html, body').css("cursor", "wait");
 								   $.ajax({
 										url: '${request.getContextPath()}/TP_L5_GRUPO_2/nuevaTransferenciaTerceros.html',
 										type: 'POST',
@@ -236,6 +237,7 @@ function verificarCbu(btn){
 								        		importe : importeIngresado,
 								        		motivo: motivoIngresado},
 										success: function(data){
+											$('html, body').css("cursor", "auto");
 											if(data == "\"Exito\""){
 												Swal.fire({
 													icon: "success",

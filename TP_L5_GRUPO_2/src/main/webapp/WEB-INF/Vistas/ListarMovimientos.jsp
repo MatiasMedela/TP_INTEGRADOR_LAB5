@@ -53,31 +53,33 @@
 					varStatus="loop">
 					<tr>
 						<td><fmt:formatDate type="both" timeStyle="short" dateStyle="short" value="${movimiento.getFecha()}"/></td>
-						<c:if test="${movimiento.getTipoMovimiento().getIdTipoMovimiento() == '1'}" > <!-- ALTA CUENTA -->
+						<c:choose>
+						<c:when test="${movimiento.getTipoMovimiento().getIdTipoMovimiento() == '1'}" > <!-- ALTA CUENTA -->
 							<td>${movimiento.getTipoMovimiento().getDescripcion()}</td>
 							<td>CBU Nro. <fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${movimiento.getCuentaOrigen().getCbu()}"/> dado de alta. </td>
 							<td class="ImporteCredito">$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${movimiento.getImporte()}"/></td>						
-						</c:if>
-						<c:if test="${movimiento.getTipoMovimiento().getIdTipoMovimiento() == '2'}"> <!-- ALTA PRESTAMO -->
+						</c:when>
+						<c:when test="${movimiento.getTipoMovimiento().getIdTipoMovimiento() == '2'}"> <!-- ALTA PRESTAMO -->
 							<td>${movimiento.getTipoMovimiento().getDescripcion()}</td>
-							<td>Prestamo N°undefined dado de alta.</td>						
+							<td>${movimiento.getMotivo()}</td>						
 							<td class="ImporteCredito">$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${movimiento.getImporte()}"/></td>
-						</c:if>
-						<c:if test="${movimiento.getTipoMovimiento().getIdTipoMovimiento() == '3'}"> <!-- PAGO PRESTAMO-->
+						</c:when>
+						<c:when test="${movimiento.getTipoMovimiento().getIdTipoMovimiento() == '3'}"> <!-- PAGO PRESTAMO-->
 							<td>${movimiento.getTipoMovimiento().getDescripcion()}</td>
-							<td>Cuota undefined paga</td>						
+							<td>${movimiento.getMotivo()}</td>						
 							<td class="ImporteDebito">$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${movimiento.getImporte()}"/></td>
-						</c:if>		
-						<c:if test="${movimiento.getCuentaOrigen().getCbu() != CBU}">
+						</c:when>		
+						<c:when test="${movimiento.getCuentaOrigen().getCbu() != CBU}">
 							<td>Acreditación</td>
 							<td>CBU Origen: <fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${movimiento.getCuentaOrigen().getCbu()}"/></td>						
 							<td class="ImporteCredito">$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${movimiento.getImporte()}"/></td>
-						</c:if>
-						<c:if test="${movimiento.getCuentaOrigen().getCbu() == CBU}">
+						</c:when>
+						<c:when test="${movimiento.getCuentaOrigen().getCbu() == CBU}">
 							<td>Debitación</td>
 							<td>CBU Destino: <fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${movimiento.getCuentaDestino().getCbu()}"/></td>						
 							<td class="ImporteDebito">$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${movimiento.getImporte()}"/></td>
-						</c:if>
+						</c:when>
+						</c:choose>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -121,7 +123,7 @@
 				"previous" : "Previo"
 			},
 		}
-	});
+	});	
 </script>
 </html>
 

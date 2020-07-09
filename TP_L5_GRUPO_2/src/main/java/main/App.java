@@ -1241,6 +1241,7 @@ public class App {
     	movimiento13.setTipoMovimiento(tipoMovimient2);
     	movimiento13.setCuentaOrigen(cuenta1);
     	movimiento13.setFecha(format.parse("2020-06-25 00:00:00"));
+    	movimiento13.setMotivo("Alta de prestamo N°1");
     	movimiento13.setImporte(60000);
     	
     	Movimiento movimiento14 =(Movimiento) appContext.getBean("BMovimiento");
@@ -1248,6 +1249,7 @@ public class App {
     	movimiento14.setTipoMovimiento(tipoMovimient2);
     	movimiento14.setCuentaOrigen(cuenta3);
     	movimiento14.setFecha(format.parse("2020-05-25 00:00:00"));
+    	movimiento14.setMotivo("Alta de prestamo N°2");
     	movimiento14.setImporte(35000);
     	
     	Movimiento movimiento15 =(Movimiento) appContext.getBean("BMovimiento");
@@ -1255,6 +1257,7 @@ public class App {
     	movimiento15.setTipoMovimiento(tipoMovimient2);
     	movimiento15.setCuentaOrigen(cuenta5);
     	movimiento15.setFecha(format.parse("2020-03-15 00:00:00"));
+    	movimiento15.setMotivo("Alta de prestamo N°4");
     	movimiento15.setImporte(75000);
     	
     	Movimiento movimiento16 =(Movimiento) appContext.getBean("BMovimiento");
