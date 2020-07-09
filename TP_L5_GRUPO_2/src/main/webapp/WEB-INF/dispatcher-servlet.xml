@@ -68,8 +68,11 @@
 	<!-- BEAN LOGUEO DAO -->
 	<bean id="BLogueoDao" scope="singleton" class="AccesoDatos.LogueoDao"/>
 	
-	<!-- BEAN LOGUEO DAO -->
+	<!-- BEAN MAIL DAO -->
 	<bean id="BMailDao" scope="singleton" class="AccesoDatos.MailDao"/>
+	
+	<!-- BEAN CUOTA DAO -->
+	<bean id="BCuotaDao" scope="singleton" class="AccesoDatos.CuotaDao"/>
 		
 	<!-- BEAN CONFIGURACION HIBERNATE -->
 	<bean id="BConfigHibernate" scope="singleton" class="AccesoDatos.ConfigHibernate"/>

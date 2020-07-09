@@ -55,13 +55,15 @@
 			<tbody>
 			<c:forEach items="${listadoPrestamos}" var="prestamo" varStatus="loop">
 				<tr>
+				<form method="post" action="pagarCuotas.html">
+				<input type="hidden" name="idPrestamo" value="${prestamo[5]}"/>
 					<td>${prestamo[0]}</td>
  					<td class="txt-dinero">${prestamo[1]}</td>
 					<td class="txt-dinero">${prestamo[2]}</td>
 					<td>${prestamo[3]}</td>
 					<td class="txt-dinero">${prestamo[4]}</td>
-					<td class="btn-pagar-cuota"><button type="button" class="btn btn-grid btn-light">Pagar
-							cuota</button></td>
+					<td class="btn-pagar-cuota"><button type="submit" class="btn btn-grid btn-light">Ver cuotas</button></td>
+				</form>
 				</tr>			
 			</c:forEach>
 			</tbody>

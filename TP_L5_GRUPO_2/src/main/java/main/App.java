@@ -1352,7 +1352,7 @@ public class App {
     	
     	//----------------------------------------------------------------
     	/*--CARGO DATOS EN LA TABLA CUOTAS--*/
-    	int ID = 0;
+    	int ID = 1;
     	for(int x = 6; x<9; x++) {
     		Cuota cuota = (Cuota) appContext.getBean("BCuota");
     		cuota.setNumeroCuota(ID);

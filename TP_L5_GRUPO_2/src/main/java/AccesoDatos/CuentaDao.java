@@ -196,6 +196,24 @@ public class CuentaDao {
 		}
 	    return listado;		
 	}
+	
+	public List<Cuenta> CuentaUsuario(String legajo, String moneda) {
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		List<Cuenta> listado = null;
+		try {			
+			listado = (List<Cuenta>) session.createQuery("SELECT c FROM Cuenta as c "
+														+ "INNER JOIN c.tipoCuenta as tc "
+														+ "WHERE c.usuario = " + legajo + " AND c.estado=1 AND tc.moneda = :Moneda")
+														.setParameter("Moneda", moneda).list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			ch.cerrarSession();		
+		}
+	    return listado;		
+	}
 
 
 	public void modificarSaldo(Cuenta cuenta, float importe) {

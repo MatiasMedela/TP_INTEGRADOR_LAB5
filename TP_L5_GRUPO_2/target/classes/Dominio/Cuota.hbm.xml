@@ -8,7 +8,7 @@
             <column name="ID" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="prestamo" class="Dominio.Prestamo" fetch="join">
+        <many-to-one name="prestamo" class="Dominio.Prestamo" fetch="join" lazy="false">
             <column name="ID_PRESTAMO" />
         </many-to-one>
         <property name="fechaVencimiento" type="java.util.Date">

@@ -65,10 +65,10 @@ public class PrestamoDao {
 		
 		ArrayList<Object[]> listado = new ArrayList<Object[]>();
 		try {
-			listado = (ArrayList<Object[]>) session.createQuery("SELECT c.alias, p.importeTotal, p.montoPagar, concat(count(cu.numeroCuota),'/',p.cantidadMeses), (p.montoPagar - (count(cu.numeroCuota)*(p.montoPagar/p.cantidadMeses))) "
+			listado = (ArrayList<Object[]>) session.createQuery("SELECT c.alias, p.importeTotal, p.montoPagar, concat(sum(case when cu.pagada=true then 1 else 0 end),'/',p.cantidadMeses), (p.montoPagar - (sum(case when cu.pagada=true then 1 else 0 end)*(p.montoPagar/p.cantidadMeses))), p.idPrestamo "
 															  + "FROM Cuota cu RIGHT JOIN cu.prestamo as p LEFT JOIN p.cbu as c "
-															  + "where p.usuario = :IDUser "
-															  + "group by cu.numeroCuota").setInteger("IDUser", IDUsuario).list();
+															  + "where p.usuario = :IDUser AND p.estado = 1 "
+															  + "group by p.idPrestamo").setInteger("IDUser", IDUsuario).list();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

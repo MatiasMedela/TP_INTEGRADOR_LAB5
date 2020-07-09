@@ -32,6 +32,9 @@ public class PrestamoController {
 	@Autowired
 	private UsuarioDao userDao;
 	
+	@Autowired
+	private CuentaDao cuentaDao;
+	
 	@RequestMapping(value="redirecNavBar.html", params = {"prestamos"})
 	public ModelAndView redirecPrestamo(HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
@@ -87,7 +90,6 @@ public class PrestamoController {
 	@RequestMapping(value="solicitarPrestamo.html")
 	public ModelAndView redirecNuevaTrans(HttpServletRequest request) {
 		ModelAndView MV = new ModelAndView();
-		CuentaDao cuentaDao = new CuentaDao();
 		if(request.getSession().getAttribute("IDUsuario") != null) {
 			String IDUsuario = (String) request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
