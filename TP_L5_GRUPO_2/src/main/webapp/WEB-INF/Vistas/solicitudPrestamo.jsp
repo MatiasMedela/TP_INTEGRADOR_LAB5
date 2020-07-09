@@ -1,13 +1,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -19,6 +18,8 @@
 <link rel=stylesheet
 	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
 	media=screen>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script type="text/javascript" src="<c:url value="resources/Funciones/funciones.js"/>"></script>
 <title>Solicitar préstamo</title>
 </head>
 <body>
@@ -28,8 +29,8 @@
 	<!-- CONTENT -->
 
 	<div class="container-md">
-		<h3 style="margin-top: 20px;">Solicitar préstamo</h3>
-	</div>
+	<fieldset class="border p-2">
+	<legend class="w-auto">Solicitar préstamo</legend>
 	<div class="container-sm mt-4 container-prestamo rounded-lg">
 		<div class="row pt-4">
 			<div class="col-4 pt-2 mb-3 align-items-center"
@@ -39,7 +40,7 @@
 			<div class="col-8 mb-3">
 				<select id="cuentaSelect" class="custom-select form-prestamo" id="inputGroupSelect01">
 					<c:forEach items="${listadoCuentas }" var="cuenta">
-						<option value="${cuenta.idCuenta}">${cuenta.alias}</option>
+						<option value="${cuenta.idCuenta}">${cuenta.alias} - <fmt:formatNumber type="number" pattern="00" minIntegerDigits="22" value="${cuenta.cbu}"/></option>
 					</c:forEach>
 				</select>
 			</div>
@@ -52,9 +53,10 @@
 			  <div class="input-group-prepend">
 			    <span class="input-group-text" style="height:38px;">$</span>
 			  </div>
-				<input id="importeSolicitado" type="text" class="form-control form-prestamo"
-					placeholder="100.000">
+				<input id="importeSolicitado" onkeypress="return soloNumeros(event);" type="text" class="form-control"
+					placeholder="100000">
 			</div>
+			 <p class="flex text-secondary" style="position: absolute;top: 260px;right: 430px;">Monto mínimo $1000</p>
 		</div>
 		<div class="row">
 			<div class="col-4 pt-2 mb-3" style="text-align: right;">
@@ -78,69 +80,13 @@
 				<p>$ </p><p id="totalAPagar"></p>
 			</div>
 		</div>
-		<div style="justify-content: flex-end; display: flex;">
-			<button id="solicitarModal" class="btn mb-3 btn-success" data-toggle="modal"
-				data-target="#ModalPrestamo" disabled>Solicitar</button>
+		<div style="justify-content: center; display: flex;">
+		<button id="solicitarModal" class="btn mb-3 btn-primary" disabled >Solicitar</button>
 		</div>
+		</div>
+	</fieldset>
 	</div>
 	<!-- END CONTENT -->
-
-	<!-- MODAL DETAILS -->
-	<div class="modal fade" id="ModalPrestamo" tabindex="-1" role="dialog"
-		aria-labelledby="ModalDetailsPrestamo" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">Confirmar
-						solicitud de préstamo</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-6" style="text-align: right;">
-							<p>Cuenta:</p>
-							<p>Importe solicitado:</p>
-							<p>Cantidad de meses:</p>
-							<p>Total a pagar:</p>
-						</div>
-						<div class="col">
-							<p id="cuentaModal">Cuenta principal</p>
-							<p id="importeSolicitadoModal">$100.000</p>
-							<p id="mesesModal">3</p>
-							<p id="importePagarModal">$125.000</p>
-						</div>
-					</div>
-				</div>
-				<form action="cargarPrestamo.html" method="post">
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-					<button type="submit" class="btn btn-success">Solicitar</button>
-					<input id="idCuenta" type="hidden" name="idCuenta" value="" />		
-					<input id="importe" type="hidden" name="importe" value="" />	
-					<input id="meses" type="hidden" name="meses" value="" />	
-					<input id="importeAPagar" type="hidden" name="importeAPagar" value="" />									
-				</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!-- END MODAL DETAILS -->
-	
-	<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; bottom: 0; right: 0;">
-  <div class="toast-header">
-    <strong class="mr-auto">Solicitud de préstamo</strong>
-    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="toast-body">
-  	<p>Ha ocurrido un error en la solicitud del préstamo.</p>
-  </div>
-</div>
-<input type="hidden" id="resultadoSolicitud" value="${prestamo}"/>
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -148,22 +94,71 @@ $(document).ready(function(){
 	CurrentItem = document.getElementById("mnPrestamos");
 	CurrentItem.className +=" active";
 	
-	$(".toast").toast({delay: 2000});
-	
-	if($("#resultadoSolicitud").val() == "Error"){
-		$(".toast").toast('show');
-	}
-		
 	$("#solicitarModal").click(function(){
-		$("#cuentaModal").html($("#cuentaSelect option:selected").text());
-		$("#importeSolicitadoModal").html("$" + parseFloat($("#importeSolicitado").val()).toLocaleString());
-		$("#mesesModal").html($("#mesesSelect option:selected").text());
-		$("#importePagarModal").html("$" + $("#totalAPagar").html());
-		
-		$("#idCuenta").val($("#cuentaSelect").val());
-		$("#importe").val($("#importeSolicitado").val());
-		$("#meses").val($("#mesesSelect option:selected").text());
-		$("#importeAPagar").val(parseFloat($("#importe").val())*1.25);
+		if(parseFloat($("#importeSolicitado").val()) >= 1000){
+		var id = $("#cuentaSelect").val();
+		var cuenta = $("#cuentaSelect option:selected").text();
+		var importeSelect = parseFloat($("#importeSolicitado").val());
+		var mesesSelect = $("#mesesSelect option:selected").text();
+		var importePagar = parseFloat($("#importeSolicitado").val())*1.25;
+		Swal.fire({
+			html:"<p>Cuenta:</p>" +
+				"<p>"+ cuenta +"</p>" + 
+				"<div class='row'>" +
+						"<div class='col-6 text-right'>" +
+						"<p>Importe solicitado:</p>" +
+						"<p>Cantidad de meses:</p>" +
+						"<p>Total a pagar:</p>" +
+					"</div>" +
+					"<div class='col text-left'>" +
+						"<p>$"+ importeSelect.toLocaleString() +"</p>" +
+						"<p>"+ mesesSelect +"</p>" +
+						"<p>$"+ importePagar.toLocaleString() +"</p>" +
+					"</div>" +
+				"</div>",
+			showCancelButton: true,
+			reverseButtons: true,
+			cancelButtonText: "Cancelar",
+			confirmButtonText: "Solicitar"
+		}).then((result) => {
+			if(result.value){
+				$.ajax({
+					url: '${request.getContextPath()}/TP_L5_GRUPO_2/cargarPrestamoAsync.html',
+					type: 'POST',
+			        data: { idCuenta: id,
+			        	    importe: importeSelect,
+			        	    meses: mesesSelect ,
+			        	    importeAPagar: importePagar},
+					success: function(data){
+						if(data == "\"Exitoso\""){
+							Swal.fire({
+								icon: "success",
+								title: "Prestamo solicitado",
+								confirmButtonText: "Entendido"
+							}).then((result) => {
+								if(result.value){
+									document.location.href = "/TP_L5_GRUPO_2/redirecNavBar.html?prestamos"
+								}
+							})
+						}
+						else{
+							Swal.fire({
+								icon: "error",
+								title: "Hubo un error al solicitar el préstamo",
+								confirmButtonText: "Entendido"
+							})
+						}
+					}
+			 });
+			}
+		})
+		}else{
+			Swal.fire({
+				icon: "warning",
+				title:"El monto mínimo es de $1000",
+				confirmButtonText: "Entendido"
+			})
+		}
 	});
 	
 	$("#importeSolicitado").keyup(function(){

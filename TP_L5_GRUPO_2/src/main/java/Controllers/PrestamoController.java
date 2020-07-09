@@ -209,4 +209,14 @@ public class PrestamoController {
 			return new Gson().toJson("Error");
 		}
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="cargarPrestamoAsync.html")
+	@ResponseBody
+	public String cargarPrestamoAsync(String idCuenta, String importe, String meses, String importeAPagar) {
+		if(prestDao.cargarPrestamo(Float.parseFloat(importe), Integer.parseInt(meses), Float.parseFloat(importeAPagar), Integer.parseInt(idCuenta))) {
+			return new Gson().toJson("Exitoso");
+		} else {
+			return new Gson().toJson("Error");
+		}
+	}
 }
