@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Session;
@@ -24,6 +25,9 @@ public class PrestamoDao {
 	
 	@Autowired
 	private CuentaDao cDao;
+	
+	@Autowired
+	private MailDao mDao;
 	
 	public boolean cargarPrestamo(float importeTotal, int meses, float montoPagar, int idCuenta) {
 		ConfigHibernate ch = new ConfigHibernate();
@@ -115,7 +119,12 @@ public class PrestamoDao {
 			p.setFechaResolucion(new Date());
 			if (estado==1)
 			{
+				mDao.enviarCorreo(idPrestamo, "Aprobado");
 				cargarCapitalPrestamo(idPrestamo);
+			}
+			else
+			{
+				mDao.enviarCorreo(idPrestamo, "Rechazado");
 			}
 			session.save(p);
 			session.getTransaction().commit();

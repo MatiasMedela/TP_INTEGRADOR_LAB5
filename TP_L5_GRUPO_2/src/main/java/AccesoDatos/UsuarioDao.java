@@ -26,7 +26,7 @@ public class UsuarioDao {
 	    return user;	
 	}
 	
-	
+
 	public List<Usuario> listarUsuarios() {
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
