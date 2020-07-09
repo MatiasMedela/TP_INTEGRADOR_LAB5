@@ -1,14 +1,17 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 <head>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  <!-- agregada -->
+<!--  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous"></script> -->
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -20,6 +23,8 @@
 <link rel=stylesheet
 	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
 	media=screen>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>  <!-- agregada -->
+	<script type="text/javascript" src="<c:url value="resources/Funciones/funciones.js"/>"></script> <!-- agregada -->
 		<script type="text/javascript" charset="utf8"
 	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 <script type="text/javascript"
@@ -73,8 +78,8 @@
 				    Acción
 				  </button>
 				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				    <a class="dropdown-item" value="${prestamo.idPrestamo}" href="#">Aprobar</a>
-				    <a class="dropdown-item" value="${prestamo.idPrestamo}"href="#">Rechazar</a>
+				    <button class="dropdown-item" value="${prestamo.idPrestamo}" href="#" id="btnAbrirModalAp" onClick="modalAprobar(this)">Aprobar</button>
+				    <button class="dropdown-item" value="${prestamo.idPrestamo}" href="#" id="btnAbrirModalRe" onClick="modalRechazar(this)">Rechazar</button>
 				
 				  </div>
 				</div>
@@ -84,8 +89,57 @@
 			</tbody>
 		</table>		
 	</div>
+	
+		<div class="modal fade" id="ModalAprobar" tabindex="-1" role="dialog"
+		aria-labelledby="ModalDetailsAccount" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Aprobar prestamo</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+						<h6>¿Está seguro que desea aprobar este prestamo?</h6>
+				</div>
+				<div class="modal-footer">
+				<form method="get" action=borrarCuenta.html>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="submit" name="idCuenta" class="btn btn-danger" id="btnModalEliminar" value="">Eliminar</button>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+		<div class="modal fade" id="ModalRechazar" tabindex="-1" role="dialog"
+		aria-labelledby="ModalDetailsAccount" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Rechazar prestamo</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+						<h6>¿Está seguro que desea rechazar este prestamo?</h6>
+				</div>
+				<div class="modal-footer">
+				<form method="get" action=borrarCuenta.html>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="submit" name="idCuenta" class="btn btn-danger" id="btnModalEliminar" value="">Eliminar</button>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<!-- END CONTENT -->
-
+	
 </body>
 <script type="text/javascript">
 	CurrentItem = document.getElementById("mnPrestamosAdm");
@@ -104,6 +158,74 @@
 	else{
 		cantPags = 7;
 	}
+	
+	function modalAprobar(btn){
+		var id = $(btn).val();
+		Swal.fire({
+			title:"¿Desea aprobar este préstamo?",
+			showCancelButton: true,
+			confirmButtonColor: "#218838",
+		    cancelButtonText: "Cancelar",
+		    confirmButtonText: "Aprobar",
+		    reverseButtons: true
+		}).then((result) => {
+			if(result.value){
+			   $.ajax({
+					url: '${request.getContextPath()}/TP_L5_GRUPO_2/aprobarPrestamoAsync.html',
+					type: 'POST',
+			        data: { idPrestamo: id },
+					success: function(data){
+						if(data == "\"Exitoso\""){
+							Swal.fire({
+								icon: "success",
+								title: "Préstamo aprobado",
+								confirmButtonText: "Entendido"
+							}).then((result) => {
+								if(result.value){
+									location.reload();
+								}
+							})
+						}
+					}
+				});
+			}
+		})
+	}
+	
+	function modalRechazar(btn){
+		var id = $(btn).val();
+		Swal.fire({
+			title:"¿Desea rechazar este préstamo?",
+			showCancelButton: true,
+			confirmButtonColor: "#d41111",
+		    cancelButtonText: "Cancelar",
+		    confirmButtonText: "Rechazar",
+		    reverseButtons: true
+		}).then((result) => {
+			if(result.value){
+			   $.ajax({
+					url: '${request.getContextPath()}/TP_L5_GRUPO_2/rechazarPrestamoAsync.html',
+					type: 'POST',
+			        data: { idPrestamo: id },
+					success: function(data){
+						if(data == "\"Exitoso\""){
+							Swal.fire({
+								icon: "success",
+								title: "Préstamo rechazado",
+								confirmButtonText: "Entendido"
+							}).then((result) => {
+								if(result.value){
+									location.reload();
+								}
+							})
+						}
+					}
+				});
+			}
+		})
+	}
+	
+	
 	$('#TablePrestamosP').DataTable({
 		"ordering" : false,
 		"bInfo" : false,

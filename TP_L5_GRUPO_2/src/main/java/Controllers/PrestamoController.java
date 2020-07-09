@@ -9,7 +9,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 
 import AccesoDatos.CuentaDao;
 import AccesoDatos.PrestamoDao;
@@ -161,5 +165,48 @@ public class PrestamoController {
 		}
 		return MV;
 	}
+	
+	@RequestMapping(value="aprobarPrestamo.html")
+	public ModelAndView aprobarPrestamo(int idPrestamo) {
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
+		prestDao.cambiarEstadoPrestamo(idPrestamo, 1);
+		MV.setViewName("redirect:/redirecNavBarAdmin.html?prestamos");
+		return MV;
+	}
+	
 
+	@RequestMapping(value="rechazarPrestamo.html")
+	public ModelAndView rechazarPrestamo(int idPrestamo) {
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
+		prestDao.cambiarEstadoPrestamo(idPrestamo, 2);
+		MV.setViewName("redirect:/redirecNavBarAdmin.html?prestamos");
+		return MV;
+	}
+	
+	
+	@RequestMapping(method = RequestMethod.POST, value="aprobarPrestamoAsync.html")
+	@ResponseBody
+	public String aprobarPrestamoAsync(String idPrestamo) {
+		if (prestDao.cambiarEstadoPrestamo(Integer.parseInt(idPrestamo), 1))
+		{
+			return new Gson().toJson("Exitoso");
+		}
+		else
+		{
+			return new Gson().toJson("Error");
+		}
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value="rechazarPrestamoAsync.html")
+	@ResponseBody
+	public String rechazarPrestamoAsync(String idPrestamo) {
+		if (prestDao.cambiarEstadoPrestamo(Integer.parseInt(idPrestamo), 2))
+		{
+			return new Gson().toJson("Exitoso");
+		}
+		else
+		{
+			return new Gson().toJson("Error");
+		}
+	}
 }
