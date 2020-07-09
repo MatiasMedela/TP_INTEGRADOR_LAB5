@@ -8,34 +8,30 @@
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
 <meta charset="ISO-8859-1">
 <!-- Jquery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap CSS y Script -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
-integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
-crossorigin="anonymous">
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" 
-integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" 
-crossorigin="anonymous"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
-integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
-crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
+	crossorigin="anonymous">
+	
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" 
+	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" 
+	crossorigin="anonymous"></script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+	crossorigin="anonymous"></script>
 
 <!-- Data Tables -->
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"/>
-<link rel=stylesheet
-	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
-	media=screen>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"/>
+	<link rel=stylesheet href="<c:url value="resources/Estilos/styles.css"/>" type="text/css" media=screen>
+<!-- Sweet alert 2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-	CurrentItem = document.getElementById("mnClientes");
-	CurrentItem.className += " active";	
-})
-	$(document).ready(
+$(document).ready(
 		function() {
 			$('#TClientes').DataTable(
 							{
@@ -76,6 +72,77 @@ $(document).ready(function(){
 								}
 							});
 					 });
+					 
+$(document).ready(function(){
+	$('select#Prov_id').on('change',function(){
+	    var valor = $(this).val();
+		$("#Loc_id option").each(function(){
+			var z=$(this).attr('value');
+			var array = z.split(',');
+			var g=array[1];
+			if(array[1] == valor){
+				$(this).show();
+			}else{
+				$(this).hide();
+			}
+		});
+	});
+})
+
+function ValFormatoTelCel(){
+	var TelTxt = document.querySelector('#TelEditId');
+	TelTxt.disabled = false;
+	TelTxt.setAttribute("placeholder", "ej: 1126208736");
+	TelTxt.setAttribute("pattern", "/(\11)?[([0-9][ -]*){8}  ");
+}
+
+function ValFormatoTelFijo(){
+	var TelTxt = document.querySelector('#TelEditId');
+	TelTxt.disabled = false;
+	TelTxt.setAttribute("placeholder", "ej: 0123489354");
+	TelTxt.setAttribute("pattern", "/[0-9]{10}");
+}
+
+function ValidarFormulario(){
+	var datos={
+		"Dni":$("#DnieditId").val(),
+		"DniAnt":$("#IdOldDniName").val(),
+	}
+	$.ajax({
+		type: "POST",
+		url:'${request.getContextPath()}/TP_L5_GRUPO_2/ValidarModClienteAsync.html',
+		data:datos,
+		success:function(Res){
+			if ( Res == "\"Valido\"") {
+				document.querySelector('#IdLabelDni').innerText = 'Numero De Documento';
+				document.getElementById("DnieditId").style.border="1px solid green";
+				$("#ModificarClienteId").submit();
+				var URLsearch = window.location.search;
+				if (URLsearch == '?EliminarCliente') {
+					Swal.fire({
+						title: 'Cliente grabado existosamente!',
+						icon: 'success',
+						showConfirmButton: true,
+						timer:3000
+					})
+					$('#ModalEditarCliente').modal('hide')
+				} else {
+					Swal.fire({
+						title: 'Error al grabar cliente!',
+						icon: 'error',
+						showConfirmButton: true,
+						timer: 3000
+					})
+					$('#ModalEditarCliente').modal('hide')
+				}
+				  } else {
+					document.querySelector('#IdLabelDni').innerText = 'Numero De Documento: invalido este DNI ya esta registrado';
+					document.getElementById("IdLabelDni").style.color="red";
+					document.getElementById("DnieditId").style.border="1px solid red";
+				 }
+		}
+	});
+}
 </script>
 <script type="text/javascript">
 //con esta funcion pasamos los paremtros a los text del modal.
@@ -95,22 +162,22 @@ $(document).ready(function(){
 					   $("#GenEditId  option[value=3]").attr("selected",true);
 					}
 		    }
+	//cmb provincias
+	    $("#Prov_id option").each(function(){
+		    if(array[10]==$(this).text()){
+		    	$("#Prov_id option[value="+$(this).attr('value')+"]").attr("selected",true);
+			}
+		});
 	    //cmb localidades
-	    $("#LocEditId option").each(function(){
-		    if(array[5]==$(this).text()){
-		    	$("#LocEditId option[value="+$(this).attr('value')+"]").attr("selected",true);
+	    $("#Loc_id option").each(function(){
+		    if(array[5]== $(this).text()){
+		    	$("#Loc_id option:contains("+array[5]+")").attr('selected', true);
 			}
 		});
 	//Fecha nacimiento
 	 var array2=array[4].split(" ");
 	 document.getElementById('FnacEditId').value = array2[0];
-	//cmb provincias
-	    $("#ProvEditId option").each(function(){
-		    if(array[10]==$(this).text()){
-		    	$("#ProvEditId option[value="+$(this).attr('value')+"]").attr("selected",true);
-			}
-		});
-	 document.getElementById('DirEditId').value=array[6];
+	 document.getElementById('Dire_id').value=array[6];
 	 document.getElementById('NacEditId').value=array[7];
 	 document.getElementById('EmailEditId').value=array[8];
 	 document.getElementById('TelEditId').value=array[9];
@@ -128,23 +195,23 @@ $(document).ready(function(){
 	<!-- NAVBAR -->
 	<%@ include file="NavbarAdmin.html"%>
 	<!-- END NAVBAR -->
-		<div class="container-fluid">
-			<div class="row row-cols-2">
-				<div class="col-12">
-					<!-- inicio tabla -->
-					<fieldset class="border p-1" >
-						<legend class="w-auto">Clientes</legend>
+	<div class="container-fluid">
+	<div class="row row-cols-2">
+	<div class="col-12">
+	<!-- inicio tabla -->
+	<fieldset class="border p-1" >
+	<legend class="w-auto">Clientes</legend>
 	<table id="TClientes" class="table table-hover table-sm" style="padding-left: 5px">
 	  <thead class="thead-dark">
 	    <tr>
 	      <th scope="col">DNI</th>
 	      <th scope="col">Nombre y Apellido</th>
 	      <th scope="col">Genero</th>
-	      <th scope="col">Fecha De Nacimiento</th>
+	      <th scope="col">Nacimiento</th>
 	      <th scope="col">Localidad</th>
 	      <th scope="col">Direccion</th>
 	      <th scope="col">Provincia</th>
-	      <th scope="col">Nacionalidad</th>
+	      <th scope="col">Pais</th>
 	      <th scope="col">E-mail</th>
 	      <th scope="col">Telefono</th>
 	      <th scope="col">Editar</th>
@@ -199,30 +266,6 @@ $(document).ready(function(){
 	</div>	
 		</div>		
 
-<!-- modal cerrar session  -->
-<div class="modal fade" id="ModalCerrarSession" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Cerrar Sesion</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ¿Desea cerrar la sesion?
-      </div>
-      <div class="modal-footer">
-     <form action="#" method="post" accept-charset=utf-8>
-     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	 <button type="Submit" class="btn btn-primary" name="BtnCerrarSesion" >Cerrar Sesion</button>		
-		</form>
-      </div>
-    </div>
-  </div>
-</div>  
-<!-- modal cerrar session  -->
-
 <!-- modal Editar cliente  -->
 <div class="modal fade" id="ModalEditarCliente" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document">
@@ -234,33 +277,49 @@ $(document).ready(function(){
         </button>
       </div>
       <div class="modal-body">
-	      <form action="ModificarCliente.html" method="get">
+	      <form action="ModificarCliente.html" method="get" id="ModificarClienteId">
 	      	<div class="container-fluid">
 	      	<div class="row">
 			<div class="col-8 col-sm-6">
 			 <div class="form-group"> <!-- DNI -->
-		        <label for="full_name_id" class="control-label">Numero De Documento</label>
-		        <input type="number" class="form-control form-control-sm" id="DnieditId" name="DniEditName" placeholder="D.N.I">
-		         <input type="hidden" class="form-control" name="OldDniName"id="IdOldDniName" value=""/>
+		        <label for="full_name_id" class="control-label" id="IdLabelDni">Numero De Documento</label>
+		        <input type="number" class="form-control form-control-sm" id="DnieditId" name="DniEditName" placeholder="D.N.I" 
+		        min="8" max="8" required>
+		        <input type="hidden" class="form-control" name="OldDniName"id="IdOldDniName" value=""/>
 		    </div>  
 		    <div class="form-group"> <!-- Nombre -->
 		        <label for="full_name_id" class="control-label">Nombre</label>
-		        <input type="text" class="form-control form-control-sm" id="NomEditId" name="NomEditName" placeholder="NOMBRE">
+		        <input type="text" class="form-control form-control-sm" id="NomEditId" name="NomEditName" placeholder="NOMBRE" 
+		        pattern="^[a-zA-Z ]*$" required>
 		    </div>    
 		    <div class="form-group"> <!-- Apellido -->
 		        <label for="full_name_id" class="control-label">Apellido</label>
-		        <input type="text" class="form-control form-control-sm" id="ApeEditId" name="ApeEditName" placeholder="APELLIDO">
+		        <input type="text" class="form-control form-control-sm" id="ApeEditId" name="ApeEditName" placeholder="APELLIDO" 
+		        pattern="^[a-zA-Z ]*$" required>
 		    </div> 
 
 		      <div class="form-group"> <!-- Correo electronico -->
 		        <label for="full_name_id" class="control-label">Correo Electronico</label>
-		        <input type="email" class="form-control form-control-sm" id="EmailEditId" name="EmailEditName" placeholder="e-mail" required>
+		        <input type="email" class="form-control form-control-sm" id="EmailEditId" name="EmailEditName" placeholder="e-mail"
+				autocomplete="off" required>
 		    </div> 
 		    
-		    <div class="form-group"> <!-- Telefono -->
+		     <div class="form-group"><!-- Telefono -->
 		        <label for="full_name_id" class="control-label">Numero de telefono</label>
-		        <input type="number" class="form-control form-control-sm" id="TelEditId" name="TelEditName" placeholder="Telefono">
-		    </div> 
+				<div class="form-check form-check-inline" style="padding-left: 10px">
+				  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="RadTelFijo" 
+				 onclick="ValFormatoTelFijo()" >
+				  <label class="form-check-label" for="inlineRadio1">Fijo</label>
+				</div>
+				<div class="form-check form-check-inline">
+				  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="RadCel" value="option2" 
+				  onclick="ValFormatoTelCel()">
+				  <label class="form-check-label" for="inlineRadio2">Celular</label>
+				</div>
+		        <input type="tel" class="form-control form-control-sm" id="TelEditId" name="TelEditName" placeholder="Telefono" 
+		         title=" Respete el formato"  min="10" max="10"   pattern=""  disabled required >
+		    </div>
+
 		    
 		     <div class="form-group"> <!-- Sexo -->
 		        <label for="state_id" class="control-label">Sexo</label>
@@ -275,61 +334,67 @@ $(document).ready(function(){
 			<div class="col-8 col-sm-6">
 			<div class="form-group"> <!-- Nacionalidad -->
 		        <label for="full_name_id" class="control-label">Nacionalidad</label>
-		        <input type="text" class="form-control form-control-sm" id="NacEditId" name="NacEditName" placeholder="NACIONALIDAD">
+		        <input type="text" class="form-control form-control-sm" id="NacEditId" name="NacEditName" placeholder="NACIONALIDAD" 
+		        pattern="^[a-zA-Z ]*$" required>
 		    </div> 
 		     <div class="form-group "><!-- Fecha De Nacimiento -->
 		     <label for="full_name_id" class="control-label">Fecha De Nacimiento</label>
-			    <input class="form-control form-control-sm" type="date"  id="FnacEditId" name="FnacEditName">
+			    <input class="form-control form-control-sm" type="date"  id="FnacEditId" name="FnacEditName" required>
 			</div>
-		   <div class="form-group"> <!-- Direccion -->
-		        <label for="full_name_id" class="control-label">Direccion</label>
-		        <input type="text" class="form-control form-control-sm" id="DirEditId" name="DirEditName" placeholder="DIRECCION">
-		    </div>
-		            
-		    <div class="form-group"> <!-- Localidad -->
-		      <label for="state_id" class="control-label">Localidad</label>
-		      <select class="form-control form-control-sm" id="LocEditId" name="LocEditName">  
-		      <c:forEach items="${LocalidadesList}" var="loc" varStatus="loop">
-		      		<option value="${loc.getIdLocalidad()}">${loc.getLocNombre()}</option>
-		      </c:forEach>
-			  </select>                     
-		    </div>                
 		            
 		    <div class="form-group"> <!-- Provincia -->
 		        <label for="state_id" class="control-label">Provincia</label>
-		        <select class="form-control form-control-sm" id="ProvEditId" name="ProvEditName">
-		            <option value="BSAS">Buenos Aires</option>
-		            <option value="CABA">Ciudad Autonoma De Buenos Aires</option>
-		            <option value="TUC">Tucuman</option>
-		            <option value="ER">Entre Rios</option>
-		            <option value="MIS">Misiones</option>
-		            <option value="FOR">Formosa</option>
-		            <option value="COR">Corrientes</option>
-		            <option value="SF">Santa Fe</option>
-		            <option value="COR">Cordoba</option>
-		            <option value="JUJ">Jujuy</option>
-		            <option value="CHU">Chubut</option>
-		            <option value="TDF">Tierra Del Fuego</option>
-		            <option value="NEU">Neuquen</option>
-		            <option value="IL">Chaco</option>
-		            <option value="IN">San Juan</option>
-		            <option value="IA">San Luis</option>
-		            <option value="KS">La Pampa</option>
-		            <option value="KY">Santa Cruz</option>
-		            <option value="LA">Salta</option>
-		            <option value="ME">Catamarca</option>
-		            <option value="MD">La Rioja</option>
-		            <option value="MA">Santiago Del Estero</option>
-		            <option value="MI">Mendoza</option>
+		        <select class="form-control form-control-sm" id="Prov_id" name="ProvEditName" required>
+		        	<option value="-1" selected disabled>--Provincia--</option> 
+		            <option value="2">Buenos Aires</option>
+		            <option value="1">Ciudad Autonoma De Buenos Aires</option>
+		            <option value="15">Tucuman</option>
+		            <option value="6">Entre Rios</option>
+		            <option value="19">Misiones</option>
+		            <option value="18">Formosa</option>
+		            <option value="5">Corrientes</option>
+		            <option value="13">Santa Fe</option>
+		            <option value="4">Cordoba</option>
+		            <option value="7">Jujuy</option>
+		            <option value="17">Chubut</option>
+		            <option value="24">Tierra Del Fuego</option>
+		            <option value="20">Neuquen</option>
+		            <option value="16">Chaco</option>
+		            <option value="11">San Juan</option>
+		            <option value="12">San Luis</option>
+		            <option value="21">La Pampa</option>
+		            <option value="23">Santa Cruz</option>
+		            <option value="22">Rio Negro</option>
+		            <option value="10">Salta</option>
+		            <option value="3">Catamarca</option>
+		            <option value="9">La Rioja</option>
+		            <option value="14">Santiago Del Estero</option>
+		            <option value="8">Mendoza</option>
 		        </select>                    
-		    </div>
+		    </div> 
+		   
+		   <div class="form-group"> <!-- Localidad -->
+		      <label for="state_id" class="control-label">Localidad</label>
+		      <select class="form-control form-control-sm" id="Loc_id" name="LocEditName" required> 
+		      <option value="-1" selected disabled>--Localidad--</option> 
+		      <c:forEach items="${LocalidadesList}" var="loc" varStatus="loop">
+						  <option value="${loc.getIdLocalidad()},${loc.getProvLoc().getIdProvincia() }">${loc.getLocNombre()}</option>
+		      </c:forEach>
+			  </select>                     
+		    </div>      
+		    
+		    <div class="form-group"> <!-- Direccion -->
+		        <label for="full_name_id" class="control-label">Direccion</label>
+		        <input type="text" class="form-control form-control-sm" id="Dire_id" name="DirEditName" 
+		        placeholder="DIRECCION" autocomplete="off"  required>
+		    </div> 
 		      
 		</div>
 	</div>
 </div>
  	<div class="modal-footer">
 	     <button type="button" class="btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
-		 <button type="Submit" class="btn-sm btn-success" name="BtnGrabar" >Grabar</button>		
+		 <button type="button" class="btn-sm btn-success" name="BtnGrabar" onclick="return ValidarFormulario()">Grabar</button>		
       </div>
       </form>
       </div>

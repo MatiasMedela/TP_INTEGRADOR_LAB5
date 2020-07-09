@@ -6,6 +6,7 @@
 <!-- JS, Popper.js, and jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
+<!-- Bootstrap CSS y Script -->	
 	<script 
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
@@ -17,20 +18,16 @@
 	crossorigin="anonymous"></script>
 	
 	<!-- Hoja de estilos-->
-	
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
 	crossorigin="anonymous">
-	<link rel=stylesheet
-	href="<c:url value="resources/Estilos/styles.css"/>" type="text/css"
-	media=screen>
+	
+	<link rel=stylesheet href="<c:url value="resources/Estilos/styles.css"/>" type="text/css" media=screen>
+	<!-- Sweet alert 2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
-	CurrentItem = document.getElementById("mnClientes");
-	CurrentItem.className += " active";	
-
-
 	$('select#Prov_id').on('change',function(){
 	    var valor = $(this).val();
 		$("#Loc_id option").each(function(){
@@ -61,21 +58,38 @@ function ValFormatoTelFijo(){
 }
 
 function ValidarFormulario(){
-
 	var datos={
-			"Dni":$("#DniID").val(),	
+		"Dni":$("#DniID").val(),	
 	}
 	$.ajax({
 		type: "POST",
 		url:'${request.getContextPath()}/TP_L5_GRUPO_2/ValidarClienteAsync.html',
 		data:datos,
 		success:function(Res){
-			alert(Res);
 			if ( Res == "\"Valido\"") {
-				alert('llegue valido');
+				document.querySelector('#IdLabelDni').innerText = 'Numero De Documento';
+				document.getElementById("DniID").style.border="1px solid green";
 				$("#CargarClienteId").submit();
+				var URLsearch = window.location.search;
+				if (URLsearch == '?ClienteNuevo') {
+					Swal.fire({
+						title: 'Cliente grabado existosamente!',
+						icon: 'success',
+						showConfirmButton: true,
+						timer: 1630
+					})
+				} else {
+					Swal.fire({
+						title: 'Error al grabar cliente!',
+						icon: 'error',
+						showConfirmButton: true,
+						timer: 1630
+					})
+				}
 				  } else {
-				alert('llegue invalido');
+					document.querySelector('#IdLabelDni').innerText = 'Numero De Documento: invalido este DNI ya esta registrado';
+					document.getElementById("IdLabelDni").style.color="red";
+					document.getElementById("DniID").style.border="1px solid red";
 				 }
 		}
 	});
@@ -99,7 +113,7 @@ function ValidarFormulario(){
 		  <div class="row row-cols-2">
 			<div class="col">
 			 <div class="form-group"> <!-- DNI -->
-		        <label for="full_name_id" class="control-label">Numero De Documento</label>
+		        <label for="full_name_id" id="IdLabelDni" class="control-label">Numero De Documento</label>
 		        <input type="number" class="form-control form-control-sm" id="DniID" name="DniName" placeholder="D.N.I" 
 		         minlength="8" maxlength="8" pattern="^[0-9]*$" autocomplete="off" required>
 		    </div>  
@@ -134,13 +148,8 @@ function ValidarFormulario(){
 		     <label for="full_name_id" class="control-label">Fecha De Nacimiento</label>
 			    <input class="form-control form-control-sm" type="date"  id="fnacid" name="FechaNac" required>
 			</div>
-		   <div class="form-group"> <!-- Direccion -->
-		        <label for="full_name_id" class="control-label">Direccion</label>
-		        <input type="text" class="form-control form-control-sm" id="Dire_id" name="DirName" 
-		        placeholder="DIRECCION" required>
-		    </div>
-		    
-		     <div class="form-group"> <!-- Provincia -->
+		   
+		   <div class="form-group"> <!-- Provincia -->
 		        <label for="state_id" class="control-label">Provincia</label>
 		        <select class="form-control form-control-sm" id="Prov_id" name="CmbProv">
 		        	<option value="-1" selected disabled>--Provincia--</option> 
@@ -169,8 +178,9 @@ function ValidarFormulario(){
 		            <option value="14">Santiago Del Estero</option>
 		            <option value="8">Mendoza</option>
 		        </select>                    
-		    </div>   
-			<div class="form-group"> <!-- Localidad -->
+		    </div> 
+		   
+		   <div class="form-group"> <!-- Localidad -->
 		      <label for="state_id" class="control-label">Localidad</label>
 		      <select class="form-control form-control-sm" id="Loc_id" name="LocName"> 
 		      <option value="-1" selected disabled>--Localidad--</option> 
@@ -178,12 +188,18 @@ function ValidarFormulario(){
 						  <option value="${loc.getIdLocalidad()},${loc.getProvLoc().getIdProvincia() }">${loc.getLocNombre()}</option>
 		      </c:forEach>
 			  </select>                     
-		    </div>                
+		    </div>      
+		    
+		    <div class="form-group"> <!-- Direccion -->
+		        <label for="full_name_id" class="control-label">Direccion</label>
+		        <input type="text" class="form-control form-control-sm" id="Dire_id" name="DirName" 
+		        placeholder="DIRECCION" autocomplete="off" required>
+		    </div>            
 		    
 		     <div class="form-group"> <!-- Correo electronico -->
 		        <label for="full_name_id" class="control-label">Correo Electronico</label>
 		        <input type="email" class="form-control form-control-sm" id="email_id" name="EmailName" 
-		        placeholder="e-mail" required>
+		        placeholder="e-mail" autocomplete="off" required>
 		    </div> 
 		    
 		    <div class="form-group"> <!-- Telefono -->
@@ -199,7 +215,7 @@ function ValidarFormulario(){
 				  <label class="form-check-label" for="inlineRadio2">Celular</label>
 				</div>
 		        <input type="tel" class="form-control form-control-sm" id="TelId" name="CliTel" placeholder="Telefono" 
-		         title=" Respete el formato"   pattern=""  disabled required >
+		         title=" Respete el formato"  min="10" max="10"   pattern=""  disabled required >
 		    </div>
 		    
 		</div>   
@@ -211,6 +227,5 @@ function ValidarFormulario(){
 	</fieldset>  
 </form>
 <!--Fin Formulario alta -->
-
 </body>
 </html>

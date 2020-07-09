@@ -1,12 +1,7 @@
 package Controllers;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -148,7 +143,7 @@ public class ClienteController {
 				MV.setViewName("redirect:/redirecNavBarAdmin.html?ClienteNuevo");
 			}
 			else {
-					MV.setViewName("redirect:/redirecNavBarAdmin.html?ClienteNuevo");
+					MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");
 					System.out.println("error al dar de alta cliente");
 			}
 			return MV;
@@ -173,57 +168,70 @@ public class ClienteController {
 		}	
 	}
 	
+	@RequestMapping(method = RequestMethod.POST, value="ValidarModClienteAsync.html")
+	@ResponseBody
+	public String ValidarModClienteAsync(String Dni,String DniAnt) throws ParseException {
+		if(Dni!="") {
+			if ( Dni.equals(DniAnt)==true ) {
+				return new Gson().toJson("Valido");
+			} else {
+				if((CliNeg.ValidarDNI(Dni)==true && CliNeg.ValidarDNI(DniAnt)==false)) {
+					return new Gson().toJson("Valido");
+				}else {
+					return new Gson().toJson("Invalido");
+				}
+			}
+		}else {
+			return new Gson().toJson("Invalido");
+		}	
+	}
+	
 	@RequestMapping("ModificarCliente.html")
 	public ModelAndView ModificarCliente(String DniEditName,String OldDniName,String NomEditName,String ApeEditName,String NacEditName,
-			String EmailEditName,String ProvEditName,String DirEditName,String FnacEditName,Integer GenEditName,Integer LocEditName,String TelEditName) {
+			String EmailEditName,String ProvEditName,String DirEditName,String FnacEditName,Integer GenEditName,String LocEditName,String TelEditName) {
 		((ConfigurableApplicationContext)(appContext)).refresh();
 		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
 		try {
 			Usuario Clie = (Usuario) appContext.getBean("BUsuario");
-		//Validaciones
-			//if(true) {
 			Clie.setDni(DniEditName);
 			Clie.setNombre(NomEditName);
 			Clie.setApellido(ApeEditName);
 			Clie.setEmail(EmailEditName);
 			Clie.setDireccion(DirEditName);
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date dateStr = null;
-			try {dateStr = formatter.parse(FnacEditName);} 
-			catch (ParseException e) {e.printStackTrace();}
-			java.sql.Date dateDB = new java.sql.Date(dateStr.getTime());
-			Clie.setFechaNac(dateDB);
+			Clie.setFechaNac(formatter.parse(FnacEditName));
 			Clie.setNacionalidad(NacEditName);
 			Clie.setGen(Gdao.BuscarGeneroXId( GenEditName));
-			Clie.setLoc(locdao.BuscarLocalidad(LocEditName));
+			String[] parts = LocEditName.split(",");
+			Clie.setLoc(locdao.BuscarLocalidad(Integer.valueOf(parts[0])));
 			Clie.setTel(TelEditName);
-			Clie.setTipoUsu(TusuDao.UserCliente());
+			Clie.setTipoUsu(Clidao.BuscarUsuarioXDni(OldDniName).getTipoUsu());
 			Clie.setEstado(true);
 			if(Clidao.ModificarCliente(Clie,OldDniName) == true) {
-				System.out.println("UPDATE EJECUTADO EXITOSAMENTE");
+				//hacer update de login ?
 				MV.addObject("LocalidadesList", locdao.ListLocalidades());
 				MV.addObject("ClientesList", Clidao.ListarClientes());
-				MV.setViewName("ModBajaCliente");
+				MV.setViewName("redirect:/redirecNavBarAdmin.html?EliminarCliente");
+				
 			}
 			else {
-				//error al modificar cliente
 				System.out.println("error al modificar cliente");
 				MV.addObject("LocalidadesList", locdao.ListLocalidades());
 				MV.addObject("ClientesList", Clidao.ListarClientes());
-				MV.setViewName("redirect:/redirecNavBarAdmin.html?EliminarCliente");	
+				MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");	
 			}
-			//}
 			return MV;
 		} catch (Exception e) {
-			System.out.println("error al modificar cliente");
 			e.printStackTrace();
 			MV.addObject("ClientesList", Clidao.ListarClientes());
 			MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");
 			return MV;
 		}
 	}
+	
 	@RequestMapping("RedireccionarDarDeAltaCliente.html")
 	public ModelAndView DarDeAltaCliente(String TxtAltaClientName) {
+		((ConfigurableApplicationContext)(appContext)).refresh();
 		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
 		try {
 			if(Clidao.ModAltaCliente(TxtAltaClientName)==true) {
@@ -231,7 +239,6 @@ public class ClienteController {
 				MV.addObject("ClientesList", Clidao.ListarClientes());
 			}
 			else {
-				//Error al dar de baja cliente
 				System.out.println("error al dar de alta al cliente");
 				MV.addObject("LocalidadesList", locdao.ListLocalidades());
 				MV.addObject("ClientesList", Clidao.ListarClientes());
@@ -246,6 +253,7 @@ public class ClienteController {
 	}
 	@RequestMapping("RedireccionarDarDeBajaCliente.html")
 	public ModelAndView DarDeBajaCliente(String TxtBajaClientName) {
+		((ConfigurableApplicationContext)(appContext)).refresh();
 		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
 		try {
 			if(Clidao.BajaCliente(TxtBajaClientName)==true) {
@@ -253,7 +261,6 @@ public class ClienteController {
 				MV.addObject("ClientesList", Clidao.ListarClientes());
 			}
 			else {
-				//Error al dar de baja cliente
 				System.out.println("error al dar de baja al cliente");
 				MV.addObject("LocalidadesList", locdao.ListLocalidades());
 				MV.addObject("ClientesList",Clidao.ListarClientes());
