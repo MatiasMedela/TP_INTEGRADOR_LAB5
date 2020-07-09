@@ -123,8 +123,11 @@
 	<!--BEAN CUOTA -->
 	<bean id="BCuota" class="Dominio.Cuota" scope="prototype">
 		<property name="numeroCuota" value="-1"></property>
+		<property name="fechaVencimiento" value="#{ null }"></property>
+		<property name="fechaPago" value="#{ null }"></property>
 		<property name="prestamo" ref="BPrestamo"></property>
-		<property name="movimiento" ref="BMovimiento"></property>
+		<property name="movimiento"><null/></property>
+		<property name="pagada" value="0"></property>
 	</bean>
 	
 	<!-- BEAN CONFIGURATION -->

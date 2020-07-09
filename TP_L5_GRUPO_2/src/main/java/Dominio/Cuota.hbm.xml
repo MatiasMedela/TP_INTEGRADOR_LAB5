@@ -8,12 +8,20 @@
             <column name="ID" />
             <generator class="assigned" />
         </id>
-        
         <many-to-one name="prestamo" class="Dominio.Prestamo" fetch="join">
             <column name="ID_PRESTAMO" />
         </many-to-one>
+        <property name="fechaVencimiento" type="java.util.Date">
+            <column name="FECHA_VENCIMIENTO" />
+        </property>
+        <property name="fechaPago" type="java.util.Date">
+            <column name="FECHA_PAGO" />
+        </property>
         <many-to-one name="movimiento" class="Dominio.Movimiento" fetch="join">
             <column name="ID_MOVIMIENTO" />
         </many-to-one>
+        <property name="pagada" type="boolean">
+            <column name="PAGADA" />
+        </property>
     </class>
 </hibernate-mapping>

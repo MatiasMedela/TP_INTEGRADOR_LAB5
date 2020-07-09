@@ -1,6 +1,7 @@
 package Dominio;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Cuota implements Serializable{
 	
@@ -8,7 +9,10 @@ public class Cuota implements Serializable{
 	//Atributos
 	private int numeroCuota;
 	private Prestamo prestamo;
+	private Date fechaVencimiento;
+	private Date fechaPago;
 	private Movimiento movimiento;
+	private boolean pagada;
 	
 	//Constructor
 	public Cuota()
@@ -52,6 +56,30 @@ public class Cuota implements Serializable{
 
 	public void setMovimiento(Movimiento movimiento) {
 		this.movimiento = movimiento;
+	}
+
+	public Date getFechaVencimiento() {
+		return fechaVencimiento;
+	}
+
+	public void setFechaVencimiento(Date fechaVencimiento) {
+		this.fechaVencimiento = fechaVencimiento;
+	}
+
+	public Date getFechaPago() {
+		return fechaPago;
+	}
+
+	public void setFechaPago(Date fechaPago) {
+		this.fechaPago = fechaPago;
+	}
+
+	public boolean isPagada() {
+		return pagada;
+	}
+
+	public void setPagada(boolean pagada) {
+		this.pagada = pagada;
 	}
 	
 	
