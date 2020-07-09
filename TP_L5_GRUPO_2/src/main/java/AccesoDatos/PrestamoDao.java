@@ -29,6 +29,9 @@ public class PrestamoDao {
 	@Autowired
 	private MailDao mDao;
 	
+	@Autowired
+	private MovimientoDao mvDao;
+	
 	public boolean cargarPrestamo(float importeTotal, int meses, float montoPagar, int idCuenta) {
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
@@ -121,6 +124,8 @@ public class PrestamoDao {
 			{
 				mDao.enviarCorreo(idPrestamo, "aprobado");
 				cargarCapitalPrestamo(idPrestamo);
+				mvDao.agregarTransferencia(mvDao.generarMovPorPrestamo(idPrestamo));
+				
 			}
 			else
 			{
