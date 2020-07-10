@@ -57,44 +57,50 @@ function ValFormatoTelFijo(){
 	TelTxt.setAttribute("pattern", "/[0-9]{10}");
 }
 
-function ValidarFormulario(){
+function CargarCliente(){
 	var datos={
-		"Dni":$("#DniID").val(),	
+		"DniName":$("#DniID").val(),
+		"NombreName":$("#NombreId").val(),
+		"ApeName":$("#ApeId").val(),
+		"NacName":$("#nacid").val(),
+		"EmailName":$("#email_id").val(),
+		"CmbProv":$("#Prov_id").val(),
+		"DirName":$("#Dire_id").val(),
+		"FechaNac":$("#fnacid").val(),
+		"CmbGen":$("#genid").val(),
+		"LocName":$("#Loc_id").val(),
+		"CliTel":$("#TelId").val(),
 	}
 	$.ajax({
 		type: "POST",
-		url:'${request.getContextPath()}/TP_L5_GRUPO_2/ValidarClienteAsync.html',
+		url:'${request.getContextPath()}/TP_L5_GRUPO_2/CargarClienteAsync.html',
 		data:datos,
 		success:function(Res){
 			if ( Res == "\"Valido\"") {
-				document.querySelector('#IdLabelDni').innerText = 'Numero De Documento';
-				document.getElementById("DniID").style.border="1px solid green";
-				$("#CargarClienteId").submit();
-				var URLsearch = window.location.search;
-				if (URLsearch == '?ClienteNuevo') {
 					Swal.fire({
 						title: 'Cliente grabado existosamente!',
 						icon: 'success',
 						showConfirmButton: true,
-						timer: 1630
+						timer:3000
 					})
-				} else {
-					Swal.fire({
-						title: 'Error al grabar cliente!',
-						icon: 'error',
-						showConfirmButton: true,
-						timer: 1630
-					})
-				}
+					location.reload();
 				  } else {
-					document.querySelector('#IdLabelDni').innerText = 'Numero De Documento: invalido este DNI ya esta registrado';
-					document.getElementById("IdLabelDni").style.color="red";
-					document.getElementById("DniID").style.border="1px solid red";
+					  if(Res == "\"InvalidoDni\""){
+						    document.querySelector('#IdLabelDni').innerText = 'Numero De Documento: invalido o ya esta registrado';
+							document.getElementById("IdLabelDni").style.color="red";
+							document.getElementById("DniID").style.border="1px solid red";
+						  }else{
+							  Swal.fire({
+									title: 'Error al grabar cliente!',
+									icon: 'error',
+									showConfirmButton: true,
+									timer: 3000
+							  })
+				  		}
 				 }
 		}
 	});
 }
-
 
 </script>
 <meta charset="ISO-8859-1">
@@ -105,7 +111,7 @@ function ValidarFormulario(){
 	<%@ include file="NavbarAdmin.html"%>
 	<!-- END NAVBAR -->
 <!-- Formulario alta -->
-<form action="CargarCliente.html" method="get" id="CargarClienteId" style="padding: 20px"> 
+<form  id="CargarClienteId" style="padding: 20px"> 
 	<input id="valId" type="hidden" value="">
 	<fieldset class="border p-2">
 	  <legend  class="w-auto">Alta Cliente</legend>
@@ -221,7 +227,7 @@ function ValidarFormulario(){
 		</div>   
 		</div>  
 		<div class="form-group text-center" > <!-- Submit Button -->
-	        <button type="button" class="btn-sm btn-success" name="BtnGrabar" onclick="return ValidarFormulario()">Grabar</button>
+	        <button type="submit" class="btn-sm btn-success" name="BtnGrabar" onclick="return CargarCliente()">Grabar</button>
 	    </div>     
 	</div>
 	</fieldset>  
