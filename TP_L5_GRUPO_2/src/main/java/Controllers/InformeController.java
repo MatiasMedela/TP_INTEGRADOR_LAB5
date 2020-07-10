@@ -51,7 +51,6 @@ public class InformeController {
 			Usuario user = userDao.buscarUsuario(IDUsuario);
 			if(user.getTipoUsu().getIdTipoUsuario() == 1) {
 				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-				InformeDao infDao = new InformeDao();
 				DateFormat formatUS = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				String StartDate = Year.now().getValue() + "-01-01 00:00:00"; 
 				String EndDate = Year.now().getValue() + "-12-31 23:59:59";

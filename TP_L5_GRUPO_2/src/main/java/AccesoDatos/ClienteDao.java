@@ -22,6 +22,9 @@ public class ClienteDao {
 	@Autowired
 	private ConfigHibernate ch;
 	
+	@Autowired
+	private UsuarioDao usuDao;
+	
 		public boolean AltaCliente(Usuario Usu ) {
 			try {
 				((ConfigurableApplicationContext)(appContext)).refresh();
@@ -89,8 +92,7 @@ public class ClienteDao {
 		    	Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 		    	configuration.configure();	
 		    	Session session = ch.abrirConexion();
-		    	session.beginTransaction();
-		    	UsuarioDao usuDao= new UsuarioDao();
+		    	session.getTransaction().begin();
 		    	Usu.setIdUsu(usuDao.buscarUsuario(Integer.valueOf(oldDniName)).getIdUsu());
 				session.update(Usu);
 				session.getTransaction().commit();

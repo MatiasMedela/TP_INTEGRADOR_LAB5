@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import Dominio.Cuenta;
 import Dominio.Usuario;
 
 public class UsuarioDao {
@@ -14,7 +13,6 @@ public class UsuarioDao {
 	private ConfigHibernate ch;
 	
 	public Usuario buscarUsuario(int DNIUser) {
-		
 		Session session = ch.abrirConexion();
 		Usuario user = (Usuario) session.createQuery("FROM Usuario as us WHERE us.Dni = '"+DNIUser+"'").uniqueResult();
 		session.close();
@@ -22,7 +20,6 @@ public class UsuarioDao {
 	}
 	
 	public Usuario buscarUsuario(String IDUsuario) {
-		
 		Session session = ch.abrirConexion();
 		Usuario user = (Usuario) session.createQuery("FROM Usuario as us WHERE us.IdUsu = '"+IDUsuario+"'").uniqueResult();
 		session.close();
@@ -31,7 +28,6 @@ public class UsuarioDao {
 	
 
 	public List<Usuario> listarUsuarios() {
-		
 		Session session = ch.abrirConexion();
 		List<Usuario> listado = (List<Usuario>) session.createQuery("FROM Usuario as us WHERE us.Estado=1").list();
 		

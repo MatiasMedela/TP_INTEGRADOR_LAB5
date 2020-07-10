@@ -19,6 +19,9 @@
 		<property name="prefix" value="WEB-INF/Vistas/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+	
+	<!-- BEAN CONFIGURACION HIBERNATE -->
+	<bean id="BConfigHibernate" scope="singleton" class="AccesoDatos.ConfigHibernate"/>
 		
 	<!-- BEAN MOVIMIENTO NEGOCIO -->
 	<bean id="BMovimientoN" scope="singleton" class="Negocio.MovimientoNegocio"/>
@@ -70,9 +73,6 @@
 	
 	<!-- BEAN CUOTA DAO -->
 	<bean id="BCuotaDao" scope="singleton" class="AccesoDatos.CuotaDao"/>
-	
-	<!-- BEAN CONFIGURACION HIBERNATE -->
-	<bean id="BConfigHibernate" scope="singleton" class="AccesoDatos.ConfigHibernate"/>
 			
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 

@@ -15,7 +15,6 @@ public class InformeDao {
 	private ConfigHibernate ch;
 	
 		public ArrayList<String> informePrestamos(Date FechaInicio, Date FechaFinal) {
-			ConfigHibernate ch = new ConfigHibernate();
 			Session session = ch.abrirConexion();				
 			ArrayList<String> informe = (ArrayList<String>) appContext.getBean("ArrayList");
 			String PresAutorizados = (String) session.createQuery("SELECT count(p) FROM Prestamo as p "
