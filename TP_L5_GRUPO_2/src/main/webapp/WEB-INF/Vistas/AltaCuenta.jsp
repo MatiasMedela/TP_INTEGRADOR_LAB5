@@ -186,6 +186,7 @@ var table = $('#TableCuentasAll').DataTable();
 						if(result.value){
 							var tipoC = $("#cuentaSelect").val();
 							var aliasGenerado = $("#aliasCuenta").html();
+							$('html, body').css("cursor", "wait");
 							$.ajax({
 								url: '${request.getContextPath()}/TP_L5_GRUPO_2/crearCuentaAsync.html',
 								type: 'POST',
@@ -193,6 +194,7 @@ var table = $('#TableCuentasAll').DataTable();
 						        		dniCliente: dni,
 						        		alias: aliasGenerado},
 								success: function(data){
+									$('html, body').css("cursor", "auto");
 									if(data == "\"Exitoso\""){
 										Swal.fire({
 											icon: "success",
