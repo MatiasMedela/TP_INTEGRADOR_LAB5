@@ -97,47 +97,6 @@ function ValFormatoTelFijo(){
 	TelTxt.setAttribute("pattern", "/[0-9]{10}");
 }
 
-function ValidarFormulario(){
-	var datos={
-		"Dni":$("#DnieditId").val(),
-		"DniAnt":$("#IdOldDniName").val(),
-	}
-	$.ajax({
-		type: "POST",
-		url:'${request.getContextPath()}/TP_L5_GRUPO_2/ValidarModClienteAsync.html',
-		data:datos,
-		success:function(Res){
-			if ( Res == "\"Valido\"") {
-				document.querySelector('#IdLabelDni').innerText = 'Numero De Documento';
-				document.getElementById("DnieditId").style.border="1px solid green";
-				$("#ModificarClienteId").submit();
-				var URLsearch = window.location.search;
-				if (URLsearch == '?EliminarCliente') {
-					Swal.fire({
-						title: 'Cliente grabado existosamente!',
-						icon: 'success',
-						showConfirmButton: true,
-						timer:3000
-					})
-					$('#ModalEditarCliente').modal('hide')
-				} else {
-					Swal.fire({
-						title: 'Error al grabar cliente!',
-						icon: 'error',
-						showConfirmButton: true,
-						timer: 3000
-					})
-					$('#ModalEditarCliente').modal('hide')
-				}
-				  } else {
-					document.querySelector('#IdLabelDni').innerText = 'Numero De Documento: invalido este DNI ya esta registrado';
-					document.getElementById("IdLabelDni").style.color="red";
-					document.getElementById("DnieditId").style.border="1px solid red";
-				 }
-		}
-	});
-}
-
 //con esta funcion pasamos los paremtros a los text del modal.
   function selCliente(Cadena){
 	 var array=Cadena.split(",");
@@ -188,7 +147,7 @@ function ValidarFormulario(){
 			  cancelButtonText: "Cancelar",
 			  reverseButtons: true,
 			  cancelButtonColor: '#3085d6',
-			  confirmButtonText: 'Baja'
+			  confirmButtonText: 'Baja',
 			}).then((result) => {
 			  if (result.value) {
 				  $.ajax({
@@ -230,7 +189,6 @@ function PasarDniAlta(dni){
 			  confirmButtonColor: '#008000',
 			  cancelButtonColor: '#3085d6',
 			  confirmButtonText: 'Alta',
-		      
 			}).then((result) => {
 			  if (result.value) {
 				  $.ajax({
@@ -243,11 +201,8 @@ function PasarDniAlta(dni){
 										  'Cliente dado de alta exitosamente!',
 									      'Cliente dado de alta.',
 									      'success'
-									    ).then(()=>{
-									    	location.reload();
-									    })
-								   
-								
+									    )
+								document.location.href = "/TP_L5_GRUPO_2/redirecNavBarAdmin.html?ListarClientes"
 								  } else {
 									  Swal.fire({
 										  icon: 'error',
@@ -259,6 +214,53 @@ function PasarDniAlta(dni){
 					});	
 			     }
 			})		
+}
+
+function ModificarCliente(){
+	var datos={
+			"DniEditName":$("#DnieditId").val(),
+			"OldDniName":$("#IdOldDniName").val(),
+			"NomEditName":$("#NomEditId").val(),
+			"ApeEditName":$("#ApeEditId").val(),
+			"NacEditName":$("#NacEditId").val(),
+			"EmailEditName":$("#EmailEditId").val(),
+			"ProvEditName":$("#Prov_id").val(),
+			"DirEditName":$("#Dire_id").val(),
+			"FnacEditName":$("#FnacEditId").val(),
+			"GenEditName":$("#GenEditId").val(),
+			"LocEditName":$("#Loc_id").val(),
+			"TelEditName":$("#TelEditId").val(),
+		}
+		$.ajax({
+			type: "POST",
+			url:'${request.getContextPath()}/TP_L5_GRUPO_2/ModificarClienteAsync.html',
+			data:datos,
+			success:function(Res){
+				if ( Res == "\"Valido\"") {
+						Swal.fire({
+							title: 'Cliente modificado existosamente!',
+							icon: 'success',
+							showConfirmButton: true
+						}).then((result) => {
+							  if (result.value) {
+								   location.reload();
+								  }
+								})
+				 } else {
+						 if(Res == "\"InvalidoDni\""){
+							    document.querySelector('#IdLabelDni').innerText = 'Numero De Documento: invalido o ya esta registrado';
+								document.getElementById("IdLabelDni").style.color="red";
+								document.getElementById("DnieditId").style.border="1px solid red";
+							  }else{
+								  Swal.fire({
+										title: 'Error al modificar cliente!',
+										icon: 'error',
+										showConfirmButton: true,
+								  })
+					  			}
+				    }
+			}
+	     });
 }
     </script>
 <title></title>
@@ -460,24 +462,13 @@ function PasarDniAlta(dni){
 </div>
  	<div class="modal-footer">
 	     <button type="button" class="btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
-		 <button type="button" class="btn-sm btn-success" name="BtnGrabar" onclick="return ValidarFormulario()">Grabar</button>		
+		 <button type="button" class="btn-sm btn-success" name="BtnGrabar" onclick="return ModificarCliente()">Grabar</button>		
       </div>
       </form>
       </div>
     </div>
   </div>
 </div>  
-<!-- modal Editar cliente  -->
-
-<!-- form Dar de baja cliente  -->
-<form action="RedireccionarDarDeBajaCliente.html" method="post" id="BajaClienteId" accept-charset=utf-8>
-     <input type="hidden" class="form-control" name="TxtBajaClientName"id="IdTxtBajaClient" value=""/>	
-</form>
-<!-- form Dar de alta cliente  -->
- <form action="RedireccionarDarDeAltaCliente.html" method="post" id="AltaClienteId" accept-charset=utf-8>
-     <input type="hidden" class="form-control" name="TxtAltaClientName"id="IdTxtAltaClient" value=""/>
- </form>
-
-
+<!-- fin modal Editar cliente  -->
 </body>
 </html>
