@@ -20,6 +20,7 @@ import AccesoDatos.ClienteDao;
 import AccesoDatos.GeneroDao;
 import AccesoDatos.LocalidadDao;
 import AccesoDatos.LogueoDao;
+import AccesoDatos.ProvinciaDao;
 import AccesoDatos.TipoUsuarioDao;
 import AccesoDatos.UsuarioDao;
 import Dominio.Logueo;
@@ -45,6 +46,8 @@ public class ClienteController {
 	private LogueoDao LogDao;
 	@Autowired
 	private ClienteNegocio CliNeg;
+	@Autowired
+	private ProvinciaDao provDao;
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ClienteNuevo"})
 	public ModelAndView redirecAltaCliente(HttpServletRequest request) {
@@ -55,6 +58,7 @@ public class ClienteController {
 				String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 				Usuario user = userDao.buscarUsuario(IDUsuario);
 				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+				MV.addObject("ProvinciasList", provDao.ListProvincias());
 				MV.addObject("LocalidadesList", locdao.ListLocalidades());
 				MV.setViewName("AltaCliente");
 			}
@@ -80,6 +84,7 @@ public class ClienteController {
 				Usuario user = userDao.buscarUsuario(IDUsuario);
 				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
 				MV.addObject("LocalidadesList", locdao.ListLocalidades());
+				MV.addObject("ProvinciasList", provDao.ListProvincias());
 				MV.addObject("ClientesList", Clidao.ListarClientes());
 				MV.setViewName("ListarClientes");
 			}

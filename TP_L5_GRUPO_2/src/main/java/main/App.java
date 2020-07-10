@@ -702,20 +702,20 @@ public class App {
     	Localidad local73 = (Localidad) appContext.getBean("BLocalidad");
     	local73.setIdLocalidad(73);
     	local73.setProvLoc(prov15);
-    	local73.setLocNombre("HOSTERIA KAIKEN");
-    	local73.setCodigoPostal("9410");
+    	local73.setLocNombre("YERBA BUENA");
+    	local73.setCodigoPostal("4000");
     	
     	Localidad local74 = (Localidad) appContext.getBean("BLocalidad");
     	local74.setIdLocalidad(74);
     	local74.setProvLoc(prov15);
-    	local74.setLocNombre("HOSTERIA KAIKEN");
-    	local74.setCodigoPostal("9410");
+    	local74.setLocNombre("CONCEPCIÓN");
+    	local74.setCodigoPostal("4000");
     	
     	Localidad local75 = (Localidad) appContext.getBean("BLocalidad");
     	local75.setIdLocalidad(75);
     	local75.setProvLoc(prov15);
-    	local75.setLocNombre("HOSTERIA KAIKEN");
-    	local75.setCodigoPostal("9410");
+    	local75.setLocNombre("TAFÍ DEL VALLE");
+    	local75.setCodigoPostal("4000");
     	
     	
     	session.save(local1);

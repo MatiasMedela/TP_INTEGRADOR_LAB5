@@ -418,31 +418,10 @@ function ModificarCliente(){
 		    <div class="form-group"> <!-- Provincia -->
 		        <label for="state_id" class="control-label">Provincia</label>
 		        <select class="form-control form-control-sm" id="Prov_id" name="ProvEditName" required>
-		        	<option value="-1" selected disabled>--Provincia--</option> 
-		            <option value="2">Buenos Aires</option>
-		            <option value="1">Ciudad Autonoma De Buenos Aires</option>
-		            <option value="15">Tucuman</option>
-		            <option value="6">Entre Rios</option>
-		            <option value="19">Misiones</option>
-		            <option value="18">Formosa</option>
-		            <option value="5">Corrientes</option>
-		            <option value="13">Santa Fe</option>
-		            <option value="4">Cordoba</option>
-		            <option value="7">Jujuy</option>
-		            <option value="17">Chubut</option>
-		            <option value="24">Tierra Del Fuego</option>
-		            <option value="20">Neuquen</option>
-		            <option value="16">Chaco</option>
-		            <option value="11">San Juan</option>
-		            <option value="12">San Luis</option>
-		            <option value="21">La Pampa</option>
-		            <option value="23">Santa Cruz</option>
-		            <option value="22">Rio Negro</option>
-		            <option value="10">Salta</option>
-		            <option value="3">Catamarca</option>
-		            <option value="9">La Rioja</option>
-		            <option value="14">Santiago Del Estero</option>
-		            <option value="8">Mendoza</option>
+			        	<option value="-1" selected disabled>--Provincia--</option> 
+			         <c:forEach items="${ProvinciasList}" var="Prov">
+				           <option value="${Prov.getIdProvincia()}">${Prov.getProvNombre()}</option>
+			         </c:forEach>
 		        </select>                    
 		    </div> 
 		   

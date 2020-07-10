@@ -73,6 +73,9 @@
 	
 	<!-- BEAN CUOTA DAO -->
 	<bean id="BCuotaDao" scope="singleton" class="AccesoDatos.CuotaDao"/>
+	
+	<!-- BEAN PROVINCIA DAO -->
+	<bean id="BProvinciaDao" scope="singleton" class="AccesoDatos.ProvinciaDao"/>
 			
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
