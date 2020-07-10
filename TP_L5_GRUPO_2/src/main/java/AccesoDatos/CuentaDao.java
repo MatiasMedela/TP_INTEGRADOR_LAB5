@@ -157,6 +157,7 @@ public class CuentaDao {
 		res = Integer.parseInt(c) +1;
 		fmt.format("%022d",res);
 		fn = fmt.toString();
+		fmt.close();
     	session.close();
     	return fn;
 	}

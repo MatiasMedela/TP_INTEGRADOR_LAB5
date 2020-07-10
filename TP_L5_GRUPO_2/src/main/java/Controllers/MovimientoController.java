@@ -3,6 +3,8 @@ package Controllers;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,11 +13,12 @@ import AccesoDatos.CuentaDao;
 import AccesoDatos.MovimientoDao;
 import AccesoDatos.UsuarioDao;
 import Dominio.Usuario;
-import Negocio.CuentaNegocio;
 
 @Controller
 public class MovimientoController {
 
+	ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
+	
 	@Autowired
 	private MovimientoDao movN;
 	
@@ -27,7 +30,7 @@ public class MovimientoController {
 	
 	@RequestMapping("listarMovimientosCuenta.html")
 	public ModelAndView redirecMovimientosCuenta(String CbuCuenta, String AliasCuenta, HttpServletRequest request) {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		if(request.getSession().getAttribute("IDUsuario") !=null) {			
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);

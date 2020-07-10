@@ -68,11 +68,9 @@ public class PrestamoDao {
 	}
 	
 	
-	public List<Object[]> listarPrestamosUsuario(int IDUsuario) {
-		
+	public List<Object[]> listarPrestamosUsuario(int IDUsuario) {	
 		Session session = ch.abrirConexion();
-		
-		ArrayList<Object[]> listado = new ArrayList<Object[]>();
+		ArrayList<Object[]> listado = (ArrayList<Object[]>) appContext.getBean("ArrayList");
 		try {
 			listado = (ArrayList<Object[]>) session.createQuery("SELECT c.alias, p.importeTotal, p.montoPagar, concat(sum(case when cu.pagada=true then 1 else 0 end),'/',p.cantidadMeses), (p.montoPagar - (sum(case when cu.pagada=true then 1 else 0 end)*(p.montoPagar/p.cantidadMeses))), p.idPrestamo "
 															  + "FROM Cuota cu RIGHT JOIN cu.prestamo as p LEFT JOIN p.cbu as c "

@@ -26,9 +26,6 @@
 	<!-- BEAN MOVIMIENTO DAO  -->
 	<bean id="BMovimientoDao" scope="singleton" class="AccesoDatos.MovimientoDao"/>
 	
-	<!-- BEAN CUENTA NEGOCIO -->
-	<bean id="BCuentaN" scope="singleton" class="Negocio.CuentaNegocio"/>
-	
 	<!-- BEAN CUENTA DAO -->
 	<bean id="BCuentaDao" scope="singleton" class="AccesoDatos.CuentaDao"/>
 	

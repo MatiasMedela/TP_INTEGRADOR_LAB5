@@ -17,14 +17,11 @@ import AccesoDatos.CuentaDao;
 import AccesoDatos.TipoCuentaDao;
 import AccesoDatos.UsuarioDao;
 import Dominio.Usuario;
-import Negocio.CuentaNegocio;
 
 @Controller
 public class CuentaController {
 
 	ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
-	@Autowired
-	private CuentaNegocio cuentaN;
 	
 	@Autowired
 	private CuentaDao cuentaDao;
@@ -42,7 +39,7 @@ public class CuentaController {
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
 			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("listadoCuentasUsuario", cuentaN.CuentaUsuario(IDUsuario));		
+			MV.addObject("listadoCuentasUsuario", cuentaDao.CuentaUsuario(IDUsuario));		
 			MV.setViewName("index");
 		}
 		else {

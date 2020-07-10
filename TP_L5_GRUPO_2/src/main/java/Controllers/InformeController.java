@@ -14,6 +14,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +32,8 @@ import Dominio.Usuario;
 @Controller
 public class InformeController {
 	
+	ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
+	
 	@Autowired
 	private MovimientoDao movDao;
 	
@@ -41,7 +45,7 @@ public class InformeController {
 	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"informes"})
 	public ModelAndView redirecInformes(HttpServletRequest request) throws ParseException {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		if(request.getSession().getAttribute("IDUsuario") !=null) {			
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
@@ -77,7 +81,7 @@ public class InformeController {
 	
 	@RequestMapping(value="filtrarInforme.html")
 	public ModelAndView filtrarFechas(String startDate, String endDate, String anioSelect) throws ParseException {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 		Date sDate = format.parse(startDate);
 		Date eDate = format.parse(endDate);
@@ -105,7 +109,7 @@ public class InformeController {
 	
 	public List<String[]> filtrarTransferenciasAnio(int anio){
 		ArrayList<Object[]> informeTransferencias = movDao.transferenciasxMes(anio);
-		ArrayList<String[]> informeMeses = new ArrayList<String[]>();
+		ArrayList<String[]> informeMeses = (ArrayList<String[]>) appContext.getBean("ArrayList");
 		Integer mes = 1;
 		int count = 0;
 		for (int i = 1; i <= 12; i++) {

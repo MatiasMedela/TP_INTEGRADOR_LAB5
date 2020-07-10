@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <link rel="stylesheet"
@@ -58,17 +59,16 @@
 				</tr>
 			</thead>
 			<tbody>
-										<c:forEach items="${ listadoPrestamosAdm}" var="prestamo" varStatus="loop">			
+				<c:forEach items="${ listadoPrestamosAdm}" var="prestamo" varStatus="loop">			
 					<tr>
 						<td id="Nombre${loop.index}">${prestamo.getUsuario().getNombre()} ${prestamo.getUsuario().getApellido()}</td>
 						<td id="Tipo${loop.index}">${prestamo.getCbu().getTipoCuenta().descripcion}</td>
-						<td id="ImporteSol${loop.index}">${prestamo.importeTotal}</td>
-						<td id="ImporteFinal${loop.index}">${prestamo.montoPagar}</td>
+						<td id="ImporteSol${loop.index}">$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${prestamo.importeTotal}"/></td>
+						<td id="ImporteFinal${loop.index}">$ <fmt:formatNumber type="number" maxFractionDigits="2" value="${prestamo.montoPagar}"/></td>
 						<td id="Meses${loop.index}">${prestamo.cantidadMeses}</td>
-						<td id="FechaSol${loop.index}">${prestamo.fechaSolicitud}</td>
-						<td id="FechaSol${loop.index}">${prestamo.fechaResolucion}</td>
-						<td id="Estado${loop.index}">${prestamo.estado.descripcion}</td>
-						
+						<td id="FechaSol${loop.index}"><fmt:formatDate type="date" dateStyle="short" value="${prestamo.fechaSolicitud}"/></td>
+						<td id="FechaSol${loop.index}"><fmt:formatDate type="date" dateStyle="short" value="${prestamo.fechaResolucion}"/></td>
+						<td id="Estado${loop.index}">${prestamo.estado.descripcion}</td>	
 					</tr>						
 				</c:forEach>	
 			</tbody>

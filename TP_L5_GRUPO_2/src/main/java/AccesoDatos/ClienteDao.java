@@ -21,19 +21,17 @@ public class ClienteDao {
 	
 	@Autowired
 	private ConfigHibernate ch;
+	
 		public boolean AltaCliente(Usuario Usu ) {
 			try {
 				((ConfigurableApplicationContext)(appContext)).refresh();
 		    	Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 		    	configuration.configure();	
-		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
-		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-		    	Session session = sessionFactory.openSession();
+		    	Session session = ch.abrirConexion();
 		    	session.beginTransaction();
 				session.save(Usu);
 				session.getTransaction().commit();
 				session.close();
-				sessionFactory.close();
 				 return true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -46,15 +44,12 @@ public class ClienteDao {
 					((ConfigurableApplicationContext)(appContext)).refresh();
 					Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 			    	configuration.configure();	
-			    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
-			    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-			    	Session session = sessionFactory.openSession();
-			    	session.beginTransaction();
+			    	Session session = ch.abrirConexion();
+			    	session.getTransaction().begin();
 			    	Query query=session.createQuery("UPDATE Usuario L set L.Estado=0 where L.Dni="+dni);
 					int result = query.executeUpdate();
 					session.getTransaction().commit();
 					session.close();
-					sessionFactory.close();
 			    	if (result==1) {
 						return true;
 					} else {
@@ -71,15 +66,12 @@ public class ClienteDao {
 				((ConfigurableApplicationContext)(appContext)).refresh();
 				Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 		    	configuration.configure();	
-		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
-		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-		    	Session session = sessionFactory.openSession();
+		    	Session session = ch.abrirConexion();
 		    	session.beginTransaction();
 		    	Query query=session.createQuery("UPDATE Usuario L set L.Estado=1 where L.Dni="+dni);
 				int result = query.executeUpdate();
 				session.getTransaction().commit();
 				session.close();
-				sessionFactory.close();
 		    	if (result==1) {
 					return true;
 				} else {
@@ -96,16 +88,13 @@ public class ClienteDao {
 				((ConfigurableApplicationContext)(appContext)).refresh();
 		    	Configuration configuration = (Configuration) appContext.getBean("BConfiguration");
 		    	configuration.configure();	
-		    	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
-		    	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-		    	Session session = sessionFactory.openSession();
+		    	Session session = ch.abrirConexion();
 		    	session.beginTransaction();
 		    	UsuarioDao usuDao= new UsuarioDao();
 		    	Usu.setIdUsu(usuDao.buscarUsuario(Integer.valueOf(oldDniName)).getIdUsu());
 				session.update(Usu);
 				session.getTransaction().commit();
 				session.close();
-				sessionFactory.close();
 				 return true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -116,16 +105,17 @@ public class ClienteDao {
 		@SuppressWarnings("unchecked")
 		public List<Usuario> ListarClientes() {
 			List<Usuario> ListLoc = null;
+			Session session = ch.abrirConexion();
 			try {
-				
-				Session session = ch.abrirConexion();
-				Query query=session.createQuery("SELECT L FROM Usuario L");
-				ListLoc = query.list();
-		    	session.close();
+				ListLoc	= (List<Usuario>) session.createQuery("FROM Usuario").list();
 			    return ListLoc;	
 			} catch (Exception e) {
+				e.printStackTrace();
 				return ListLoc;
-			}	 
+			}
+			finally {
+				session.close();				
+			}
 		}
 		
 		public Usuario BuscarUsuarioXIdLog(Logueo l ) {

@@ -23,7 +23,6 @@ public class MovimientoNegocio {
 	
 	@Autowired
 	private TipoMovimientoDao tipoMovDao;
-
 	
 	public boolean nuevaTransferencia(int cuentaDestino, int cuentaOrigen, String importe, String motivo) {
 		Movimiento nuevo = (Movimiento) appContext.getBean("BMovimiento");

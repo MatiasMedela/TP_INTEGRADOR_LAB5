@@ -74,7 +74,7 @@ public class PrestamoController {
 	
 	@RequestMapping(value="cargarPrestamo.html")
 	public ModelAndView cargarPrestamo(String idCuenta, String importe, String meses, String importeAPagar) {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		try {
 			prestDao.cargarPrestamo(Float.parseFloat(importe), Integer.parseInt(meses), Float.parseFloat(importeAPagar), Integer.parseInt(idCuenta));
 			MV.addObject("prestamo", "Exito");
@@ -89,7 +89,7 @@ public class PrestamoController {
 	
 	@RequestMapping(value="solicitarPrestamo.html")
 	public ModelAndView redirecNuevaTrans(HttpServletRequest request) {
-		ModelAndView MV = new ModelAndView();
+		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		if(request.getSession().getAttribute("IDUsuario") != null) {
 			String IDUsuario = (String) request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);

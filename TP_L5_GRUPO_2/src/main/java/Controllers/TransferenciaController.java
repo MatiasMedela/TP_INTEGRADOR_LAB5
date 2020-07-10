@@ -18,14 +18,11 @@ import AccesoDatos.MovimientoDao;
 import AccesoDatos.UsuarioDao;
 import Dominio.Cuenta;
 import Dominio.Usuario;
-import Negocio.CuentaNegocio;
 import Negocio.MovimientoNegocio;
 
 @Controller
 public class TransferenciaController {
 	ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
-	@Autowired
-	private CuentaNegocio cuentaN;
 	
 	@Autowired
 	private MovimientoNegocio movN;
@@ -62,7 +59,7 @@ public class TransferenciaController {
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
 			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("cuentasUsuario",cuentaN.CuentaUsuario(IDUsuario));
+			MV.addObject("cuentasUsuario",cuentaDao.CuentaUsuario(IDUsuario));
 			MV.setViewName("nuevaTransferencia");
 		}
 		else {
@@ -78,7 +75,7 @@ public class TransferenciaController {
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
 			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("cuentasUsuario",cuentaN.CuentaUsuario(IDUsuario));
+			MV.addObject("cuentasUsuario",cuentaDao.CuentaUsuario(IDUsuario));
 			MV.setViewName("nuevaTransferenciaTerceros");
 		}
 		else {

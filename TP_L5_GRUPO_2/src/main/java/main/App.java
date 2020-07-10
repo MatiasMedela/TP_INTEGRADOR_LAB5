@@ -1045,7 +1045,7 @@ public class App {
     	cuenta1.setCbu(1);
     	cuenta1.setAlias("GeneralPacheco2020");
     	cuenta1.setUsuario(usuario4);
-    	cuenta1.setSaldo(10000);
+    	cuenta1.setSaldo(72500);
     	cuenta1.setEstado(true);
     	
     	Cuenta cuenta2 = (Cuenta) appContext.getBean("BCuenta");
@@ -1055,7 +1055,7 @@ public class App {
     	cuenta2.setCbu(2);
     	cuenta2.setAlias("GeneralPacheco202");
     	cuenta2.setUsuario(usuario4);
-    	cuenta2.setSaldo(10000);
+    	cuenta2.setSaldo(4000);
     	cuenta2.setEstado(true);
     	
     	Cuenta cuenta3 = (Cuenta) appContext.getBean("BCuenta");
@@ -1065,7 +1065,7 @@ public class App {
     	cuenta3.setCbu(3);
     	cuenta3.setAlias("WinterGarden2012");
     	cuenta3.setUsuario(usuario5);
-    	cuenta3.setSaldo(10000);
+    	cuenta3.setSaldo(48500);
     	cuenta3.setEstado(true);
     	
     	Cuenta cuenta4 = (Cuenta) appContext.getBean("BCuenta");
@@ -1075,7 +1075,7 @@ public class App {
     	cuenta4.setCbu(4);
     	cuenta4.setAlias("WinterGarden2013");
     	cuenta4.setUsuario(usuario5);
-    	cuenta4.setSaldo(10000);
+    	cuenta4.setSaldo(5000);
     	cuenta4.setEstado(true);
     	
     	Cuenta cuenta5 = (Cuenta) appContext.getBean("BCuenta");
@@ -1085,7 +1085,7 @@ public class App {
     	cuenta5.setCbu(5);
     	cuenta5.setAlias("LaRalde3256");
     	cuenta5.setUsuario(usuario6);
-    	cuenta5.setSaldo(10000);
+    	cuenta5.setSaldo(90000);
     	cuenta5.setEstado(true);
     	
     	Cuenta cuenta6 = (Cuenta) appContext.getBean("BCuenta");
@@ -1267,7 +1267,7 @@ public class App {
     	movimiento16.setCuentaOrigen(cuenta4);
     	movimiento16.setCuentaDestino(cuenta5);
     	movimiento16.setFecha(format.parse("2020-04-25 00:00:00"));
-    	movimiento16.setImporte(25600);
+    	movimiento16.setImporte(5000);
   	
     	session.save(movimiento1);
     	session.save(movimiento2);

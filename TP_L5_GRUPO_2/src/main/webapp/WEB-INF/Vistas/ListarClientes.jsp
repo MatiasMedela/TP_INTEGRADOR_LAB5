@@ -1,7 +1,5 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,38 +33,38 @@
 $(document).ready(
 		function() {
 			$('#TClientes').DataTable(
-							{
-								"searching": true,
-								"dom" : '<"pull-left"f><"pull-right"l>rt<"pull-left"i><"pull-right"p>',
-								sPaginationType : "full_numbers",
-								bProcessing : true,
-								bAutoWidth : true,
-								"lengthMenu": [[10,25, 50,100, -1], [10,25, 50,100, "All"]],
-								language : {
-									decimal : "",
-									emptyTable : "No se han encontrado registros",
-									infoEmpty : "Mostrando desde el 0 al 0 del total de  0 registros",
-									infoFiltered : "(Filtrados del total de _MAX_ registros)",
-									infoPostFix : "",
-									thousands : ",",
-									lengthMenu : "Mostrar _MENU_ registros por página",
-									loadingRecords : "Cargando...",
-									processing : "Procesando...",
-									search : "Buscar registro:",
-									zeroRecords : "No se han encontrado registros",
-									info : "Mostrando desde el _START_ al _END_ del total de _TOTAL_ registros",
-									paginate : {
-										first : "Primera",
-										last : "Última",
-										next : "Siguiente",
-										previous : "Anterior"
-									},
-									aria : {
-										sortAscending : ": activate to sort column ascending",
-										sortDescending : ": activate to sort column descending"
-									}
-								}
-							});
+				{
+					"searching": true,
+					"dom" : '<"pull-left"f><"pull-right"l>rt<"pull-left"i><"pull-right"p>',
+					sPaginationType : "full_numbers",
+					bProcessing : true,
+					bAutoWidth : true,
+					"lengthMenu": [[10,25, 50,100, -1], [10,25, 50,100, "All"]],
+					language : {
+						decimal : "",
+						emptyTable : "No se han encontrado registros",
+						infoEmpty : "Mostrando desde el 0 al 0 del total de  0 registros",
+						infoFiltered : "(Filtrados del total de _MAX_ registros)",
+						infoPostFix : "",
+						thousands : ",",
+						lengthMenu : "Mostrar _MENU_ registros por página",
+						loadingRecords : "Cargando...",
+						processing : "Procesando...",
+						search : "Buscar registro:",
+						zeroRecords : "No se han encontrado registros",
+						info : "Mostrando desde el _START_ al _END_ del total de _TOTAL_ registros",
+						paginate : {
+							first : "Primera",
+							last : "Última",
+							next : "Siguiente",
+							previous : "Anterior"
+						},
+						aria : {
+							sortAscending : ": activate to sort column ascending",
+							sortDescending : ": activate to sort column descending"
+						}
+					}
+				});
 					 });
 					 
 $(document).ready(function(){
@@ -140,8 +138,6 @@ function ValidarFormulario(){
 	});
 }
 
-</script>
-<script type="text/javascript">
 //con esta funcion pasamos los paremtros a los text del modal.
   function selCliente(Cadena){
 	 var array=Cadena.split(",");
@@ -179,50 +175,88 @@ function ValidarFormulario(){
 	 document.getElementById('EmailEditId').value=array[8];
 	 document.getElementById('TelEditId').value=array[9];
  };
+ 
  function PasarDniBaja(dni){
-	 document.getElementById('IdTxtBajaClient').value=dni;
-	 Swal.fire({
-		  title: '¿Esta seguro de dar de alta este cliente?',
-		  icon: 'warning',
-		  showCancelButton: true,
-		  confirmButtonColor: '#d33',
-		  cancelButtonText: "Cancelar",
-		  reverseButtons: true,
-		  cancelButtonColor: '#3085d6',
-		  confirmButtonText: 'Baja'
-		}).then((result) => {
-		  if (result.value) {
-		    Swal.fire(
-		      'Cliente dado de baja exitosamente!',
-			  'Cliente dado de baja.',
-		      'success'
-		    )
-		    $("#BajaClienteId").submit();
-		  }
-		})
-		
+		var datos={
+				"Dni":dni,	
+			}
+		Swal.fire({
+			  title: '¿Esta seguro de dar de baja este cliente?',
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#d33',
+			  cancelButtonText: "Cancelar",
+			  reverseButtons: true,
+			  cancelButtonColor: '#3085d6',
+			  confirmButtonText: 'Baja'
+			}).then((result) => {
+			  if (result.value) {
+				  $.ajax({
+						type: "POST",
+						url:'${request.getContextPath()}/TP_L5_GRUPO_2/DarDeBajaClienteAsync.html',
+						data:datos,
+						success:function(Res){
+							if ( Res == "\"Valido\"") {
+								Swal.fire(
+									      'Cliente dado de baja exitosamente!',
+										  'Cliente dado de baja.',
+									      'success'
+									    ).then(() =>{
+											location.reload();									    	
+									    })
+								  } else {
+									  Swal.fire({
+										  icon: 'error',
+										  title: 'Oops...',
+										  text: 'Error del servidor',
+										})
+								 	}
+							}
+					});	
+			     }
+			})		
 }
- function PasarDniAlta(dni){
-	 document.getElementById('IdTxtAltaClient').value=dni;	
-	 Swal.fire({
-		  title: '¿Esta seguro de dar de alta este cliente?',
-		  icon: 'warning',
-		  showCancelButton: true,
-		  cancelButtonText: "Cancelar",
-		  reverseButtons: true,
-		  confirmButtonColor: '#008000',
-		  cancelButtonColor: '#3085d6',
-		  confirmButtonText: 'Alta' 
-		}).then((result) => {
-		  if (result.value) {
-			  Swal.fire(
-		      'Cliente dado de alta exitosamente!',
-		      'Cliente dado de alta.',
-		      'success'
-		    )
-		    $("#AltaClienteId").submit();
-		  }
-		})
+
+function PasarDniAlta(dni){
+	 var datos={
+				"Dni":dni,	
+			}
+		Swal.fire({
+			  title: '¿Esta seguro de dar de alta este cliente?',
+			  icon: 'warning',
+			  showCancelButton: true,
+			  cancelButtonText: "Cancelar",
+			  reverseButtons: true,
+			  confirmButtonColor: '#008000',
+			  cancelButtonColor: '#3085d6',
+			  confirmButtonText: 'Alta',
+		      timer:3000 
+			}).then((result) => {
+			  if (result.value) {
+				  $.ajax({
+						type: "POST",
+						url:'${request.getContextPath()}/TP_L5_GRUPO_2/DarDeAltaClienteAsync.html',
+						data:datos,
+						success:function(Res){
+							if ( Res == "\"Valido\"") {
+								Swal.fire(
+										  'Cliente dado de alta exitosamente!',
+									      'Cliente dado de alta.',
+									      'success'
+									    )
+									    alert('estoy por recargar');
+								document.location.href = "/TP_L5_GRUPO_2/redirecNavBarAdmin.html?ListarClientes"
+								  } else {
+									  Swal.fire({
+										  icon: 'error',
+										  title: 'Oops...',
+										  text: 'Error del servidor',
+										})
+								 	}
+							}
+					});	
+			     }
+			})		
 }
     </script>
 <title></title>
@@ -275,14 +309,14 @@ function ValidarFormulario(){
 				</td>
 		     	<td class="text-center">
 					<c:choose>
-					    <c:when test="${Cliente.isEstado()==true}">
+					    <c:when test="${Cliente.isEstado()}">
 						    <input type="submit" class="btn-sm btn-success btn-grid-action" name="BtnBajaClie" 
 					     	value="Alta" data-toggle="modal" data-target="#ModalBajaCliente" onclick="PasarDniBaja(${ Cliente.getDni()})"/>
 					    </c:when>    
-					    <c:otherwise>
+					    <c:when test="${!Cliente.isEstado()}">
 					       <input type="submit" class="btn-sm  btn-danger btn-grid-action" name="BtnAltaClie" 
 		     				value="Baja" data-toggle="modal" data-target="#ModalAltaCliente" onclick="PasarDniAlta(${ Cliente.getDni()})"/>
-					    </c:otherwise>
+					    </c:when>
 					</c:choose>
 		     	</td>
 			 </tr>
