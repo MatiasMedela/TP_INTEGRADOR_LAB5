@@ -1355,30 +1355,24 @@ public class App {
     	
     	//----------------------------------------------------------------
     	/*--CARGO DATOS EN LA TABLA CUOTAS--*/
-    	int ID = 1;
     	for(int x = 6; x<9; x++) {
     		Cuota cuota = (Cuota) appContext.getBean("BCuota");
-    		cuota.setNumeroCuota(ID);
     		cuota.setPrestamo(prestamo1);
     		cuota.setFechaVencimiento(format.parse("2020-0" + x + "-25 00:00:00"));
     		cuota.setPagada(false);
-    		ID++;
     		session.save(cuota);
     	}
     	
     	for(int x = 6; x<9; x++) {
     		Cuota cuota1 = (Cuota) appContext.getBean("BCuota");
-    		cuota1.setNumeroCuota(ID);
     		cuota1.setPrestamo(prestamo2);
     		cuota1.setFechaVencimiento(format.parse("2020-0" + x + "-25 00:00:00"));
     		cuota1.setPagada(false);
-    		ID++;
     		session.save(cuota1);
     	}
     	
     	for(int x = 4; x<16; x++) {
     		Cuota cuota2 = (Cuota) appContext.getBean("BCuota");
-    		cuota2.setNumeroCuota(ID);
     		cuota2.setPrestamo(prestamo4);
     		if(x <= 12) {
     			cuota2.setFechaVencimiento(format.parse("2020-0" + x + "-25 00:00:00"));    			
@@ -1386,7 +1380,6 @@ public class App {
     			cuota2.setFechaVencimiento(format.parse("2021-0" + (x-12) + "-25 00:00:00"));   
     		}
     		cuota2.setPagada(false);
-    		ID++;
     		session.save(cuota2);
     	}
     	//----------------------------------------------------------------

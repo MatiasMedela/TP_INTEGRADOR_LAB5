@@ -6,7 +6,7 @@
     <class name="Dominio.Cuota" table="CUOTAS">
         <id name="numeroCuota" type="int">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="prestamo" class="Dominio.Prestamo" fetch="join" lazy="false">
             <column name="ID_PRESTAMO" />
