@@ -153,7 +153,32 @@ public class ClienteController {
 			return MV;
 		}
 	}
-	
+	@RequestMapping(method = RequestMethod.POST, value="DarDeBajaClienteAsync.html")
+	@ResponseBody
+	public String DarDeBajaClienteAsync(String Dni) throws ParseException {
+		if(Dni!="") {
+			if (Clidao.BajaCliente(Dni)==true) {
+				return new Gson().toJson("Valido");
+			} else {
+				return new Gson().toJson("Invalido");
+			}
+		}else {
+			return new Gson().toJson("Invalido");
+		}	
+	}
+	@RequestMapping(method = RequestMethod.POST, value="DarDeAltaClienteAsync.html")
+	@ResponseBody
+	public String DarDeAltaClienteAsync(String Dni) throws ParseException {
+		if(Dni!="") {
+			if (Clidao.ModAltaCliente(Dni)==true) {
+				return new Gson().toJson("Valido");
+			} else {
+				return new Gson().toJson("Invalido");
+			}
+		}else {
+			return new Gson().toJson("Invalido");
+		}	
+	}
 	@RequestMapping(method = RequestMethod.POST, value="ValidarClienteAsync.html")
 	@ResponseBody
 	public String ValidarClienteAsync(String Dni) throws ParseException {
@@ -230,46 +255,18 @@ public class ClienteController {
 	}
 	
 	@RequestMapping("RedireccionarDarDeAltaCliente.html")
-	public ModelAndView DarDeAltaCliente(String TxtAltaClientName) {
+	public ModelAndView DarDeAltaCliente() {
 		((ConfigurableApplicationContext)(appContext)).refresh();
 		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
-		try {
-			if(Clidao.ModAltaCliente(TxtAltaClientName)==true) {
-				MV.addObject("LocalidadesList", locdao.ListLocalidades());
-				MV.addObject("ClientesList", Clidao.ListarClientes());
-			}
-			else {
-				System.out.println("error al dar de alta al cliente");
-				MV.addObject("LocalidadesList", locdao.ListLocalidades());
-				MV.addObject("ClientesList", Clidao.ListarClientes());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			MV.addObject("LocalidadesList", locdao.ListLocalidades());
-			MV.addObject("ClientesList", Clidao.ListarClientes());
-		}
+		MV.addObject("ClientesList", Clidao.ListarClientes());
 		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");
 		return MV;
 	}
 	@RequestMapping("RedireccionarDarDeBajaCliente.html")
-	public ModelAndView DarDeBajaCliente(String TxtBajaClientName) {
+	public ModelAndView DarDeBajaCliente() {
 		((ConfigurableApplicationContext)(appContext)).refresh();
 		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
-		try {
-			if(Clidao.BajaCliente(TxtBajaClientName)==true) {
-				MV.addObject("LocalidadesList", locdao.ListLocalidades());
-				MV.addObject("ClientesList", Clidao.ListarClientes());
-			}
-			else {
-				System.out.println("error al dar de baja al cliente");
-				MV.addObject("LocalidadesList", locdao.ListLocalidades());
-				MV.addObject("ClientesList",Clidao.ListarClientes());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			MV.addObject("LocalidadesList", locdao.ListLocalidades());
-			MV.addObject("ClientesList", Clidao.ListarClientes());
-		}
+		MV.addObject("ClientesList", Clidao.ListarClientes());
 		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");
 		return MV;
 	}
