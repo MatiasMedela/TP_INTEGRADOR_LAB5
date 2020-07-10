@@ -93,8 +93,7 @@ public class ClienteDao {
 		    	configuration.configure();	
 		    	Session session = ch.abrirConexion();
 		    	session.getTransaction().begin();
-		    	Usu.setIdUsu(usuDao.buscarUsuario(Integer.valueOf(oldDniName)).getIdUsu());
-				session.update(Usu);
+				session.saveOrUpdate(Usu);
 				session.getTransaction().commit();
 				session.close();
 				 return true;

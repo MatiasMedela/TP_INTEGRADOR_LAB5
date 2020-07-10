@@ -175,8 +175,8 @@ public class ClienteController {
 		try {
 			((ConfigurableApplicationContext)(appContext)).refresh();
 			if(DniEditName!="") {
-				if (CliNeg.ValidarDNI(OldDniName)==true ) {
-					Usuario Clie = (Usuario) appContext.getBean("BUsuario");
+				if ((CliNeg.ValidarDNI(DniEditName) && !CliNeg.ValidarDNI(OldDniName)) || DniEditName.equals(OldDniName)) {
+					Usuario Clie = Clidao.BuscarUsuarioXDni(OldDniName);
 					Clie.setDni(DniEditName);
 					Clie.setNombre(NomEditName);
 					Clie.setApellido(ApeEditName);
@@ -189,7 +189,9 @@ public class ClienteController {
 					String[] parts = LocEditName.split(",");
 					Clie.setLoc(locdao.BuscarLocalidad(Integer.valueOf(parts[0])));
 					Clie.setTel(TelEditName);
-					Clie.setTipoUsu(TusuDao.UserCliente());
+					if(Clie.getTipoUsu().getIdTipoUsuario() != 1) {
+						Clie.setTipoUsu(TusuDao.UserCliente());						
+					}
 					Clie.setEstado(true);
 					if(Clidao.ModificarCliente(Clie,OldDniName)==true) {
 						//update de logueo?

@@ -58,8 +58,7 @@ ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Be
 	            request.getSession().setAttribute("NameUser", LoginUser);
 	            request.getSession().setAttribute("Key", LoginKey);
 				if (User.getUsuario().getTipoUsu().getIdTipoUsuario()== 1){	
-					MV.addObject("ClientesList", Clidao.ListarClientes());
-					MV.setViewName("ListarClientes");
+					MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");
 				} else {
 					MV.setViewName("redirect:/redirecNavBar.html?inicio");
 				}

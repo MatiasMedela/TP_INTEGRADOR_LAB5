@@ -248,16 +248,16 @@ function ModificarCliente(){
 								})
 				 } else {
 						 if(Res == "\"InvalidoDni\""){
-							    document.querySelector('#IdLabelDni').innerText = 'Numero De Documento: invalido o ya esta registrado';
+							    document.getElementById('IdLabelDni').innerText = 'Numero de documento: invalido o ya esta registrado';
 								document.getElementById("IdLabelDni").style.color="red";
 								document.getElementById("DnieditId").style.border="1px solid red";
-							  }else{
-								  Swal.fire({
-										title: 'Error al modificar cliente!',
-										icon: 'error',
-										showConfirmButton: true,
-								  })
-					  			}
+						  }else{
+							  Swal.fire({
+									title: 'Error al modificar cliente!',
+									icon: 'error',
+									showConfirmButton: true,
+							  })
+				  			}
 				    }
 			}
 	     });
@@ -339,7 +339,7 @@ function ModificarCliente(){
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar Cliente</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Editar cliente</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -350,7 +350,7 @@ function ModificarCliente(){
 	      	<div class="row">
 			<div class="col-8 col-sm-6">
 			 <div class="form-group"> <!-- DNI -->
-		        <label for="full_name_id" class="control-label" id="IdLabelDni">Numero De Documento</label>
+		        <label for="full_name_id" class="control-label" id="IdLabelDni">Numero de documento</label>
 		        <input type="number" class="form-control form-control-sm" id="DnieditId" name="DniEditName" placeholder="D.N.I" 
 		        min="8" max="8" required>
 		        <input type="hidden" class="form-control" name="OldDniName"id="IdOldDniName" value=""/>
@@ -367,7 +367,7 @@ function ModificarCliente(){
 		    </div> 
 
 		      <div class="form-group"> <!-- Correo electronico -->
-		        <label for="full_name_id" class="control-label">Correo Electronico</label>
+		        <label for="full_name_id" class="control-label">Correo electronico</label>
 		        <input type="email" class="form-control form-control-sm" id="EmailEditId" name="EmailEditName" placeholder="e-mail"
 				autocomplete="off" required>
 		    </div> 
@@ -406,7 +406,7 @@ function ModificarCliente(){
 		        pattern="^[a-zA-Z ]*$" required>
 		    </div> 
 		     <div class="form-group "><!-- Fecha De Nacimiento -->
-		     <label for="full_name_id" class="control-label">Fecha De Nacimiento</label>
+		     <label for="full_name_id" class="control-label">Fecha de nacimiento</label>
 			    <input class="form-control form-control-sm" type="date"  id="FnacEditId" name="FnacEditName" required>
 			</div>
 		            
