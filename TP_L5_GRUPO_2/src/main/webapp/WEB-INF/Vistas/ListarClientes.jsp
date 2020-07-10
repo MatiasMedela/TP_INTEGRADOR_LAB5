@@ -72,8 +72,10 @@ $(document).ready(function(){
 	    var valor = $(this).val();
 		$("#Loc_id option").each(function(){
 			var z=$(this).attr('value');
+			$(this).attr("selected",false);
 			var array = z.split(',');
 			var g=array[1];
+			$("#Loc_id option[value=-1]").attr("selected",true);
 			if(array[1] == valor){
 				$(this).show();
 			}else{
@@ -124,6 +126,8 @@ function ValFormatoTelFijo(){
 	    $("#Loc_id option").each(function(){
 		    if(array[5]== $(this).text()){
 		    	$("#Loc_id option:contains("+array[5]+")").attr('selected', true);
+			}else{
+				$(this).hide();
 			}
 		});
 	//Fecha nacimiento
@@ -133,6 +137,7 @@ function ValFormatoTelFijo(){
 	 document.getElementById('NacEditId').value=array[7];
 	 document.getElementById('EmailEditId').value=array[8];
 	 document.getElementById('TelEditId').value=array[9];
+	 
  };
  
  function PasarDniBaja(dni){
