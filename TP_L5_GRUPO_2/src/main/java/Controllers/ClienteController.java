@@ -70,25 +70,25 @@ public class ClienteController {
 		return MV;
 	}
 	
+//	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ListarClientes"})
+//	public ModelAndView redirecListarClientes(HttpServletRequest request) {
+//		((ConfigurableApplicationContext)(appContext)).refresh();
+//		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
+//		if(request.getSession().getAttribute("IDUsuario") !=null) {			
+//			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
+//			Usuario user = userDao.buscarUsuario(IDUsuario);
+//			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
+//			MV.addObject("ClientesList", Clidao.ListarClientes());
+//			MV.setViewName("ListarClientes");
+//		}
+//		else {
+//			MV.setViewName("Login");
+//		}
+//		return MV;
+//	}
+	
 	@RequestMapping(value="redirecNavBarAdmin.html", params = {"ListarClientes"})
 	public ModelAndView redirecListarClientes(HttpServletRequest request) {
-		((ConfigurableApplicationContext)(appContext)).refresh();
-		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
-		if(request.getSession().getAttribute("IDUsuario") !=null) {			
-			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
-			Usuario user = userDao.buscarUsuario(IDUsuario);
-			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("ClientesList", Clidao.ListarClientes());
-			MV.setViewName("ListarClientes");
-		}
-		else {
-			MV.setViewName("Login");
-		}
-		return MV;
-	}
-	
-	@RequestMapping(value="redirecNavBarAdmin.html", params = {"EliminarCliente"})
-	public ModelAndView redirecEliminarCliente(HttpServletRequest request) {
 		((ConfigurableApplicationContext)(appContext)).refresh();
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		try {
@@ -98,7 +98,7 @@ public class ClienteController {
 				MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
 				MV.addObject("LocalidadesList", locdao.ListLocalidades());
 				MV.addObject("ClientesList", Clidao.ListarClientes());
-				MV.setViewName("ModBajaCliente");
+				MV.setViewName("ListarClientes");
 			}
 			else {
 				MV.setViewName("Login");
@@ -211,7 +211,7 @@ public class ClienteController {
 				//hacer update de login ?
 				MV.addObject("LocalidadesList", locdao.ListLocalidades());
 				MV.addObject("ClientesList", Clidao.ListarClientes());
-				MV.setViewName("redirect:/redirecNavBarAdmin.html?EliminarCliente");
+				MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");
 				
 			}
 			else {
@@ -248,7 +248,7 @@ public class ClienteController {
 			MV.addObject("LocalidadesList", locdao.ListLocalidades());
 			MV.addObject("ClientesList", Clidao.ListarClientes());
 		}
-		MV.setViewName("redirect:/redirecNavBarAdmin.html?EliminarCliente");
+		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");
 		return MV;
 	}
 	@RequestMapping("RedireccionarDarDeBajaCliente.html")
@@ -270,7 +270,7 @@ public class ClienteController {
 			MV.addObject("LocalidadesList", locdao.ListLocalidades());
 			MV.addObject("ClientesList", Clidao.ListarClientes());
 		}
-		MV.setViewName("redirect:/redirecNavBarAdmin.html?EliminarCliente");
+		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");
 		return MV;
 	}
 }
