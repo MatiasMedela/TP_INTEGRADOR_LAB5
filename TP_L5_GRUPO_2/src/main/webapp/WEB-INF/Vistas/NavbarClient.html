@@ -67,6 +67,19 @@ function evitar_envio_formulario(){
 	  }
 }
 
+function CerrarSession(){
+	Swal.fire({
+		title: "¿Desea salir de la sesión?",
+		showCancelButton: true,
+		reverseButtons: true,
+		cancelButtonText: "Cancelar",
+		confirmButtonText:"Salir"
+	}).then((result) => {
+		if(result.value){
+			$("#CerrarSessionId").submit();
+		}
+	})
+}
 </script>
 	<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -95,36 +108,16 @@ function evitar_envio_formulario(){
 				aria-expanded="false">${NomApeUser}</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item" type="submit" data-toggle="modal" data-target="#ModalConfiguracion">Configuración</a> 
-					<a class="dropdown-item" type="submit" data-toggle="modal" data-target="#ModalCerrarSession">Salir</a>
+					<a class="dropdown-item" type="button" onclick=" CerrarSession()">Salir</a>
 			</div>
 		</li>
 	   </ul>
 	</div>
 </nav>
 	<!-- FIN NAVBAR -->
-<!-- modal cerrar session  -->
-<div class="modal fade" id="ModalCerrarSession" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Cerrar Sesion</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ¿Desea cerrar la sesion?
-      </div>
-      <div class="modal-footer">
-     <form action="CerrarSession.html" method="post" accept-charset=utf-8>
-     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	 <button type="Submit" class="btn btn-primary" name="BtnCerrarSesion" >Cerrar Sesion</button>		
-		</form>
-      </div>
-    </div>
-  </div>
-</div>  
-<!-- modal cerrar session  -->
+	
+<!-- form cerrar session  -->
+<form action="CerrarSession.html" method="post" id="CerrarSessionId" accept-charset=utf-8></form>
 
 <!-- Modal Configuracion -->
 <div class="modal fade" id="ModalConfiguracion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

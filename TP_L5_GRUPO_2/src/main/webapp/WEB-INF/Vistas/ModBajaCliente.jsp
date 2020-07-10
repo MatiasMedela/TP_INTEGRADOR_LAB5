@@ -30,6 +30,7 @@
 	<link rel=stylesheet href="<c:url value="resources/Estilos/styles.css"/>" type="text/css" media=screen>
 <!-- Sweet alert 2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	
 <script type="text/javascript">
 $(document).ready(
 		function() {
@@ -143,6 +144,7 @@ function ValidarFormulario(){
 		}
 	});
 }
+
 </script>
 <script type="text/javascript">
 //con esta funcion pasamos los paremtros a los text del modal.
@@ -184,9 +186,44 @@ function ValidarFormulario(){
  };
  function PasarDniBaja(dni){
 	 document.getElementById('IdTxtBajaClient').value=dni;
+	 Swal.fire({
+		  title: '¿Esta seguro de dar de alta este cliente?',
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#d33',
+		  cancelButtonColor: '#3085d6',
+		  confirmButtonText: 'Baja'
+		}).then((result) => {
+		  if (result.value) {
+		    Swal.fire(
+		      'Cliente dado de baja exitosamente!',
+			  'Cliente dado de baja.',
+		      'success'
+		    )
+		    $("#BajaClienteId").submit();
+		  }
+		})
+		
 }
  function PasarDniAlta(dni){
-	 document.getElementById('IdTxtAltaClient').value=dni;
+	 document.getElementById('IdTxtAltaClient').value=dni;	
+	 Swal.fire({
+		  title: '¿Esta seguro de dar de alta este cliente?',
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#008000',
+		  cancelButtonColor: '#3085d6',
+		  confirmButtonText: 'Alta' 
+		}).then((result) => {
+		  if (result.value) {
+			  Swal.fire(
+		      'Cliente dado de alta exitosamente!',
+		      'Cliente dado de alta.',
+		      'success'
+		    )
+		    $("#AltaClienteId").submit();
+		  }
+		})
 }
     </script>
 <title></title>
@@ -403,55 +440,15 @@ function ValidarFormulario(){
 </div>  
 <!-- modal Editar cliente  -->
 
-<!-- modal Dar de baja cliente  -->
-<div class="modal fade" id="ModalBajaCliente" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Confirmar Baja Cliente</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body text-center">
-     <strong >¿Esta seguro que quiere dar de baja a este cliente?</strong>
-      </div>
-      <div class="modal-footer">
-     <form action="RedireccionarDarDeBajaCliente.html" method="post" accept-charset=utf-8>
-     <input type="hidden" class="form-control" name="TxtBajaClientName"id="IdTxtBajaClient" value=""/>
-     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	 <button type="Submit" class="btn btn-danger" name="BtnCerrarSesion" >Confirmar</button>		
-		</form>
-      </div>
-    </div>
-  </div>
-</div>  
-<!-- modal Dar de baja cliente  -->
-
-<!-- modal Dar de alta cliente  -->
-<div class="modal fade" id="ModalAltaCliente" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Confirmar Alta Cliente</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body text-center">
-     <strong >¿Esta seguro que quiere dar de alta a este cliente?</strong>
-      </div>
-      <div class="modal-footer">
-     <form action="RedireccionarDarDeAltaCliente.html" method="post" accept-charset=utf-8>
+<!-- form Dar de baja cliente  -->
+<form action="RedireccionarDarDeBajaCliente.html" method="post" id="BajaClienteId" accept-charset=utf-8>
+     <input type="hidden" class="form-control" name="TxtBajaClientName"id="IdTxtBajaClient" value=""/>	
+</form>
+<!-- form Dar de alta cliente  -->
+ <form action="RedireccionarDarDeAltaCliente.html" method="post" id="AltaClienteId" accept-charset=utf-8>
      <input type="hidden" class="form-control" name="TxtAltaClientName"id="IdTxtAltaClient" value=""/>
-     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	 <button type="Submit" class="btn btn-success" name="BtnCerrarSesion" >Confirmar</button>		
-		</form>
-      </div>
-    </div>
-  </div>
-</div>  
-<!-- modal Dar de alta cliente  -->
+ </form>
+
 
 </body>
 </html>

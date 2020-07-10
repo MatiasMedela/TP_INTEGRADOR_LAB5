@@ -29,16 +29,17 @@
 	crossorigin="anonymous"></script>
 
 <!-- Data Tables -->
-<script type="text/javascript"
-	src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-	src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" />
-<link rel=stylesheet href="<c:url value="resources/Estilos/styles.css"/>" type="text/css" media=screen>
-
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+	<link rel="stylesheet" type="text/css"
+		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" />
+	<link rel=stylesheet href="<c:url value="resources/Estilos/styles.css"/>" type="text/css" media=screen>
+<!-- Sweet alert 2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <title></title>
 </head>
 <script type="text/javascript">
