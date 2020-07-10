@@ -4,26 +4,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=yes">
-<title>Login</title>
-<!-- JQUERY -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 <!-- Required meta tags -->
  <meta charset="utf-8">
  <meta name="viewport" content="initial-scale=1, shrink-to-fit=no">
-    
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
-integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
-crossorigin="anonymous">
+ 
+<!-- JS, Popper.js, and jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+<!-- Bootstrap CSS y Script -->	
+	<script 
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+	crossorigin="anonymous"></script>
+	
+	<script 
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" 
+	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" 
+	crossorigin="anonymous"></script>
+	
+	<!-- Hoja de estilos-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
+	crossorigin="anonymous">
 
 <!-- Los iconos tipo Solid de Fontawesome-->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
 <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 <!-- Hoja de estilos-->
-<link rel=stylesheet
-	href="<c:url value="resources/Estilos/Login.css"/>" type="text/css" media=screen>
+<link rel=stylesheet href="<c:url value="resources/Estilos/Login.css"/>" type="text/css" media=screen>
+	
+<script type="text/javascript">
+function ValidarFormulario(){
+	var datos={
+		"Username":$("#UsernameId").val(),	
+		"Key":$("#KeyId").val(),	
+	}
+	$.ajax({
+		type: "POST",
+		url:'${request.getContextPath()}/TP_L5_GRUPO_2/ValidarLoginAsync.html',
+		data:datos,
+		success:function(Res){
+			if ( Res == "\"Valido\"") {
+				document.getElementById("UsernameId").style.border="1px solid green";
+				document.getElementById("KeyId").style.border="1px solid green";
+				$("#VerificarLogId").submit();
+				  } else {
+					  if(Res == "\"InvalidoKey\""){
+						  	document.querySelector('#IdLabelKey').innerText = 'Contrase√±a invalida';
+							document.getElementById("IdLabelKey").style.color="red";
+							document.getElementById("KeyId").style.border="1px solid red";
+					  }else{
+						    document.querySelector('#IdLabelUserName').innerText = 'Nombre de usuaio invalido';
+						    document.querySelector('#IdLabelKey').innerText = 'Contrase√±a invalida';
+							document.getElementById("IdLabelUserName").style.color="red";
+							document.getElementById("UsernameId").style.border="1px solid red";
+							document.getElementById("IdLabelKey").style.color="red";
+							document.getElementById("KeyId").style.border="1px solid red";
+					   }
+				 }
+		}
+	});
+}
+</script>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=yes">
+<title>Login</title>
 </head>
 <body>
 <div class="modal-dialog text-center">
@@ -32,64 +76,19 @@ crossorigin="anonymous">
 			<div class="col-12 user-img">
 			<img src="<c:url value="resources/Imagenes/login_user.jpg"/>" alt="">
 			</div>
-			<form class="col-12" action="VerificarLog.html" method="post">
+			<form class="col-12" action="VerificarLog.html" method="post" id="VerificarLogId">
 				<div class="form-group" id="user-group">
-				<input type="text" class="form-control" placeholder="Nombre De Usuario" name="LoginUser" autocomplete="off" required/>
+					<input type="text" class="form-control" placeholder="Nombre De Usuario" id="UsernameId" name="LoginUser" autocomplete="off" style="border-bottom-color: black;" required/>
+					<label for="full_name_id" id="IdLabelUserName" class="control-label"></label>
 				</div>
-			<div class="form-group" id="contrasena-group">
-				<input type="password" class="form-control" placeholder="Contrasena" name="LoginKey"  required/>
+				<div class="form-group" id="contrasena-group">
+					<input type="password" class="form-control" placeholder="Contrasena" id="KeyId" name="LoginKey"  required/>
+					<label for="full_name_id" id="IdLabelKey" class="control-label"></label>
 				</div>
-				<button type="submit" class="btn btn-primary" name="BtnIngresar" style="color:#102D97;background-color: #D2C132">
-				Ingresar
-				</button>
+				<button type="button" class="btn btn-primary" name="BtnIngresar" style="color:#102D97;background-color: #D2C132" onclick="return ValidarFormulario()">Ingresar</button>
 			</form>
-<%
-//boolean Ingresouser=true,Ingresokey=true,exist=true;
-//if(request.getAttribute("UsuarioInvalido")!=null){Ingresouser=(boolean)request.getAttribute("UsuarioInvalido");}
- // if(request.getAttribute("ContraseÒaInvalida")!=null){Ingresokey=(boolean)request.getAttribute("ContraseÒaInvalida");}
- //	if(request.getAttribute("usuarionoexiste")!=null){exist=(boolean)request.getAttribute("usuarionoexiste");}
-%>
-<%
-//if(Ingresouser == false && exist == true){
-%>
-<!--
-<div class="alert alert-danger" >
-<strong>Usuario Invalido</strong>
-</div>-->
-<%//}
-//else{
-//if(Ingresokey == false && exist == true){
-%>
-<!--
-<div class="alert alert-danger" >
-<strong>ContraseÒa Invalida</strong>
-</div>-->
-<%//}
-//}%>
-<%
-//if(Ingresouser == false && Ingresokey == false && exist == false){
-%>
-<!-- <div class="alert alert-danger" >
-<strong>Usuario no existe</strong>
-</div>-->
-<%//}%>
 		</div>
 	</div> 
 </div>
-
-	<!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-   <!-- <script src=" /TP_integrador_Font_Sebastian/js/Login.js"></script> --> 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
-    crossorigin="anonymous"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" 
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" 
-    crossorigin="anonymous"></script>
-    
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
-    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" 
-    crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package Controllers;
 
+import java.text.ParseException;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 
 import AccesoDatos.ClienteDao;
 import AccesoDatos.LogueoDao;
@@ -28,12 +34,24 @@ ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Be
 	@Autowired
 	private LogueoNegocio LN;
 
-	
+	@RequestMapping(method = RequestMethod.POST, value="ValidarLoginAsync.html")
+	@ResponseBody
+	public String ValidarLoginAsync(String Username, String Key) throws ParseException {
+			if (LN.validarLogin(Username,Key)==true ) {
+				return new Gson().toJson("Valido");
+			} else {
+				if(LN.ValidaUserName(Username)==true) {
+					return new Gson().toJson("InvalidoKey");
+				}else {
+					return new Gson().toJson("Invalido");
+				}
+			}	
+	}
 	@RequestMapping("VerificarLog.html")
 	public ModelAndView RedireccionarLog(String LoginUser,String LoginKey, HttpServletRequest request) {
 		ModelAndView MV = (ModelAndView) appContext.getBean("ModelView");
 		try {
-			if (LN.validarLogin(LoginUser, LoginKey)==true) {
+			//if (LN.validarLogin(LoginUser, LoginKey)==true) {
 				Logueo User =  LogDao.BuscarLog(LoginUser, LoginKey);
 				request.getSession().setAttribute("IDUsuario", User.getUsuario().getIdUsu()); 
 	            MV.addObject("NomApeUser",User.getUsuario().getNombre()+", "+User.getUsuario().getApellido());
@@ -45,9 +63,9 @@ ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Be
 				} else {
 					MV.setViewName("redirect:/redirecNavBar.html?inicio");
 				}
-			} else {
-				MV.setViewName("Login");
-			}
+			//} else {
+			//	MV.setViewName("Login");
+			//}
 			return MV;
 		} catch (Exception e) {
 			e.printStackTrace();
