@@ -1,4 +1,4 @@
-@charset "ISO-8859-1";
+
 body {
 	background:url("../Imagenes/coins.jpg") no-repeat center center fixed;
 	background-size: cover;
@@ -11,10 +11,10 @@ body {
 }
 
 .modal-content{
-	background-color:#0080ff ;
-	opacity: 0.75;
+	background-color:#ffffff ;
+	opacity: 0.90;
 	padding: 0 20px;
-	box-shadow: 0px 0px 3px #0080ff;
+	box-shadow: 0px 0px 3px #ffffff ;
 }
 .user-img{
 	margin-top: -50px;
@@ -24,7 +24,7 @@ body {
 .user-img img{
   width: 100px;
   height: 100px;
-  box-shadow: 0px 0px 3px #0080ff;
+  box-shadow: 0px 0px 3px #ffffff ;
   border-radius: 50%;
 }
 
@@ -58,4 +58,13 @@ button {
 }
 .red-border{
     border: 1px solid red;
+}
+
+input {
+  border: 0;
+  outline: 0;
+  border-bottom: 2px solid #03a8f45e !important;
+  font-size: 1.4rem;
+  color: #ccc;
+        
 }
