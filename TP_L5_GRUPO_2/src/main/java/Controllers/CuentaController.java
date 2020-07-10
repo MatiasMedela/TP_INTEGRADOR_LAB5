@@ -42,7 +42,7 @@ public class CuentaController {
 			String IDUsuario = request.getSession().getAttribute("IDUsuario").toString();
 			Usuario user = userDao.buscarUsuario(IDUsuario);
 			MV.addObject("NomApeUser", user.getNombre() + ", " + user.getApellido());
-			MV.addObject("listadoCuentasUsuario", cuentaN.datosCuentaBasic(IDUsuario));		
+			MV.addObject("listadoCuentasUsuario", cuentaN.CuentaUsuario(IDUsuario));		
 			MV.setViewName("index");
 		}
 		else {

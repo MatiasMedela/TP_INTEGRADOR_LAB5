@@ -52,16 +52,12 @@ $(document).ready(function(){
 			$('#TLClientes').DataTable(
 							{
 								"searching": true,
-								"scrollX" : true,
-								"scrollY" : 500,
 								"dom" : '<"pull-left"f>rtip',
 								"dom" : '<"pull-left"f><"pull-right"l>rtip',
 								sPaginationType : "full_numbers",
 								bProcessing : true,
 								bAutoWidth : true,
-								"sScrollX" : "100%",
-								"sScrollXInner" : "100%",
-								"lengthMenu": [[25, 50,100, -1], [25, 50,100, "All"]],
+								"lengthMenu": [[10,25, 50,100, -1], [10,25, 50,100, "All"]],
 								language : {
 									decimal : "",
 									emptyTable : "No se han encontrado registros",

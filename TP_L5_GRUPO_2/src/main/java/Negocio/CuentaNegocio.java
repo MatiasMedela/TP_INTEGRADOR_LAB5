@@ -15,24 +15,24 @@ public class CuentaNegocio {
 	
 	@Autowired
 	private CuentaDao cuentaDao;
+	
+	@Autowired
+	private ConfigHibernate ch;
 
 	public List<Cuenta> listar() {
-		ConfigHibernate ch = new ConfigHibernate();
-		Session session = ch.abrirConexion();
-
-		List<Cuenta> listado = (List<Cuenta>) session.createQuery("SELECT c FROM Cuenta as c").list();
 		
-    	ch.cerrarSession();
+		Session session = ch.abrirConexion();
+		List<Cuenta> listado = (List<Cuenta>) session.createQuery("SELECT c FROM Cuenta as c").list();
+    	session.close();
 	    return listado;		
 	}
 	
 	public List<Cuenta> datosCuentaBasic(String legajo) {
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
-
 //		List<Object[]> listado = (List<Object[]>) session.createQuery("SELECT c.saldo, c.alias, tc.moneda, tc.descripcion, c.cbu, c.idCuenta FROM Cuenta as c inner join c.tipoCuenta as tc WHERE c.usuario = " + legajo).list();
 		List<Cuenta> listado = (List<Cuenta>) session.createQuery("SELECT c FROM Cuenta as c inner join c.tipoCuenta as tc WHERE c.usuario = " + legajo).list();
-    	ch.cerrarSession();
+    	session.close();
 	    return listado;		
 	}
 	

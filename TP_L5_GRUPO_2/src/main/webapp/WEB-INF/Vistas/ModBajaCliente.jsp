@@ -37,16 +37,11 @@ $(document).ready(
 			$('#TClientes').DataTable(
 							{
 								"searching": true,
-								"scrollX" : true,
-								"scrollY" : 500,
-								"dom" : '<"pull-left"f>rtip',
-								"dom" : '<"pull-left"f><"pull-right"l>rtip',
+								"dom" : '<"pull-left"f><"pull-right"l>rt<"pull-left"i><"pull-right"p>',
 								sPaginationType : "full_numbers",
 								bProcessing : true,
 								bAutoWidth : true,
-								"sScrollX" : "100%",
-								"sScrollXInner" : "100%",
-								"lengthMenu": [[25, 50,100, -1], [25, 50,100, "All"]],
+								"lengthMenu": [[10,25, 50,100, -1], [10,25, 50,100, "All"]],
 								language : {
 									decimal : "",
 									emptyTable : "No se han encontrado registros",
@@ -244,9 +239,9 @@ function ValidarFormulario(){
 	      <th scope="col">DNI</th>
 	      <th scope="col">Nombre y Apellido</th>
 	      <th scope="col">Genero</th>
-	      <th scope="col">Nacimiento</th>
+<!-- 	      <th scope="col">Nacimiento</th> -->
 	      <th scope="col">Localidad</th>
-	      <th scope="col">Direccion</th>
+<!-- 	      <th scope="col">Direccion</th> -->
 	      <th scope="col">Provincia</th>
 	      <th scope="col">Pais</th>
 	      <th scope="col">E-mail</th>
@@ -262,11 +257,11 @@ function ValidarFormulario(){
 				<td>${ Cliente.getDni() }</td>
 				<td>${ Cliente.getNombre() }, ${ Cliente.getApellido() }</td>
 				<td>${ Cliente.getGen().getDescripcion()}</td>
-				<td>
+<%-- 				<td>
 					<fmt:formatDate type="date" pattern = "dd-MM-yyyy" value="${ Cliente.getFechaNac()}" />
-				</td>
+				</td> --%>
 				<td>${ Cliente.getLoc().getLocNombre() }</td>
-				<td>${ Cliente.getDireccion() }</td>
+<%-- 				<td>${ Cliente.getDireccion() }</td> --%>
 				<td>${ Cliente.getLoc().getProvLoc().getProvNombre() }</td>
 				<td>${ Cliente.getNacionalidad() }</td>
 				<td>${ Cliente.getEmail() }</td>
@@ -283,11 +278,11 @@ function ValidarFormulario(){
 		     	<td class="text-center">
 					<c:choose>
 					    <c:when test="${Cliente.isEstado()==true}">
-						    <input type="submit" class="btn-sm btn-success" name="BtnBajaClie" 
+						    <input type="submit" class="btn-sm btn-success btn-grid-action" name="BtnBajaClie" 
 					     	value="Alta" data-toggle="modal" data-target="#ModalBajaCliente" onclick="PasarDniBaja(${ Cliente.getDni()})"/>
 					    </c:when>    
 					    <c:otherwise>
-					       <input type="submit" class="btn-sm  btn-danger" name="BtnAltaClie" 
+					       <input type="submit" class="btn-sm  btn-danger btn-grid-action" name="BtnAltaClie" 
 		     				value="Baja" data-toggle="modal" data-target="#ModalAltaCliente" onclick="PasarDniAlta(${ Cliente.getDni()})"/>
 					    </c:otherwise>
 					</c:choose>

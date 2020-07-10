@@ -58,7 +58,7 @@
 						<td id="Nombre${loop.index}">${cuenta.getUsuario().getNombre()} ${cuenta.getUsuario().getApellido()}</td>
 						<td id="Moneda${loop.index}">${cuenta.tipoCuenta.moneda}</td>
 						<td id="Saldo${loop.index}">${cuenta.saldo}</td>
-						<td  class="text-center"><input type="image" src="resources/Imagenes/edit.png" id="btnAbrirModalM" value ="${cuenta.getIdCuenta()}" data-toggle="modal" data-target="#ModalEdit" onClick="llenarModal(${loop.index}, ${cuenta.tipoCuenta.idTipoCuenta }, ${cuenta.getUsuario().getDni() })"></td>
+						<td  class="text-center"><input type="image" src="resources/Imagenes/edit.png" id="btnAbrirModalM" value="${cuenta.getIdCuenta()}" data-toggle="modal" data-target="#ModalEdit" onClick="llenarModal(${loop.index}, ${cuenta.tipoCuenta.idTipoCuenta }, ${cuenta.getUsuario().getDni()}, ${cuenta.getIdCuenta()})"></td>
 					    <c:if test="${cuenta.estado}">
 						    <td class="text-center"><button type="button" class="btn-sm btn-success btn-state-account" value="${cuenta.getIdCuenta()}" id="btnAbrirModalE" onClick="modalEliminar(this)">Alta</button></td>	
 					    </c:if>
@@ -222,11 +222,11 @@
 	CurrentItem = document.getElementById("mnCuentas");
 	CurrentItem.className +=" active";
 
-	function llenarModal(id, tipoCuenta, dni){
+	function llenarModal(id, tipoCuenta, dni, idCuenta){
 		$("#saldoM").val($("#Saldo" + id).html());
 		$("#state_id option[value="+tipoCuenta+"]").attr("selected", "selected");
 		$("#clienteSelectModal").val(dni + " - " + $("#Nombre" + id).html());
-		$('#btnModalModificar').val($('#btnAbrirModalM').val());		
+		$('#btnModalModificar').val(idCuenta);		
 	};
 
 	function modificarCuenta(btn){

@@ -35,8 +35,11 @@ public class PrestamoDao {
 	@Autowired
 	private CuotaDao ctDao;
 	
+	@Autowired
+	private ConfigHibernate ch;
+	
 	public boolean cargarPrestamo(float importeTotal, int meses, float montoPagar, int idCuenta) {
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 
 		Usuario user = cDao.buscarCuenta(idCuenta).getUsuario();
@@ -60,13 +63,13 @@ public class PrestamoDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	ch.cerrarSession();
+    	session.close();
 	    return true;		
 	}
 	
 	
 	public List<Object[]> listarPrestamosUsuario(int IDUsuario) {
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		
 		ArrayList<Object[]> listado = new ArrayList<Object[]>();
@@ -80,43 +83,43 @@ public class PrestamoDao {
 		}
 		finally {
 			
-			ch.cerrarSession();
+			session.close();
 		}
 	    return listado;	
 	}	
 	
 	public List<Prestamo> listarPrestamosPorEstado(int estado) {
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		List<Prestamo> listado = (List<Prestamo>) session.createQuery("FROM Prestamo where estado="+estado).list();
 		
-    	ch.cerrarSession();
+    	session.close();
 	    return listado;		
 	}	
 	
 	public EstadoPrestamo buscarEstadoPrestamo(int estado)
 	{
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		EstadoPrestamo ep = (EstadoPrestamo) session.createQuery("FROM EstadoPrestamo as ep WHERE ep.id = '"+estado+"'").uniqueResult();
-		ch.cerrarSession();
+		session.close();
 	    return ep;			
 
 	}
 	
 	public Prestamo buscarPrestamo(int idPrestamo)
 	{
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		Prestamo p = (Prestamo) session.createQuery("FROM Prestamo as p WHERE p.idPrestamo = '"+idPrestamo+"'").uniqueResult();
-		ch.cerrarSession();
+		session.close();
 	    return p;			
 
 	}
 	
 	public boolean cambiarEstadoPrestamo(int idPrestamo, int estado)
 	{
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		try {
 			session.beginTransaction();
@@ -141,14 +144,14 @@ public class PrestamoDao {
 			e.printStackTrace();
 			return false;
 		} finally {
-			ch.cerrarSession();			
+			session.close();			
 		}
 		return true;
 	}
 	
 	public boolean cargarCapitalPrestamo(int idPrestamo)
 	{
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		try {
 			session.beginTransaction();
@@ -161,14 +164,14 @@ public class PrestamoDao {
 			e.printStackTrace();
 			return false;
 		} finally {
-			ch.cerrarSession();			
+			session.close();			
 		}
 		return true;
 	}
 	
 	public boolean modificarPrestamo(int idPrestamo, int idCuenta, float importeSolicitado, float importeTotal, int cuotas)
 	{
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		try {
 			session.beginTransaction();
@@ -184,7 +187,7 @@ public class PrestamoDao {
 			e.printStackTrace();
 			return false;
 		} finally {
-			ch.cerrarSession();			
+			session.close();			
 		}
 		return true;
 	}

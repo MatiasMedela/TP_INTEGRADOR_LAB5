@@ -75,7 +75,7 @@
 	<bean id="BCuotaDao" scope="singleton" class="AccesoDatos.CuotaDao"/>
 	
 	<!-- BEAN CONFIGURACION HIBERNATE -->
-	<bean id="BConfigHibernate" scope="prototype" class="AccesoDatos.ConfigHibernate"/>
+	<bean id="BConfigHibernate" scope="singleton" class="AccesoDatos.ConfigHibernate"/>
 			
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 

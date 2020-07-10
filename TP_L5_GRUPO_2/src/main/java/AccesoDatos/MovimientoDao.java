@@ -28,38 +28,40 @@ public class MovimientoDao {
 	@Autowired
 	private TipoMovimientoDao tmDao;
 	
+	@Autowired
+	private ConfigHibernate ch;
     
 	public List<Movimiento> movimientosxUsuario(String legajoUsuario) {
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		List<Movimiento> listado = (List<Movimiento>) session.createQuery("SELECT m FROM Movimiento m "
 																		+ "INNER JOIN m.cuentaOrigen as c "
 																		+ "INNER JOIN c.usuario as u "
 																		+ "where u.IdUsu = " + legajoUsuario).list();
-    	ch.cerrarSession();
+    	session.close();
 	    return listado;		
 	}	
 
 	public List<Movimiento> movimientosxCuenta(int idCuenta) {
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		List<Movimiento> listado = (List<Movimiento>) session.createQuery("SELECT m FROM Movimiento as m "
 																		+ "LEFT JOIN m.cuentaOrigen as co "
 																		+ "LEFT JOIN m.cuentaDestino as cd "
 																		+ "WHERE co.idCuenta = :IDCuenta OR cd.idCuenta = :IDCuenta "
 																		+ "order by m.fecha desc").setParameter("IDCuenta", idCuenta).list();
-    	ch.cerrarSession();
+    	session.close();
 	    return listado;		
 	}
 	
 	
 	public void agregarTransferencia(Movimiento mov) {
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		session.beginTransaction();
 		session.save(mov);
 		session.getTransaction().commit();
-		ch.cerrarSession();
+		session.close();
 	}
 	
 	public Movimiento generarMovPorPrestamo (int idPrestamo)
@@ -77,7 +79,7 @@ public class MovimientoDao {
 	
 	
 	public ArrayList<Object[]> transferenciasxMes(int yearSelect) {
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		ArrayList<Object[]> listado = null;
 		try {	
@@ -90,14 +92,14 @@ public class MovimientoDao {
 			System.out.println(e.toString());
 			return listado;
 		}finally {
-			ch.cerrarSession();			
+			session.close();			
 		}
 		
 	    return listado;		
 	}	
 	
 	public ArrayList<Object[]> transferenciasxUsuario(int IDUsuario) {
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		ArrayList<Object[]> listado = null;
 		try {	
@@ -114,7 +116,7 @@ public class MovimientoDao {
 			System.out.println(e.toString());
 			return listado;
 		}finally {
-			ch.cerrarSession();			
+			session.close();			
 		}
 		
 	    return listado;		

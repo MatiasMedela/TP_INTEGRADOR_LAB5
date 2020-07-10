@@ -8,17 +8,19 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import Dominio.Logueo;
 import Dominio.Usuario;
 
-
-
 public class ClienteDao {
 	ApplicationContext appContext = new ClassPathXmlApplicationContext("Resources/Beans.xml");
 	//ABML
+	
+	@Autowired
+	private ConfigHibernate ch;
 		public boolean AltaCliente(Usuario Usu ) {
 			try {
 				((ConfigurableApplicationContext)(appContext)).refresh();
@@ -115,11 +117,11 @@ public class ClienteDao {
 		public List<Usuario> ListarClientes() {
 			List<Usuario> ListLoc = null;
 			try {
-				ConfigHibernate ch = new ConfigHibernate();
+				
 				Session session = ch.abrirConexion();
 				Query query=session.createQuery("SELECT L FROM Usuario L");
 				ListLoc = query.list();
-		    	ch.cerrarSession();
+		    	session.close();
 			    return ListLoc;	
 			} catch (Exception e) {
 				return ListLoc;
@@ -129,7 +131,7 @@ public class ClienteDao {
 		public Usuario BuscarUsuarioXIdLog(Logueo l ) {
 			try {
 				((ConfigurableApplicationContext)(appContext)).refresh();
-				ConfigHibernate ch = new ConfigHibernate();
+				
 				Session session = ch.abrirConexion();
 				Usuario Usu = (Usuario) appContext.getBean("BUsuario");
 				if ((Usuario) session.createQuery(" FROM Usuario u WHERE u.IdUsu = "+l.getUsuario().getIdUsu()).uniqueResult()!=null) {
@@ -145,7 +147,7 @@ public class ClienteDao {
 		public Usuario BuscarUsuarioXId(int idUsu) {
 			try {
 				((ConfigurableApplicationContext)(appContext)).refresh();
-				ConfigHibernate ch = new ConfigHibernate();
+				
 				Session session = ch.abrirConexion();
 				Usuario Usu = (Usuario) appContext.getBean("BUsuario");
 				if ((Usuario) session.createQuery(" FROM Usuario u WHERE u.IdUsu = "+idUsu).uniqueResult()!=null) {
@@ -161,7 +163,7 @@ public class ClienteDao {
 		public Usuario BuscarUsuarioXDni(String dni) {
 			try {
 				((ConfigurableApplicationContext)(appContext)).refresh();
-				ConfigHibernate ch = new ConfigHibernate();
+				
 				Session session = ch.abrirConexion();
 				Usuario Usu = (Usuario) appContext.getBean("BUsuario");
 				if ((Usuario) session.createQuery(" FROM Usuario u WHERE u.Dni = "+dni).uniqueResult()!=null) {

@@ -215,8 +215,8 @@ function verificarCbu(btn){
 					   Swal.fire({
 						   title: 'Confirmar transferencia',
 						   html: 
-						    '<p>Cuenta a debitar: ' + cuenta[0].alias + '</p>' +
-				        	'<p>CBU a depositar: '  + cuenta[1].cbu + '</p>' +
+						    '<p>Cuenta a debitar: ' + cuentas[0].alias + '</p>' +
+				        	'<p>CBU a depositar: '  + cuentas[1].cbu + '</p>' +
 			       			'<p>Importe: $' + importeModal + '</p>' +
 			       			'<p>Motivo: ' + motivoModal  + '</p>',
 						   showCancelButton: true,
@@ -243,6 +243,8 @@ function verificarCbu(btn){
 													icon: "success",
 													title: "Transferencia realizada",
 													confirmButtonText: "Entendido"
+												}).then((result) =>{
+													location.reload();
 												})
 											}
 											else{

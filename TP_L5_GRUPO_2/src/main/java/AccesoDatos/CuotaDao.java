@@ -33,16 +33,19 @@ public class CuotaDao {
 	@Autowired
 	private CuentaDao cuentaDao;
 	
+	@Autowired
+	private ConfigHibernate ch;
+	
 	public List<Cuota> listarCuotas(int idPrestamo) {
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		List<Cuota> listado = (List<Cuota>) session.createQuery("FROM Cuota as c where c.prestamo = " + idPrestamo).list();
-    	ch.cerrarSession();
+    	session.close();
 	    return listado;		
 	}
 
 	public boolean pagarCuota(int idCuota, int idCuenta) {
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		try {
 			session.getTransaction().begin();
@@ -71,7 +74,7 @@ public class CuotaDao {
 			e.printStackTrace();
 		}
 		finally {
-			ch.cerrarSession();
+			session.close();
 		}
 		return false;
 	}	
@@ -84,7 +87,7 @@ public class CuotaDao {
 		Calendar c = new GregorianCalendar(); 
 		c.setTime(d);
     	DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		session.beginTransaction();
 		Prestamo p = pDao.buscarPrestamo(idPrestamo);
@@ -146,7 +149,7 @@ public class CuotaDao {
     	}
     	
 		session.getTransaction().commit();
-		ch.cerrarSession();
+		session.close();
 	}
 		catch(ParseException e) {
 			// TODO Auto-generated catch block

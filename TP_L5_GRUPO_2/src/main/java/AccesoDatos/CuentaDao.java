@@ -24,19 +24,18 @@ public class CuentaDao {
 	@Autowired
 	private TipoCuentaDao tcDao;
 	
+	@Autowired
+	private ConfigHibernate ch;
+	
 	public List<Cuenta> listarCuentas() {
-		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		List<Cuenta> listado = (List<Cuenta>) session.createQuery("FROM Cuenta").list();
-		
-    	ch.cerrarSession();
+    	session.close();
 	    return listado;		
 	}	
 	
-	
 	public boolean crearCuenta(int idTipoCN, int DNIUser, String alias)
 	{		
-		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		session.beginTransaction();
 		Cuenta c = (Cuenta) appContext.getBean("BCuenta");
@@ -58,40 +57,36 @@ public class CuentaDao {
 			return false;
 		}
 		finally {
-			ch.cerrarSession();	
+			session.close();	
 			
 		}
     	return true;
 	}
 	
 	public Cuenta buscarCuenta(int idCuenta) {
-		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		Cuenta c = (Cuenta) session.createQuery("FROM Cuenta as cu WHERE cu.idCuenta = '"+idCuenta+"'").uniqueResult();
-		ch.cerrarSession();
+		session.close();
 	    return c;		
 	}	
 	
 	public Cuenta buscarCuentaCBU(Double cbu) {
-		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		Cuenta c = (Cuenta) session.createQuery("FROM Cuenta as cu WHERE cu.cbu = " + cbu).uniqueResult();
-		ch.cerrarSession();
+		session.close();
 	    return c;		
 	}	
 	
 	
 	public Cuenta buscarCuentaString(String idCuenta) {
-		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		Cuenta c = (Cuenta) session.createQuery("FROM Cuenta as cu WHERE cu.idCuenta = '"+idCuenta+"'").uniqueResult();
-		ch.cerrarSession();
+		session.close();
 	    return c;		
 	}	
 	
 	public boolean modificarCuenta(String idCuentaM, int idTipoCM, float saldoM, int DNIUser)
 	{
-		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		try {
 			session.beginTransaction();
@@ -108,13 +103,12 @@ public class CuentaDao {
 			e.printStackTrace();
 			return false;
 		} finally {			
-			ch.cerrarSession();
+			session.close();
 		}
 	}
 	
 	public boolean cerrarCuenta(String idCuenta)
 	{
-		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		try {
 			session.beginTransaction();
@@ -126,14 +120,13 @@ public class CuentaDao {
 			e.printStackTrace();
 			return false;
 		} finally {
-			ch.cerrarSession();			
+			session.close();			
 		}
 		return true;
 	}
 	
 	public boolean abrirCuenta(String idCuenta)
 	{
-		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		try {
 			session.beginTransaction();
@@ -146,7 +139,7 @@ public class CuentaDao {
 		}
 		finally {
 			session.getTransaction().commit();
-			ch.cerrarSession();
+			session.close();
 		}
 		return true;
 	}
@@ -156,7 +149,7 @@ public class CuentaDao {
 		Formatter fmt = new Formatter();
 		String fn = "";
 		Integer res = null;
-		ConfigHibernate ch = new ConfigHibernate();
+		
 		Session session = ch.abrirConexion();
 		session.beginTransaction();
 		String c = (String) session.createQuery("Select MAX(c.cbu) FROM Cuenta as c").uniqueResult().toString();
@@ -164,7 +157,7 @@ public class CuentaDao {
 		res = Integer.parseInt(c) +1;
 		fmt.format("%022d",res);
 		fn = fmt.toString();
-    	ch.cerrarSession();
+    	session.close();
     	return fn;
 	}
 	
@@ -172,18 +165,16 @@ public class CuentaDao {
 	{
 		double res = 0;
 		String traer = "";
-		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		session.beginTransaction();
 		traer = (String) session.createQuery("Select MAX(c.cbu) FROM Cuenta as c").uniqueResult().toString();
 		traer = traer.substring(0,traer.length()-2);
 		res = Double.parseDouble(traer) +1;
-    	ch.cerrarSession();
+    	session.close();
     	return res;
 	}
 	
 	public List<Cuenta> CuentaUsuario(String legajo) {
-		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		List<Cuenta> listado = null;
 		try {			
@@ -192,13 +183,12 @@ public class CuentaDao {
 			e.printStackTrace();
 		}
 		finally {
-			ch.cerrarSession();		
+			session.close();		
 		}
 	    return listado;		
 	}
 	
 	public List<Cuenta> CuentaUsuario(String legajo, String moneda) {
-		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		List<Cuenta> listado = null;
 		try {			
@@ -210,14 +200,13 @@ public class CuentaDao {
 			e.printStackTrace();
 		}
 		finally {
-			ch.cerrarSession();		
+			session.close();		
 		}
 	    return listado;		
 	}
 
 
 	public void modificarSaldo(Cuenta cuenta, float importe) {
-		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		try {
 			session.getTransaction().begin();
@@ -228,14 +217,13 @@ public class CuentaDao {
 		}
 		finally {
 			session.getTransaction().commit();
-			ch.cerrarSession();	
+			session.close();	
 		}
 	    return;	
 	}
 	
 	public String generarAlias()
 	{
-		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		boolean disponible = false;
 		String res = "";
@@ -271,10 +259,9 @@ public class CuentaDao {
 
 
 	public Cuenta buscarCuentaAlias(String alias) {
-		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		Cuenta c = (Cuenta) session.createQuery("FROM Cuenta as cu WHERE cu.alias = '"+alias+"'").uniqueResult();
-		ch.cerrarSession();
+		session.close();
 	    return c;
 	}
 }
