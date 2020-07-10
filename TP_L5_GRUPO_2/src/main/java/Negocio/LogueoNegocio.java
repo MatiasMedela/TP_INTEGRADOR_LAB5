@@ -33,4 +33,21 @@ public class LogueoNegocio {
 			return false;
 		}
 	}
+
+	public boolean ValidaUserName(String usuername) {
+		try {
+			if(usuername!="") {
+				if (LogDao.BuscarLog(usuername).getNUsuario().equals("Default")) {
+					return false;
+				} else {
+					return true;
+				}
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
