@@ -209,16 +209,16 @@ function CargarCliente(){
 		        <label for="full_name_id" class="control-label">Numero de telefono</label>
 				<div class="form-check form-check-inline" style="padding-left: 10px">
 				  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="RadTelFijo" 
-				 onclick="ValFormatoTelFijo()" >
+				  onclick="ValFormatoTelFijo()" >
 				  <label class="form-check-label" for="inlineRadio1">Fijo</label>
 				</div>
 				<div class="form-check form-check-inline">
 				  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="RadCel" value="option2" 
-				  onclick="ValFormatoTelCel()">
+				   onclick="ValFormatoTelCel()">
 				  <label class="form-check-label" for="inlineRadio2">Celular</label>
 				</div>
 		        <input type="tel" class="form-control form-control-sm" id="TelId" name="CliTel" placeholder="Telefono" 
-		         title=" Respete el formato"  min="10" max="10"   pattern=""  disabled required >
+		         title=" Respete el formato"  min="10" max="10" onkeypress="return soloNumeros(event)"  pattern=""  disabled required >
 		    </div>
 		    
 		</div>   

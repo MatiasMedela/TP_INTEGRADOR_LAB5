@@ -230,7 +230,7 @@ function PasarDniAlta(dni){
 			  confirmButtonColor: '#008000',
 			  cancelButtonColor: '#3085d6',
 			  confirmButtonText: 'Alta',
-		      timer:3000 
+		      
 			}).then((result) => {
 			  if (result.value) {
 				  $.ajax({
@@ -243,9 +243,11 @@ function PasarDniAlta(dni){
 										  'Cliente dado de alta exitosamente!',
 									      'Cliente dado de alta.',
 									      'success'
-									    )
-									    alert('estoy por recargar');
-								document.location.href = "/TP_L5_GRUPO_2/redirecNavBarAdmin.html?ListarClientes"
+									    ).then(()=>{
+									    	location.reload();
+									    })
+								   
+								
 								  } else {
 									  Swal.fire({
 										  icon: 'error',

@@ -43,6 +43,7 @@
 		<table id="TableCuentasAll" class="table">
 			<thead class="thead-dark">
 				<tr>
+					<th scope="col">Número de cuenta</th>
 					<th scope="col">Tipo de cuenta</th>
 					<th scope="col">Nombre cliente</th>
 					<th scope="col">Moneda</th>
@@ -54,6 +55,7 @@
 			<tbody>	
 					<c:forEach items="${ listadoCuentas }" var="cuenta" varStatus="loop">			
 					<tr>
+						<td id="numeroCuenta${loop.index}">${cuenta.getIdCuenta()}</td>
 						<td id="Tipo${loop.index}">${cuenta.tipoCuenta.descripcion}</td>
 						<td id="Nombre${loop.index}">${cuenta.getUsuario().getNombre()} ${cuenta.getUsuario().getApellido()}</td>
 						<td id="Moneda${loop.index}">${cuenta.tipoCuenta.moneda}</td>
