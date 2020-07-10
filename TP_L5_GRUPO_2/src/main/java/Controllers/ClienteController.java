@@ -139,6 +139,7 @@ public class ClienteController {
 			return new Gson().toJson("Invalido");
 		}	
 	}
+	
 	@RequestMapping(method = RequestMethod.POST, value="DarDeBajaClienteAsync.html")
 	@ResponseBody
 	public String DarDeBajaClienteAsync(String Dni) throws ParseException {
@@ -167,81 +168,48 @@ public class ClienteController {
 		}	
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value="ValidarModClienteAsync.html")
+	@RequestMapping(method = RequestMethod.POST, value="ModificarClienteAsync.html")
 	@ResponseBody
-	public String ValidarModClienteAsync(String Dni,String DniAnt) throws ParseException {
-		if(Dni!="") {
-			if ( Dni.equals(DniAnt)==true ) {
-				return new Gson().toJson("Valido");
-			} else {
-				if((CliNeg.ValidarDNI(Dni)==true && CliNeg.ValidarDNI(DniAnt)==false)) {
-					return new Gson().toJson("Valido");
-				}else {
-					return new Gson().toJson("Invalido");
-				}
-			}
-		}else {
-			return new Gson().toJson("Invalido");
-		}	
-	}
-	
-	@RequestMapping("ModificarCliente.html")
-	public ModelAndView ModificarCliente(String DniEditName,String OldDniName,String NomEditName,String ApeEditName,String NacEditName,
-			String EmailEditName,String ProvEditName,String DirEditName,String FnacEditName,Integer GenEditName,String LocEditName,String TelEditName) {
-		((ConfigurableApplicationContext)(appContext)).refresh();
-		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
+	public String ModificarClienteAsync(String DniEditName,String OldDniName,String NomEditName,String ApeEditName,String NacEditName,
+			String EmailEditName,String ProvEditName,String DirEditName,String FnacEditName,String GenEditName,String LocEditName,String TelEditName) throws ParseException {
 		try {
-			Usuario Clie = (Usuario) appContext.getBean("BUsuario");
-			Clie.setDni(DniEditName);
-			Clie.setNombre(NomEditName);
-			Clie.setApellido(ApeEditName);
-			Clie.setEmail(EmailEditName);
-			Clie.setDireccion(DirEditName);
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			Clie.setFechaNac(formatter.parse(FnacEditName));
-			Clie.setNacionalidad(NacEditName);
-			Clie.setGen(Gdao.BuscarGeneroXId( GenEditName));
-			String[] parts = LocEditName.split(",");
-			Clie.setLoc(locdao.BuscarLocalidad(Integer.valueOf(parts[0])));
-			Clie.setTel(TelEditName);
-			Clie.setTipoUsu(Clidao.BuscarUsuarioXDni(OldDniName).getTipoUsu());
-			Clie.setEstado(true);
-			if(Clidao.ModificarCliente(Clie,OldDniName) == true) {
-				//hacer update de login ?
-				MV.addObject("LocalidadesList", locdao.ListLocalidades());
-				MV.addObject("ClientesList", Clidao.ListarClientes());
-				MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");
-				
-			}
-			else {
-				System.out.println("error al modificar cliente");
-				MV.addObject("LocalidadesList", locdao.ListLocalidades());
-				MV.addObject("ClientesList", Clidao.ListarClientes());
-				MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");	
-			}
-			return MV;
+			((ConfigurableApplicationContext)(appContext)).refresh();
+			if(DniEditName!="") {
+				if (CliNeg.ValidarDNI(OldDniName)==true ) {
+					Usuario Clie = (Usuario) appContext.getBean("BUsuario");
+					Clie.setDni(DniEditName);
+					Clie.setNombre(NomEditName);
+					Clie.setApellido(ApeEditName);
+					Clie.setEmail(EmailEditName);
+					Clie.setDireccion(DirEditName);
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+					Clie.setFechaNac(formatter.parse(FnacEditName));
+					Clie.setNacionalidad(NacEditName);
+					Clie.setGen(Gdao.BuscarGeneroXId(Integer.valueOf(GenEditName)));
+					String[] parts = LocEditName.split(",");
+					Clie.setLoc(locdao.BuscarLocalidad(Integer.valueOf(parts[0])));
+					Clie.setTel(TelEditName);
+					Clie.setTipoUsu(TusuDao.UserCliente());
+					Clie.setEstado(true);
+					if(Clidao.ModificarCliente(Clie,OldDniName)==true) {
+						//update de logueo?
+						return new Gson().toJson("Valido");
+						} else {
+							return new Gson().toJson("Invalido");
+							}
+				} else {
+					if((CliNeg.ValidarDNI(DniEditName)==true && CliNeg.ValidarDNI(OldDniName)==false)) {
+						return new Gson().toJson("Valido");
+					}else {
+						return new Gson().toJson("InvalidoDni");
+					}
+				}
+			}else {
+				return new Gson().toJson("InvalidoDni");
+			}	
 		} catch (Exception e) {
 			e.printStackTrace();
-			MV.addObject("ClientesList", Clidao.ListarClientes());
-			MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");
-			return MV;
-		}
-	}
-	
-	@RequestMapping("RedireccionarDarDeAltaCliente.html")
-	public ModelAndView DarDeAltaCliente() {
-		((ConfigurableApplicationContext)(appContext)).refresh();
-		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
-		MV.addObject("ClientesList", Clidao.ListarClientes());
-		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");
-		return MV;
-	}
-	@RequestMapping("RedireccionarDarDeBajaCliente.html")
-	public ModelAndView DarDeBajaCliente() {
-		((ConfigurableApplicationContext)(appContext)).refresh();
-		ModelAndView MV=(ModelAndView) appContext.getBean("ModelView");
-		MV.addObject("ClientesList", Clidao.ListarClientes());
-		MV.setViewName("redirect:/redirecNavBarAdmin.html?ListarClientes");
-		return MV;
+			return new Gson().toJson("Invalido");
+		}	
 	}
 }
