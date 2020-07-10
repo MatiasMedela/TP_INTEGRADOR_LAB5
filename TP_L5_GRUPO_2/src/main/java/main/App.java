@@ -1349,10 +1349,70 @@ public class App {
     	prestamo4.setMontoPagar(93750);
     	prestamo4.setCbu(cuenta5);
     	
+    	Prestamo prestamo5 = (Prestamo) appContext.getBean("BPrestamo");
+    	prestamo5.setUsuario(usuario5);
+    	prestamo5.setCantidadMeses(6);
+    	prestamo5.setImporteTotal(25000);
+    	prestamo5.setFechaSolicitud(format.parse("2020-03-13 00:00:00"));
+    	prestamo5.setEstado(estado1);
+    	prestamo5.setMontoPagar(31250);
+    	prestamo5.setCbu(cuenta4);
+    	
+    	Prestamo prestamo6 = (Prestamo) appContext.getBean("BPrestamo");
+    	prestamo6.setUsuario(usuario8);
+    	prestamo6.setCantidadMeses(3);
+    	prestamo6.setImporteTotal(100000);
+    	prestamo6.setFechaSolicitud(format.parse("2020-03-13 00:00:00"));
+    	prestamo6.setEstado(estado1);
+    	prestamo6.setMontoPagar(125000);
+    	prestamo6.setCbu(cuenta10);
+    	
+    	Prestamo prestamo7 = (Prestamo) appContext.getBean("BPrestamo");
+    	prestamo7.setUsuario(usuario7);
+    	prestamo7.setCantidadMeses(12);
+    	prestamo7.setImporteTotal(80000);
+    	prestamo7.setFechaSolicitud(format.parse("2020-03-13 00:00:00"));
+    	prestamo7.setEstado(estado1);
+    	prestamo7.setMontoPagar(100000);
+    	prestamo7.setCbu(cuenta7);
+    	
+    	Prestamo prestamo8 = (Prestamo) appContext.getBean("BPrestamo");
+    	prestamo8.setUsuario(usuario5);
+    	prestamo8.setCantidadMeses(24);
+    	prestamo8.setImporteTotal(50000);
+    	prestamo8.setFechaSolicitud(format.parse("2020-03-13 00:00:00"));
+    	prestamo8.setEstado(estado1);
+    	prestamo8.setMontoPagar(62500);
+    	prestamo8.setCbu(cuenta3);
+    	
+    	Prestamo prestamo9 = (Prestamo) appContext.getBean("BPrestamo");
+    	prestamo9.setUsuario(usuario4);
+    	prestamo9.setCantidadMeses(6);
+    	prestamo9.setImporteTotal(30000);
+    	prestamo9.setFechaSolicitud(format.parse("2020-03-13 00:00:00"));
+    	prestamo9.setEstado(estado1);
+    	prestamo9.setMontoPagar(37500);
+    	prestamo9.setCbu(cuenta2);
+    	
+    	Prestamo prestamo10 = (Prestamo) appContext.getBean("BPrestamo");
+    	prestamo10.setUsuario(usuario6);
+    	prestamo10.setCantidadMeses(6);
+    	prestamo10.setImporteTotal(65000);
+    	prestamo10.setFechaSolicitud(format.parse("2020-03-13 00:00:00"));
+    	prestamo10.setEstado(estado1);
+    	prestamo10.setMontoPagar(81250);
+    	prestamo10.setCbu(cuenta6);
+    	
     	session.save(prestamo1);
     	session.save(prestamo2);
     	session.save(prestamo3);
     	session.save(prestamo4);
+    	session.save(prestamo5);
+    	session.save(prestamo6);
+    	session.save(prestamo7);
+    	session.save(prestamo8);
+    	session.save(prestamo9);
+    	session.save(prestamo10);
     	
     	//----------------------------------------------------------------
     	/*--CARGO DATOS EN LA TABLA CUOTAS--*/
