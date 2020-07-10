@@ -1036,10 +1036,12 @@ public class App {
     	//----------------------------------------------------------------
     	/*--CARGO DATOS EN TABLA CUENTA*/
     	
+    	DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    	
     	Cuenta cuenta1 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta1.setIdCuenta(1);
     	cuenta1.setTipoCuenta(tipoCuenta2);
-    	cuenta1.setfechaCreacion(new Date());
+    	cuenta1.setfechaCreacion(format.parse("2020-05-24 00:00:00"));
     	cuenta1.setCbu(1);
     	cuenta1.setAlias("GeneralPacheco2020");
     	cuenta1.setUsuario(usuario4);
@@ -1049,7 +1051,7 @@ public class App {
     	Cuenta cuenta2 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta2.setIdCuenta(2);
     	cuenta2.setTipoCuenta(tipoCuenta3);
-    	cuenta2.setfechaCreacion(new Date());
+    	cuenta2.setfechaCreacion(format.parse("2020-05-23 00:00:00"));
     	cuenta2.setCbu(2);
     	cuenta2.setAlias("GeneralPacheco202");
     	cuenta2.setUsuario(usuario4);
@@ -1059,7 +1061,7 @@ public class App {
     	Cuenta cuenta3 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta3.setIdCuenta(3);
     	cuenta3.setTipoCuenta(tipoCuenta2);
-    	cuenta3.setfechaCreacion(new Date());
+    	cuenta3.setfechaCreacion(format.parse("2020-05-22 00:00:00"));
     	cuenta3.setCbu(3);
     	cuenta3.setAlias("WinterGarden2012");
     	cuenta3.setUsuario(usuario5);
@@ -1069,7 +1071,7 @@ public class App {
     	Cuenta cuenta4 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta4.setIdCuenta(4);
     	cuenta4.setTipoCuenta(tipoCuenta3);
-    	cuenta4.setfechaCreacion(new Date());
+    	cuenta4.setfechaCreacion(format.parse("2020-05-21 00:00:00"));
     	cuenta4.setCbu(4);
     	cuenta4.setAlias("WinterGarden2013");
     	cuenta4.setUsuario(usuario5);
@@ -1079,7 +1081,7 @@ public class App {
     	Cuenta cuenta5 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta5.setIdCuenta(5);
     	cuenta5.setTipoCuenta(tipoCuenta2);
-    	cuenta5.setfechaCreacion(new Date());
+    	cuenta5.setfechaCreacion(format.parse("2020-05-20 00:00:00"));
     	cuenta5.setCbu(5);
     	cuenta5.setAlias("LaRalde3256");
     	cuenta5.setUsuario(usuario6);
@@ -1089,7 +1091,7 @@ public class App {
     	Cuenta cuenta6 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta6.setIdCuenta(6);
     	cuenta6.setTipoCuenta(tipoCuenta3);
-    	cuenta6.setfechaCreacion(new Date());
+    	cuenta6.setfechaCreacion(format.parse("2020-05-19 00:00:00"));
     	cuenta6.setCbu(6);
     	cuenta6.setAlias("LaRalde3245");
     	cuenta6.setUsuario(usuario6);
@@ -1099,7 +1101,7 @@ public class App {
     	Cuenta cuenta7 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta7.setIdCuenta(7);
     	cuenta7.setTipoCuenta(tipoCuenta2);
-    	cuenta7.setfechaCreacion(new Date());
+    	cuenta7.setfechaCreacion(format.parse("2020-05-23 00:00:00"));
     	cuenta7.setCbu(7);
     	cuenta7.setAlias("River2014");;
     	cuenta7.setUsuario(usuario7);
@@ -1109,7 +1111,7 @@ public class App {
     	Cuenta cuenta8 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta8.setIdCuenta(8);
     	cuenta8.setTipoCuenta(tipoCuenta3);
-    	cuenta8.setfechaCreacion(new Date());
+    	cuenta8.setfechaCreacion(format.parse("2020-05-21 00:00:00"));
     	cuenta8.setCbu(8);
     	cuenta8.setAlias("River2015");
     	cuenta8.setUsuario(usuario7);
@@ -1119,7 +1121,7 @@ public class App {
     	Cuenta cuenta9 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta9.setIdCuenta(9);
     	cuenta9.setTipoCuenta(tipoCuenta2);
-    	cuenta9.setfechaCreacion(new Date());
+    	cuenta9.setfechaCreacion(format.parse("2020-05-22 00:00:00"));
     	cuenta9.setCbu(9);
     	cuenta9.setUsuario(usuario8);
     	cuenta9.setAlias("Boca2007");
@@ -1129,7 +1131,7 @@ public class App {
     	Cuenta cuenta10 = (Cuenta) appContext.getBean("BCuenta");
     	cuenta10.setIdCuenta(10);
     	cuenta10.setTipoCuenta(tipoCuenta3);
-    	cuenta10.setfechaCreacion(new Date());
+    	cuenta10.setfechaCreacion(format.parse("2020-05-20 00:00:00"));
     	cuenta10.setCbu(10);
     	cuenta10.setAlias("Boca2006");
     	cuenta10.setUsuario(usuario8);
@@ -1218,7 +1220,6 @@ public class App {
     	movimiento10.setFecha(cuenta10.getfechaCreacion());
     	movimiento10.setImporte(cuenta10.getSaldo());
     	
-    	DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     	
     	Movimiento movimiento11 =(Movimiento) appContext.getBean("BMovimiento");
     	movimiento11.setIdMovimiento(11);
