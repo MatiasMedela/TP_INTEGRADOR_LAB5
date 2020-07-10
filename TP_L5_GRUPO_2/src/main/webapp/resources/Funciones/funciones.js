@@ -24,3 +24,27 @@ function soloNumeros(event) {
     }
     return true;
 };
+
+function soloLetras(event){
+    var charCode = (event.which) ? event.which : event.keyCode
+    if(charCode == 8 || charCode == 32 || charCode == 127){
+    	return true;
+    }
+    if ((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122)) {
+        return true;
+    }
+    return false;
+}
+
+function validarDNI(input) {
+    objeto = input;
+    valueForm = objeto.value;
+    if (valueForm.length < 7) {
+        objeto.className = "form-control border border-danger";
+        $("#btnGrabar").prop("disabled", true);
+    }
+    else {
+        objeto.className = "form-control border border-success";
+        $("#btnGrabar").prop("disabled", false);
+    }
+}

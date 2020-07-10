@@ -5,27 +5,23 @@
 <head>
 <!-- JS, Popper.js, and jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
 <!-- Bootstrap CSS y Script -->	
 	<script 
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
 	crossorigin="anonymous"></script>
-	
 	<script 
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" 
 	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" 
 	crossorigin="anonymous"></script>
-	
 	<!-- Hoja de estilos-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
 	crossorigin="anonymous">
-	
 	<link rel=stylesheet href="<c:url value="resources/Estilos/styles.css"/>" type="text/css" media=screen>
 	<!-- Sweet alert 2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-
+	<script type="text/javascript" src="<c:url value="resources/Funciones/funciones.js"/>"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('select#Prov_id').on('change',function(){
@@ -82,11 +78,12 @@ function CargarCliente(){
 						icon: 'success',
 						showConfirmButton: true,
 						timer:3000
+					}).then(() =>{
+						location.reload();					
 					})
-					location.reload();
 				  } else {
 					  if(Res == "\"InvalidoDni\""){
-						    document.querySelector('#IdLabelDni').innerText = 'Numero De Documento: invalido o ya esta registrado';
+						    document.querySelector('#IdLabelDni').innerText = 'Numero de documento: invalido o ya esta registrado';
 							document.getElementById("IdLabelDni").style.color="red";
 							document.getElementById("DniID").style.border="1px solid red";
 						  }else{
@@ -111,39 +108,39 @@ function CargarCliente(){
 	<%@ include file="NavbarAdmin.html"%>
 	<!-- END NAVBAR -->
 <!-- Formulario alta -->
-<form  id="CargarClienteId" style="padding: 20px"> 
+<div  style="padding: 20px"> 
 	<input id="valId" type="hidden" value="">
 	<fieldset class="border p-2">
-	  <legend  class="w-auto">Alta Cliente</legend>
+	  <legend  class="w-auto">Alta cliente</legend>
 	   <div class="container-fluid">
 		  <div class="row row-cols-2">
 			<div class="col">
 			 <div class="form-group"> <!-- DNI -->
-		        <label for="full_name_id" id="IdLabelDni" class="control-label">Numero De Documento</label>
+		        <label for="full_name_id" id="IdLabelDni" class="control-label">Numero de documento</label>
 		        <input type="number" class="form-control form-control-sm" id="DniID" name="DniName" placeholder="D.N.I" 
-		         minlength="8" maxlength="8" pattern="^[0-9]*$" autocomplete="off" required>
+		         minlength="8" maxlength="8" onkeypress="return soloNumeros(event)" onkeyup="validarDNI(this)" autocomplete="off" required>
 		    </div>  
 		    <div class="form-group"> <!-- Nombre -->
 		        <label for="full_name_id" class="control-label">Nombre</label>
 		        <input type="text" class="form-control form-control-sm" id="NombreId" name="NombreName" placeholder="NOMBRE" 
-		        autocomplete="off" pattern="^[a-zA-Z ]*$" required>
+		        autocomplete="off" onkeypress="return soloLetras(event);" required>
 		    </div>    
 		    <div class="form-group"> <!-- Apellido -->
 		        <label for="full_name_id" class="control-label">Apellido</label>
 		        <input type="text" class="form-control form-control-sm" id="ApeId" name="ApeName" placeholder="APELLIDO" 
-		        autocomplete="off" pattern="^[a-zA-Z ]*$" required>
+		        autocomplete="off" onkeypress="return soloLetras(event);" required>
 		    </div> 
 		    <div class="form-group"> <!-- Nacionalidad -->
 		        <label for="full_name_id" class="control-label">Nacionalidad</label>
 		        <input type="text" class="form-control form-control-sm" id="nacid" name="NacName" placeholder="NACIONALIDAD" 
-		        autocomplete="off" pattern="^[a-zA-Z ]*$" required>
+		        autocomplete="off" onkeypress="return soloLetras(event);" required>
 		    </div> 
 		    
 		    <div class="form-group"> <!-- Sexo -->
 		        <label for="state_id" class="control-label">Sexo</label>
 		        <select class="form-control form-control-sm" id="genid" name="CmbGen">
-		            <option value="1">Masculino</option>
-		            <option value="2">Femenino</option>
+		            <option value="1">Femenino</option>
+		            <option value="2">Masculino</option>
 		            <option value="3">Otro</option>
 		        </select>                    
 		    </div>
@@ -151,7 +148,7 @@ function CargarCliente(){
 		</div>
 		<div class="col">
 		    <div class="form-group "><!-- Fecha De Nacimiento -->
-		     <label for="full_name_id" class="control-label">Fecha De Nacimiento</label>
+		     <label for="full_name_id" class="control-label">Fecha de nacimiento</label>
 			    <input class="form-control form-control-sm" type="date"  id="fnacid" name="FechaNac" required>
 			</div>
 		   
@@ -203,7 +200,7 @@ function CargarCliente(){
 		    </div>            
 		    
 		     <div class="form-group"> <!-- Correo electronico -->
-		        <label for="full_name_id" class="control-label">Correo Electronico</label>
+		        <label for="full_name_id" class="control-label">Correo electronico</label>
 		        <input type="email" class="form-control form-control-sm" id="email_id" name="EmailName" 
 		        placeholder="e-mail" autocomplete="off" required>
 		    </div> 
@@ -227,11 +224,11 @@ function CargarCliente(){
 		</div>   
 		</div>  
 		<div class="form-group text-center" > <!-- Submit Button -->
-	        <button type="submit" class="btn-sm btn-success" name="BtnGrabar" onclick="return CargarCliente()">Grabar</button>
+	        <button type="button" class="btn-sm btn-success" name="BtnGrabar" id="btnGrabar" onclick="return CargarCliente()">Grabar</button>
 	    </div>     
 	</div>
 	</fieldset>  
-</form>
+</div>
 <!--Fin Formulario alta -->
 </body>
 </html>
