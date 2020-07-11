@@ -206,8 +206,10 @@ function PasarDniAlta(dni){
 										  'Cliente dado de alta exitosamente!',
 									      'Cliente dado de alta.',
 									      'success'
-									    )
-								document.location.href = "/TP_L5_GRUPO_2/redirecNavBarAdmin.html?ListarClientes"
+									    ).then(() =>{
+											location.reload();									    	
+									    })
+									    
 								  } else {
 									  Swal.fire({
 										  icon: 'error',
