@@ -67,6 +67,17 @@ function CargarCliente(){
 		"LocName":$("#Loc_id").val(),
 		"CliTel":$("#TelId").val(),
 	}
+	
+	for(var campo in datos){
+		if(datos[campo] == "" || datos[campo] == null){
+			Swal.fire({
+				icon: "warning",
+				title: "Debe completar todos los campos",
+			})
+			return;
+		}
+	}
+	
 	$.ajax({
 		type: "POST",
 		url:'${request.getContextPath()}/TP_L5_GRUPO_2/CargarClienteAsync.html',
