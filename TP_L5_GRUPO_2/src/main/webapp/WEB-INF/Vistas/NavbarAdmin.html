@@ -47,9 +47,24 @@ function ComprobarClaveModificaUsuario(){
    		document.getElementById('KeyOkM').style.borderColor="green";
    		document.getElementById('KeyM').style.color='green';
 		document.getElementById('KeyOkM').style.color='green';
-   	}
-   	else {
-      	alert("Las dos claves ingresadas son distintas...") 
+   	} else if(clave1 == "" || clave2 == ""){
+      	Swal.fire({
+      		toast: true,
+      		timer: 5000,
+      		timerProgressBar: true,
+      		position: "bottom",
+      		icon: "warning",
+      		title: "Debe completar todos los campos"
+      	})
+   	} else {
+      	Swal.fire({
+      		toast: true,
+      		timer: 5000,
+      		timerProgressBar: true,
+      		position: "bottom",
+      		icon: "warning",
+      		title: "Ambas contraseñas deben ser iguales"
+      	})
       	document.getElementById('KeyM').style.borderColor="red";
       	document.getElementById('KeyOkM').style.borderColor="red";
       	document.getElementById('KeyM').style.color='red';
@@ -145,7 +160,7 @@ function CerrarSession(){
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modificar Usuario y Contraseña</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Modificar usuario y contraseña</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -166,13 +181,13 @@ function CerrarSession(){
 			    </div>    
 			    
 			    <div class="form-group"> <!-- Confirm key -->
-			        <label for="full_name_id" class="control-label">Confirmar contraeña</label>
+			        <label for="full_name_id" class="control-label">Confirmar contraseña</label>
 			        <input type="password" class="form-control form-control-sm" id="KeyOkM" value="" minlength="6" name="TxtKeyOk" placeholder="Confirmar contraseña" 
 			        autocomplete="off" required>
 			    </div> 
 			    
 	     		<div class="form-group" >
-	     		<label for="full_name_id" class="control-label">Mostrar contraseña</label>
+	     		<label for="full_name_id" class="control-label">Mostrar contraseñas</label>
 					<input type="checkbox" id="show_passwordm">
 				</div>
 				
